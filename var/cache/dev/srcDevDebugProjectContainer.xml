@@ -922,11 +922,11 @@
     </service>
     <service id="session.storage.native" class="Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage" public="false">
       <argument>%session.storage.options%</argument>
-      <argument>null</argument>
+      <argument type="service" id="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler"/>
       <argument type="service" id="session.storage.metadata_bag"/>
     </service>
     <service id="session.storage.php_bridge" class="Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage" public="false">
-      <argument>null</argument>
+      <argument type="service" id="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler"/>
       <argument type="service" id="session.storage.metadata_bag"/>
     </service>
     <service id="session.flash_bag" class="Symfony\Component\HttpFoundation\Session\Flash\FlashBag" public="false"/>
@@ -2293,14 +2293,6 @@
       </call>
       <call method="addListener">
         <argument>kernel.request</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
-        <argument>console.command</argument>
         <argument type="collection">
           <argument type="service" id="debug.debug_handlers_listener"/>
           <argument>configure</argument>
@@ -6241,10 +6233,11 @@
     <service id="Symfony\Component\Translation\TranslatorInterface" alias="translator.data_collector" public="false"/>
     <service id="Symfony\Component\HttpFoundation\Session\SessionInterface" alias="session" public="false"/>
     <service id="Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface" alias="session.storage.native" public="false"/>
-    <service id="SessionHandlerInterface" alias="session.handler" public="false"/>
+    <service id="SessionHandlerInterface" alias="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler" public="false"/>
     <service id="Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface" alias="session.flash_bag" public="false"/>
     <service id="session.storage.filesystem" alias="session.storage.mock_file" public="false"/>
     <service id="session.storage" alias="session.storage.native"/>
+    <service id="session.handler" alias="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler"/>
     <service id="Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface" alias="security.csrf.token_generator" public="false"/>
     <service id="Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface" alias="security.csrf.token_storage" public="false"/>
     <service id="Symfony\Component\Security\Csrf\CsrfTokenManagerInterface" alias="security.csrf.token_manager" public="false"/>

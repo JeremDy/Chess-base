@@ -133,27 +133,28 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
             <script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\" crossorigin=\"anonymous\"></script>
             <script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js\" integrity=\"sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49\" crossorigin=\"anonymous\"></script>
             <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js\" integrity=\"sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy\" crossorigin=\"anonymous\"></script>
-            <script type=\"text/javascript\" src=\"";
-        // line 18
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("build/js/app.js"), "html", null, true);
-        echo "\"></script>
-
              <script src=\"";
-        // line 20
+        // line 18
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("bundles/goswebsocket/js/vendor/autobahn.min.js"), "html", null, true);
         echo "\"></script>
              <script src=\"";
-        // line 21
+        // line 19
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("bundles/goswebsocket/js/gos_web_socket_client.js"), "html", null, true);
         echo "\"></script>
             <script src=\" ";
-        // line 22
+        // line 20
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("javascript/socket.js"), "html", null, true);
         echo "\"></script>
             ";
-        // line 24
+        // line 22
         echo "            
-        ";
+            <script type=\"text/javascript\" src=\"";
+        // line 23
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("build/js/app.js"), "html", null, true);
+        echo "\"></script>
+            ";
+        // line 25
+        echo "        ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -169,7 +170,7 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
 
     public function getDebugInfo()
     {
-        return array (  155 => 24,  151 => 22,  147 => 21,  143 => 20,  138 => 18,  124 => 14,  113 => 12,  104 => 11,  93 => 7,  84 => 6,  66 => 5,  54 => 26,  51 => 14,  49 => 11,  45 => 9,  43 => 6,  39 => 5,  33 => 1,);
+        return array (  157 => 25,  153 => 23,  150 => 22,  146 => 20,  142 => 19,  138 => 18,  124 => 14,  113 => 12,  104 => 11,  93 => 7,  84 => 6,  66 => 5,  54 => 26,  51 => 14,  49 => 11,  45 => 9,  43 => 6,  39 => 5,  33 => 1,);
     }
 
     public function getSourceContext()
@@ -191,13 +192,13 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
             <script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\" crossorigin=\"anonymous\"></script>
             <script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js\" integrity=\"sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49\" crossorigin=\"anonymous\"></script>
             <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js\" integrity=\"sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy\" crossorigin=\"anonymous\"></script>
-            <script type=\"text/javascript\" src=\"{{ asset('build/js/app.js') }}\"></script>
-
              <script src=\"{{ asset('bundles/goswebsocket/js/vendor/autobahn.min.js') }}\"></script>
              <script src=\"{{ asset('bundles/goswebsocket/js/gos_web_socket_client.js') }}\"></script>
             <script src=\" {{ asset('javascript/socket.js') }}\"></script>
             {# Les trois lien au dessus permettent d'activer GOS_WebSocketBundle, et c'est de toute beauté. #}
             
+            <script type=\"text/javascript\" src=\"{{ asset('build/js/app.js') }}\"></script>
+            {# Cette ligne doit être en dernière pour que l'on dispose d'une écoute terminale #}
         {% endblock %}
     </body>
 </html>
