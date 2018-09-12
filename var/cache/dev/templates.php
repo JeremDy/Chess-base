@@ -149,4 +149,6 @@
   'FOSUserBundle:ChangePassword:change_password.html.twig' => __DIR__.'/../../../vendor/friendsofsymfony/user-bundle/Resources/views/ChangePassword/change_password.html.twig',
   'FOSUserBundle:ChangePassword:change_password_content.html.twig' => __DIR__.'/../../../vendor/friendsofsymfony/user-bundle/Resources/views/ChangePassword/change_password_content.html.twig',
   'FOSUserBundle::layout.html.twig' => __DIR__.'/../../../vendor/friendsofsymfony/user-bundle/Resources/views/layout.html.twig',
+  'GosWebSocketBundle::client.html.twig' => __DIR__.'/../../../vendor/gos/web-socket-bundle/Resources/views/client.html.twig',
+  'GosWebSocketBundle:Collector:websocket.html.twig' => __DIR__.'/../../../vendor/gos/web-socket-bundle/Resources/views/Collector/websocket.html.twig',
 );

@@ -12,7 +12,11 @@ class ComposerStaticInit551dc115a5c9772c7f197bd062c354dd
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
+        'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        '6b06ce8ccf69c43a60a1e48495a034c9' => __DIR__ . '/..' . '/react/promise-timer/src/functions.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'fc6682fd5796f81eaf84b90ea062654d' => __DIR__ . '/..' . '/gos/pnctl-event-loop-emitter/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -86,11 +90,24 @@ class ComposerStaticInit551dc115a5c9772c7f197bd062c354dd
             'Symfony\\Bridge\\Doctrine\\' => 24,
             'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
         ),
+        'R' => 
+        array (
+            'React\\Stream\\' => 13,
+            'React\\Socket\\' => 13,
+            'React\\Promise\\Timer\\' => 20,
+            'React\\Promise\\' => 14,
+            'React\\EventLoop\\' => 16,
+            'React\\Dns\\' => 10,
+            'React\\Cache\\' => 12,
+            'Ratchet\\RFC6455\\' => 16,
+            'Ratchet\\' => 8,
+        ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Link\\' => 9,
+            'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
@@ -99,6 +116,14 @@ class ComposerStaticInit551dc115a5c9772c7f197bd062c354dd
         'M' => 
         array (
             'Monolog\\' => 8,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
+            'Gos\\Component\\WebSocketClient\\' => 30,
+            'Gos\\Component\\PnctlEventLoopEmitter\\' => 36,
+            'Gos\\Bundle\\WebSocketBundle\\' => 27,
+            'Gos\\Bundle\\PubSubRouterBundle\\' => 30,
         ),
         'F' => 
         array (
@@ -354,6 +379,42 @@ class ComposerStaticInit551dc115a5c9772c7f197bd062c354dd
         array (
             0 => __DIR__ . '/..' . '/sensio/framework-extra-bundle',
         ),
+        'React\\Stream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/stream/src',
+        ),
+        'React\\Socket\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/socket/src',
+        ),
+        'React\\Promise\\Timer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/promise-timer/src',
+        ),
+        'React\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/promise/src',
+        ),
+        'React\\EventLoop\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/event-loop/src',
+        ),
+        'React\\Dns\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/dns/src',
+        ),
+        'React\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/cache/src',
+        ),
+        'Ratchet\\RFC6455\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ratchet/rfc6455/src',
+        ),
+        'Ratchet\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cboden/ratchet/src/Ratchet',
+        ),
         'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
@@ -365,6 +426,10 @@ class ComposerStaticInit551dc115a5c9772c7f197bd062c354dd
         'Psr\\Link\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/link/src',
+        ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Container\\' => 
         array (
@@ -385,6 +450,26 @@ class ComposerStaticInit551dc115a5c9772c7f197bd062c354dd
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'Gos\\Component\\WebSocketClient\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gos/websocket-client',
+        ),
+        'Gos\\Component\\PnctlEventLoopEmitter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gos/pnctl-event-loop-emitter/src',
+        ),
+        'Gos\\Bundle\\WebSocketBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gos/web-socket-bundle',
+        ),
+        'Gos\\Bundle\\PubSubRouterBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gos/pubsub-router-bundle',
         ),
         'Fig\\Link\\' => 
         array (
@@ -472,6 +557,13 @@ class ComposerStaticInit551dc115a5c9772c7f197bd062c354dd
             'ProxyManager\\' => 
             array (
                 0 => __DIR__ . '/..' . '/ocramius/proxy-manager/src',
+            ),
+        ),
+        'E' => 
+        array (
+            'Evenement' => 
+            array (
+                0 => __DIR__ . '/..' . '/evenement/evenement/src',
             ),
         ),
         'D' => 

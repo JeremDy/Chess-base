@@ -38,4 +38,10 @@ services:
 
 #             or register via "app/config/config.yml"
 
-   
+    #alias necessaire pour pouvoir appeler le service dans les differents topic.
+    Gos\Bundle\WebSocketBundle\Client\ClientManipulatorInterface: '@gos_web_socket.websocket.client_manipulator'
+
+    Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
+        arguments:
+            - !service { class: PDO, factory: 'database_connection:getWrappedConnection' }
+            - {lock_mode: 0}
