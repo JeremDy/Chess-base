@@ -313,6 +313,6 @@ class __TwigTemplate_20bc051588c7b975fa67eafb69641d85d684a1c3deea6776eb09f75f4dd
     {% endif %}
 
 {% endblock %}
-", "@WebProfiler/Profiler/results.html.twig", "/var/www/html/chess/test/ChessOnline/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/results.html.twig");
+", "@WebProfiler/Profiler/results.html.twig", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/results.html.twig");
     }
 }

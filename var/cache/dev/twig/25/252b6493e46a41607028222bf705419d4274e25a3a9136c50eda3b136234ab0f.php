@@ -65,6 +65,6 @@ class __TwigTemplate_9f5c2bc231fb9a53612eeac8a8c269a37f30fa8e036114cc5d310808793
         return new Twig_Source("<?xml version=\"1.0\" encoding=\"{{ _charset }}\" ?>
 
 <error code=\"{{ status_code }}\" message=\"{{ status_text }}\" />
-", "@Twig/Exception/error.xml.twig", "/var/www/html/chess/test/ChessOnline/vendor/symfony/twig-bundle/Resources/views/Exception/error.xml.twig");
+", "@Twig/Exception/error.xml.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/error.xml.twig");
     }
 }

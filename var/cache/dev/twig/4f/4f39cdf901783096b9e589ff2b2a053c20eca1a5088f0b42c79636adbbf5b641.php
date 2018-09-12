@@ -49,6 +49,6 @@ class __TwigTemplate_fa8f62ed6d831a1b23b8ac62f2266357a72b55b27ff7062a0ed9885d7c8
     public function getSourceContext()
     {
         return new Twig_Source("<?php echo \$view['form']->block(\$form, 'form_widget_simple', array('type' => isset(\$type) ? \$type : 'range'));
-", "@Framework/Form/range_widget.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/range_widget.html.php");
+", "@Framework/Form/range_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/range_widget.html.php");
     }
 }

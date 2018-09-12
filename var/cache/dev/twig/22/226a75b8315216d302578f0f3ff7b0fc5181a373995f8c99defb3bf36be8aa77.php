@@ -49,6 +49,6 @@ class __TwigTemplate_dd46ff9feff09a59b321fde394ddb6b6cb058078fbfd596749a943c355e
     public function getSourceContext()
     {
         return new Twig_Source("<?php echo \$view['form']->block(\$form, 'form_widget_simple', array('type' => isset(\$type) ? \$type : 'search')) ?>
-", "@Framework/Form/search_widget.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/search_widget.html.php");
+", "@Framework/Form/search_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/search_widget.html.php");
     }
 }

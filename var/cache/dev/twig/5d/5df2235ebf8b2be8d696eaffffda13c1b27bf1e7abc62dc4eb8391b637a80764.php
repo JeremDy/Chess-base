@@ -49,6 +49,6 @@ class __TwigTemplate_70d9746afe40a3be7701c8245d8b02d66d0d4961941e1c351c4cce659ca
     public function getSourceContext()
     {
         return new Twig_Source("<textarea <?php echo \$view['form']->block(\$form, 'widget_attributes') ?>><?php echo \$view->escape(\$value) ?></textarea>
-", "@Framework/Form/textarea_widget.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/textarea_widget.html.php");
+", "@Framework/Form/textarea_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/textarea_widget.html.php");
     }
 }

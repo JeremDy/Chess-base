@@ -157,6 +157,6 @@ class __TwigTemplate_f853a413c287e3521191aa24c96a941281967c01d538f6469b965d1b3f5
         {%- endfor -%}
     </pre>
 {% endif %}
-", "@Doctrine/Collector/explain.html.twig", "/var/www/html/chess/test/ChessOnline/vendor/doctrine/doctrine-bundle/Resources/views/Collector/explain.html.twig");
+", "@Doctrine/Collector/explain.html.twig", "/var/www/html/Chess-base/vendor/doctrine/doctrine-bundle/Resources/views/Collector/explain.html.twig");
     }
 }

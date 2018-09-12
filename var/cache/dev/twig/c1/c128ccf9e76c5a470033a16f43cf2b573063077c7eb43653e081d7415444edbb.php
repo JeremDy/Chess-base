@@ -600,6 +600,6 @@ class __TwigTemplate_507aa34c2b0803f5b39b754e2f21c41fa4024fbac956861df9807c22131
         }())
     </script>
 {% endblock %}
-", "@WebProfiler/Profiler/layout.html.twig", "/var/www/html/chess/test/ChessOnline/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/layout.html.twig");
+", "@WebProfiler/Profiler/layout.html.twig", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/layout.html.twig");
     }
 }

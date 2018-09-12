@@ -49,6 +49,6 @@ class __TwigTemplate_ee2ae63f413b279cc41393748e3510569086f2c3a6a0d6e5d6103edab51
     public function getSourceContext()
     {
         return new Twig_Source("<?php echo \$view['form']->formEncodeCurrency(\$money_pattern, \$view['form']->block(\$form, 'form_widget_simple')) ?>
-", "@Framework/Form/money_widget.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/money_widget.html.php");
+", "@Framework/Form/money_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/money_widget.html.php");
     }
 }

@@ -57,6 +57,6 @@ class __TwigTemplate_51569eb73b0437ffadf2eeb312e3eee009b9e5a0fefe56dd9de459a9ac2
     C0.9,2,0.8,2.8,1.6,3.6L4,6L1.6,8.4C0.8,9.2,0.9,10,1.4,10.6c0.6,0.6,1.4,0.6,2.2-0.2L6,8l2.4,2.4c0.8,0.8,1.6,0.7,2.2,0.2
     C11.1,10,11.2,9.2,10.4,8.4z\"/>
 </svg>
-", "@WebProfiler/Icon/no.svg", "/var/www/html/chess/test/ChessOnline/vendor/symfony/web-profiler-bundle/Resources/views/Icon/no.svg");
+", "@WebProfiler/Icon/no.svg", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Icon/no.svg");
     }
 }

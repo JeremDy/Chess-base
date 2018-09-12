@@ -55,6 +55,6 @@ class __TwigTemplate_6340078f19413465d083fcf8dad173c33392c9dd746018f6be9092a069a
     public function getSourceContext()
     {
         return new Twig_Source("{{ { 'error': { 'code': status_code, 'message': status_text, 'exception': exception.toarray } }|json_encode|raw }}
-", "@Twig/Exception/exception.json.twig", "/var/www/html/chess/test/ChessOnline/vendor/symfony/twig-bundle/Resources/views/Exception/exception.json.twig");
+", "@Twig/Exception/exception.json.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/exception.json.twig");
     }
 }

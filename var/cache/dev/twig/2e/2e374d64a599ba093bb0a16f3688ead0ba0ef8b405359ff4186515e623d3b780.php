@@ -61,6 +61,6 @@ class __TwigTemplate_e37832ccaaaac793710465717ecc34d181073da4a8b10083118f7d8d9f6
         return new Twig_Source("/*
 {{ include('@Twig/Exception/exception.txt.twig', { exception: exception }) }}
 */
-", "@Twig/Exception/exception.css.twig", "/var/www/html/chess/test/ChessOnline/vendor/symfony/twig-bundle/Resources/views/Exception/exception.css.twig");
+", "@Twig/Exception/exception.css.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/exception.css.twig");
     }
 }

@@ -992,6 +992,6 @@ class __TwigTemplate_a00e8ea8985875a9fdd9d85d0cfb752069b779dcfeada11449fdf732c69
         {% endif %}
     {% endfor %}
 {% endblock %}
-", "@Swiftmailer/Collector/swiftmailer.html.twig", "/var/www/html/chess/test/ChessOnline/vendor/symfony/swiftmailer-bundle/Resources/views/Collector/swiftmailer.html.twig");
+", "@Swiftmailer/Collector/swiftmailer.html.twig", "/var/www/html/Chess-base/vendor/symfony/swiftmailer-bundle/Resources/views/Collector/swiftmailer.html.twig");
     }
 }

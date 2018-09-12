@@ -164,6 +164,6 @@ class __TwigTemplate_ea7ae3f819c155e0a280e8c2b578083a560525e531d7f883240406deef1
         </tr>
     </tbody>
 </table>
-", "@Twig/Exception/traces_text.html.twig", "/var/www/html/chess/test/ChessOnline/vendor/symfony/twig-bundle/Resources/views/Exception/traces_text.html.twig");
+", "@Twig/Exception/traces_text.html.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/traces_text.html.twig");
     }
 }

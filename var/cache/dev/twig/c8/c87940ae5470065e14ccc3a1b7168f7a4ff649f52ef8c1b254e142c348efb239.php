@@ -121,6 +121,6 @@ class __TwigTemplate_86c6a387924b4361ad1d01263dde8feaa3723aa2a4f5e54a551795e5c8f
 .exception-message-wrapper .container {
     min-height: auto;
 }
-", "@WebProfiler/Collector/exception.css.twig", "/var/www/html/chess/test/ChessOnline/vendor/symfony/web-profiler-bundle/Resources/views/Collector/exception.css.twig");
+", "@WebProfiler/Collector/exception.css.twig", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Collector/exception.css.twig");
     }
 }

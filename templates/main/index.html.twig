@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+ <form id="chat" class="text-center mt-5">
+            <select id="monselect">
+                  <option value="public">Public</option>
+                {% for user in users %}
+                    <option value="{{user.username}}">{{user.username}}</option> 
+                {% endfor %}
+            </select>
+            <input type="text">
+            <button type="submit">envoyer</button>
+</form>
+
+<button id="match-making">Trouver une partie !</button>
+
+
+{% endblock %}

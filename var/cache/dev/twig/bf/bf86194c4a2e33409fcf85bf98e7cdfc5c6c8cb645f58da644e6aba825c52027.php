@@ -49,6 +49,6 @@ class __TwigTemplate_726d4b231daaf2409a1f709afed945839aad8d3c3242369821e777b2258
     public function getSourceContext()
     {
         return new Twig_Source("<?php echo \$view['form']->block(\$form, 'form_widget_simple', array('type' => isset(\$type) ? \$type : 'password')) ?>
-", "@Framework/Form/password_widget.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/password_widget.html.php");
+", "@Framework/Form/password_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/password_widget.html.php");
     }
 }

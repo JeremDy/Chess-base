@@ -57,6 +57,6 @@ class __TwigTemplate_dc8f5687cbe56da36665e3b5a36b0380a4a626afd0f1c37085b61de8f20
         <?php echo \$view['form']->widget(\$form); ?>
     </td>
 </tr>
-", "@Framework/FormTable/hidden_row.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/FormTable/hidden_row.html.php");
+", "@Framework/FormTable/hidden_row.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/FormTable/hidden_row.html.php");
     }
 }

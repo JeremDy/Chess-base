@@ -1,0 +1,8 @@
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: App\Entity\User
+    # Ne pas oublier de remplacer AppBundle par App ! :) :) :) :)
+    from_email:
+        address: "hello@aquanote.com"
+        sender_name: "Chess Online"

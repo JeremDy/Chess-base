@@ -49,6 +49,6 @@ class __TwigTemplate_36d74b3bcf84adde54045397b5307692e7b58f2553b2aa2c48cd911ef75
     public function getSourceContext()
     {
         return new Twig_Source("<?php echo \$view['form']->block(\$form, 'choice_widget_options') ?>
-", "@Framework/Form/choice_options.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/choice_options.html.php");
+", "@Framework/Form/choice_options.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/choice_options.html.php");
     }
 }

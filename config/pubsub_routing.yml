@@ -1,0 +1,16 @@
+chat_global:
+    channel: chat/global 
+    handler:
+        callback: 'chat.topic' #related to the getName() of your topic
+
+
+chat_private:
+    channel: chat/private
+    handler:
+        callback: 'chat.topic'
+
+
+match_making:
+    channel: matchmaking
+    handler:
+        callback: 'matchmaking.topic'

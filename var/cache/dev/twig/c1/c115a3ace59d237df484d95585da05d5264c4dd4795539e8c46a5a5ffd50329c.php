@@ -53,6 +53,6 @@ class __TwigTemplate_01b8e0713e8a33c13d7250c27e35ceb921462383f06f1a2421a3f32ebaa
         return new Twig_Source("<div>
     <?php echo \$view['form']->widget(\$form) ?>
 </div>
-", "@Framework/Form/button_row.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/button_row.html.php");
+", "@Framework/Form/button_row.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/button_row.html.php");
     }
 }

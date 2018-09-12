@@ -61,6 +61,6 @@ class __TwigTemplate_61583f5e85f3781bd5b4f3ab964cdf208931f3ac9bf83fba1058604026e
         <?php echo \$view['form']->widget(\$form['date']).' '.\$view['form']->widget(\$form['time']) ?>
     </div>
 <?php endif ?>
-", "@Framework/Form/datetime_widget.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/datetime_widget.html.php");
+", "@Framework/Form/datetime_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/datetime_widget.html.php");
     }
 }

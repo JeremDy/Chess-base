@@ -1,0 +1,12 @@
+781803,127.0.0.1,GET,http://127.0.0.1:8001/,1536787003,,200
+52761a,127.0.0.1,GET,http://127.0.0.1:8001/favicon.ico,1536787004,570ed0,200
+570ed0,127.0.0.1,GET,http://127.0.0.1:8001/favicon.ico,1536787004,,404
+5da011,127.0.0.1,GET,http://127.0.0.1:8001/login,1536787008,,200
+47482c,127.0.0.1,GET,http://127.0.0.1:8001/bundles/goswebsocket/js/vendor/autobahn.min.js,1536787008,efe2cf,200
+efe2cf,127.0.0.1,GET,http://127.0.0.1:8001/bundles/goswebsocket/js/vendor/autobahn.min.js,1536787008,,404
+969b28,127.0.0.1,GET,http://127.0.0.1:8001/javascript/socket.js,1536787008,b21805,200
+b21805,127.0.0.1,GET,http://127.0.0.1:8001/javascript/socket.js,1536787008,,404
+e32307,127.0.0.1,GET,http://127.0.0.1:8001/bundles/goswebsocket/js/vendor/autobahn.min.js,1536787008,4b202e,200
+4b202e,127.0.0.1,GET,http://127.0.0.1:8001/bundles/goswebsocket/js/vendor/autobahn.min.js,1536787008,,404
+b6f5d1,127.0.0.1,GET,http://127.0.0.1:8001/javascript/socket.js,1536787008,1154ff,200
+1154ff,127.0.0.1,GET,http://127.0.0.1:8001/javascript/socket.js,1536787008,,404

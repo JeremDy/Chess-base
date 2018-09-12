@@ -1659,6 +1659,6 @@ class __TwigTemplate_53c4081f136c216dae79c8c11f1167ecad86925997a3d9c365d63e4b959
         </tbody>
     </table>
 {% endmacro %}
-", "@Doctrine/Collector/db.html.twig", "/var/www/html/chess/test/ChessOnline/vendor/doctrine/doctrine-bundle/Resources/views/Collector/db.html.twig");
+", "@Doctrine/Collector/db.html.twig", "/var/www/html/Chess-base/vendor/doctrine/doctrine-bundle/Resources/views/Collector/db.html.twig");
     }
 }

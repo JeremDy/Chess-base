@@ -1156,6 +1156,6 @@ class __TwigTemplate_a86814a82ac5383de03679ec886935fa19931cc5c79a140a347923405e4
         </table>
     {% endif %}
 {% endblock %}
-", "@Security/Collector/security.html.twig", "/var/www/html/chess/test/ChessOnline/vendor/symfony/security-bundle/Resources/views/Collector/security.html.twig");
+", "@Security/Collector/security.html.twig", "/var/www/html/Chess-base/vendor/symfony/security-bundle/Resources/views/Collector/security.html.twig");
     }
 }

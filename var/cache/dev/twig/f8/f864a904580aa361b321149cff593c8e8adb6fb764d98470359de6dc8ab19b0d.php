@@ -61,6 +61,6 @@ class __TwigTemplate_bec127fd64fee392ef6d5385724eeb4666a2e8b704479c428fc861124c6
     C9.3,4,9,4.3,9,4.6V11.4z M9,16.4C9,16.7,9.3,17,9.6,17h1.8c0.3,0,0.6-0.3,0.6-0.6v-1.8c0-0.3-0.3-0.6-0.6-0.6H9.6
     C9.3,14,9,14.3,9,14.6V16.4z\"/>
 </svg>
-", "@WebProfiler/Icon/logger.svg", "/var/www/html/chess/test/ChessOnline/vendor/symfony/web-profiler-bundle/Resources/views/Icon/logger.svg");
+", "@WebProfiler/Icon/logger.svg", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Icon/logger.svg");
     }
 }

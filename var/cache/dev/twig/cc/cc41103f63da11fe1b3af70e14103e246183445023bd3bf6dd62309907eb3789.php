@@ -53,6 +53,6 @@ class __TwigTemplate_1c7279b8476f56a247d77c32c5875cda97aa3740fece8b9847423e7f426
         return new Twig_Source("<?php foreach (\$form as \$child) : ?>
     <?php echo \$view['form']->row(\$child) ?>
 <?php endforeach; ?>
-", "@Framework/Form/form_rows.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/form_rows.html.php");
+", "@Framework/Form/form_rows.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_rows.html.php");
     }
 }

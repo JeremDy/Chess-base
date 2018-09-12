@@ -916,6 +916,6 @@ class __TwigTemplate_3da2bfcc93b89280f5fb8a252caab22b9ec5536fd585db4515efc25a04c
         </tbody>
     </table>
 {% endmacro %}
-", "@WebProfiler/Collector/translation.html.twig", "/var/www/html/chess/test/ChessOnline/vendor/symfony/web-profiler-bundle/Resources/views/Collector/translation.html.twig");
+", "@WebProfiler/Collector/translation.html.twig", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Collector/translation.html.twig");
     }
 }

@@ -61,6 +61,6 @@ class __TwigTemplate_f142259cdcae1e11b8122ac067888d47e45604465ce1682ac2d942da34c
     <?php echo \$view['form']->widget(\$form, \$widgetAttr); ?>
     <?php echo \$view['form']->help(\$form); ?>
 </div>
-", "@Framework/Form/form_row.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/form_row.html.php");
+", "@Framework/Form/form_row.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_row.html.php");
     }
 }

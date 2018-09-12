@@ -53,6 +53,6 @@ class __TwigTemplate_a655c92f365dbd41b1b801ee3adff57afad86a433e0a12d29b00492fa50
         return new Twig_Source("<?php if (!empty(\$help)): ?>
     <p id=\"<?php echo \$view->escape(\$id); ?>_help\" class=\"help-text\"><?php echo \$view->escape(false !== \$translation_domain ? \$view['translator']->trans(\$help, array(), \$translation_domain) : \$help); ?></p>
 <?php endif; ?>
-", "@Framework/Form/form_help.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/form_help.html.php");
+", "@Framework/Form/form_help.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_help.html.php");
     }
 }

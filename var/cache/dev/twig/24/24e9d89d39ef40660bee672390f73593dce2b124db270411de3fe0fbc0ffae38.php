@@ -49,6 +49,6 @@ class __TwigTemplate_fccf3b06c420ce32d9277b6dc339f46762524d0cfc39d5ea5770814af45
     public function getSourceContext()
     {
         return new Twig_Source("<?php echo \$view['form']->block(\$form, 'form_rows') ?>
-", "@Framework/Form/repeated_row.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/repeated_row.html.php");
+", "@Framework/Form/repeated_row.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/repeated_row.html.php");
     }
 }

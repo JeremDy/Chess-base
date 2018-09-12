@@ -51,6 +51,6 @@ class __TwigTemplate_84a842df22fdaa76f67ed09d8bc8140a8f8b956b84a3ed26de2d6a3daf7
     {
         return new Twig_Source("id=\"<?php echo \$view->escape(\$id) ?>\" name=\"<?php echo \$view->escape(\$full_name) ?>\"<?php if (\$disabled): ?> disabled=\"disabled\"<?php endif ?>
 <?php echo \$attr ? ' '.\$view['form']->block(\$form, 'attributes') : '' ?>
-", "@Framework/Form/button_attributes.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/button_attributes.html.php");
+", "@Framework/Form/button_attributes.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/button_attributes.html.php");
     }
 }

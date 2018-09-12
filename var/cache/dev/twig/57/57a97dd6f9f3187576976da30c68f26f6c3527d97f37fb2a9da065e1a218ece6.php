@@ -49,6 +49,6 @@ class __TwigTemplate_28f25324e2a7122fc247a35dd303673084e0dc5d5b33a1e9cc293bca6b0
     public function getSourceContext()
     {
         return new Twig_Source("<input type=\"<?php echo isset(\$type) ? \$view->escape(\$type) : 'text' ?>\" <?php echo \$view['form']->block(\$form, 'widget_attributes') ?><?php if (!empty(\$value) || is_numeric(\$value)): ?> value=\"<?php echo \$view->escape(\$value) ?>\"<?php endif ?> />
-", "@Framework/Form/form_widget_simple.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/form_widget_simple.html.php");
+", "@Framework/Form/form_widget_simple.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_widget_simple.html.php");
     }
 }

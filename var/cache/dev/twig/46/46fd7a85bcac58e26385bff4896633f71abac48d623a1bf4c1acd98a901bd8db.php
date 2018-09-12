@@ -57,6 +57,6 @@ class __TwigTemplate_6250b4898fb739f9b597a0ce27d838eb4ce7a8ff2d95b62ed55a3853210
     value=\"<?php echo \$view->escape(\$value) ?>\"
     <?php if (\$checked): ?> checked=\"checked\"<?php endif ?>
 />
-", "@Framework/Form/radio_widget.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/radio_widget.html.php");
+", "@Framework/Form/radio_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/radio_widget.html.php");
     }
 }

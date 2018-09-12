@@ -61,6 +61,6 @@ class __TwigTemplate_5091e6b93e18b6bdaac62295d58e3403bb32924a1187a547170c20852d6
         <?php endforeach; ?>
     </ul>
 <?php endif ?>
-", "@Framework/Form/form_errors.html.php", "/var/www/html/chess/test/ChessOnline/vendor/symfony/framework-bundle/Resources/views/Form/form_errors.html.php");
+", "@Framework/Form/form_errors.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_errors.html.php");
     }
 }
