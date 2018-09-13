@@ -1,14 +1,17 @@
+import 'babel-polyfill';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import App from './components/App/index.js';
+import { Provider } from 'react-redux';
+import store from './store';
+import { connection } from './store/actions';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>Hello je suis une balise p dans un code react</p>
-      </div>
-    )
-  }
-}
+const rootComponent = (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+render(rootComponent, document.getElementById('root'));
+
+store.dispatch(connection());
