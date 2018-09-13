@@ -703,6 +703,7 @@ return array(
     'serializer.property_accessor' => true,
     'session.attribute_bag' => true,
     'session.flash_bag' => true,
+    'session.handler' => true,
     'session.handler.native_file' => true,
     'session.save_listener' => true,
     'session.storage' => true,
