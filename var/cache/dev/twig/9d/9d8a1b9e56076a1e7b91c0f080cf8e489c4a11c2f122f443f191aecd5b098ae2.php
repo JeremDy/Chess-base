@@ -73,6 +73,6 @@ class __TwigTemplate_03861decea96c4fe9ada4503c513af28ffd56c4727777f1778e01501c57
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
 </div>
-", "@FOSUser/Profile/show_content.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Profile/show_content.html.twig");
+", "@FOSUser/Profile/show_content.html.twig", "/var/www/html/chess/test/test/Chess-base/templates/bundles/FOSUserBundle/Profile/show_content.html.twig");
     }
 }

@@ -122,6 +122,6 @@ class __TwigTemplate_12b801defe502f5d18d8e7ea10f9cc795640d61b0122648cda4a0f2e379
         </div>
     </div>
 {% endblock %}
-", "@FOSUser/layout.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/layout.html.twig");
+", "@FOSUser/layout.html.twig", "/var/www/html/chess/test/test/Chess-base/templates/bundles/FOSUserBundle/layout.html.twig");
     }
 }

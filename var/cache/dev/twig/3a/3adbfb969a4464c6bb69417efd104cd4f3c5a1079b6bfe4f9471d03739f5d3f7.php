@@ -79,6 +79,6 @@ class __TwigTemplate_4f4b29e9f307605748ee1e82aecd69e83302673bcb1fb600f37635da862
         <input type=\"submit\" value=\"{{ 'registration.submit'|trans }}\" />
     </div>
 {{ form_end(form) }}
-", "@FOSUser/Registration/register_content.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Registration/register_content.html.twig");
+", "@FOSUser/Registration/register_content.html.twig", "/var/www/html/chess/test/test/Chess-base/templates/bundles/FOSUserBundle/Registration/register_content.html.twig");
     }
 }

@@ -248,6 +248,6 @@ class __TwigTemplate_c9a609f32fd3461195a2a3b6c3ea20532c8c63bb04de771ea93183deab1
         {{- form_rest(form) -}}
     </table>
 {%- endblock form_widget_compound -%}
-", "form_table_layout.html.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bridge/Resources/views/Form/form_table_layout.html.twig");
+", "form_table_layout.html.twig", "/var/www/html/chess/test/test/Chess-base/vendor/symfony/twig-bridge/Resources/views/Form/form_table_layout.html.twig");
     }
 }

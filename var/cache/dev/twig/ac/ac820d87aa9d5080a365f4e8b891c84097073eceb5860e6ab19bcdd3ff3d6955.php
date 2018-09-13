@@ -55,6 +55,6 @@ class __TwigTemplate_0e8e29b90f0fff515ec891fec30df366a81c1ece6ba54bd054f249cc1f9
     ? strtr(\$label_format, array('%name%' => \$name, '%id%' => \$id))
     : \$view['form']->humanize(\$name); } ?>
 <button type=\"<?php echo isset(\$type) ? \$view->escape(\$type) : 'button' ?>\" <?php echo \$view['form']->block(\$form, 'button_attributes') ?>><?php echo \$view->escape(false !== \$translation_domain ? \$view['translator']->trans(\$label, array(), \$translation_domain) : \$label) ?></button>
-", "@Framework/Form/button_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/button_widget.html.php");
+", "@Framework/Form/button_widget.html.php", "/var/www/html/chess/test/test/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/button_widget.html.php");
     }
 }

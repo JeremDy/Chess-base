@@ -55,6 +55,6 @@ class __TwigTemplate_fb301a67f81f7906306a01486386d87aa73c38ecb67ec8de2a81b2bcd7d
     public function getSourceContext()
     {
         return new Twig_Source("{{ include('@Twig/Exception/error.xml.twig') }}
-", "TwigBundle:Exception:error.atom.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/error.atom.twig");
+", "TwigBundle:Exception:error.atom.twig", "/var/www/html/chess/test/test/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/error.atom.twig");
     }
 }

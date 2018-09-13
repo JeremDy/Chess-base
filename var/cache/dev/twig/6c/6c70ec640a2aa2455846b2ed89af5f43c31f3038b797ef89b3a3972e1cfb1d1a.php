@@ -55,6 +55,6 @@ class __TwigTemplate_c3d6f4ef5714b7f2905520285b571f7b5cb883481aa4be51ea66b92ba25
     <?php \$attr['data-prototype'] = \$view->escape(\$view['form']->row(\$prototype)) ?>
 <?php endif ?>
 <?php echo \$view['form']->widget(\$form, array('attr' => \$attr)) ?>
-", "@Framework/Form/collection_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/collection_widget.html.php");
+", "@Framework/Form/collection_widget.html.php", "/var/www/html/chess/test/test/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/collection_widget.html.php");
     }
 }

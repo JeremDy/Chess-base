@@ -66,6 +66,6 @@ class __TwigTemplate_4fe7635b77e9595b88e2af3bad4774b0b12b867f53102cd3808a6b67279
 <div class=\"fos_user_group_show\">
     <p>{{ 'group.show.name'|trans }}: {{ group.getName() }}</p>
 </div>
-", "@FOSUser/Group/show_content.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Group/show_content.html.twig");
+", "@FOSUser/Group/show_content.html.twig", "/var/www/html/chess/test/test/Chess-base/templates/bundles/FOSUserBundle/Group/show_content.html.twig");
     }
 }

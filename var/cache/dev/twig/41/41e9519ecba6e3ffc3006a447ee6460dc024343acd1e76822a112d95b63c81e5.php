@@ -82,6 +82,6 @@ class __TwigTemplate_6b6accd3f50bbe35757a0da789b8794e1197bc5dee18be7a80b7612ffc2
         <input type=\"submit\" value=\"{{ 'resetting.request.submit'|trans }}\" />
     </div>
 </form>
-", "@FOSUser/Resetting/request_content.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Resetting/request_content.html.twig");
+", "@FOSUser/Resetting/request_content.html.twig", "/var/www/html/chess/test/test/Chess-base/templates/bundles/FOSUserBundle/Resetting/request_content.html.twig");
     }
 }

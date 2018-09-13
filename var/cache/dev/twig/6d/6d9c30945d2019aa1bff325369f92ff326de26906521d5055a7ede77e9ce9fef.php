@@ -121,6 +121,6 @@ class __TwigTemplate_de24bfeb4c74698c1673b45b609c85f1a254453073dd20bb0bf25e65882
         {% endfor %}
     </tbody>
 </table>
-", "WebProfilerBundle:Profiler:bag.html.twig", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/bag.html.twig");
+", "WebProfilerBundle:Profiler:bag.html.twig", "/var/www/html/chess/test/test/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/bag.html.twig");
     }
 }

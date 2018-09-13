@@ -77,6 +77,6 @@ class __TwigTemplate_ed4968838633565b0ff23a35dc6e867d86392b02d1a0b2a8d307fa8c55f
     c-0.6,0-1.2,0.5-1.2,1.2c0,0.6,0.5,1.2,1.1,1.2c0,0,0,0,0,0c-1.3,0-2.3-1.2-2.3-2.6c0-1.5,1-2.5,2.3-2.5c1.3,0,2.3,1.1,2.3,2.5
     C17.1,9.8,16.2,10.9,15,11z\"/>
 </svg>
-", "@WebProfiler/Icon/exception.svg", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Icon/exception.svg");
+", "@WebProfiler/Icon/exception.svg", "/var/www/html/chess/test/test/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Icon/exception.svg");
     }
 }

@@ -187,6 +187,6 @@ class __TwigTemplate_08af11238be912c161ba66d39d6d88831a406fbe9f3372bbb87e44f1ed4
         </div>
     </body>
 </html>
-", "FOSUserBundle::layout.html.twig", "/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/layout.html.twig");
+", "FOSUserBundle::layout.html.twig", "/var/www/html/chess/test/test/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/layout.html.twig");
     }
 }

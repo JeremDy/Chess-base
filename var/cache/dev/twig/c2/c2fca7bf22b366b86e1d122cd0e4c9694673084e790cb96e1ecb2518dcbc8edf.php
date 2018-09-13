@@ -81,6 +81,6 @@ class __TwigTemplate_a79536d58d1e0815917b66198a1f8ff03483b6ae86dd5a2a922d1e46376
 {% block fos_user_content %}
 {% include \"@FOSUser/ChangePassword/change_password_content.html.twig\" %}
 {% endblock fos_user_content %}
-", "@FOSUser/ChangePassword/change_password.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/ChangePassword/change_password.html.twig");
+", "@FOSUser/ChangePassword/change_password.html.twig", "/var/www/html/chess/test/test/Chess-base/templates/bundles/FOSUserBundle/ChangePassword/change_password.html.twig");
     }
 }

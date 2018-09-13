@@ -69,6 +69,6 @@ class __TwigTemplate_62ef8dae999422a6c3bc317678ec1224f3708b6eea782a4a96f82d7c716
         <?php echo \$view['form']->help(\$form); ?>
     </td>
 </tr>
-", "@Framework/FormTable/form_row.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/FormTable/form_row.html.php");
+", "@Framework/FormTable/form_row.html.php", "/var/www/html/chess/test/test/Chess-base/vendor/symfony/framework-bundle/Resources/views/FormTable/form_row.html.php");
     }
 }

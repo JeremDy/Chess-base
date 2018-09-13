@@ -57,6 +57,6 @@ class __TwigTemplate_aaf8d99d920a3e755a3a0b43f8a708ecfc3a61c2741c10582ff05f473e0
 <?php else: ?>
 <?php echo \$view['form']->block(\$form, 'choice_widget_collapsed') ?>
 <?php endif ?>
-", "@Framework/Form/choice_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/choice_widget.html.php");
+", "@Framework/Form/choice_widget.html.php", "/var/www/html/chess/test/test/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/choice_widget.html.php");
     }
 }

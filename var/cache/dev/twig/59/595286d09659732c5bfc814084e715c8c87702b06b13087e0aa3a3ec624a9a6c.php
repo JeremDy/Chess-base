@@ -81,6 +81,6 @@ class __TwigTemplate_7fd6771ac55c742ef6f50db2d680dc8725937b8862482707e36c7a6bf1f
 {% block fos_user_content %}
 {% include \"@FOSUser/Profile/edit_content.html.twig\" %}
 {% endblock fos_user_content %}
-", "FOSUserBundle:Profile:edit.html.twig", "/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Profile/edit.html.twig");
+", "FOSUserBundle:Profile:edit.html.twig", "/var/www/html/chess/test/test/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Profile/edit.html.twig");
     }
 }

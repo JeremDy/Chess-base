@@ -79,6 +79,6 @@ class __TwigTemplate_0eb76248c17a25d4ca646f5f2387722611e52f96f3aad48f63c022c5b62
         <input type=\"submit\" value=\"{{ 'group.edit.submit'|trans }}\" />
     </div>
 {{ form_end(form) }}
-", "@FOSUser/Group/edit_content.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Group/edit_content.html.twig");
+", "@FOSUser/Group/edit_content.html.twig", "/var/www/html/chess/test/test/Chess-base/templates/bundles/FOSUserBundle/Group/edit_content.html.twig");
     }
 }

@@ -5,7 +5,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <p>Hello</p>
+        <p>Hello je suis une balise p dans un code react</p>
       </div>
     )
   }

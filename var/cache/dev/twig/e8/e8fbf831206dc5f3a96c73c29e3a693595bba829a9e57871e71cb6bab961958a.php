@@ -57,6 +57,6 @@ class __TwigTemplate_66567b60a9d85a4f425af9c4f309bfc344e7ae752d7dd7dce181a8eda3f
         <?php echo \$view['form']->row(\$child) ?>
     <?php endif; ?>
 <?php endforeach; ?>
-", "@Framework/Form/form_rest.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_rest.html.php");
+", "@Framework/Form/form_rest.html.php", "/var/www/html/chess/test/test/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_rest.html.php");
     }
 }

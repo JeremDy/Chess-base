@@ -86,6 +86,6 @@ class __TwigTemplate_65165a622ca25a61359805dde18474cb2924c1a2e2914f3d1a72c7d977b
 {% block fos_user_content %}
     <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
 {% endblock fos_user_content %}
-", "@FOSUser/Registration/check_email.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Registration/check_email.html.twig");
+", "@FOSUser/Registration/check_email.html.twig", "/var/www/html/chess/test/test/Chess-base/templates/bundles/FOSUserBundle/Registration/check_email.html.twig");
     }
 }

@@ -65,6 +65,6 @@ class __TwigTemplate_50375dd50bc036355880e7e6c9f0a4dc203f3fd9a6114910236dc8cb03e
         return new Twig_Source("<?xml version=\"1.0\" encoding=\"{{ _charset }}\" ?>
 
 <error code=\"{{ status_code }}\" message=\"{{ status_text }}\" />
-", "TwigBundle:Exception:error.xml.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/error.xml.twig");
+", "TwigBundle:Exception:error.xml.twig", "/var/www/html/chess/test/test/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/error.xml.twig");
     }
 }

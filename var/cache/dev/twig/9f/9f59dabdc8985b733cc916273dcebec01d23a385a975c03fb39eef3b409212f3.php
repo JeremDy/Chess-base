@@ -81,6 +81,6 @@ class __TwigTemplate_cb102c437f32b8bc07fdbdf3ab7acca7fd01a43a4ed685fd9ed88b8c409
 {% block fos_user_content %}
 {% include \"@FOSUser/Resetting/reset_content.html.twig\" %}
 {% endblock fos_user_content %}
-", "@FOSUser/Resetting/reset.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Resetting/reset.html.twig");
+", "@FOSUser/Resetting/reset.html.twig", "/var/www/html/chess/test/test/Chess-base/templates/bundles/FOSUserBundle/Resetting/reset.html.twig");
     }
 }

@@ -53,6 +53,6 @@ class __TwigTemplate_3b3084eb15bd532cba9d0f7bf9146e4c0c64e221ad1d137b25e6fd67965
         return new Twig_Source("<?php echo \$view['form']->start(\$form) ?>
     <?php echo \$view['form']->widget(\$form) ?>
 <?php echo \$view['form']->end(\$form) ?>
-", "@Framework/Form/form.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form.html.php");
+", "@Framework/Form/form.html.php", "/var/www/html/chess/test/test/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form.html.php");
     }
 }

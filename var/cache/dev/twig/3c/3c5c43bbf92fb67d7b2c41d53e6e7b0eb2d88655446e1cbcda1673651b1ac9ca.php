@@ -143,6 +143,6 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
 
 <div id=\"root\"><div>
 {% endblock %}
-", "main/index.html.twig", "/var/www/html/Chess-base/templates/main/index.html.twig");
+", "main/index.html.twig", "/var/www/html/chess/test/test/Chess-base/templates/main/index.html.twig");
     }
 }

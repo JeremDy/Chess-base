@@ -127,6 +127,6 @@ class __TwigTemplate_691f442819004b84ff22e215039c195b819733efeec70550afc4a7dbfb7
 
     <input type=\"submit\" id=\"_submit\" name=\"_submit\" value=\"{{ 'security.login.submit'|trans }}\" />
 </form>
-", "@FOSUser/Security/login_content.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Security/login_content.html.twig");
+", "@FOSUser/Security/login_content.html.twig", "/var/www/html/chess/test/test/Chess-base/templates/bundles/FOSUserBundle/Security/login_content.html.twig");
     }
 }

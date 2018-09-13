@@ -80,6 +80,6 @@ class __TwigTemplate_cb8807e26860e04891359962df32fd41514f2458922d15562c139f03c21
     {% endfor %}
     </ul>
 </div>
-", "FOSUserBundle:Group:list_content.html.twig", "/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Group/list_content.html.twig");
+", "FOSUserBundle:Group:list_content.html.twig", "/var/www/html/chess/test/test/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Group/list_content.html.twig");
     }
 }
