@@ -7,18 +7,25 @@ use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\Topic;
 use Gos\Bundle\WebSocketBundle\Router\WampRequest;
 use Gos\Bundle\WebSocketBundle\Client\ClientManipulatorInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use App\Entity\Game;
+use App\Entity\PlayerInGame;
+use App\Entity\User;
+
 
 class MatchMakingTopic implements TopicInterface
 {
     
     protected $clientManipulator;
+    private $doctrine;
 
     /**
      * @param ClientManipulatorInterface $clientManipulator
      */
-    public function __construct(ClientManipulatorInterface $clientManipulator)
+    public function __construct(ClientManipulatorInterface $clientManipulator, ManagerRegistry $doctrine)
     {
         $this->clientManipulator = $clientManipulator;
+        $this->doctrine = $doctrine;
     }
             
     /**
@@ -53,8 +60,38 @@ class MatchMakingTopic implements TopicInterface
                     $playerOne['connection']->WAMP->sessionId,
                     $playerTwo['connection']->WAMP->sessionId
                     )
-            );
-        }
+                );
+            
+                
+                $playerOneDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerOne['client']->getUsername());
+                $playerTwoDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerTwo['client']->getUsername());
+                
+                $game = new Game();
+                $game->setStartedAt(new \DateTime());
+                $this->doctrine->getManager()->persist($game);
+                $this->doctrine->getManager()->flush();
+              
+              
+                $playerInGameOne = new PlayerInGame();
+                $playerInGameOne->setColor('white')
+                    ->setPlayer($playerOneDoctrine)
+                    ->setGame($game)
+                    ->setOpponent($playerTwoDoctrine)
+                    ->setAllowToMove(true);
+                $this->doctrine->getManager()->persist($playerInGameOne);
+                
+            
+                $playerInGameTwo = new PlayerInGame();
+                $playerInGameTwo->setColor('black')
+                    ->setPlayer($playerTwoDoctrine)
+                    ->setGame($game)
+                    ->setOpponent($playerOneDoctrine)
+                    ->setAllowToMove(false);
+                $this->doctrine->getManager()->persist($playerInGameTwo);
+
+                $this->doctrine->getManager()->flush();
+
+           }
 
 
         }

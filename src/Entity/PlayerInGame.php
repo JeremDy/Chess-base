@@ -51,7 +51,12 @@ class PlayerInGame
      * @ORM\ManyToOne(targetEntity="App\Entity\Game")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Game;
+   /* private $Game;*/
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $color;
 
     public function getId(): ?int
     {
@@ -126,6 +131,18 @@ class PlayerInGame
     public function setGame(?Game $game): self
     {
         $this->game = $game;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

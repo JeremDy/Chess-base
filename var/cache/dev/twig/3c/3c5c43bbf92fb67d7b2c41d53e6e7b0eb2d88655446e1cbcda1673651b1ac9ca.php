@@ -172,6 +172,6 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
             {# Cette ligne doit être en dernière pour que l'on dispose d'une écoute terminale #}
 {% block javascripts %}           
  <script type=\"text/javascript\" src=\"{{ asset('build/js/accueil.js') }}\"></script>
-{% endblock %}", "main/index.html.twig", "/var/www/html/chess/Chess-base/templates/main/index.html.twig");
+{% endblock %}", "main/index.html.twig", "/var/www/html/chess3/Chess-base/templates/main/index.html.twig");
     }
 }

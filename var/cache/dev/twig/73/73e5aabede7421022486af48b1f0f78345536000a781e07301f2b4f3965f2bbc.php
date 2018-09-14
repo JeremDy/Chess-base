@@ -231,6 +231,6 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
         {% endblock %}
     </body>
 </html>
-", "base.html.twig", "/var/www/html/chess/Chess-base/templates/base.html.twig");
+", "base.html.twig", "/var/www/html/chess3/Chess-base/templates/base.html.twig");
     }
 }
