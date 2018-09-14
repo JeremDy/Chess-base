@@ -32,7 +32,7 @@ class ChatTopic implements TopicInterface
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
         $user = $this->clientManipulator->getClient($connection);
-        
+
         //this will broadcast the message to ALL subscribers of this topic.
         /*$topic->broadcast(['msg' => $connection->resourceId . " has joined " . $topic->getId()]);*/
     }
@@ -48,7 +48,7 @@ class ChatTopic implements TopicInterface
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
         //this will broadcast the message to ALL subscribers of this topic.
-        // $topic->broadcast(['meesg' => $connection->resourceId . " has left " . $topic->getId()]);
+        $topic->broadcast(['meesg' => $connection->resourceId . " has left " . $topic->getId()]);
     }
 
 
@@ -65,9 +65,10 @@ class ChatTopic implements TopicInterface
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
-        
+    
+       
+
         $user = $this->clientManipulator->getClient($connection);
-      
         /*
         	$topic->getId() will contain the FULL requested uri, so you can proceed based on that
 
@@ -86,21 +87,10 @@ class ChatTopic implements TopicInterface
             if ($topic->getId() === 'chat/private') {
 
                 $receiver = $this->clientManipulator->findByUsername($topic, $event['receiver']);
-                $senderMp = $this->clientManipulator->findByUsername($topic, $user->getUsername());
+             
+            //TODO ne pas afficher si l'utilisateur à destination du mp n'est pas connecté
             
-            
-                if (is_array($receiver)) {
-                    
-                    $topic->broadcast(
-                    [
-                    'sender' => $user->getUsername(),
-                    'message' => 'message privé envoyé: '. $event['message'],
-                    ],
-                    array(),
-                    array($senderMp['connection']->WAMP->sessionId)
-                    );
-                                
-                    $topic->broadcast(
+                $topic->broadcast(
                     [
                     'sender' => $user->getUsername(),
                     'message' => 'message privé: '. $event['message'],
@@ -108,9 +98,6 @@ class ChatTopic implements TopicInterface
                     array(),
                     array($receiver['connection']->WAMP->sessionId)
                     );
-                }
-            
-
             }
         }
     }
