@@ -9,10 +9,15 @@
     
     {% block headJs %}          
     {% endblock %}
-    </head>
+    </head>   
     <body>
+
+        {% block header %}
+        {{ include('main/header.html.twig') }}
+        {% endblock %}
         
-        {% block body %}      
+        {% block body %}  
+
         {% endblock %}
 
 

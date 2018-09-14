@@ -51,17 +51,19 @@ class __TwigTemplate_12b801defe502f5d18d8e7ea10f9cc795640d61b0122648cda4a0f2e379
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 4
-        echo "    <div class=\"container\">
-        <div class=\"row\">
-            <h1>Chess Online</h1>
-            <div class=\"col-xs-12\">
-                ";
-        // line 8
+        echo "
+
+          <div class=\"container\">
+                 <div class=\"row\">
+                     <div class=\"mx-auto border p-4\">
+                         ";
+        // line 9
         $this->displayBlock('fos_user_content', $context, $blocks);
-        // line 11
-        echo "            </div>
-        </div>
-    </div>
+        // line 17
+        echo "                     </div>
+                 </div>
+             </div>    
+ 
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -71,7 +73,7 @@ class __TwigTemplate_12b801defe502f5d18d8e7ea10f9cc795640d61b0122648cda4a0f2e379
 
     }
 
-    // line 8
+    // line 9
     public function block_fos_user_content($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -80,9 +82,22 @@ class __TwigTemplate_12b801defe502f5d18d8e7ea10f9cc795640d61b0122648cda4a0f2e379
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "fos_user_content"));
 
-        // line 9
-        echo "                <h2>lalala?</h2>
-                ";
+        // line 10
+        echo "                             ";
+        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
+            // line 11
+            echo "                             <h1>Bienvenue ! <h1>
+                             ";
+        } else {
+            // line 13
+            echo "                             ";
+            // line 14
+            echo "                             ";
+            // line 15
+            echo "                             ";
+        }
+        // line 16
+        echo "                         ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -103,7 +118,7 @@ class __TwigTemplate_12b801defe502f5d18d8e7ea10f9cc795640d61b0122648cda4a0f2e379
 
     public function getDebugInfo()
     {
-        return array (  84 => 9,  75 => 8,  62 => 11,  60 => 8,  54 => 4,  45 => 3,  15 => 1,);
+        return array (  100 => 16,  97 => 15,  95 => 14,  93 => 13,  89 => 11,  86 => 10,  77 => 9,  63 => 17,  61 => 9,  54 => 4,  45 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -111,17 +126,24 @@ class __TwigTemplate_12b801defe502f5d18d8e7ea10f9cc795640d61b0122648cda4a0f2e379
         return new Twig_Source("{% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class=\"container\">
-        <div class=\"row\">
-            <h1>Chess Online</h1>
-            <div class=\"col-xs-12\">
-                {% block fos_user_content %}
-                <h2>lalala?</h2>
-                {% endblock %}
-            </div>
-        </div>
-    </div>
+
+
+          <div class=\"container\">
+                 <div class=\"row\">
+                     <div class=\"mx-auto border p-4\">
+                         {% block fos_user_content %}
+                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                             <h1>Bienvenue ! <h1>
+                             {% else %}
+                             {# Si on veut inclure le template Login du FOSUserBundle sans utiliser la méthode de redirection via security.yml #}
+                             {# {{ render(controller('FOSUserBundle:Security:login')) }} #}
+                             {% endif %}
+                         {% endblock %}
+                     </div>
+                 </div>
+             </div>    
+ 
 {% endblock %}
-", "@FOSUser/layout.html.twig", "/var/www/html/chess/Chess-base/templates/bundles/FOSUserBundle/layout.html.twig");
+", "@FOSUser/layout.html.twig", "/var/www/html/chess3/Chess-base/templates/bundles/FOSUserBundle/layout.html.twig");
     }
 }

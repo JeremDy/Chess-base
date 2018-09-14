@@ -38,48 +38,67 @@ class __TwigTemplate_691f442819004b84ff22e215039c195b819733efeec70550afc4a7dbfb7
         }
         // line 6
         echo "
-<form action=\"";
+<form class=\"form-horizontal\" action=\"";
         // line 7
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("fos_user_security_check");
         echo "\" method=\"post\">
+
     ";
-        // line 8
-        if ((isset($context["csrf_token"]) || array_key_exists("csrf_token", $context) ? $context["csrf_token"] : (function () { throw new Twig_Error_Runtime('Variable "csrf_token" does not exist.', 8, $this->source); })())) {
-            // line 9
+        // line 9
+        if ((isset($context["csrf_token"]) || array_key_exists("csrf_token", $context) ? $context["csrf_token"] : (function () { throw new Twig_Error_Runtime('Variable "csrf_token" does not exist.', 9, $this->source); })())) {
+            // line 10
             echo "        <input type=\"hidden\" name=\"_csrf_token\" value=\"";
-            echo twig_escape_filter($this->env, (isset($context["csrf_token"]) || array_key_exists("csrf_token", $context) ? $context["csrf_token"] : (function () { throw new Twig_Error_Runtime('Variable "csrf_token" does not exist.', 9, $this->source); })()), "html", null, true);
+            echo twig_escape_filter($this->env, (isset($context["csrf_token"]) || array_key_exists("csrf_token", $context) ? $context["csrf_token"] : (function () { throw new Twig_Error_Runtime('Variable "csrf_token" does not exist.', 10, $this->source); })()), "html", null, true);
             echo "\" />
     ";
         }
-        // line 11
-        echo "
-    <label for=\"username\">";
         // line 12
+        echo "    <div class=\"form-group\">
+        <label class=\"control-label col-xs-2\" for=\"username\">";
+        // line 13
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("security.login.username", array(), "FOSUserBundle"), "html", null, true);
         echo "</label>
-    <input type=\"text\" id=\"username\" name=\"_username\" value=\"";
-        // line 13
-        echo twig_escape_filter($this->env, (isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new Twig_Error_Runtime('Variable "last_username" does not exist.', 13, $this->source); })()), "html", null, true);
-        echo "\" required=\"required\" autocomplete=\"username\" />
-
-    <label for=\"password\">";
+        <div class=\"col-xs-10\">
+            <input class=\"form-control\" type=\"text\" id=\"username\" name=\"_username\" value=\"";
         // line 15
+        echo twig_escape_filter($this->env, (isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new Twig_Error_Runtime('Variable "last_username" does not exist.', 15, $this->source); })()), "html", null, true);
+        echo "\" required=\"required\" autocomplete=\"username\" />
+        </div>
+    </div>
+    <div class=\"form-group\">
+        <label for=\"password\">";
+        // line 19
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("security.login.password", array(), "FOSUserBundle"), "html", null, true);
         echo "</label>
-    <input type=\"password\" id=\"password\" name=\"_password\" required=\"required\" autocomplete=\"current-password\" />
-
-    <input type=\"checkbox\" id=\"remember_me\" name=\"_remember_me\" value=\"on\" />
-    <label for=\"remember_me\">";
-        // line 19
+        <div class=\"col-xs-10\">
+            <input class=\"form-control\" type=\"password\" id=\"password\" name=\"_password\" required=\"required\" autocomplete=\"current-password\" />
+        </div>
+    </div>
+    <div class=\"form-group\">
+    <div class=\"col-xs-offset-2 col-xs-10\">
+        <input type=\"checkbox\" id=\"remember_me\" name=\"_remember_me\" value=\"on\" />
+        <label for=\"remember_me\">";
+        // line 27
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("security.login.remember_me", array(), "FOSUserBundle"), "html", null, true);
         echo "</label>
-
-    <input type=\"submit\" id=\"_submit\" name=\"_submit\" value=\"";
-        // line 21
+    </div>
+    </div>
+    <div class=\"form-group\">
+    <div class=\"col-xs-offset-2 col-xs-10 text-center\">
+        <input type=\"submit\" id=\"_submit\" name=\"_submit\" value=\"";
+        // line 32
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("security.login.submit", array(), "FOSUserBundle"), "html", null, true);
         echo "\" />
+        </div>
+    </div>
 </form>
-";
+
+<div>
+<p> Pas encore de compte ? <a href=\"";
+        // line 38
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("fos_user_registration_register");
+        echo "\"> Rejoignez nous ! </a></p>
+</div>";
         
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->leave($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof);
 
@@ -100,7 +119,7 @@ class __TwigTemplate_691f442819004b84ff22e215039c195b819733efeec70550afc4a7dbfb7
 
     public function getDebugInfo()
     {
-        return array (  79 => 21,  74 => 19,  67 => 15,  62 => 13,  58 => 12,  55 => 11,  49 => 9,  47 => 8,  43 => 7,  40 => 6,  34 => 4,  32 => 3,  29 => 2,);
+        return array (  99 => 38,  90 => 32,  82 => 27,  71 => 19,  64 => 15,  59 => 13,  56 => 12,  50 => 10,  48 => 9,  43 => 7,  40 => 6,  34 => 4,  32 => 3,  29 => 2,);
     }
 
     public function getSourceContext()
@@ -111,22 +130,38 @@ class __TwigTemplate_691f442819004b84ff22e215039c195b819733efeec70550afc4a7dbfb7
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
-<form action=\"{{ path(\"fos_user_security_check\") }}\" method=\"post\">
+<form class=\"form-horizontal\" action=\"{{ path(\"fos_user_security_check\") }}\" method=\"post\">
+
     {% if csrf_token %}
         <input type=\"hidden\" name=\"_csrf_token\" value=\"{{ csrf_token }}\" />
     {% endif %}
-
-    <label for=\"username\">{{ 'security.login.username'|trans }}</label>
-    <input type=\"text\" id=\"username\" name=\"_username\" value=\"{{ last_username }}\" required=\"required\" autocomplete=\"username\" />
-
-    <label for=\"password\">{{ 'security.login.password'|trans }}</label>
-    <input type=\"password\" id=\"password\" name=\"_password\" required=\"required\" autocomplete=\"current-password\" />
-
-    <input type=\"checkbox\" id=\"remember_me\" name=\"_remember_me\" value=\"on\" />
-    <label for=\"remember_me\">{{ 'security.login.remember_me'|trans }}</label>
-
-    <input type=\"submit\" id=\"_submit\" name=\"_submit\" value=\"{{ 'security.login.submit'|trans }}\" />
+    <div class=\"form-group\">
+        <label class=\"control-label col-xs-2\" for=\"username\">{{ 'security.login.username'|trans }}</label>
+        <div class=\"col-xs-10\">
+            <input class=\"form-control\" type=\"text\" id=\"username\" name=\"_username\" value=\"{{ last_username }}\" required=\"required\" autocomplete=\"username\" />
+        </div>
+    </div>
+    <div class=\"form-group\">
+        <label for=\"password\">{{ 'security.login.password'|trans }}</label>
+        <div class=\"col-xs-10\">
+            <input class=\"form-control\" type=\"password\" id=\"password\" name=\"_password\" required=\"required\" autocomplete=\"current-password\" />
+        </div>
+    </div>
+    <div class=\"form-group\">
+    <div class=\"col-xs-offset-2 col-xs-10\">
+        <input type=\"checkbox\" id=\"remember_me\" name=\"_remember_me\" value=\"on\" />
+        <label for=\"remember_me\">{{ 'security.login.remember_me'|trans }}</label>
+    </div>
+    </div>
+    <div class=\"form-group\">
+    <div class=\"col-xs-offset-2 col-xs-10 text-center\">
+        <input type=\"submit\" id=\"_submit\" name=\"_submit\" value=\"{{ 'security.login.submit'|trans }}\" />
+        </div>
+    </div>
 </form>
-", "@FOSUser/Security/login_content.html.twig", "/var/www/html/chess/Chess-base/templates/bundles/FOSUserBundle/Security/login_content.html.twig");
+
+<div>
+<p> Pas encore de compte ? <a href=\"{{ path('fos_user_registration_register') }}\"> Rejoignez nous ! </a></p>
+</div>", "@FOSUser/Security/login_content.html.twig", "/var/www/html/chess3/Chess-base/templates/bundles/FOSUserBundle/Security/login_content.html.twig");
     }
 }
