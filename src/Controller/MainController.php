@@ -17,4 +17,12 @@ class MainController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
+
+    /**
+     * @Route("/react", name="react")
+     */
+    public function react(UserRepository $userRepository)
+    {
+        return $this->render('main/react.html.twig');
+    }
 }

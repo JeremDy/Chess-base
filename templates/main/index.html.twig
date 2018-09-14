@@ -18,3 +18,9 @@
 
 <div id="root"><div>
 {% endblock %}
+
+     
+            {# Cette ligne doit être en dernière pour que l'on dispose d'une écoute terminale #}
+{% block javascripts %}           
+ <script type="text/javascript" src="{{ asset('build/js/accueil.js') }}"></script>
+{% endblock %}

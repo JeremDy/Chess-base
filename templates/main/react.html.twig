@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page React!!!{% endblock %}
+
+{% block headJs %}
+<script type="text/javascript">  const GAME_CHANEL = 'id/player1/player2';</script>
+{% endblock %}
+
+{% block body %}
+<h1>Page react ! youhooou</h1>
+<div id="root"><div>
+{% endblock %}
+
+{% block javascripts %}
+ <script type="text/javascript" src="{{ asset('build/js/room.js') }}"></script>
+{% endblock %}
+
+

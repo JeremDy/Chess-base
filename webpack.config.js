@@ -4,7 +4,7 @@ Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
-    .setPublicPath('/build')
+    .setPublicPath('/public/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 
@@ -17,8 +17,8 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
-    .addEntry('js/app',  './assets/js/app.js')
-    //.addEntry('page1', './assets/js/page1.js')
+    .addEntry('js/accueil', './assets/js/accueil/app.js')
+    .addEntry('js/room', './assets/js/room/app.js')
     //.addEntry('page2', './assets/js/page2.js')
 
     /*
