@@ -30,9 +30,7 @@ class MatchMakingTopic implements TopicInterface
      * @return void
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
-    {
-        $user = $this->clientManipulator->getClient($connection);
-        
+    {      
         $subcribers = $this->clientManipulator->getAll($topic);
         
         if(count($topic) >= 2){
