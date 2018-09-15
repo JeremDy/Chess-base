@@ -9,7 +9,7 @@ use App\Repository\UserRepository;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="main")
+     * @Route("/", name="home")
      */
     public function index(UserRepository $userRepository)
     {

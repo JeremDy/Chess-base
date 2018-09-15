@@ -1,7 +1,6 @@
 var app = {
 /*eslint:disable*/
     init : function(){
-
         $('#chat').on('submit', app.sendMessage);
         $('#match-making').on('click', app.matchMaking);
 
@@ -47,11 +46,11 @@ var app = {
 
     
     matchMaking : function(evt){
-        /*console.log(app.session);*/
         app.session.subscribe('matchmaking', function(uri,payload){
             console.log(payload);
             if(typeof payload.matchFound !== 'undefined'){
                 app.session.unsubscribe('matchmaking');
+                location.href = BASE_URL + payload.matchFound;
             }
         });
 

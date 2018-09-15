@@ -1,0 +1,35 @@
+
+ {% block header %}
+
+ <header class="container">
+     <div class="d-flex">
+     <h1 class="col-8">
+         <a href="{{ path('home') }}">Chess Online</a>
+     </h1>
+     <div class"">
+     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} | 
+                 <a class="" href="{{ path('fos_user_security_logout') }}">
+                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                 </a>
+     {% endif %}
+     </div>
+     </div>
+     <hr class="m-1">
+         <nav class="nav d-flex col-12">
+                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                         {# <a class="nav-item nav-link" href="{{ path('logout') }}">Déconnexion</a> #}
+                         <div class="col-10">
+                         <a class="nav-item nav-link" href="{{ path('fos_user_profile_show') }}">Mon Profil</a>
+                         </div>
+                     {% else %}
+                     <div class="col-10"></div>
+                     <div class="d-inline col-2">
+                         {# <a class="nav-item nav-link text-right" href="{{ path('fos_user_security_login') }}">Connexion/Inscription</a> #}
+                         {# <a class="nav-item nav-link" href="{{ path('fos_user_registration_register') }}">Inscription</a> #}
+                     </div>    
+                     {% endif %}
+                     
+          </nav>
+ </header>
+ {% endblock %}
