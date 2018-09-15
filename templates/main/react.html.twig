@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page React!!!{% endblock %}
+
+{% block headJs %}
+<script type="text/javascript">  const GAME_CHANEL = 'id/player1/player2';</script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link href="{{ asset('build/js/room.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+<h1>Page react ! youhooou</h1>
+<div id="root"><div>
+{% endblock %}
+
+{% block javascripts %}
+ <script type="text/javascript" src="{{ asset('build/js/room.js') }}"></script>
+{% endblock %}
+
+

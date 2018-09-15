@@ -7,18 +7,27 @@ use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\Topic;
 use Gos\Bundle\WebSocketBundle\Router\WampRequest;
 use Gos\Bundle\WebSocketBundle\Client\ClientManipulatorInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use App\Entity\Game;
+use App\Entity\PlayerInGame;
+use App\Entity\User;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 
 class MatchMakingTopic implements TopicInterface
 {
     
     protected $clientManipulator;
+    private $doctrine;
 
     /**
      * @param ClientManipulatorInterface $clientManipulator
      */
-    public function __construct(ClientManipulatorInterface $clientManipulator)
+    public function __construct(ClientManipulatorInterface $clientManipulator, ManagerRegistry $doctrine, UrlGeneratorInterface $urlGenerator)
     {
         $this->clientManipulator = $clientManipulator;
+        $this->doctrine = $doctrine;
+        $this->urlGenerator = $urlGenerator;
     }
             
     /**
@@ -30,7 +39,9 @@ class MatchMakingTopic implements TopicInterface
      * @return void
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
-    {      
+    {          
+        $user = $this->clientManipulator->getClient($connection);
+        
         $subcribers = $this->clientManipulator->getAll($topic);
         
         if(count($topic) >= 2){
@@ -42,17 +53,52 @@ class MatchMakingTopic implements TopicInterface
             $playerTwoUserName = $playerTwo['client']->getUsername();
             
             if (false !== $playerOne && false !== $playerTwo) {
+              
+                
+                $playerOneDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerOne['client']->getUsername());
+                $playerTwoDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerTwo['client']->getUsername());
+                
+                $game = new Game();
+                $game->setStartedAt(new \DateTime());
+                $this->doctrine->getManager()->persist($game);
+                $this->doctrine->getManager()->flush();
+              
+              
+                $playerInGameOne = new PlayerInGame();
+                $playerInGameOne->setColor('white')
+                    ->setPlayer($playerOneDoctrine)
+                    ->setGame($game)
+                    ->setOpponent($playerTwoDoctrine)
+                    ->setAllowToMove(true);
+                $this->doctrine->getManager()->persist($playerInGameOne);
+                
+            
+                $playerInGameTwo = new PlayerInGame();
+                $playerInGameTwo->setColor('black')
+                    ->setPlayer($playerTwoDoctrine)
+                    ->setGame($game)
+                    ->setOpponent($playerOneDoctrine)
+                    ->setAllowToMove(false);
+                $this->doctrine->getManager()->persist($playerInGameTwo);
+
+                $this->doctrine->getManager()->flush();
+
+                
+
                 $topic->broadcast(
-                [
-                    'matchFound' => $playerOneUserName .'/'. $playerTwoUserName,
-                ],
-                array(),
-                array(
-                    $playerOne['connection']->WAMP->sessionId,
-                    $playerTwo['connection']->WAMP->sessionId
-                    )
-            );
-        }
+                    [
+                        'matchFound' => $this->urlGenerator->generate('game', ['id' =>  $game->getId()]),
+                    ],
+                    array(),
+                    array(
+                        $playerOne['connection']->WAMP->sessionId,
+                        $playerTwo['connection']->WAMP->sessionId
+                        )
+                    );
+                
+
+
+           }
 
 
         }

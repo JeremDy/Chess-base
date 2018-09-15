@@ -64,23 +64,10 @@ class ChatTopic implements TopicInterface
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
-<<<<<<< HEAD
-    
-       
-
-        $user = $this->clientManipulator->getClient($connection);
-        /*
-        	$topic->getId() will contain the FULL requested uri, so you can proceed based on that
-
-            if ($topic->getId() === 'acme/channel/shout')
-     	       //shout something to all subs.
-        */
-=======
         $user = $this->clientManipulator->getClient($connection);
         $receiverName = $event['receiver'];
         $senderName = $user->getUsername();
         
->>>>>>> origin/chat
         if (!is_string($user)) {
             if ($topic->getId() === 'chat/global') {
                 $topic->broadcast([
@@ -93,20 +80,6 @@ class ChatTopic implements TopicInterface
                 $receiver = $this->clientManipulator->findByUsername($topic, $receiverName);
                 $sender = $this->clientManipulator->findByUsername($topic, $senderName);
 
-<<<<<<< HEAD
-                $receiver = $this->clientManipulator->findByUsername($topic, $event['receiver']);
-             
-            //TODO ne pas afficher si l'utilisateur à destination du mp n'est pas connecté
-            
-                $topic->broadcast(
-                    [
-                    'sender' => $user->getUsername(),
-                    'message' => 'message privé: '. $event['message'],
-                    ],
-                    array(),
-                    array($receiver['connection']->WAMP->sessionId)
-                    );
-=======
                                        
                 if (is_array($receiver)) {
                     $topic->broadcast(
@@ -136,7 +109,6 @@ class ChatTopic implements TopicInterface
                         array($sender['connection']->WAMP->sessionId)
                         );
                 }
->>>>>>> origin/chat
             }
         }
     }

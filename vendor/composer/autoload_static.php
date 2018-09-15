@@ -55,6 +55,7 @@ class ComposerStaticInit551dc115a5c9772c7f197bd062c354dd
             'Symfony\\Component\\PropertyInfo\\' => 31,
             'Symfony\\Component\\PropertyAccess\\' => 33,
             'Symfony\\Component\\Process\\' => 26,
+            'Symfony\\Component\\Panther\\' => 26,
             'Symfony\\Component\\OptionsResolver\\' => 34,
             'Symfony\\Component\\Intl\\' => 23,
             'Symfony\\Component\\Inflector\\' => 28,
@@ -128,6 +129,7 @@ class ComposerStaticInit551dc115a5c9772c7f197bd062c354dd
         'F' => 
         array (
             'Fig\\Link\\' => 9,
+            'Facebook\\WebDriver\\' => 19,
             'FOS\\UserBundle\\' => 15,
         ),
         'E' => 
@@ -242,6 +244,10 @@ class ComposerStaticInit551dc115a5c9772c7f197bd062c354dd
         'Symfony\\Component\\Process\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/process',
+        ),
+        'Symfony\\Component\\Panther\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/panther/src',
         ),
         'Symfony\\Component\\OptionsResolver\\' => 
         array (
@@ -474,6 +480,10 @@ class ComposerStaticInit551dc115a5c9772c7f197bd062c354dd
         'Fig\\Link\\' => 
         array (
             0 => __DIR__ . '/..' . '/fig/link-util/src',
+        ),
+        'Facebook\\WebDriver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/facebook/webdriver/lib',
         ),
         'FOS\\UserBundle\\' => 
         array (
