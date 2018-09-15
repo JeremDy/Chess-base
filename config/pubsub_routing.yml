@@ -14,3 +14,16 @@ match_making:
     channel: matchmaking
     handler:
         callback: 'matchmaking.topic'
+
+game:
+    channel: game/{id}/{playerOne}/{playerTwo}
+    handler:
+        callback: 'game.topic'
+    requirements:
+        playerOne:
+            pattern: "[a-z]+"
+        playerTwo:
+            pattern: "[a-z]+"
+        gameId:
+            pattern: "\\d+"
+        

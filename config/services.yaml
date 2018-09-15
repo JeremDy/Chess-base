@@ -35,6 +35,9 @@ services:
     
     app_matchMaking.topic:
         class: App\Utils\Topic\MatchMakingTopic
+    
+    app_game.topic:
+        class: App\Utils\Topic\GameTopic
 
 #             or register via "app/config/config.yml"
 

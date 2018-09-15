@@ -9,12 +9,20 @@ use App\Repository\UserRepository;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="main")
+     * @Route("/", name="home")
      */
     public function index(UserRepository $userRepository)
     {
         return $this->render('main/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
+    }
+
+    /**
+     * @Route("/react", name="react")
+     */
+    public function react(UserRepository $userRepository)
+    {
+        return $this->render('main/react.html.twig');
     }
 }
