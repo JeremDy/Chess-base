@@ -1,13 +1,11 @@
 ##> symfony/framework-bundle ###
  /.env
  /public/bundles/
- /var/
- /vendor/
- ###< symfony/framework-bundle ###
+var
+vendor
 
- ###> symfony/phpunit-bridge ###
  .phpunit
- /phpunit.xml
+/phpunit.xml
  ###< symfony/phpunit-bridge ###
 
  ###> symfony/web-server-bundle ###
@@ -15,12 +13,12 @@
  ###< symfony/web-server-bundle ###
 
 
- node_modules/
- dist/
- .vs/
- .vs-code/
+node_modules
+dist
+.vs
+.vs-code
 
- .DS_Store
- Thumbs.db
+.DS_Store
+Thumbs.db
 
- yarn-error.log 
+yarn-error.log 
