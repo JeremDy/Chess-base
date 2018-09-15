@@ -5030,3 +5030,6 @@
 [2018-09-15 18:23:05] websocket.INFO: anon-20004324055b9d31e9a7446899865149 subscribe to chat/private [] []
 [2018-09-15 18:23:05] websocket.DEBUG: Matched route "chat_private" [] []
 [2018-09-15 18:23:05] websocket.DEBUG: GET CLIENT 804 [] []
+[2018-09-15 19:17:49] php.DEBUG: Warning: stream_select(): unable to select [4]: Interrupted system call (max_fd=10) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\SilencedErrorContext: {\"severity\":2,\"file\":\"/var/www/html/chess/Chess-base/vendor/react/event-loop/src/StreamSelectLoop.php\",\"line\":268,\"trace\":[{\"file\":\"/var/www/html/chess/Chess-base/vendor/react/event-loop/src/StreamSelectLoop.php\",\"line\":224,\"function\":\"streamSelect\",\"class\":\"React\\\\EventLoop\\\\StreamSelectLoop\",\"type\":\"->\"}],\"count\":1})"} []
+[2018-09-15 19:17:49] websocket.NOTICE: Stopping server ... [] []
+[2018-09-15 19:17:49] websocket.NOTICE: Server stopped! [] []
