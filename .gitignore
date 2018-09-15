@@ -1,19 +1,17 @@
 ##> symfony/framework-bundle ###
- /.env
- /public/bundles/
+/.env
+/public/bundles/
 var
-vendor
+vendor/
 
- .phpunit
+.phpunit
 /phpunit.xml
- ###< symfony/phpunit-bridge ###
 
- ###> symfony/web-server-bundle ###
- /.web-server-pid
- ###< symfony/web-server-bundle ###
+/.web-server-pid
 
 
-node_modules
+
+node_modules/
 dist
 .vs
 .vs-code
