@@ -11,6 +11,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use App\Entity\Game;
 use App\Entity\PlayerInGame;
 use App\Entity\User;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 
 class MatchMakingTopic implements TopicInterface
@@ -22,10 +23,11 @@ class MatchMakingTopic implements TopicInterface
     /**
      * @param ClientManipulatorInterface $clientManipulator
      */
-    public function __construct(ClientManipulatorInterface $clientManipulator, ManagerRegistry $doctrine)
+    public function __construct(ClientManipulatorInterface $clientManipulator, ManagerRegistry $doctrine, UrlGeneratorInterface $urlGenerator)
     {
         $this->clientManipulator = $clientManipulator;
         $this->doctrine = $doctrine;
+        $this->urlGenerator = $urlGenerator;
     }
             
     /**
@@ -37,7 +39,7 @@ class MatchMakingTopic implements TopicInterface
      * @return void
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
-    {
+    {          
         $user = $this->clientManipulator->getClient($connection);
         
         $subcribers = $this->clientManipulator->getAll($topic);
@@ -51,17 +53,7 @@ class MatchMakingTopic implements TopicInterface
             $playerTwoUserName = $playerTwo['client']->getUsername();
             
             if (false !== $playerOne && false !== $playerTwo) {
-                $topic->broadcast(
-                [
-                    'matchFound' => $playerOneUserName .'/'. $playerTwoUserName,
-                ],
-                array(),
-                array(
-                    $playerOne['connection']->WAMP->sessionId,
-                    $playerTwo['connection']->WAMP->sessionId
-                    )
-                );
-            
+              
                 
                 $playerOneDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerOne['client']->getUsername());
                 $playerTwoDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerTwo['client']->getUsername());
@@ -90,6 +82,21 @@ class MatchMakingTopic implements TopicInterface
                 $this->doctrine->getManager()->persist($playerInGameTwo);
 
                 $this->doctrine->getManager()->flush();
+
+                
+
+                $topic->broadcast(
+                    [
+                        'matchFound' => $this->urlGenerator->generate('game', ['id' =>  $game->getId()]),
+                    ],
+                    array(),
+                    array(
+                        $playerOne['connection']->WAMP->sessionId,
+                        $playerTwo['connection']->WAMP->sessionId
+                        )
+                    );
+                
+
 
            }
 
