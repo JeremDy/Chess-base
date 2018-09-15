@@ -1,5 +1,6 @@
 {
   "public/build/js/accueil.js": "/public/build/js/accueil.js",
   "public/build/js/accueil.css": "/public/build/js/accueil.css",
-  "public/build/js/room.js": "/public/build/js/room.js"
+  "public/build/js/room.js": "/public/build/js/room.js",
+  "public/build/js/room.css": "/public/build/js/room.css"
 }

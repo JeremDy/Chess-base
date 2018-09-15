@@ -1,15 +1,15 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-// import { Provider } from 'react-redux';
-// import store from './store';
+import { Provider } from 'react-redux';
+import store from './store';
 //import { connection } from './store/actions';
 import FullRoom from './components/FullRoom';
 
 const rootComponent = (
-//   <Provider store={store}>
+  <Provider store={store}>
     <FullRoom />
-//   </Provider>
+  </Provider>
 );
 
 render(rootComponent, document.getElementById('root'));

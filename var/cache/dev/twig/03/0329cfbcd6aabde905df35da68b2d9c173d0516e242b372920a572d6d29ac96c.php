@@ -72,6 +72,11 @@ class __TwigTemplate_d56c6c3d14172e8f2d75ebccfc8bcc833c0c7cf20c8c9401a6d0730241f
 
         // line 6
         echo "<script type=\"text/javascript\">  const GAME_CHANEL = 'id/player1/player2';</script>
+<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.3.1/css/all.css\" integrity=\"sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU\" crossorigin=\"anonymous\">
+<link href=\"";
+        // line 8
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("build/js/room.css"), "html", null, true);
+        echo "\" rel=\"stylesheet\" type=\"text/css\">
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -81,7 +86,7 @@ class __TwigTemplate_d56c6c3d14172e8f2d75ebccfc8bcc833c0c7cf20c8c9401a6d0730241f
 
     }
 
-    // line 9
+    // line 11
     public function block_body($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -90,7 +95,7 @@ class __TwigTemplate_d56c6c3d14172e8f2d75ebccfc8bcc833c0c7cf20c8c9401a6d0730241f
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
-        // line 10
+        // line 12
         echo "<h1>Page react ! youhooou</h1>
 <div id=\"root\"><div>
 ";
@@ -102,7 +107,7 @@ class __TwigTemplate_d56c6c3d14172e8f2d75ebccfc8bcc833c0c7cf20c8c9401a6d0730241f
 
     }
 
-    // line 14
+    // line 16
     public function block_javascripts($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -111,7 +116,7 @@ class __TwigTemplate_d56c6c3d14172e8f2d75ebccfc8bcc833c0c7cf20c8c9401a6d0730241f
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 15
+        // line 17
         echo " <script type=\"text/javascript\" src=\"";
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("build/js/room.js"), "html", null, true);
         echo "\"></script>
@@ -136,7 +141,7 @@ class __TwigTemplate_d56c6c3d14172e8f2d75ebccfc8bcc833c0c7cf20c8c9401a6d0730241f
 
     public function getDebugInfo()
     {
-        return array (  115 => 15,  106 => 14,  94 => 10,  85 => 9,  74 => 6,  65 => 5,  47 => 3,  15 => 1,);
+        return array (  120 => 17,  111 => 16,  99 => 12,  90 => 11,  78 => 8,  74 => 6,  65 => 5,  47 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -147,6 +152,8 @@ class __TwigTemplate_d56c6c3d14172e8f2d75ebccfc8bcc833c0c7cf20c8c9401a6d0730241f
 
 {% block headJs %}
 <script type=\"text/javascript\">  const GAME_CHANEL = 'id/player1/player2';</script>
+<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.3.1/css/all.css\" integrity=\"sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU\" crossorigin=\"anonymous\">
+<link href=\"{{ asset('build/js/room.css') }}\" rel=\"stylesheet\" type=\"text/css\">
 {% endblock %}
 
 {% block body %}

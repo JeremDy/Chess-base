@@ -7,8 +7,8 @@ import RoomNav from './RoomNav';
 const FullRoom = () => (
   <div id="FullRoom">
     <ChessBoard />
-    <Infos />
-    <RoomNav />
+    {/* <Infos />
+    <RoomNav /> */}
   </div>
 );
 
