@@ -10,7 +10,6 @@ use Gos\Bundle\WebSocketBundle\Client\ClientManipulatorInterface;
 
 class ChatTopic implements TopicInterface
 {
-    
     protected $clientManipulator;
 
     /**
@@ -65,6 +64,7 @@ class ChatTopic implements TopicInterface
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
+<<<<<<< HEAD
     
        
 
@@ -75,17 +75,25 @@ class ChatTopic implements TopicInterface
             if ($topic->getId() === 'acme/channel/shout')
      	       //shout something to all subs.
         */
+=======
+        $user = $this->clientManipulator->getClient($connection);
+        $receiverName = $event['receiver'];
+        $senderName = $user->getUsername();
+        
+>>>>>>> origin/chat
         if (!is_string($user)) {
-
             if ($topic->getId() === 'chat/global') {
                 $topic->broadcast([
-                    'sender' => $user->getUsername(),
-                    'message' => 'message public:'.$event['message'],
+                    'sender' => '[Global] ' . $senderName . ' :',
+                    'message' => $event['message'],
                 ]);
             }
             
             if ($topic->getId() === 'chat/private') {
+                $receiver = $this->clientManipulator->findByUsername($topic, $receiverName);
+                $sender = $this->clientManipulator->findByUsername($topic, $senderName);
 
+<<<<<<< HEAD
                 $receiver = $this->clientManipulator->findByUsername($topic, $event['receiver']);
              
             //TODO ne pas afficher si l'utilisateur à destination du mp n'est pas connecté
@@ -98,6 +106,37 @@ class ChatTopic implements TopicInterface
                     array(),
                     array($receiver['connection']->WAMP->sessionId)
                     );
+=======
+                                       
+                if (is_array($receiver)) {
+                    $topic->broadcast(
+                        [
+                            'sender' => '[MP envoyé à] '. $receiverName.' :' ,
+                            'message' => $event['message'],
+                        ],
+                        array(),
+                        array($sender['connection']->WAMP->sessionId)
+                    );
+                                
+                    $topic->broadcast(
+                        [
+                            'sender' => '[MP reçu de] '. $senderName. ' :',
+                            'message' => $event['message'],
+                        ],
+                        array(),
+                        array($receiver['connection']->WAMP->sessionId)
+                    );
+                } else {
+                    $topic->broadcast(
+                        [
+                        'sender' => 'Erreur :' ,
+                        'message' => 'Aucun utilisateur du nom de '.$receiverName. ' n\'est actuellement connecté.',
+                        ],
+                        array(),
+                        array($sender['connection']->WAMP->sessionId)
+                        );
+                }
+>>>>>>> origin/chat
             }
         }
     }
