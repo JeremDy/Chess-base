@@ -11,7 +11,8 @@ const initialState = {
     {'7/1': 'P0'}, {'7/2': 'P0'}, {'7/3': 'P0'}, {'7/4': 'P0'}, {'7/5': 'P0'}, {'7/6': 'P0'}, {'7/7': 'P0'}, {'7/8': 'P0'},
     {'8/1': 'T0'}, {'8/2': 'C0'}, {'8/3': 'F0'}, {'8/4': 'K0'}, {'8/5': 'Q0'}, {'8/6': 'F0'}, {'8/7': 'C0'}, {'8/8': 'T0'}
   ],
-  clickedCell: []
+  clickedCell: [],
+  authorizedCells: []
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -21,9 +22,53 @@ const reducer = (state = initialState, action = {}) => {
         ...state
       };
     case CELL_CLIC:
-      const cellClicked = `${action.row}/${action.column}`;
-      const itemClicked = `${action.item}${action.color}`;
-      const cell = {[cellClicked]: itemClicked};
+      const {item, row, column, color} = action;
+      const cell = {[`${row}/${column}`]: `${item}${color}`};
+      const clicN = Number(state.clickedCell.length) + 1;
+      
+      switch (clicN) {
+        case 1: // premier clic
+          console.log('clic 1');
+          switch (item) {
+            case 'P': // ----------------PION -----------------
+              console.log('Pion select');
+              let vector;
+              let iterator = 1; // valeur d'iteration des cases
+              let until;
+              (color === '1') ? vector = 1 : vector = (-1); // vecteur de direction selon noir ou blanc
+              (row === '7' || row === '2') ? until = 3 : until = 2; // si le pion est sur sa ligne de dpéart ou pas
+
+              while (state.board.find(cell => Object.keys(cell)[0] ===
+              `${Number(row) + Number(vector) * Number(iterator)}/${column}`)[`${Number(row) + Number(vector) * Number(iterator)}/${column}`] === 'E' & iterator < until) { // si case vide + iterator < until
+                iterator = iterator + 1;
+                state.authorizedCells.push(state.board.find(cell => Object.keys(cell)[0] ===
+                  `${Number(row) + Number(vector) * Number(iterator)}/${column}`));
+              };
+              console.log('state.authorizedCells :', state.authorizedCells);
+              break;
+            case 'T':
+            case 'C':
+            case 'F':
+            case 'Q':
+            case 'K':
+            case 'E':
+          }
+          return {
+            ...state,
+            clickedCell: [cell]
+          };
+        case 2: // deuxième clic
+        
+
+
+          return {
+            ...state,
+            clickedCell: []
+          };
+        default:
+      }
+
+
     //    console.log(state.clickedCell.length);
       return {
         ...state,
