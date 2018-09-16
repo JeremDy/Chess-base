@@ -1,5 +1,5 @@
 import React from 'react';
-import Cell from './Cell';
+import Cell from '../../../../containers/Cell.js';
 import './board.sass';
 
 const Board = (board) => (
@@ -13,6 +13,7 @@ const Board = (board) => (
       />
     ))}
   </div>
+  
 );
 
 export default Board;

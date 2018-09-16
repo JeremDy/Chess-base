@@ -1,4 +1,4 @@
-import {} from './actions';
+import {CELL_CLIC, INITIAL_DISPLAY} from './actions';
 
 const initialState = {
   board: [
@@ -10,15 +10,25 @@ const initialState = {
     {'6/1': 'E'}, {'6/2': 'E'}, {'6/3': 'E'}, {'6/4': 'E'}, {'6/5': 'E'}, {'6/6': 'E'}, {'6/7': 'E'}, {'6/8': 'E'},
     {'7/1': 'P0'}, {'7/2': 'P0'}, {'7/3': 'P0'}, {'7/4': 'P0'}, {'7/5': 'P0'}, {'7/6': 'P0'}, {'7/7': 'P0'}, {'7/8': 'P0'},
     {'8/1': 'T0'}, {'8/2': 'C0'}, {'8/3': 'F0'}, {'8/4': 'K0'}, {'8/5': 'Q0'}, {'8/6': 'F0'}, {'8/7': 'C0'}, {'8/8': 'T0'}
-  ]
+  ],
+  clickedCell: []
 };
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    // case WEBSOCKET_CONNECT:
-    //   return {
-    //     ...state
-    //   };
+    case INITIAL_DISPLAY:
+      return {
+        ...state
+      };
+    case CELL_CLIC:
+      const cellClicked = `${action.row}/${action.column}`;
+      const itemClicked = `${action.item}${action.color}`;
+      const cell = {[cellClicked]: itemClicked};
+    //   console.log(state.clickedCell.length);
+      return {
+        ...state,
+        clickedCell: [...state.clickedCell, cell]
+      };
     default:
       return state;
   }
