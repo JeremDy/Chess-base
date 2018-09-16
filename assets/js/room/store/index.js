@@ -14,6 +14,6 @@ const socketMiddleware = applyMiddleware(socket);
 const enhancers = compose(socketMiddleware, ...devTools);
 
 // Store, configuré avec le reducer et les "enhancers"
-const store = createStore(reducer,enhancers); //createStore(reducer, enhancers);
+const store = createStore(reducer, enhancers); //createStore(reducer, enhancers);
 
 export default store;
