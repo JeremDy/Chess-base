@@ -25,7 +25,6 @@ const reducer = (state = initialState, action = {}) => {
       const {item, row, column, color} = action;
       const cell = {[`${row}/${column}`]: `${item}${color}`};
       const clicN = Number(state.clickedCell.length) + 1;
-      
       switch (clicN) {
         case 1: // premier clic
           console.log('clic 1');
@@ -40,9 +39,9 @@ const reducer = (state = initialState, action = {}) => {
 
               while (state.board.find(cell => Object.keys(cell)[0] ===
               `${Number(row) + Number(vector) * Number(iterator)}/${column}`)[`${Number(row) + Number(vector) * Number(iterator)}/${column}`] === 'E' & iterator < until) { // si case vide + iterator < until
-                iterator = iterator + 1;
                 state.authorizedCells.push(state.board.find(cell => Object.keys(cell)[0] ===
-                  `${Number(row) + Number(vector) * Number(iterator)}/${column}`));
+                `${Number(row) + Number(vector) * Number(iterator)}/${column}`));
+                iterator = iterator + 1;
               };
               console.log('state.authorizedCells :', state.authorizedCells);
               break;
@@ -58,22 +57,22 @@ const reducer = (state = initialState, action = {}) => {
             clickedCell: [cell]
           };
         case 2: // deuxième clic
-        
-
-
+          console.log('clic 2');
+          let newBoard = [...state.board];
+          if (state.authorizedCells.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) {
+            const newItem = Object.values(state.clickedCell[0])[0];
+            newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem;
+            newBoard.find(cellToModify => Object.keys(state.clickedCell[0])[0] === Object.keys(cellToModify)[0])[Object.keys(state.clickedCell[0])[0]] = 'E';
+          } else {
+            console.log('case nok');
+          }
           return {
             ...state,
-            clickedCell: []
+            clickedCell: [],
+            board: newBoard
           };
         default:
       }
-
-
-    //    console.log(state.clickedCell.length);
-      return {
-        ...state,
-        clickedCell: [...state.clickedCell, cell]
-      };
     default:
       return state;
   }

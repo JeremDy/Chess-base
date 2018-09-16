@@ -2,10 +2,10 @@ import React from 'react';
 import Cell from '../../../../containers/Cell.js';
 import './board.sass';
 
-const Board = (board) => (
+const Board = ({board}) => (
   <div id='board'>
     {console.log(board)}
-    {board['board'].map(cell => (
+    {board.map(cell => (
       <Cell row={Object.keys(cell)[0][0]}
         column={Object.keys(cell)[0][2]}
         item={cell[Object.keys(cell)[0]][0]}
