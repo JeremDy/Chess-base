@@ -27,35 +27,41 @@ const reducer = (state = initialState, action = {}) => {
       const clicN = Number(state.clickedCell.length) + 1;
       switch (clicN) {
         case 1: // premier clic
-          console.log('clic 1');
-          switch (item) {
-            case 'P': // ----------------PION -----------------
-              console.log('Pion select');
-              let vector;
-              let iterator = 1; // valeur d'iteration des cases
-              let until;
-              (color === '1') ? vector = 1 : vector = (-1); // vecteur de direction selon noir ou blanc
-              (row === '7' || row === '2') ? until = 3 : until = 2; // si le pion est sur sa ligne de dpéart ou pas
-
-              while (state.board.find(cell => Object.keys(cell)[0] ===
-              `${Number(row) + Number(vector) * Number(iterator)}/${column}`)[`${Number(row) + Number(vector) * Number(iterator)}/${column}`] === 'E' & iterator < until) { // si case vide + iterator < until
-                state.authorizedCells.push(state.board.find(cell => Object.keys(cell)[0] ===
-                `${Number(row) + Number(vector) * Number(iterator)}/${column}`));
-                iterator = iterator + 1;
-              };
-              console.log('state.authorizedCells :', state.authorizedCells);
-              break;
-            case 'T':
-            case 'C':
-            case 'F':
-            case 'Q':
-            case 'K':
-            case 'E':
-          }
-          return {
-            ...state,
-            clickedCell: [cell]
+          if (item === 'E') { } else { // annule tout effet d'un clic sur une cellule vide
+            console.log('clic 1');
+            let newAuthorizedCells = [];
+            switch (item) {
+              case 'P': // ----------------PION -----------------
+                console.log('Pion select');
+                let vector;
+                let iterator = 1; // valeur d'iteration des cases
+                let until;
+                (color === '1') ? vector = 1 : vector = (-1); // vecteur de direction selon noir ou blanc
+                (row === '7' || row === '2') ? until = 3 : until = 2; // si le pion est sur sa ligne de dpéart ou pas
+                while (state.board.find(cell => Object.keys(cell)[0] ===
+                `${Number(row) + Number(vector) * Number(iterator)}/${column}`)[`${Number(row) + Number(vector) * Number(iterator)}/${column}`] === 'E' &
+                 iterator < until) { // si case vide + iterator < until
+                  newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] ===
+                  `${Number(row) + Number(vector) * Number(iterator)}/${column}`));
+                  iterator = iterator + 1;
+                };
+                console.log('state.authorizedCells :', state.authorizedCells);
+                break;
+              case 'T':
+              case 'C':
+              case 'F':
+              case 'Q':
+              case 'K':
+              case 'E':
+            }
+            return {
+              ...state,
+              clickedCell: [cell],
+              authorizedCells: newAuthorizedCells
+            };
           };
+          break;
+
         case 2: // deuxième clic
           console.log('clic 2');
           let newBoard = [...state.board];
@@ -71,8 +77,9 @@ const reducer = (state = initialState, action = {}) => {
             clickedCell: [],
             board: newBoard
           };
-        default:
       }
+      break; // END CASE CELL CLIC
+
     default:
       return state;
   }
