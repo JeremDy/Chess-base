@@ -24,7 +24,7 @@ const reducer = (state = initialState, action = {}) => {
       const cellClicked = `${action.row}/${action.column}`;
       const itemClicked = `${action.item}${action.color}`;
       const cell = {[cellClicked]: itemClicked};
-    //   console.log(state.clickedCell.length);
+    //    console.log(state.clickedCell.length);
       return {
         ...state,
         clickedCell: [...state.clickedCell, cell]
