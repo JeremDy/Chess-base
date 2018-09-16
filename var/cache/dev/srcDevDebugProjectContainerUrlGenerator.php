@@ -22,7 +22,6 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
             self::$declaredRoutes = array(
         'game' => array(array('id'), array('_controller' => 'App\\Controller\\GameController::index'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/game')), array(), array()),
         'home' => array(array(), array('_controller' => 'App\\Controller\\MainController::index'), array(), array(array('text', '/')), array(), array()),
-        'react' => array(array(), array('_controller' => 'App\\Controller\\MainController::react'), array(), array(array('text', '/react')), array(), array()),
         '_twig_error_test' => array(array('code', '_format'), array('_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'), array('code' => '\\d+'), array(array('variable', '.', '[^/]++', '_format'), array('variable', '/', '\\d+', 'code'), array('text', '/_error')), array(), array()),
         '_wdt' => array(array('token'), array('_controller' => 'web_profiler.controller.profiler::toolbarAction'), array(), array(array('variable', '/', '[^/]++', 'token'), array('text', '/_wdt')), array(), array()),
         '_profiler_home' => array(array(), array('_controller' => 'web_profiler.controller.profiler::homeAction'), array(), array(array('text', '/_profiler/')), array(), array()),

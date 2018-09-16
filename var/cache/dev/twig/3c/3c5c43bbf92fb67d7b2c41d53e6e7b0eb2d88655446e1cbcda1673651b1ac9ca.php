@@ -70,34 +70,15 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        echo " <form id=\"chat\" class=\"text-center mt-5\">
-            <select id=\"monselect\">
-                  <option value=\"public\">Public</option>
-                ";
-        // line 9
-        $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new Twig_Error_Runtime('Variable "users" does not exist.', 9, $this->source); })()));
-        foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
-            // line 10
-            echo "                    <option value=\"";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "username", array()), "html", null, true);
-            echo "\">";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "username", array()), "html", null, true);
-            echo "</option> 
-                ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 12
-        echo "            </select>
-            <input type=\"text\">
-            <button type=\"submit\">envoyer</button>
-</form>
+        echo "
+<div class=\"row mt-5\">
+    <div id=\"home-left\" class=\"col-md-5 offset-md-1 mb-4\">
+        <button class=\"btn btn-light mt-5 d-block mx-auto\" id=\"match-making\">Trouver une partie</button>
+        <button class=\"btn btn-light mt-5 d-block mx-auto mb-5\" id=\"match-making\">Inviter un joueur</button>
+    </div>
+    <div class=\"col-md-4 offset-md-1 text-center mb-5\" id=\"root\"><div>
+</div>
 
-<button id=\"match-making\">Trouver une partie !</button>
-
-<div id=\"root\"><div>
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -107,7 +88,7 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
 
     }
 
-    // line 24
+    // line 18
     public function block_javascripts($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -118,7 +99,7 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
 
         echo "           
  <script type=\"text/javascript\" src=\"";
-        // line 25
+        // line 19
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("build/js/accueil.js"), "html", null, true);
         echo "\"></script>
 ";
@@ -142,7 +123,7 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
 
     public function getDebugInfo()
     {
-        return array (  122 => 25,  111 => 24,  93 => 12,  82 => 10,  78 => 9,  73 => 6,  64 => 5,  46 => 3,  15 => 1,);
+        return array (  103 => 19,  92 => 18,  73 => 6,  64 => 5,  46 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -152,26 +133,23 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
 {% block title %}Home{% endblock %}
 
 {% block body %}
- <form id=\"chat\" class=\"text-center mt-5\">
-            <select id=\"monselect\">
-                  <option value=\"public\">Public</option>
-                {% for user in users %}
-                    <option value=\"{{user.username}}\">{{user.username}}</option> 
-                {% endfor %}
-            </select>
-            <input type=\"text\">
-            <button type=\"submit\">envoyer</button>
-</form>
 
-<button id=\"match-making\">Trouver une partie !</button>
+<div class=\"row mt-5\">
+    <div id=\"home-left\" class=\"col-md-5 offset-md-1 mb-4\">
+        <button class=\"btn btn-light mt-5 d-block mx-auto\" id=\"match-making\">Trouver une partie</button>
+        <button class=\"btn btn-light mt-5 d-block mx-auto mb-5\" id=\"match-making\">Inviter un joueur</button>
+    </div>
+    <div class=\"col-md-4 offset-md-1 text-center mb-5\" id=\"root\"><div>
+</div>
 
-<div id=\"root\"><div>
 {% endblock %}
 
-     
-            {# Cette ligne doit être en dernière pour que l'on dispose d'une écoute terminale #}
+
 {% block javascripts %}           
  <script type=\"text/javascript\" src=\"{{ asset('build/js/accueil.js') }}\"></script>
-{% endblock %}", "main/index.html.twig", "/var/www/html/chess3/Chess-base/templates/main/index.html.twig");
+{% endblock %}
+
+            {# Cette ligne doit être en dernière pour que l'on dispose d'une écoute terminale #}
+", "main/index.html.twig", "/var/www/html/chess3/Chess-base/templates/main/index.html.twig");
     }
 }

@@ -5631,15 +5631,13 @@
         <argument key="userRepository" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.jGBHztL" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.p4oWn1U" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\GameController::index" type="service" id=".service_locator.aMM1.kr"/>
         <argument key="App\Controller\MainController::index" type="service" id=".service_locator.pDN53fn"/>
-        <argument key="App\Controller\MainController::react" type="service" id=".service_locator.pDN53fn"/>
         <argument key="App\Controller\GameController:index" type="service" id=".service_locator.aMM1.kr"/>
         <argument key="App\Controller\MainController:index" type="service" id=".service_locator.pDN53fn"/>
-        <argument key="App\Controller\MainController:react" type="service" id=".service_locator.pDN53fn"/>
       </argument>
     </service>
     <service id=".service_locator.yQVjGlt" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5959,7 +5957,7 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.jGBHztL"/>
+      <argument type="service" id=".service_locator.p4oWn1U"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
@@ -6424,7 +6422,7 @@
     <service id="fos_user.mailer" alias="fos_user.mailer.default"/>
     <service id="fos_user.session" alias="session" public="false"/>
     <service id="gos_web_socket.session_handler" alias="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.jGBHztL"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.p4oWn1U"/>
     <service id="Symfony\Component\Templating\EngineInterface" alias="templating.engine.delegating" public="false"/>
     <service id="Symfony\Bundle\FrameworkBundle\Templating\EngineInterface" alias="templating.engine.delegating" public="false"/>
     <service id="twig.loader" alias="twig.loader.filesystem"/>

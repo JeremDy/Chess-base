@@ -174,7 +174,6 @@ class __TwigTemplate_5eb55f47df8d397f7b024e87ba4ecb31131b48ed0b7fed64a7de8df772c
 
 {% block javascripts %}
  <script type=\"text/javascript\" src=\"{{ asset('build/js/room.js') }}\"></script>
-{% endblock %}
-", "game/index.html.twig", "/var/www/html/chess3/Chess-base/templates/game/index.html.twig");
+{% endblock %}", "game/index.html.twig", "/var/www/html/chess3/Chess-base/templates/game/index.html.twig");
     }
 }

@@ -3,24 +3,20 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
- <form id="chat" class="text-center mt-5">
-            <select id="monselect">
-                  <option value="public">Public</option>
-                {% for user in users %}
-                    <option value="{{user.username}}">{{user.username}}</option> 
-                {% endfor %}
-            </select>
-            <input type="text">
-            <button type="submit">envoyer</button>
-</form>
 
-<button id="match-making">Trouver une partie !</button>
+<div class="row mt-5">
+    <div id="home-left" class="col-md-5 offset-md-1 mb-4">
+        <button class="btn btn-light mt-5 d-block mx-auto" id="match-making">Trouver une partie</button>
+        <button class="btn btn-light mt-5 d-block mx-auto mb-5" id="match-making">Inviter un joueur</button>
+    </div>
+    <div class="col-md-4 offset-md-1 text-center mb-5" id="root"><div>
+</div>
 
-<div id="root"><div>
 {% endblock %}
 
-     
-            {# Cette ligne doit être en dernière pour que l'on dispose d'une écoute terminale #}
+
 {% block javascripts %}           
  <script type="text/javascript" src="{{ asset('build/js/accueil.js') }}"></script>
 {% endblock %}
+
+            {# Cette ligne doit être en dernière pour que l'on dispose d'une écoute terminale #}
