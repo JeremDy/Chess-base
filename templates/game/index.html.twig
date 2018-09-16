@@ -3,14 +3,14 @@
 {% block title %}{% endblock %}
 
 {% block headJs %}
-<script type="text/javascript">  const GAME_CHANEL = 'game/{{ game.id }}/{{ game.players[0].player.username}}/{{ game.players[1].player.username}}';</script>
+<script type="text/javascript">  const GAME_CHANEL = 'game/{{ game.id }}/{{ game.playerOne.username}}/{{ game.playerTwo.username}}';</script>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link href="{{ asset('build/js/room.css') }}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block body %}
-<h1 class ="text-center mb-5">{{ game.players[0].player.username}} vs {{ game.players[1].player.username}} </h1>
+<h1 class ="text-center mb-5">{{ game.playerOne.username}} vs {{ game.playerTwo.username}} </h1>
 <div id="root"><div>
 {% endblock %}
 

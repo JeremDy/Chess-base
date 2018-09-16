@@ -73,9 +73,9 @@ class __TwigTemplate_5eb55f47df8d397f7b024e87ba4ecb31131b48ed0b7fed64a7de8df772c
         echo "<script type=\"text/javascript\">  const GAME_CHANEL = 'game/";
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 6, $this->source); })()), "id", array()), "html", null, true);
         echo "/";
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 6, $this->source); })()), "players", array()), 0, array(), "array"), "player", array()), "username", array()), "html", null, true);
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 6, $this->source); })()), "playerOne", array()), "username", array()), "html", null, true);
         echo "/";
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 6, $this->source); })()), "players", array()), 1, array(), "array"), "player", array()), "username", array()), "html", null, true);
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 6, $this->source); })()), "playerTwo", array()), "username", array()), "html", null, true);
         echo "';</script>
 
 <link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.3.1/css/all.css\" integrity=\"sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU\" crossorigin=\"anonymous\">
@@ -103,9 +103,9 @@ class __TwigTemplate_5eb55f47df8d397f7b024e87ba4ecb31131b48ed0b7fed64a7de8df772c
 
         // line 13
         echo "<h1 class =\"text-center mb-5\">";
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 13, $this->source); })()), "players", array()), 0, array(), "array"), "player", array()), "username", array()), "html", null, true);
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 13, $this->source); })()), "playerOne", array()), "username", array()), "html", null, true);
         echo " vs ";
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 13, $this->source); })()), "players", array()), 1, array(), "array"), "player", array()), "username", array()), "html", null, true);
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 13, $this->source); })()), "playerTwo", array()), "username", array()), "html", null, true);
         echo " </h1>
 <div id=\"root\"><div>
 ";
@@ -161,14 +161,14 @@ class __TwigTemplate_5eb55f47df8d397f7b024e87ba4ecb31131b48ed0b7fed64a7de8df772c
 {% block title %}{% endblock %}
 
 {% block headJs %}
-<script type=\"text/javascript\">  const GAME_CHANEL = 'game/{{ game.id }}/{{ game.players[0].player.username}}/{{ game.players[1].player.username}}';</script>
+<script type=\"text/javascript\">  const GAME_CHANEL = 'game/{{ game.id }}/{{ game.playerOne.username}}/{{ game.playerTwo.username}}';</script>
 
 <link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.3.1/css/all.css\" integrity=\"sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU\" crossorigin=\"anonymous\">
 <link href=\"{{ asset('build/js/room.css') }}\" rel=\"stylesheet\" type=\"text/css\">
 {% endblock %}
 
 {% block body %}
-<h1 class =\"text-center mb-5\">{{ game.players[0].player.username}} vs {{ game.players[1].player.username}} </h1>
+<h1 class =\"text-center mb-5\">{{ game.playerOne.username}} vs {{ game.playerTwo.username}} </h1>
 <div id=\"root\"><div>
 {% endblock %}
 

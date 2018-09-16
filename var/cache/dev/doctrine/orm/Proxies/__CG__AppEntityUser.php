@@ -64,10 +64,10 @@ class User extends \App\Entity\User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'username', 'usernameCanonical', 'email', 'emailCanonical', 'enabled', 'salt', 'password', 'plainPassword', 'lastLogin', 'confirmationToken', 'passwordRequestedAt', 'groups', 'roles'];
+            return ['__isInitialized__', 'id', '' . "\0" . 'App\\Entity\\User' . "\0" . 'IsWhiteInGame', '' . "\0" . 'App\\Entity\\User' . "\0" . 'IsBlackInGame', 'username', 'usernameCanonical', 'email', 'emailCanonical', 'enabled', 'salt', 'password', 'plainPassword', 'lastLogin', 'confirmationToken', 'passwordRequestedAt', 'groups', 'roles'];
         }
 
-        return ['__isInitialized__', 'id', 'username', 'usernameCanonical', 'email', 'emailCanonical', 'enabled', 'salt', 'password', 'plainPassword', 'lastLogin', 'confirmationToken', 'passwordRequestedAt', 'groups', 'roles'];
+        return ['__isInitialized__', 'id', '' . "\0" . 'App\\Entity\\User' . "\0" . 'IsWhiteInGame', '' . "\0" . 'App\\Entity\\User' . "\0" . 'IsBlackInGame', 'username', 'usernameCanonical', 'email', 'emailCanonical', 'enabled', 'salt', 'password', 'plainPassword', 'lastLogin', 'confirmationToken', 'passwordRequestedAt', 'groups', 'roles'];
     }
 
     /**
@@ -186,6 +186,72 @@ class User extends \App\Entity\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIsWhiteInGame(): \Doctrine\Common\Collections\Collection
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIsWhiteInGame', []);
+
+        return parent::getIsWhiteInGame();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addIsWhiteInGame(\App\Entity\Game $isInGame): \App\Entity\User
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addIsWhiteInGame', [$isInGame]);
+
+        return parent::addIsWhiteInGame($isInGame);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeIsWhiteInGame(\App\Entity\Game $IsWhiteInGame): \App\Entity\User
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeIsWhiteInGame', [$IsWhiteInGame]);
+
+        return parent::removeIsWhiteInGame($IsWhiteInGame);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIsBlackInGame(): \Doctrine\Common\Collections\Collection
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIsBlackInGame', []);
+
+        return parent::getIsBlackInGame();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addIsBlackInGame(\App\Entity\Game $isBlackInGame): \App\Entity\User
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addIsBlackInGame', [$isBlackInGame]);
+
+        return parent::addIsBlackInGame($isBlackInGame);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeIsBlackInGame(\App\Entity\Game $isBlackInGame): \App\Entity\User
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeIsBlackInGame', [$isBlackInGame]);
+
+        return parent::removeIsBlackInGame($isBlackInGame);
     }
 
     /**

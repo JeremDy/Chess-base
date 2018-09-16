@@ -76,7 +76,7 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
         <button class=\"btn btn-light mt-5 d-block mx-auto\" id=\"match-making\">Trouver une partie</button>
         <button class=\"btn btn-light mt-5 d-block mx-auto mb-5\" id=\"match-making\">Inviter un joueur</button>
     </div>
-    <div class=\"col-md-4 offset-md-1 text-center mb-5\" id=\"root\"><div>
+    <div class=\"col-md-4 offset-md-1 mb-5\" id=\"root\"><div>
 </div>
 
 ";
@@ -139,7 +139,7 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
         <button class=\"btn btn-light mt-5 d-block mx-auto\" id=\"match-making\">Trouver une partie</button>
         <button class=\"btn btn-light mt-5 d-block mx-auto mb-5\" id=\"match-making\">Inviter un joueur</button>
     </div>
-    <div class=\"col-md-4 offset-md-1 text-center mb-5\" id=\"root\"><div>
+    <div class=\"col-md-4 offset-md-1 mb-5\" id=\"root\"><div>
 </div>
 
 {% endblock %}
