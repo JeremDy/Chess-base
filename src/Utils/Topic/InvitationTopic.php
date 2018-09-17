@@ -74,7 +74,6 @@ class InvitationTopic implements TopicInterface
         if (is_object($user)) {
            
             if ($topic->getId() === 'invitation') {
-                
                 $receiverName = $event['receiver'];
                 $senderName = $user->getUsername();
     
@@ -92,6 +91,26 @@ class InvitationTopic implements TopicInterface
                         array(),
                         array($receiver['connection']->WAMP->sessionId)
                     );
+
+                    $topic->broadcast(
+                        [
+                            'receiver' => $receiverName,
+                            'type' => 'invitationSend',
+                            'message' => 'Invitation en cours : ' .$receiverName . ' n\'a pas encore répondu à votre invitation !',
+                        ],
+                        array(),
+                        array($sender['connection']->WAMP->sessionId)
+                        );
+
+                } else {
+                    $topic->broadcast(
+                        [
+                            'type' => 'error' ,
+                            'message' => 'Aucun utilisateur du nom de "'.$receiverName. '" n\'est actuellement disponible.',
+                        ],
+                        array(),
+                        array($sender['connection']->WAMP->sessionId)
+                        );
                 }
             }
             
@@ -142,24 +161,6 @@ class InvitationTopic implements TopicInterface
          }
     }
             
-            
-            /*
-            else{
-
-                $topic->broadcast(
-                    [
-                    'sender' => 'Erreur :' ,
-                    'message' => 'Aucun utilisateur du nom de '.$receiverName. ' n\'est actuellement connecté.',
-                    ],
-                    array(),
-                    array($sender['connection']->WAMP->sessionId)
-                    );
-
-            }    */ 
-        
-        
-    
-
     /**
     * Like RPC is will use to prefix the channel
     * @return string

@@ -104,10 +104,13 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
     <div id=\"home-left\" class=\"col-md-5 offset-md-1 mb-4\">
         <button class=\"btn btn-light mt-5 d-block mx-auto\" id=\"match-making\">Trouver une partie</button>
         
-        <form id=\"invitation\">
+        <form class=\"d-block text-center mt-4\" id=\"invitation\">
+            <h3> Inviter un joueur :</h3>
             <input type=\"text\">
-            <button type=\"submit\">inviter un joueur !</button>
+            <button class=\"mx-auto btn btn-light\" id=\"invitation-invite\" type=\"submit\">Inviter</button>
+            <button class=\"mx-auto btn btn-light d-none\" id=\"invitation-cancel\" type=\"button\">Annuler</button>
         </form>
+        
     </div>
     <div class=\"col-md-4 offset-md-1 mb-5\" id=\"root\"><div>
 </div>
@@ -121,7 +124,7 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
 
     }
 
-    // line 28
+    // line 31
     public function block_javascripts($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -132,7 +135,7 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
 
         echo "           
  <script type=\"text/javascript\" src=\"";
-        // line 29
+        // line 32
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("build/js/accueil.js"), "html", null, true);
         echo "\"></script>
 ";
@@ -156,7 +159,7 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
 
     public function getDebugInfo()
     {
-        return array (  136 => 29,  125 => 28,  100 => 11,  97 => 10,  88 => 9,  76 => 6,  65 => 5,  47 => 3,  15 => 1,);
+        return array (  139 => 32,  128 => 31,  100 => 11,  97 => 10,  88 => 9,  76 => 6,  65 => 5,  47 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -177,10 +180,13 @@ class __TwigTemplate_ecfd37dbaf0bd59afffd0ad2ae041419cb7b07f67922039ed77cb66f8fc
     <div id=\"home-left\" class=\"col-md-5 offset-md-1 mb-4\">
         <button class=\"btn btn-light mt-5 d-block mx-auto\" id=\"match-making\">Trouver une partie</button>
         
-        <form id=\"invitation\">
+        <form class=\"d-block text-center mt-4\" id=\"invitation\">
+            <h3> Inviter un joueur :</h3>
             <input type=\"text\">
-            <button type=\"submit\">inviter un joueur !</button>
+            <button class=\"mx-auto btn btn-light\" id=\"invitation-invite\" type=\"submit\">Inviter</button>
+            <button class=\"mx-auto btn btn-light d-none\" id=\"invitation-cancel\" type=\"button\">Annuler</button>
         </form>
+        
     </div>
     <div class=\"col-md-4 offset-md-1 mb-5\" id=\"root\"><div>
 </div>
