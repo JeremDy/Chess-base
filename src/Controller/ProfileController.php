@@ -21,6 +21,8 @@ class ProfileController extends Controller
     /**
      * @Route("/show/{id}", name="profileShow")
      */
+    // La route ne peut pas être /profile/{id} car elle entrerait en conflit avec l'edit, la route /profile est toujours disponible pour accéder à son propre profil.
+
     public function ShowProfile($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -38,7 +40,9 @@ class ProfileController extends Controller
         ));
     }
 
-        /**
+
+
+    /**
      * Edit the user.
      *
      * @param Request $request

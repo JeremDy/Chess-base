@@ -1,11 +1,12 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div class="fos_user_user_show">
-    <p>Dernière Connexion le {{ user.lastLogin|date('d-m-Y') }}</p>
+    <p>Dernière Connexion le {{ user.lastLogin|date('d-m-Y à H:i') }}</p>
     <hr/>
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
     {% if user == app.user %}
+    {# Permet de vérifier si l'utilisateur est bien sur sa propre page de profil #}
     <a class="badge badge-primary" href="{{ path('fos_user_profile_edit') }}">Modifier</a>
     {% endif %}
 </div>

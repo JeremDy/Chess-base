@@ -30,7 +30,7 @@ class __TwigTemplate_03861decea96c4fe9ada4503c513af28ffd56c4727777f1778e01501c57
 <div class=\"fos_user_user_show\">
     <p>Dernière Connexion le ";
         // line 4
-        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 4, $this->source); })()), "lastLogin", array()), "d-m-Y"), "html", null, true);
+        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 4, $this->source); })()), "lastLogin", array()), "d-m-Y à H:i"), "html", null, true);
         echo "</p>
     <hr/>
     <p>";
@@ -49,12 +49,14 @@ class __TwigTemplate_03861decea96c4fe9ada4503c513af28ffd56c4727777f1778e01501c57
         // line 8
         if (((isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 8, $this->source); })()) == twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 8, $this->source); })()), "user", array()))) {
             // line 9
+            echo "    ";
+            // line 10
             echo "    <a class=\"badge badge-primary\" href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("fos_user_profile_edit");
             echo "\">Modifier</a>
     ";
         }
-        // line 11
+        // line 12
         echo "</div>
 ";
         
@@ -77,7 +79,7 @@ class __TwigTemplate_03861decea96c4fe9ada4503c513af28ffd56c4727777f1778e01501c57
 
     public function getDebugInfo()
     {
-        return array (  58 => 11,  52 => 9,  50 => 8,  44 => 7,  38 => 6,  33 => 4,  29 => 2,);
+        return array (  60 => 12,  54 => 10,  52 => 9,  50 => 8,  44 => 7,  38 => 6,  33 => 4,  29 => 2,);
     }
 
     public function getSourceContext()
@@ -85,11 +87,12 @@ class __TwigTemplate_03861decea96c4fe9ada4503c513af28ffd56c4727777f1778e01501c57
         return new Twig_Source("{% trans_default_domain 'FOSUserBundle' %}
 
 <div class=\"fos_user_user_show\">
-    <p>Dernière Connexion le {{ user.lastLogin|date('d-m-Y') }}</p>
+    <p>Dernière Connexion le {{ user.lastLogin|date('d-m-Y à H:i') }}</p>
     <hr/>
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
     {% if user == app.user %}
+    {# Permet de vérifier si l'utilisateur est bien sur sa propre page de profil #}
     <a class=\"badge badge-primary\" href=\"{{ path('fos_user_profile_edit') }}\">Modifier</a>
     {% endif %}
 </div>
