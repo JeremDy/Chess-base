@@ -44,8 +44,18 @@ class __TwigTemplate_03861decea96c4fe9ada4503c513af28ffd56c4727777f1778e01501c57
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("profile.show.email", array(), "FOSUserBundle"), "html", null, true);
         echo ": ";
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 7, $this->source); })()), "email", array()), "html", null, true);
-        echo "</p>    
-</div>
+        echo "</p>
+    ";
+        // line 8
+        if (((isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 8, $this->source); })()) == twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 8, $this->source); })()), "user", array()))) {
+            // line 9
+            echo "    <a class=\"badge badge-primary\" href=\"";
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("fos_user_profile_edit");
+            echo "\">Modifier</a>
+    ";
+        }
+        // line 11
+        echo "</div>
 ";
         
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->leave($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof);
@@ -67,7 +77,7 @@ class __TwigTemplate_03861decea96c4fe9ada4503c513af28ffd56c4727777f1778e01501c57
 
     public function getDebugInfo()
     {
-        return array (  44 => 7,  38 => 6,  33 => 4,  29 => 2,);
+        return array (  58 => 11,  52 => 9,  50 => 8,  44 => 7,  38 => 6,  33 => 4,  29 => 2,);
     }
 
     public function getSourceContext()
@@ -78,7 +88,10 @@ class __TwigTemplate_03861decea96c4fe9ada4503c513af28ffd56c4727777f1778e01501c57
     <p>Dernière Connexion le {{ user.lastLogin|date('d-m-Y') }}</p>
     <hr/>
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>    
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    {% if user == app.user %}
+    <a class=\"badge badge-primary\" href=\"{{ path('fos_user_profile_edit') }}\">Modifier</a>
+    {% endif %}
 </div>
 ", "@FOSUser/Profile/show_content.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Profile/show_content.html.twig");
     }

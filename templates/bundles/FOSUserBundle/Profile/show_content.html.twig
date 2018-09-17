@@ -4,5 +4,8 @@
     <p>Dernière Connexion le {{ user.lastLogin|date('d-m-Y') }}</p>
     <hr/>
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>    
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    {% if user == app.user %}
+    <a class="badge badge-primary" href="{{ path('fos_user_profile_edit') }}">Modifier</a>
+    {% endif %}
 </div>
