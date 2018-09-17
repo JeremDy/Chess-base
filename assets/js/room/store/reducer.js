@@ -12,18 +12,37 @@ const initialState = {
     {'8/1': 'T0'}, {'8/2': 'C0'}, {'8/3': 'F0'}, {'8/4': 'K0'}, {'8/5': 'Q0'}, {'8/6': 'F0'}, {'8/7': 'C0'}, {'8/8': 'T0'}
   ],
   clickedCell: [],
-  authorizedCells: []
+  authorizedCells: [],
+  channel: ''
 };
 
 const reducer = (state = initialState, action = {}) => {
+  let webSocket;
   switch (action.type) {
     case INITIAL_DISPLAY:
+      const channel = action.channel;
+      console.log('connect to channel:', channel);
+      webSocket = WS.connect('ws://127.0.0.1:8080'); //ws://127.0.0.1:8080
+      webSocket.on('socket/connect', function(session) {
+        console.log('connect to :' + channel);
+        session.subscribe(channel, function(uri, payload) {
+          console.log('payload received:', payload);
+        //   store.dispatch(receiveMessage(message));
+        });
+      });
       return {
-        ...state
+        ...state,
+        channel: action.channel
       };
+
     case CELL_CLIC:
       const {item, row, column, color} = action;
-      const cell = {[`${row}/${column}`]: `${item}${color}`};
+      let cell;
+      if (color != undefined) {
+        cell = {[`${row}/${column}`]: `${item}${color}`};
+      } else {
+        cell = {[`${row}/${column}`]: `${item}`};   
+      }
       const clicN = Number(state.clickedCell.length) + 1;
       switch (clicN) {
         case 1: // premier clic
@@ -65,6 +84,7 @@ const reducer = (state = initialState, action = {}) => {
         case 2: // deuxième clic
           console.log('clic 2');
           let newBoard = [...state.board];
+          let movements = [cell, state.clickedCell[0]];
           if (state.authorizedCells.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) {
             const newItem = Object.values(state.clickedCell[0])[0];
             newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem;
@@ -72,6 +92,12 @@ const reducer = (state = initialState, action = {}) => {
           } else {
             console.log('case nok');
           }
+
+          webSocket = WS.connect('ws://127.0.0.1:8080');
+          webSocket.on('socket/connect', function(session) {
+            session.publish(state.channel, movements);
+            console.log('movements', [...movements]);
+          });
           return {
             ...state,
             clickedCell: [],

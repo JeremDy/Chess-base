@@ -16,7 +16,7 @@ match_making:
         callback: 'matchmaking.topic'
 
 game:
-    channel: game/{id}/{playerOne}/{playerTwo}
+    channel: game/{gameId}/{playerOne}/{playerTwo}
     handler:
         callback: 'game.topic'
     requirements:

@@ -11,5 +11,6 @@ export const handleClickOnCell = (item, color, row, column) => ({
 export const INITIAL_DISPLAY = 'actions/INITIAL_DISPLAY';
 
 export const initialDisplay = () => ({
-  type: INITIAL_DISPLAY
+  type: INITIAL_DISPLAY,
+  channel: GAME_CHANEL
 });
