@@ -49,6 +49,12 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         'fos_user_resetting_check_email' => array(array(), array('_controller' => 'fos_user.resetting.controller:checkEmailAction'), array(), array(array('text', '/resetting/check-email')), array(), array()),
         'fos_user_resetting_reset' => array(array('token'), array('_controller' => 'fos_user.resetting.controller:resetAction'), array(), array(array('variable', '/', '[^/]++', 'token'), array('text', '/resetting/reset')), array(), array()),
         'fos_user_change_password' => array(array(), array('_controller' => 'fos_user.change_password.controller:changePasswordAction'), array(), array(array('text', '/profile/change-password')), array(), array()),
+        'hwi_oauth_connect' => array(array(), array('_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::connectAction'), array(), array(array('text', '/login/')), array(), array()),
+        'hwi_oauth_connect_service' => array(array('service'), array('_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::connectServiceAction'), array(), array(array('variable', '/', '[^/]++', 'service'), array('text', '/login/service')), array(), array()),
+        'hwi_oauth_connect_registration' => array(array('key'), array('_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::registrationAction'), array(), array(array('variable', '/', '[^/]++', 'key'), array('text', '/login/registration')), array(), array()),
+        'hwi_oauth_service_redirect' => array(array('service'), array('_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::redirectToServiceAction'), array(), array(array('variable', '/', '[^/]++', 'service'), array('text', '/login')), array(), array()),
+        'facebook_login' => array(array(), array(), array(), array(array('text', '/login/check-facebook')), array(), array()),
+        'google_login' => array(array(), array(), array(), array(array('text', '/login/check-google')), array(), array()),
     );
         }
     }

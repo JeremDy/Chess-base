@@ -82,6 +82,7 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                     '/resetting/send-email' => array(array('_route' => 'fos_user_resetting_send_email', '_controller' => 'fos_user.resetting.controller:sendEmailAction'), null, array('POST' => 0), null),
                     '/resetting/check-email' => array(array('_route' => 'fos_user_resetting_check_email', '_controller' => 'fos_user.resetting.controller:checkEmailAction'), null, array('GET' => 0), null),
                     '/profile/change-password' => array(array('_route' => 'fos_user_change_password', '_controller' => 'fos_user.change_password.controller:changePasswordAction'), null, array('GET' => 0, 'POST' => 1), null),
+                    '/login/' => array(array('_route' => 'hwi_oauth_connect', '_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::connectAction'), null, null, null),
                 );
 
                 if (!isset($routes[$pathinfo])) {
@@ -128,6 +129,15 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                         .'|gister/confirm/([^/]++)(*:240)'
                         .'|setting/reset/([^/]++)(*:270)'
                     .')'
+                    .'|/login/(?'
+                        .'|service/([^/]++)(*:305)'
+                        .'|registration/([^/]++)(*:334)'
+                        .'|([^/]++)(*:350)'
+                        .'|check\\-(?'
+                            .'|facebook(*:376)'
+                            .'|google(*:390)'
+                        .')'
+                    .')'
                 .')$}sD',
         );
 
@@ -147,6 +157,11 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                             201 => array(array('_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'), array('token'), null, null),
                             240 => array(array('_route' => 'fos_user_registration_confirm', '_controller' => 'fos_user.registration.controller:confirmAction'), array('token'), array('GET' => 0), null),
                             270 => array(array('_route' => 'fos_user_resetting_reset', '_controller' => 'fos_user.resetting.controller:resetAction'), array('token'), array('GET' => 0, 'POST' => 1), null),
+                            305 => array(array('_route' => 'hwi_oauth_connect_service', '_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::connectServiceAction'), array('service'), null, null),
+                            334 => array(array('_route' => 'hwi_oauth_connect_registration', '_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::registrationAction'), array('key'), null, null),
+                            350 => array(array('_route' => 'hwi_oauth_service_redirect', '_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::redirectToServiceAction'), array('service'), null, null),
+                            376 => array(array('_route' => 'facebook_login'), array(), null, null),
+                            390 => array(array('_route' => 'google_login'), array(), null, null),
                         );
 
                         list($ret, $vars, $requiredMethods, $requiredSchemes) = $routes[$m];
@@ -172,7 +187,7 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                         return $ret;
                 }
 
-                if (270 === $m) {
+                if (390 === $m) {
                     break;
                 }
                 $regex = substr_replace($regex, 'F', $m - $offset, 1 + strlen($m));

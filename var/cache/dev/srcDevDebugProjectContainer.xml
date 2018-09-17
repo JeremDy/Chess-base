@@ -25,6 +25,8 @@
       <parameter key="FOSUserBundle">FOS\UserBundle\FOSUserBundle</parameter>
       <parameter key="GosPubSubRouterBundle">Gos\Bundle\PubSubRouterBundle\GosPubSubRouterBundle</parameter>
       <parameter key="GosWebSocketBundle">Gos\Bundle\WebSocketBundle\GosWebSocketBundle</parameter>
+      <parameter key="HWIOAuthBundle">HWI\Bundle\OAuthBundle\HWIOAuthBundle</parameter>
+      <parameter key="HttplugBundle">Http\HttplugBundle\HttplugBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -91,6 +93,14 @@
         <parameter key="path">/var/www/html/Chess-base/vendor/gos/web-socket-bundle</parameter>
         <parameter key="namespace">Gos\Bundle\WebSocketBundle</parameter>
       </parameter>
+      <parameter key="HWIOAuthBundle" type="collection">
+        <parameter key="path">/var/www/html/Chess-base/vendor/hwi/oauth-bundle</parameter>
+        <parameter key="namespace">HWI\Bundle\OAuthBundle</parameter>
+      </parameter>
+      <parameter key="HttplugBundle" type="collection">
+        <parameter key="path">/var/www/html/Chess-base/vendor/php-http/httplug-bundle</parameter>
+        <parameter key="namespace">Http\HttplugBundle</parameter>
+      </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">srcDevDebugProjectContainer</parameter>
@@ -98,6 +108,7 @@
     <parameter key="container.dumper.inline_class_loader">true</parameter>
     <parameter key="env(DATABASE_URL)"></parameter>
     <parameter key="locale">fr</parameter>
+    <parameter key="my_user_provider.class">App\Utils\FOSUBUserProvider</parameter>
     <parameter key="fragment.renderer.hinclude.global_template">null</parameter>
     <parameter key="fragment.path">/_fragment</parameter>
     <parameter key="kernel.secret">%env(APP_SECRET)%</parameter>
@@ -275,6 +286,10 @@
     <parameter key="security.authentication.session_strategy.strategy">migrate</parameter>
     <parameter key="security.access.always_authenticate_before_granting">false</parameter>
     <parameter key="security.authentication.hide_user_not_found">true</parameter>
+    <parameter key="hwi_oauth.resource_ownermap.configured.main" type="collection">
+      <parameter key="facebook">/login/check-facebook</parameter>
+      <parameter key="google">/login/check-google</parameter>
+    </parameter>
     <parameter key="swiftmailer.mailer.default.transport.name">dynamic</parameter>
     <parameter key="swiftmailer.spool.default.memory.path">/var/www/html/Chess-base/var/cache/dev/swiftmailer/spool/default</parameter>
     <parameter key="swiftmailer.mailer.default.spool.enabled">true</parameter>
@@ -371,6 +386,96 @@
     <parameter key="gos_web_socket.firewall" type="collection">
       <parameter>main</parameter>
     </parameter>
+    <parameter key="hwi_oauth.authentication.listener.oauth.class">HWI\Bundle\OAuthBundle\Security\Http\Firewall\OAuthListener</parameter>
+    <parameter key="hwi_oauth.authentication.provider.oauth.class">HWI\Bundle\OAuthBundle\Security\Core\Authentication\Provider\OAuthProvider</parameter>
+    <parameter key="hwi_oauth.authentication.entry_point.oauth.class">HWI\Bundle\OAuthBundle\Security\Http\EntryPoint\OAuthEntryPoint</parameter>
+    <parameter key="hwi_oauth.user.provider.class">HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider</parameter>
+    <parameter key="hwi_oauth.user.provider.entity.class">HWI\Bundle\OAuthBundle\Security\Core\User\EntityUserProvider</parameter>
+    <parameter key="hwi_oauth.user.provider.fosub_bridge.class">HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider</parameter>
+    <parameter key="hwi_oauth.registration.form.handler.fosub_bridge.class">HWI\Bundle\OAuthBundle\Form\FOSUBRegistrationFormHandler</parameter>
+    <parameter key="hwi_oauth.resource_owner.oauth1.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GenericOAuth1ResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.oauth2.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GenericOAuth2ResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.amazon.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\AmazonResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.asana.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\AsanaResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.auth0.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\Auth0ResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.azure.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\AzureResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.bitbucket.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\BitbucketResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.bitbucket2.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\Bitbucket2ResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.bitly.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\BitlyResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.box.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\BoxResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.bufferapp.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\BufferAppResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.clever.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\CleverResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.dailymotion.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\DailymotionResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.deviantart.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\DeviantartResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.deezer.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\DeezerResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.discogs.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\DiscogsResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.disqus.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\DisqusResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.dropbox.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\DropboxResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.eve_online.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\EveOnlineResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.eventbrite.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\EventbriteResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.facebook.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\FacebookResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.fiware.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\FiwareResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.flickr.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\FlickrResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.foursquare.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\FoursquareResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.github.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GitHubResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.gitlab.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GitLabResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.google.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GoogleResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.youtube.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\YoutubeResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.hubic.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\HubicResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.instagram.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\InstagramResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.jawbone.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\JawboneResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.jira.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\JiraResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.linkedin.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\LinkedinResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.mailru.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\MailRuResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.office365.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\Office365ResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.paypal.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\PaypalResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.qq.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\QQResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.reddit.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\RedditResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.runkeeper.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\RunKeeperResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.salesforce.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\SalesforceResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.sensio_connect.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\SensioConnectResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.sina_weibo.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\SinaWeiboResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.slack.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\SlackResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.spotify.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\SpotifyResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.soundcloud.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\SoundcloudResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.stack_exchange.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\StackExchangeResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.stereomood.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\StereomoodResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.strava.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\StravaResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.toshl.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\ToshlResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.trakt.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TraktResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.trello.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TrelloResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.twitch.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TwitchResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.twitter.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TwitterResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.vkontakte.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\VkontakteResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.windows_live.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\WindowsLiveResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.wordpress.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\WordpressResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.wunderlist.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\WunderlistResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.xing.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\XingResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.yahoo.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\YahooResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.yandex.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\YandexResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.odnoklassniki.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\OdnoklassnikiResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.37signals.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\ThirtySevenSignalsResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_owner.itembase.class">HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\ItembaseResourceOwner</parameter>
+    <parameter key="hwi_oauth.resource_ownermap.class">HWI\Bundle\OAuthBundle\Security\Http\ResourceOwnerMap</parameter>
+    <parameter key="hwi_oauth.security.oauth_utils.class">HWI\Bundle\OAuthBundle\Security\OAuthUtils</parameter>
+    <parameter key="hwi_oauth.storage.session.class">HWI\Bundle\OAuthBundle\OAuth\RequestDataStorage\SessionStorage</parameter>
+    <parameter key="hwi_oauth.templating.helper.oauth.class">HWI\Bundle\OAuthBundle\Templating\Helper\OAuthHelper</parameter>
+    <parameter key="hwi_oauth.twig.extension.oauth.class">HWI\Bundle\OAuthBundle\Twig\Extension\OAuthExtension</parameter>
+    <parameter key="hwi_oauth.firewall_names" type="collection">
+      <parameter>main</parameter>
+    </parameter>
+    <parameter key="hwi_oauth.target_path_parameter">null</parameter>
+    <parameter key="hwi_oauth.use_referer">false</parameter>
+    <parameter key="hwi_oauth.failed_use_referer">false</parameter>
+    <parameter key="hwi_oauth.failed_auth_path">hwi_oauth_connect</parameter>
+    <parameter key="hwi_oauth.grant_rule">IS_AUTHENTICATED_REMEMBERED</parameter>
+    <parameter key="hwi_oauth.resource_owners" type="collection">
+      <parameter key="facebook">facebook</parameter>
+      <parameter key="google">google</parameter>
+    </parameter>
+    <parameter key="hwi_oauth.connect">true</parameter>
+    <parameter key="hwi_oauth.fosub_enabled">true</parameter>
+    <parameter key="hwi_oauth.connect.confirmation">true</parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
         <parameter>request</parameter>
@@ -440,6 +545,10 @@
         <parameter>dump</parameter>
         <parameter>@Debug/Profiler/dump.html.twig</parameter>
       </parameter>
+      <parameter key="httplug.collector.collector" type="collection">
+        <parameter>httplug</parameter>
+        <parameter>@Httplug/webprofiler.html.twig</parameter>
+      </parameter>
       <parameter key="gos_web_socket.data_collector" type="collection">
         <parameter>websocket</parameter>
         <parameter>@GosWebSocket/Collector/websocket.html.twig</parameter>
@@ -470,6 +579,15 @@
     <service id="service_container" class="Symfony\Component\DependencyInjection\ContainerInterface" public="true" synthetic="true"/>
     <service id="EasyCorp\EasyLog\EasyLogHandler" class="EasyCorp\EasyLog\EasyLogHandler" public="false">
       <argument>/var/www/html/Chess-base/var/log/dev.log</argument>
+    </service>
+    <service id="my_user_provider" class="App\Utils\FOSUBUserProvider" public="true" autowire="true" autoconfigure="true">
+      <argument type="service" id="fos_user.user_manager.default"/>
+      <argument type="collection">
+        <argument type="collection">
+          <argument key="facebook">facebook_id</argument>
+          <argument key="google">google_id</argument>
+        </argument>
+      </argument>
     </service>
     <service id="App\Controller\GameController" class="App\Controller\GameController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
@@ -508,6 +626,7 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Utils\FOSUBUserProvider" class="App\Utils\FOSUBUserProvider" public="false" autowire="true" autoconfigure="true"/>
     <service id="App\Utils\Topic\ChatTopic" class="App\Utils\Topic\ChatTopic" public="false" autowire="true" autoconfigure="true">
       <argument type="service" id="gos_web_socket.websocket.client_manipulator"/>
     </service>
@@ -1195,12 +1314,14 @@
           <argument key="stopwatch">templating.helper.stopwatch</argument>
           <argument key="logout_url">templating.helper.logout_url</argument>
           <argument key="security">templating.helper.security</argument>
+          <argument key="oauth">hwi_oauth.templating.helper.oauth</argument>
         </argument>
       </call>
     </service>
     <service id="templating.engine.php.helpers_locator" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="hwi_oauth.templating.helper.oauth" type="service" id="hwi_oauth.templating.helper.oauth"/>
         <argument key="templating.helper.actions" type="service" id="templating.helper.actions"/>
         <argument key="templating.helper.assets" type="service" id="templating.helper.assets"/>
         <argument key="templating.helper.code" type="service" id="templating.helper.code"/>
@@ -1422,6 +1543,7 @@
             <argument>/var/www/html/Chess-base/vendor/symfony/security/Core/Resources/translations/security.de.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.de.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.de.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.de.yml</argument>
           </argument>
           <argument key="el" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.el.xlf</argument>
@@ -1436,6 +1558,7 @@
             <argument>/var/www/html/Chess-base/vendor/symfony/security/Core/Resources/translations/security.en.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.en.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.en.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.en.yml</argument>
           </argument>
           <argument key="es" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.es.xlf</argument>
@@ -1443,6 +1566,7 @@
             <argument>/var/www/html/Chess-base/vendor/symfony/security/Core/Resources/translations/security.es.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.es.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.es.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.es.yml</argument>
           </argument>
           <argument key="et" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.et.xlf</argument>
@@ -1461,6 +1585,7 @@
             <argument>/var/www/html/Chess-base/vendor/symfony/security/Core/Resources/translations/security.fa.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.fa.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.fa.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.fa.yml</argument>
           </argument>
           <argument key="fi" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.fi.xlf</argument>
@@ -1474,6 +1599,7 @@
             <argument>/var/www/html/Chess-base/vendor/symfony/security/Core/Resources/translations/security.fr.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.fr.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.fr.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.fr.yml</argument>
           </argument>
           <argument key="gl" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.gl.xlf</argument>
@@ -1501,6 +1627,7 @@
             <argument>/var/www/html/Chess-base/vendor/symfony/security/Core/Resources/translations/security.hu.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.hu.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.hu.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.hu.yml</argument>
           </argument>
           <argument key="hy" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.hy.xlf</argument>
@@ -1519,6 +1646,7 @@
             <argument>/var/www/html/Chess-base/vendor/symfony/security/Core/Resources/translations/security.it.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.it.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.it.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.it.yml</argument>
           </argument>
           <argument key="ja" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.ja.xlf</argument>
@@ -1564,6 +1692,7 @@
             <argument>/var/www/html/Chess-base/vendor/symfony/security/Core/Resources/translations/security.nl.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.nl.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.nl.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.nl.yml</argument>
           </argument>
           <argument key="nn" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.nn.xlf</argument>
@@ -1581,6 +1710,7 @@
             <argument>/var/www/html/Chess-base/vendor/symfony/security/Core/Resources/translations/security.pl.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.pl.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.pl.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.pl.yml</argument>
           </argument>
           <argument key="pt" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.pt.xlf</argument>
@@ -1608,6 +1738,7 @@
             <argument>/var/www/html/Chess-base/vendor/symfony/security/Core/Resources/translations/security.ru.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.ru.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.ru.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.ru.yml</argument>
           </argument>
           <argument key="sk" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.sk.xlf</argument>
@@ -1661,12 +1792,14 @@
             <argument>/var/www/html/Chess-base/vendor/symfony/security/Core/Resources/translations/security.tr.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.tr.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.tr.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.tr.yml</argument>
           </argument>
           <argument key="uk" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.uk.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/symfony/form/Resources/translations/validators.uk.xlf</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.uk.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.uk.yml</argument>
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.uk.yml</argument>
           </argument>
           <argument key="vi" type="collection">
             <argument>/var/www/html/Chess-base/vendor/symfony/validator/Resources/translations/validators.vi.xlf</argument>
@@ -1705,6 +1838,9 @@
           <argument key="ky" type="collection">
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/FOSUserBundle.ky.yml</argument>
             <argument>/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/translations/validators.ky.yml</argument>
+          </argument>
+          <argument key="zh" type="collection">
+            <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/translations/HWIOAuthBundle.zh.yml</argument>
           </argument>
         </argument>
       </argument>
@@ -1973,6 +2109,9 @@
       </call>
       <call method="add">
         <argument type="service" id="data_collector.dump"/>
+      </call>
+      <call method="add">
+        <argument type="service" id="httplug.collector.collector"/>
       </call>
       <call method="add">
         <argument type="service" id="gos_web_socket.data_collector"/>
@@ -2684,6 +2823,38 @@
           <argument>onResettingResetRequest</argument>
         </argument>
         <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument type="service" id="httplug.strategy"/>
+          <argument>onEvent</argument>
+        </argument>
+        <argument>1024</argument>
+      </call>
+      <call method="addListener">
+        <argument>console.command</argument>
+        <argument type="collection">
+          <argument type="service" id="httplug.strategy"/>
+          <argument>onEvent</argument>
+        </argument>
+        <argument>1024</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument type="service" id="Http\HttplugBundle\Collector\PluginClientFactoryListener"/>
+          <argument>onEvent</argument>
+        </argument>
+        <argument>1024</argument>
+      </call>
+      <call method="addListener">
+        <argument>console.command</argument>
+        <argument type="collection">
+          <argument type="service" id="Http\HttplugBundle\Collector\PluginClientFactoryListener"/>
+          <argument>onEvent</argument>
+        </argument>
+        <argument>1024</argument>
       </call>
     </service>
     <service id="debug.controller_resolver" class="Symfony\Component\HttpKernel\Controller\TraceableControllerResolver" public="false">
@@ -3467,6 +3638,7 @@
     <service id="security.authentication.manager" class="Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager" public="false">
       <argument type="iterator">
         <argument type="service" id="security.authentication.provider.dao.main"/>
+        <argument type="service" id="hwi_oauth.authentication.provider.oauth.main"/>
         <argument type="service" id="security.authentication.provider.anonymous.main"/>
       </argument>
       <argument>true</argument>
@@ -3522,10 +3694,11 @@
       <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
     </service>
     <service id="security.firewall.map" class="Symfony\Bundle\SecurityBundle\Security\FirewallMap" public="false">
-      <argument type="service" id=".service_locator.ko2dQVn"/>
+      <argument type="service" id=".service_locator.rxWsOA6"/>
       <argument type="iterator">
         <argument key="security.firewall.map.context.dev" type="service" id=".security.request_matcher.zfHj2lW"/>
         <argument key="security.firewall.map.context.main" type="service" id=".security.request_matcher.00qF1Z7"/>
+        <argument key="security.firewall.map.context.login" type="service" id=".security.request_matcher.iAlWp3p"/>
       </argument>
     </service>
     <service id="security.firewall.context" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext" public="false" abstract="true">
@@ -3643,19 +3816,11 @@
         </argument>
         <argument>null</argument>
       </call>
-      <call method="add">
-        <argument type="service" id=".security.request_matcher.2jD_DRB"/>
-        <argument type="collection">
-          <argument>ROLE_USER</argument>
-        </argument>
-        <argument>null</argument>
-      </call>
     </service>
     <service id="security.context_listener" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
       <tag name="monolog.logger" channel="security"/>
       <argument type="service" id="security.token_storage"/>
       <argument type="iterator">
-        <argument type="service" id="security.user.provider.concrete.in_memory"/>
         <argument type="service" id="fos_user.user_provider.username"/>
       </argument>
       <argument></argument>
@@ -3949,9 +4114,6 @@
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id="security.logout_url_generator"/>
     </service>
-    <service id="security.user.provider.concrete.in_memory" class="Symfony\Component\Security\Core\User\InMemoryUserProvider" public="false">
-      <argument type="collection"/>
-    </service>
     <service id="security.firewall.map.config.dev" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig" public="false">
       <argument>dev</argument>
       <argument>security.user_checker</argument>
@@ -3981,13 +4143,14 @@
       <argument>.security.request_matcher.00qF1Z7</argument>
       <argument>true</argument>
       <argument>false</argument>
-      <argument>null</argument>
+      <argument>fos_user.user_provider.username</argument>
       <argument>main</argument>
-      <argument>security.authentication.form_entry_point.main</argument>
+      <argument>hwi_oauth.authentication.entry_point.oauth.main</argument>
       <argument>null</argument>
       <argument>null</argument>
       <argument type="collection">
         <argument>form_login</argument>
+        <argument>oauth</argument>
         <argument>anonymous</argument>
       </argument>
       <argument>null</argument>
@@ -3998,7 +4161,6 @@
     <service id="security.context_listener.0" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
       <argument type="service" id="security.token_storage"/>
       <argument type="iterator">
-        <argument type="service" id="security.user.provider.concrete.in_memory"/>
         <argument type="service" id="fos_user.user_provider.username"/>
       </argument>
       <argument>main</argument>
@@ -4038,9 +4200,9 @@
       <argument type="collection"/>
       <call method="setOptions">
         <argument type="collection">
+          <argument key="login_path">/login</argument>
           <argument key="always_use_default_target_path">false</argument>
           <argument key="default_target_path">/</argument>
-          <argument key="login_path">/login</argument>
           <argument key="target_path_parameter">_target_path</argument>
           <argument key="use_referer">false</argument>
         </argument>
@@ -4092,6 +4254,82 @@
       <argument>/login</argument>
       <argument>false</argument>
     </service>
+    <service id="hwi_oauth.resource_ownermap.main" class="HWI\Bundle\OAuthBundle\Security\Http\ResourceOwnerMap" public="true">
+      <argument type="service" id="security.http_utils"/>
+      <argument>%hwi_oauth.resource_owners%</argument>
+      <argument>%hwi_oauth.resource_ownermap.configured.main%</argument>
+      <call method="setContainer">
+        <argument type="service" id="service_container"/>
+      </call>
+    </service>
+    <service id="hwi_oauth.authentication.provider.oauth.main" class="HWI\Bundle\OAuthBundle\Security\Core\Authentication\Provider\OAuthProvider" public="false">
+      <argument type="service" id="my_user_provider"/>
+      <argument type="service" id="hwi_oauth.resource_ownermap.main"/>
+      <argument type="service" id="security.user_checker"/>
+      <argument type="service" id="security.token_storage"/>
+    </service>
+    <service id="security.authentication.success_handler.main.oauth" class="Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler" public="false">
+      <argument type="service" id="security.http_utils"/>
+      <argument type="collection"/>
+      <call method="setOptions">
+        <argument type="collection">
+          <argument key="login_path">/login</argument>
+          <argument key="always_use_default_target_path">false</argument>
+          <argument key="default_target_path">/</argument>
+          <argument key="target_path_parameter">_target_path</argument>
+          <argument key="use_referer">false</argument>
+        </argument>
+      </call>
+      <call method="setProviderKey">
+        <argument>main</argument>
+      </call>
+    </service>
+    <service id="security.authentication.failure_handler.main.oauth" class="Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler" public="false">
+      <argument type="service" id="http_kernel"/>
+      <argument type="service" id="security.http_utils"/>
+      <argument type="collection"/>
+      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <call method="setOptions">
+        <argument type="collection">
+          <argument key="login_path">/login</argument>
+          <argument key="failure_path">/login</argument>
+          <argument key="failure_forward">false</argument>
+          <argument key="failure_path_parameter">_failure_path</argument>
+        </argument>
+      </call>
+    </service>
+    <service id="hwi_oauth.authentication.listener.oauth.main" class="HWI\Bundle\OAuthBundle\Security\Http\Firewall\OAuthListener" public="false">
+      <tag name="security.remember_me_aware" id="main" provider="fos_user.user_provider.username"/>
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="security.authentication.manager"/>
+      <argument type="service" id="security.authentication.session_strategy"/>
+      <argument type="service" id="security.http_utils"/>
+      <argument>main</argument>
+      <argument type="service" id="security.authentication.success_handler.main.oauth"/>
+      <argument type="service" id="security.authentication.failure_handler.main.oauth"/>
+      <argument type="collection">
+        <argument key="check_path">/login_check</argument>
+        <argument key="use_forward">false</argument>
+        <argument key="require_previous_session">false</argument>
+      </argument>
+      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
+      <call method="setResourceOwnerMap">
+        <argument type="service" id="hwi_oauth.resource_ownermap.main"/>
+      </call>
+      <call method="setCheckPaths">
+        <argument type="collection">
+          <argument>/login/check-facebook</argument>
+          <argument>/login/check-google</argument>
+        </argument>
+      </call>
+    </service>
+    <service id="hwi_oauth.authentication.entry_point.oauth.main" class="HWI\Bundle\OAuthBundle\Security\Http\EntryPoint\OAuthEntryPoint" public="false">
+      <argument type="service" id="http_kernel"/>
+      <argument type="service" id="security.http_utils"/>
+      <argument>/login</argument>
+      <argument>false</argument>
+    </service>
     <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
       <argument>%container.build_hash%</argument>
@@ -4106,7 +4344,7 @@
       <argument type="service" id="security.authentication.trust_resolver"/>
       <argument type="service" id="security.http_utils"/>
       <argument>main</argument>
-      <argument type="service" id="security.authentication.form_entry_point.main"/>
+      <argument type="service" id="hwi_oauth.authentication.entry_point.oauth.main"/>
       <argument>null</argument>
       <argument>null</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
@@ -4117,6 +4355,7 @@
         <argument type="service" id="security.channel_listener"/>
         <argument type="service" id="security.context_listener.0"/>
         <argument type="service" id="security.authentication.listener.form.main"/>
+        <argument type="service" id="hwi_oauth.authentication.listener.oauth.main"/>
         <argument type="service" id="security.authentication.listener.anonymous.main"/>
         <argument type="service" id="security.access_listener"/>
       </argument>
@@ -4124,10 +4363,34 @@
       <argument type="service" id="security.logout_listener.main"/>
       <argument type="service" id="security.firewall.map.config.main"/>
     </service>
-    <service id=".service_locator.ko2dQVn" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="security.firewall.map.config.login" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig" public="false">
+      <argument>login</argument>
+      <argument>security.user_checker</argument>
+      <argument>.security.request_matcher.iAlWp3p</argument>
+      <argument>false</argument>
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+      <argument type="collection"/>
+      <argument></argument>
+    </service>
+    <service id=".security.request_matcher.iAlWp3p" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/login$</argument>
+    </service>
+    <service id="security.firewall.map.context.login" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext" public="false">
+      <argument type="iterator"/>
+      <argument>null</argument>
+      <argument>null</argument>
+      <argument type="service" id="security.firewall.map.config.login"/>
+    </service>
+    <service id=".service_locator.rxWsOA6" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="security.firewall.map.context.dev" type="service" id="security.firewall.map.context.dev"/>
+        <argument key="security.firewall.map.context.login" type="service" id="security.firewall.map.context.login"/>
         <argument key="security.firewall.map.context.main" type="service" id="security.firewall.map.context.main"/>
       </argument>
     </service>
@@ -4142,9 +4405,6 @@
     </service>
     <service id=".security.request_matcher.X0_YxQH" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/admin/</argument>
-    </service>
-    <service id=".security.request_matcher.2jD_DRB" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-      <argument>^/</argument>
     </service>
     <service id="security.command.user_password_encoder" class="Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand" public="false">
       <tag name="console.command" command="security:encode-password"/>
@@ -4389,6 +4649,12 @@
       <call method="addExtension">
         <argument type="service" id="gos_web_socket.twig.extension"/>
       </call>
+      <call method="addExtension">
+        <argument type="service" id="hwi_oauth.twig.extension.oauth"/>
+      </call>
+      <call method="addExtension">
+        <argument type="service" id="httplug.collector.twig.http_message"/>
+      </call>
       <call method="addGlobal">
         <argument>app</argument>
         <argument type="service" id="twig.app_variable"/>
@@ -4520,6 +4786,22 @@
       <call method="addPath">
         <argument>/var/www/html/Chess-base/vendor/gos/web-socket-bundle/Resources/views</argument>
         <argument>!GosWebSocket</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/views</argument>
+        <argument>HWIOAuth</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/views</argument>
+        <argument>!HWIOAuth</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/Chess-base/vendor/php-http/httplug-bundle/Resources/views</argument>
+        <argument>Httplug</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/Chess-base/vendor/php-http/httplug-bundle/Resources/views</argument>
+        <argument>!Httplug</argument>
       </call>
       <call method="addPath">
         <argument>/var/www/html/Chess-base/templates</argument>
@@ -4712,6 +4994,22 @@
       <call method="addPath">
         <argument>/var/www/html/Chess-base/vendor/gos/web-socket-bundle/Resources/views</argument>
         <argument>!GosWebSocket</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/views</argument>
+        <argument>HWIOAuth</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/Chess-base/vendor/hwi/oauth-bundle/Resources/views</argument>
+        <argument>!HWIOAuth</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/Chess-base/vendor/php-http/httplug-bundle/Resources/views</argument>
+        <argument>Httplug</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/Chess-base/vendor/php-http/httplug-bundle/Resources/views</argument>
+        <argument>!Httplug</argument>
       </call>
       <call method="addPath">
         <argument>/var/www/html/Chess-base/templates</argument>
@@ -5454,6 +5752,293 @@
     <service id="gos_web_socket.data_collector" class="Gos\Bundle\WebSocketBundle\DataCollector\WebsocketDataCollector">
       <tag name="data_collector" template="@GosWebSocket/Collector/websocket.html.twig" id="websocket"/>
     </service>
+    <service id="hwi_oauth.http_client" class="Http\Client\Common\HttpMethodsClient" public="true">
+      <argument type="service" id="httplug.client.app.http_methods"/>
+      <argument type="service" id="httplug.message_factory.default"/>
+    </service>
+    <service id="hwi_oauth.authentication.listener.oauth" class="HWI\Bundle\OAuthBundle\Security\Http\Firewall\OAuthListener" public="false" abstract="true">
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="security.authentication.manager"/>
+      <argument type="service" id="security.authentication.session_strategy"/>
+      <argument type="service" id="security.http_utils"/>
+      <argument></argument>
+      <argument type="service" id="security.authentication.success_handler"/>
+      <argument type="service" id="security.authentication.failure_handler"/>
+      <argument type="collection"/>
+      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
+    </service>
+    <service id="hwi_oauth.authentication.provider.oauth" class="HWI\Bundle\OAuthBundle\Security\Core\Authentication\Provider\OAuthProvider" public="false"/>
+    <service id="hwi_oauth.authentication.entry_point.oauth" class="HWI\Bundle\OAuthBundle\Security\Http\EntryPoint\OAuthEntryPoint" public="false" abstract="true">
+      <argument type="service" id="http_kernel"/>
+      <argument type="service" id="security.http_utils"/>
+    </service>
+    <service id="hwi_oauth.user.provider" class="HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider" public="false"/>
+    <service id="hwi_oauth.user.provider.entity" class="HWI\Bundle\OAuthBundle\Security\Core\User\EntityUserProvider" public="false" abstract="true">
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="hwi_oauth.user.provider.fosub_bridge.def" class="HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider" abstract="true">
+      <argument type="service" id="fos_user.user_manager.default"/>
+    </service>
+    <service id="hwi_oauth.registration.form.handler.fosub_bridge.def" class="HWI\Bundle\OAuthBundle\Form\FOSUBRegistrationFormHandler" abstract="true">
+      <argument type="service" id="fos_user.user_manager.default"/>
+      <argument type="service" id="fos_user.mailer.default"/>
+      <argument type="service" id="fos_user.util.token_generator.default" on-invalid="null"/>
+      <call method="setFormHandler">
+        <argument type="service" id="fos_user.registration.form.handler" on-invalid="null"/>
+      </call>
+    </service>
+    <service id="hwi_oauth.storage.session" class="HWI\Bundle\OAuthBundle\OAuth\RequestDataStorage\SessionStorage" public="false">
+      <argument type="service" id="session"/>
+    </service>
+    <service id="hwi_oauth.security.oauth_utils" class="HWI\Bundle\OAuthBundle\Security\OAuthUtils" public="true">
+      <argument type="service" id="security.http_utils"/>
+      <argument type="service" id="security.authorization_checker"/>
+      <argument>true</argument>
+      <argument>IS_AUTHENTICATED_REMEMBERED</argument>
+      <call method="addResourceOwnerMap">
+        <argument type="service" id="hwi_oauth.resource_ownermap.main"/>
+      </call>
+    </service>
+    <service id="hwi_oauth.abstract_resource_ownermap" class="HWI\Bundle\OAuthBundle\Security\Http\ResourceOwnerMap" abstract="true">
+      <argument type="service" id="security.http_utils"/>
+      <argument>%hwi_oauth.resource_owners%</argument>
+      <argument type="collection"/>
+      <call method="setContainer">
+        <argument type="service" id="service_container"/>
+      </call>
+    </service>
+    <service id="hwi_oauth.abstract_resource_owner.generic" abstract="true">
+      <argument type="service" id="hwi_oauth.http_client"/>
+      <argument type="service" id="security.http_utils"/>
+      <argument type="collection"/>
+      <argument></argument>
+    </service>
+    <service id="hwi_oauth.abstract_resource_owner.oauth2" class="HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GenericOAuth2ResourceOwner" abstract="true">
+      <argument type="service" id="hwi_oauth.http_client"/>
+      <argument type="service" id="security.http_utils"/>
+      <argument type="collection"/>
+      <argument></argument>
+      <argument type="service" id="hwi_oauth.storage.session"/>
+    </service>
+    <service id="hwi_oauth.abstract_resource_owner.oauth1" class="HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GenericOAuth1ResourceOwner" abstract="true">
+      <argument type="service" id="hwi_oauth.http_client"/>
+      <argument type="service" id="security.http_utils"/>
+      <argument type="collection"/>
+      <argument></argument>
+      <argument type="service" id="hwi_oauth.storage.session"/>
+    </service>
+    <service id="hwi_oauth.templating.helper.oauth" class="HWI\Bundle\OAuthBundle\Templating\Helper\OAuthHelper">
+      <tag name="templating.helper" alias="oauth"/>
+      <argument type="service" id="hwi_oauth.security.oauth_utils"/>
+      <argument type="service" id="request_stack"/>
+    </service>
+    <service id="hwi_oauth.twig.extension.oauth" class="HWI\Bundle\OAuthBundle\Twig\Extension\OAuthExtension" public="false">
+      <tag name="twig.extension"/>
+      <argument type="service" id="hwi_oauth.templating.helper.oauth"/>
+    </service>
+    <service id="hwi_oauth.resource_owner.facebook" class="HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\FacebookResourceOwner" public="true">
+      <argument type="service" id="hwi_oauth.http_client"/>
+      <argument type="service" id="security.http_utils"/>
+      <argument type="collection">
+        <argument key="client_id">&lt;486538825083026&gt;</argument>
+        <argument key="client_secret">&lt;6dca44a348e33681cd4d55004da94f8d&gt;</argument>
+        <argument key="paths" type="collection"/>
+        <argument key="options" type="collection"/>
+      </argument>
+      <argument>facebook</argument>
+      <argument type="service" id="hwi_oauth.storage.session"/>
+    </service>
+    <service id="hwi_oauth.resource_owner.google" class="HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GoogleResourceOwner" public="true">
+      <argument type="service" id="hwi_oauth.http_client"/>
+      <argument type="service" id="security.http_utils"/>
+      <argument type="collection">
+        <argument key="client_id">&lt;863331449196-kp4p9010i26c22q3plvssgvfj7vfpbos.apps.googleusercontent.com&gt;</argument>
+        <argument key="client_secret">&lt;UoZg-gj8Mh3U3JB-xFfGk20K&gt;</argument>
+        <argument key="scope">https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile</argument>
+        <argument key="paths" type="collection"/>
+        <argument key="options" type="collection"/>
+      </argument>
+      <argument>google</argument>
+      <argument type="service" id="hwi_oauth.storage.session"/>
+    </service>
+    <service id="hwi_oauth.user.provider.fosub_bridge" class="HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider">
+      <argument type="service" id="fos_user.user_manager.default"/>
+      <argument type="collection">
+        <argument key="facebook">facebook_id</argument>
+        <argument key="google">google_id</argument>
+      </argument>
+    </service>
+    <service id="hwi_oauth.registration.form.handler.fosub_bridge" class="HWI\Bundle\OAuthBundle\Form\FOSUBRegistrationFormHandler">
+      <argument type="service" id="fos_user.user_manager.default"/>
+      <argument type="service" id="fos_user.mailer.default"/>
+      <argument type="service" id="fos_user.util.token_generator.default" on-invalid="null"/>
+      <argument>30</argument>
+      <call method="setFormHandler">
+        <argument>null</argument>
+      </call>
+    </service>
+    <service id="httplug.strategy" class="Http\HttplugBundle\Discovery\ConfiguredClientsStrategy">
+      <tag name="kernel.event_subscriber"/>
+      <tag name="container.hot_path"/>
+      <argument type="service" id="httplug.collector.auto_discovered_client" on-invalid="null"/>
+      <argument>null</argument>
+    </service>
+    <service id="httplug.message_factory.default" class="Http\Message\MessageFactory">
+      <factory class="Http\Discovery\MessageFactoryDiscovery" method="find"/>
+    </service>
+    <service id="httplug.stream_factory.default" class="Http\Message\StreamFactory">
+      <factory class="Http\Discovery\StreamFactoryDiscovery" method="find"/>
+    </service>
+    <service id="httplug.uri_factory.default" class="Http\Message\UriFactory">
+      <factory class="Http\Discovery\UriFactoryDiscovery" method="find"/>
+    </service>
+    <service id="httplug.async_client.default" class="Http\Client\HttpAsyncClient">
+      <factory class="Http\Discovery\HttpAsyncClientDiscovery" method="find"/>
+    </service>
+    <service id="Http\Client\Common\PluginClientFactory" class="Http\HttplugBundle\Collector\PluginClientFactory" public="false">
+      <argument type="service" id="httplug.collector.collector"/>
+      <argument type="service" id="httplug.collector.formatter"/>
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
+    <service id="httplug.plugin.cache" class="Http\Client\Common\Plugin\CachePlugin" public="false">
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+    </service>
+    <service id="httplug.plugin.content_length" class="Http\Client\Common\Plugin\ContentLengthPlugin" public="false"/>
+    <service id="httplug.plugin.cookie" class="Http\Client\Common\Plugin\CookiePlugin" public="false">
+      <argument></argument>
+    </service>
+    <service id="httplug.plugin.decoder" class="Http\Client\Common\Plugin\DecoderPlugin" public="false">
+      <argument type="collection">
+        <argument key="use_content_encoding">true</argument>
+      </argument>
+    </service>
+    <service id="httplug.plugin.error" class="Http\Client\Common\Plugin\ErrorPlugin" public="false"/>
+    <service id="httplug.plugin.history" class="Http\Client\Common\Plugin\HistoryPlugin" public="false">
+      <argument></argument>
+    </service>
+    <service id="httplug.plugin.logger" class="Http\Client\Common\Plugin\LoggerPlugin" public="false">
+      <argument type="service" id="monolog.logger"/>
+      <argument>null</argument>
+    </service>
+    <service id="httplug.plugin.redirect" class="Http\Client\Common\Plugin\RedirectPlugin" public="false">
+      <argument type="collection">
+        <argument key="preserve_header">true</argument>
+        <argument key="use_default_for_multiple">true</argument>
+      </argument>
+    </service>
+    <service id="httplug.plugin.retry" class="Http\Client\Common\Plugin\RetryPlugin" public="false">
+      <argument type="collection">
+        <argument key="retries">1</argument>
+      </argument>
+    </service>
+    <service id="httplug.plugin.stopwatch" class="Http\Client\Common\Plugin\StopwatchPlugin" public="false">
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
+    <service id="httplug.plugin.add_host" class="Http\Client\Common\Plugin\AddHostPlugin" public="false" abstract="true">
+      <argument></argument>
+      <argument></argument>
+    </service>
+    <service id="httplug.plugin.add_path" class="Http\Client\Common\Plugin\AddPathPlugin" public="false" abstract="true">
+      <argument></argument>
+    </service>
+    <service id="httplug.plugin.base_uri" class="Http\Client\Common\Plugin\BaseUriPlugin" public="false" abstract="true">
+      <argument></argument>
+      <argument></argument>
+    </service>
+    <service id="httplug.plugin.header_append" class="Http\Client\Common\Plugin\HeaderAppendPlugin" public="false" abstract="true">
+      <argument></argument>
+    </service>
+    <service id="httplug.plugin.header_defaults" class="Http\Client\Common\Plugin\HeaderDefaultsPlugin" public="false" abstract="true">
+      <argument></argument>
+    </service>
+    <service id="httplug.plugin.header_set" class="Http\Client\Common\Plugin\HeaderSetPlugin" public="false" abstract="true">
+      <argument></argument>
+    </service>
+    <service id="httplug.plugin.header_remove" class="Http\Client\Common\Plugin\HeaderRemovePlugin" public="false" abstract="true">
+      <argument></argument>
+    </service>
+    <service id=".1_CurlCommandFormatter~wT7juT3" class="Http\Message\Formatter\CurlCommandFormatter" public="false"/>
+    <service id="httplug.formatter.full_http_message" class="Http\Message\Formatter\FullHttpMessageFormatter" public="false">
+      <argument>0</argument>
+    </service>
+    <service id="httplug.collector.formatter" class="Http\HttplugBundle\Collector\Formatter" public="false">
+      <argument type="service" id="httplug.formatter.full_http_message"/>
+      <argument type="service" id=".1_CurlCommandFormatter~wT7juT3"/>
+    </service>
+    <service id="httplug.collector.collector" class="Http\HttplugBundle\Collector\Collector" public="false">
+      <tag name="data_collector" template="@Httplug/webprofiler.html.twig" priority="200" id="httplug"/>
+    </service>
+    <service id="httplug.plugin.stack" class="Http\HttplugBundle\Collector\StackPlugin" public="false" abstract="true">
+      <argument type="service" id="httplug.collector.collector"/>
+      <argument type="service" id="httplug.collector.formatter"/>
+    </service>
+    <service id="httplug.collector.twig.http_message" class="Http\HttplugBundle\Collector\Twig\HttpMessageMarkupExtension" public="false">
+      <tag name="twig.extension"/>
+    </service>
+    <service id="httplug.collector.auto_discovered_client" class="Http\HttplugBundle\Collector\ProfileClient" public="false">
+      <argument type="service" id="httplug.collector.auto_discovered_client.inner"/>
+      <argument type="service" id="httplug.collector.collector"/>
+      <argument type="service" id="httplug.collector.formatter"/>
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
+    <service id="httplug.collector.factory.auto" class="Http\HttplugBundle\Collector\ProfileClientFactory" public="false">
+      <argument type="service" id="httplug.collector.factory.auto.inner"/>
+      <argument type="service" id="httplug.collector.collector"/>
+      <argument type="service" id="httplug.collector.formatter"/>
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
+    <service id="httplug.collector.factory.buzz" class="Http\HttplugBundle\Collector\ProfileClientFactory" public="false">
+      <argument type="service" id="httplug.collector.factory.buzz.inner"/>
+      <argument type="service" id="httplug.collector.collector"/>
+      <argument type="service" id="httplug.collector.formatter"/>
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
+    <service id="httplug.collector.factory.curl" class="Http\HttplugBundle\Collector\ProfileClientFactory" public="false">
+      <argument type="service" id="httplug.collector.factory.curl.inner"/>
+      <argument type="service" id="httplug.collector.collector"/>
+      <argument type="service" id="httplug.collector.formatter"/>
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
+    <service id="httplug.collector.factory.guzzle5" class="Http\HttplugBundle\Collector\ProfileClientFactory" public="false">
+      <argument type="service" id="httplug.collector.factory.guzzle5.inner"/>
+      <argument type="service" id="httplug.collector.collector"/>
+      <argument type="service" id="httplug.collector.formatter"/>
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
+    <service id="httplug.collector.factory.guzzle6" class="Http\HttplugBundle\Collector\ProfileClientFactory" public="false">
+      <argument type="service" id="httplug.collector.factory.guzzle6.inner"/>
+      <argument type="service" id="httplug.collector.collector"/>
+      <argument type="service" id="httplug.collector.formatter"/>
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
+    <service id="httplug.collector.factory.react" class="Http\HttplugBundle\Collector\ProfileClientFactory" public="false">
+      <argument type="service" id="httplug.collector.factory.react.inner"/>
+      <argument type="service" id="httplug.collector.collector"/>
+      <argument type="service" id="httplug.collector.formatter"/>
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
+    <service id="httplug.collector.factory.socket" class="Http\HttplugBundle\Collector\ProfileClientFactory" public="false">
+      <argument type="service" id="httplug.collector.factory.socket.inner"/>
+      <argument type="service" id="httplug.collector.collector"/>
+      <argument type="service" id="httplug.collector.formatter"/>
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
+    <service id="Http\HttplugBundle\Collector\PluginClientFactoryListener" class="Http\HttplugBundle\Collector\PluginClientFactoryListener">
+      <tag name="kernel.event_subscriber"/>
+      <tag name="container.hot_path"/>
+      <argument type="service" id="Http\Client\Common\PluginClientFactory"/>
+    </service>
+    <service id="httplug.client.app.client" class="Http\Client\HttpClient" public="false">
+      <argument type="collection"/>
+      <factory service="httplug.collector.factory.auto" method="createClient"/>
+    </service>
+    <service id="httplug.client.app.http_methods" class="Http\Client\Common\HttpMethodsClient" public="false">
+      <argument type="service" id="httplug.client.app.http_methods.inner"/>
+      <argument type="service" id="httplug.message_factory.default"/>
+    </service>
     <service id=".instanceof.Symfony\Component\DependencyInjection\ServiceSubscriberInterface.0.App\Controller\GameController" class="App\Controller\GameController" public="false" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\GameController" class="App\Controller\GameController" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\GameController" class="App\Controller\GameController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5947,6 +6532,38 @@
       <argument>false</argument>
       <argument>true</argument>
     </service>
+    <service id="httplug.collector.auto_discovered_client.inner" class="Http\Client\HttpClient" public="false">
+      <factory class="Http\Discovery\HttpClientDiscovery" method="find"/>
+    </service>
+    <service id="httplug.collector.factory.auto.inner" class="Http\HttplugBundle\ClientFactory\AutoDiscoveryFactory" public="false"/>
+    <service id="httplug.collector.factory.buzz.inner" class="Http\HttplugBundle\ClientFactory\BuzzFactory" public="false">
+      <argument type="service" id="httplug.message_factory.default"/>
+    </service>
+    <service id="httplug.collector.factory.curl.inner" class="Http\HttplugBundle\ClientFactory\CurlFactory" public="false">
+      <argument type="service" id="httplug.message_factory.default"/>
+      <argument type="service" id="httplug.stream_factory.default"/>
+    </service>
+    <service id="httplug.collector.factory.guzzle5.inner" class="Http\HttplugBundle\ClientFactory\Guzzle5Factory" public="false">
+      <argument type="service" id="httplug.message_factory.default"/>
+    </service>
+    <service id="httplug.collector.factory.guzzle6.inner" class="Http\HttplugBundle\ClientFactory\Guzzle6Factory" public="false"/>
+    <service id="httplug.collector.factory.react.inner" class="Http\HttplugBundle\ClientFactory\ReactFactory" public="false">
+      <argument type="service" id="httplug.message_factory.default"/>
+    </service>
+    <service id="httplug.collector.factory.socket.inner" class="Http\HttplugBundle\ClientFactory\SocketFactory" public="false">
+      <argument type="service" id="httplug.message_factory.default"/>
+    </service>
+    <service id="httplug.client.app.http_methods.inner" class="Http\Client\Common\PluginClient" public="false">
+      <argument type="service" id="httplug.client.app.client"/>
+      <argument type="collection">
+        <argument type="service" id="httplug.plugin.content_length"/>
+        <argument type="service" id="httplug.plugin.redirect"/>
+      </argument>
+      <argument type="collection">
+        <argument key="client_name">app</argument>
+      </argument>
+      <factory service="Http\Client\Common\PluginClientFactory" method="createClient"/>
+    </service>
     <service id="debug.argument_resolver.request_attribute.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver" public="false"/>
     <service id="debug.argument_resolver.request.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver" public="false"/>
     <service id="debug.argument_resolver.session.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver" public="false"/>
@@ -6387,7 +7004,9 @@
     <service id="Symfony\Component\Security\Guard\GuardAuthenticatorHandler" alias="security.authentication.guard_handler" public="false"/>
     <service id="security.firewall" alias="debug.security.firewall" public="false"/>
     <service id="security.user.provider.concrete.fos_userbundle" alias="fos_user.user_provider.username" public="false"/>
+    <service id="Symfony\Component\Security\Core\User\UserProviderInterface" alias="fos_user.user_provider.username"/>
     <service id="security.authentication.session_strategy.main" alias="security.authentication.session_strategy"/>
+    <service id="hwi_oauth.user.provider.entity.main" alias="my_user_provider"/>
     <service id="security.user_checker.main" alias="security.user_checker" public="false"/>
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker" public="false"/>
     <service id="swiftmailer.mailer.default.transport" alias="swiftmailer.mailer.default.transport.spool"/>
@@ -6419,13 +7038,31 @@
     <service id="fos_user.mailer" alias="fos_user.mailer.default"/>
     <service id="fos_user.session" alias="session" public="false"/>
     <service id="gos_web_socket.session_handler" alias="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler"/>
+    <service id="hwi_oauth.http.client" alias="httplug.client.app.http_methods" public="true"/>
+    <service id="hwi_oauth.http.message_factory" alias="httplug.message_factory.default" public="true"/>
+    <service id="hwi_oauth.account.connector" alias="my_user_provider" public="true"/>
+    <service id="hwi_oauth.registration.form.handler" alias="hwi_oauth.registration.form.handler.fosub_bridge" public="true"/>
+    <service id="hwi_oauth.registration.form.factory" alias="fos_user.registration.form.factory" public="true"/>
+    <service id="hwi_oauth.user_checker" alias="security.user_checker" public="true"/>
+    <service id="Http\Message\MessageFactory" alias="httplug.message_factory.default" public="false"/>
+    <service id="Http\Message\RequestFactory" alias="httplug.message_factory.default" public="false"/>
+    <service id="Http\Message\ResponseFactory" alias="httplug.message_factory.default" public="false"/>
+    <service id="Http\Message\StreamFactory" alias="httplug.stream_factory.default" public="false"/>
+    <service id="Http\Message\UriFactory" alias="httplug.uri_factory.default" public="false"/>
+    <service id="Http\Client\HttpAsyncClient" alias="httplug.async_client.default" public="false"/>
+    <service id="Http\Client\HttpClient" alias="httplug.client.app.http_methods" public="false"/>
+    <service id="httplug.client" alias="httplug.client.app.http_methods" public="true"/>
+    <service id="httplug.message_factory" alias="httplug.message_factory.default" public="true"/>
+    <service id="httplug.uri_factory" alias="httplug.uri_factory.default" public="true"/>
+    <service id="httplug.stream_factory" alias="httplug.stream_factory.default" public="true"/>
+    <service id="httplug.client.default" alias="httplug.client.app.http_methods"/>
     <service id="argument_resolver.controller_locator" alias=".service_locator.p4oWn1U"/>
     <service id="Symfony\Component\Templating\EngineInterface" alias="templating.engine.delegating" public="false"/>
     <service id="Symfony\Bundle\FrameworkBundle\Templating\EngineInterface" alias="templating.engine.delegating" public="false"/>
     <service id="twig.loader" alias="twig.loader.filesystem"/>
     <service id="gos_pubsub_router.tokenizer" alias="gos_pubsub_router.tokenizer.cache_decorator"/>
     <service id=".service_locator.AoifO_3" alias=".2_ServiceLocator~QVq1xaB" public="false"/>
-    <service id=".service_locator.IeWpSoI" alias="templating.engine.php.helpers_locator" public="false"/>
+    <service id=".service_locator.Y1Y.DmH" alias="templating.engine.php.helpers_locator" public="false"/>
     <service id=".service_locator.jD4_ZG7" alias=".1_ServiceLocator~LymWeJn" public="false"/>
     <service id="validator" alias="debug.validator" public="true"/>
     <service id="translator.data_collector.inner" alias="translator.default" public="false"/>
@@ -6433,6 +7070,15 @@
     <service id="controller_resolver" alias="debug.controller_resolver" public="false"/>
     <service id="argument_resolver" alias="debug.argument_resolver" public="false"/>
     <service id="security.access.decision_manager" alias="debug.security.access.decision_manager" public="false"/>
+    <service id="httplug.auto_discovery.auto_discovered_client" alias="httplug.collector.auto_discovered_client"/>
+    <service id="httplug.factory.auto" alias="httplug.collector.factory.auto" public="false"/>
+    <service id="httplug.factory.buzz" alias="httplug.collector.factory.buzz" public="false"/>
+    <service id="httplug.factory.curl" alias="httplug.collector.factory.curl" public="false"/>
+    <service id="httplug.factory.guzzle5" alias="httplug.collector.factory.guzzle5" public="false"/>
+    <service id="httplug.factory.guzzle6" alias="httplug.collector.factory.guzzle6" public="false"/>
+    <service id="httplug.factory.react" alias="httplug.collector.factory.react" public="false"/>
+    <service id="httplug.factory.socket" alias="httplug.collector.factory.socket" public="false"/>
+    <service id="httplug.client.app" alias="httplug.client.app.http_methods"/>
     <service id="argument_resolver.request_attribute" alias="debug.argument_resolver.request_attribute" public="false"/>
     <service id="argument_resolver.request" alias="debug.argument_resolver.request" public="false"/>
     <service id="argument_resolver.session" alias="debug.argument_resolver.session" public="false"/>
