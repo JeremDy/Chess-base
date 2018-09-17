@@ -79,8 +79,8 @@ class InvitationTopic implements TopicInterface
     
                 $receiver = $this->clientManipulator->findByUsername($topic, $receiverName);
                 $sender = $this->clientManipulator->findByUsername($topic, $senderName);
-
-                if (is_array($receiver)) {
+            
+                if (is_array($receiver) && $receiverName !== $senderName) {
                     $topic->broadcast(
                         [
                             'type' => 'invite',

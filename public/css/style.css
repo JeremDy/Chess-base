@@ -118,7 +118,7 @@ a:hover {
 
 /* home left css*/
 
-#invitationModal{
-color :black;
 
+.modal-content{
+    background-color: rgba(55, 55, 55, 0.933)
 }

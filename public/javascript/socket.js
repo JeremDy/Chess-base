@@ -11,8 +11,8 @@ var app = {
         var webSocket = WS.connect("ws://127.0.0.1:8080");
 
         webSocket.on("socket/connect", function (session) {
-            app.session = session;         
-           app.invitationSubscribe();
+            app.session = session;
+            app.invitationSubscribe();
         })
 
         webSocket.on("socket/disconnect", function (error) {
@@ -20,7 +20,7 @@ var app = {
             console.log("Disconnected for " + error.reason + " with code " + error.code);
         })
     },
-    
+
     matchMaking: function () {
         app.session.subscribe('matchmaking', function (uri, payload) {
             if (typeof payload.matchFound !== 'undefined') {
@@ -30,79 +30,77 @@ var app = {
         });
     },
 
-    invitationSubscribe : function(){
+    invitationSubscribe: function () {
         app.session.subscribe("invitation", function (uri, payload) {
-        
+
             if (payload.type === 'invite') {
                 app.session.unsubscribe('invitation');
                 $('#invitationModal').modal('show');
                 $('.modal-body').text(payload.message);
                 app.currentInvitationChannel = payload.channel;
-                
-                app.session.subscribe(app.currentInvitationChannel, function(uri, payload){
-                    
-                    if (payload.type === 'cancel'){
-                        console.log('invitation annulé');
+
+                app.session.subscribe(app.currentInvitationChannel, function (uri, payload) {
+
+                    if (payload.type === 'cancel') {
                         app.session.unsubscribe(app.currentInvitationChannel);
                         app.invitationSubscribe();
                         $('#invitationModal').modal('hide')
                     }
                 })
             }
-            if(payload.type === 'error'){
+            if (payload.type === 'error') {
                 app.showInviteFormMessage(payload.message);
             }
 
-            if(payload.type === 'invitationSend'){
-                app.switchFormButton();  
+            if (payload.type === 'invitationSend') {
+                app.switchFormButton();
                 app.showInviteFormMessage(payload.message);
                 app.session.unsubscribe("invitation");
 
-                app.currentInvitationChannel = "invitation/" + USER_NAME + '/' + payload.receiver;       
-                
+                app.currentInvitationChannel = "invitation/" + USER_NAME + '/' + payload.receiver;
+
                 app.session.subscribe(app.currentInvitationChannel, function (uri, payload) {
-                   
-                    if(typeof payload.type !== 'undefined'){
-                       
-                        if(payload.type === 'cancel'){
+
+                    if (typeof payload.type !== 'undefined') {
+
+                        if (payload.type === 'cancel') {
                             app.showInviteFormMessage('Invitation refusé');
                             app.session.unsubscribe(app.currentInvitationChannel);
                             app.invitationSubscribe();
                             app.switchFormButton();
                         }
-        
+
                         if (payload.type === 'refuse') {
                             app.showInviteFormMessage('Invitation refusé');
                             app.session.unsubscribe(app.currentInvitationChannel);
                             app.invitationSubscribe();
                             app.switchFormButton();
                         }
-        
-                        if (payload.type === 'accept'){
-                            //redirection
+
+                        if (payload.type === 'accept') {
                             app.showInviteFormMessage('Invitation accepté');
                             location.href = BASE_URL + payload.matchFound;
                         }
                     }
-                });  
+                });
             }
         });
     },
 
-    
+
     invitation: function (evt) {
         evt.preventDefault();
-        var receiver = $(this).find('input').val();    
+        var receiver = $(this).find('input').val();
         app.session.publish("invitation", {
             'receiver': receiver,
             "type": "invite"
-        });            
+        });
     },
 
 
     acceptInvitation: function () {
         app.session.subscribe(app.currentInvitationChannel, function (uri, payload) {
-            if (typeof payload.matchFound !== 'undefined') {          
+            if (typeof payload.matchFound !== 'undefined') {
                 location.href = BASE_URL + payload.matchFound;
             }
         });
@@ -121,24 +119,24 @@ var app = {
         app.invitationSubscribe();
     },
 
-    cancelInvitation : function () {
+    cancelInvitation: function () {
         app.session.unsubscribe(app.currentInvitationChannel);
         app.invitationSubscribe();
         app.showInviteFormMessage('Invitation annulé');
         app.switchFormButton();
     },
 
-    
-    showInviteFormMessage : function($message){
+
+    showInviteFormMessage: function ($message) {
         $('#form-message').remove();
-        $('#invitation').append('<p id="form-message">'+$message+'</p>');
+        $('#invitation').append('<p id="form-message">' + $message + '</p>');
     },
 
-    switchFormButton : function($message){
-        if($('#invitation-cancel').hasClass('d-none')){
+    switchFormButton: function ($message) {
+        if ($('#invitation-cancel').hasClass('d-none')) {
             $('#invitation-cancel').removeClass('d-none');
             $('#invitation-invite').addClass('d-none');
-        }else{
+        } else {
             $('#invitation-cancel').addClass('d-none');
             $('#invitation-invite').removeClass('d-none');
         }
