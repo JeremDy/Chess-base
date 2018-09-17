@@ -2,12 +2,22 @@
 
 {% block title %}Home{% endblock %}
 
+ {% block headJs %}    
+ <script> const USER_NAME = "{{app.user.username}}"; </script>      
+    {% endblock %} 
+
 {% block body %}
+
+{{include('main/_invitation.html.twig')}}
 
 <div class="row mt-5">
     <div id="home-left" class="col-md-5 offset-md-1 mb-4">
         <button class="btn btn-light mt-5 d-block mx-auto" id="match-making">Trouver une partie</button>
-        <button class="btn btn-light mt-5 d-block mx-auto mb-5" id="match-making">Inviter un joueur</button>
+        
+        <form id="invitation">
+            <input type="text">
+            <button type="submit">inviter un joueur !</button>
+        </form>
     </div>
     <div class="col-md-4 offset-md-1 mb-5" id="root"><div>
 </div>

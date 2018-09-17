@@ -44,25 +44,28 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
         // line 6
         $this->displayBlock('stylesheets', $context, $blocks);
         // line 10
-        echo "    <script> const BASE_URL = ";
-        echo json_encode(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 10, $this->source); })()), "request", array()), "baseUrl", array()));
-        echo "; </script>  
-    ";
+        echo "    <script>
+        const BASE_URL = \"";
         // line 11
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 11, $this->source); })()), "request", array()), "baseUrl", array()), "html", null, true);
+        echo "\"; 
+    </script>  
+    ";
+        // line 13
         $this->displayBlock('headJs', $context, $blocks);
-        // line 12
+        // line 14
         echo "    
     </head>   
     <body>
         ";
-        // line 15
+        // line 17
         $this->displayBlock('header', $context, $blocks);
-        // line 18
+        // line 20
         echo "      
         ";
-        // line 19
+        // line 21
         $this->displayBlock('body', $context, $blocks);
-        // line 23
+        // line 25
         echo "
 
 
@@ -71,21 +74,21 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
             <script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js\" integrity=\"sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49\" crossorigin=\"anonymous\"></script>
             <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js\" integrity=\"sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy\" crossorigin=\"anonymous\"></script>
              <script src=\"";
-        // line 30
+        // line 32
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("bundles/goswebsocket/js/vendor/autobahn.min.js"), "html", null, true);
         echo "\"></script>
              <script src=\"";
-        // line 31
+        // line 33
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("bundles/goswebsocket/js/gos_web_socket_client.js"), "html", null, true);
         echo "\"></script>
             <script src=\" ";
-        // line 32
+        // line 34
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("javascript/socket.js"), "html", null, true);
         echo "\"></script>
   ";
-        // line 33
-        $this->displayBlock('javascripts', $context, $blocks);
         // line 35
+        $this->displayBlock('javascripts', $context, $blocks);
+        // line 37
         echo "    </body>
 </html>
 ";
@@ -139,7 +142,7 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
 
     }
 
-    // line 11
+    // line 13
     public function block_headJs($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -158,7 +161,7 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
 
     }
 
-    // line 15
+    // line 17
     public function block_header($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -167,7 +170,7 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "header"));
 
-        // line 16
+        // line 18
         echo "        ";
         echo twig_include($this->env, $context, "main/header.html.twig");
         echo "
@@ -180,7 +183,7 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
 
     }
 
-    // line 19
+    // line 21
     public function block_body($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -201,7 +204,7 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
 
     }
 
-    // line 33
+    // line 35
     public function block_javascripts($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -232,7 +235,7 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
 
     public function getDebugInfo()
     {
-        return array (  205 => 33,  184 => 19,  171 => 16,  162 => 15,  143 => 11,  131 => 8,  128 => 7,  119 => 6,  101 => 5,  89 => 35,  87 => 33,  83 => 32,  79 => 31,  75 => 30,  66 => 23,  64 => 19,  61 => 18,  59 => 15,  54 => 12,  52 => 11,  47 => 10,  45 => 6,  41 => 5,  35 => 1,);
+        return array (  208 => 35,  187 => 21,  174 => 18,  165 => 17,  146 => 13,  134 => 8,  131 => 7,  122 => 6,  104 => 5,  92 => 37,  90 => 35,  86 => 34,  82 => 33,  78 => 32,  69 => 25,  67 => 21,  64 => 20,  62 => 17,  57 => 14,  55 => 13,  50 => 11,  47 => 10,  45 => 6,  41 => 5,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -246,7 +249,9 @@ class __TwigTemplate_ce5d7da024f604b7eba82e3f0d1a99e4e3a1c4b90f1d24b14f0e6d42cae
             <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css\" integrity=\"sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO\" crossorigin=\"anonymous\">     
             <link rel=\"stylesheet\" href=\"{{asset('css/style.css')}}\" type=\"text/css\" media=\"screen\"/>
         {% endblock %}
-    <script> const BASE_URL = {{ app.request.baseUrl|json_encode()|raw }}; </script>  
+    <script>
+        const BASE_URL = \"{{app.request.baseUrl}}\"; 
+    </script>  
     {% block headJs %}          
     {% endblock %}    
     </head>   

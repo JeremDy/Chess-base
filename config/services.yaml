@@ -38,6 +38,9 @@ services:
     
     app_game.topic:
         class: App\Utils\Topic\GameTopic
+    
+    app_invitation.topic:
+        class: App\Utils\Topic\InvitationTopic
 
 #             or register via "app/config/config.yml"
 

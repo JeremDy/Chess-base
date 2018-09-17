@@ -14,12 +14,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimer;
 use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimerInterface;
 
-
-
 class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
 {
-
-    
     protected $clientManipulator;
     private $doctrine;
     protected $periodicTimer;
@@ -43,27 +39,21 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
      * @return void
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
-    {          
-       
+    {
     }
 
      
     public function setPeriodicTimer(TopicPeriodicTimer $periodicTimer)
     {
-
         $this->periodicTimer = $periodicTimer;
     }
 
     public function registerPeriodicTimer(Topic $topic)
     {
-
-        $this->periodicTimer->addPeriodicTimer($this,'match',10, function() use ($topic){
-       
+        $this->periodicTimer->addPeriodicTimer($this, 'match', 10, function () use ($topic) {
             $subscribers = $this->clientManipulator->getAll($topic);
            
-            dump(count($topic));
-            if(count($topic) >= 2){
-                dump('try to match!');
+            if (count($topic) >= 2) {
                 $playerOne = $subscribers[count($topic) - 1];
                 $playerTwo = $subscribers[count($topic)- 2];
         
@@ -71,8 +61,6 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
                 $playerTwoUserName = $playerTwo['client']->getUsername();
                 
                 if (false !== $playerOne && false !== $playerTwo) {
-                  
-                    
                     $playerOneDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerOne['client']->getUsername());
                     $playerTwoDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerTwo['client']->getUsername());
                     
@@ -95,9 +83,8 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
                             $playerTwo['connection']->WAMP->sessionId
                             )
                         );
-               }
+                }
             }
-
         });
     }
        
@@ -111,7 +98,6 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
      */
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-     
     }
 
 
@@ -127,7 +113,7 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
      * @return mixed|void
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
-    {  
+    {
     }
 
     /**

@@ -507,6 +507,11 @@
     <service id="App\Utils\Topic\GameTopic" class="App\Utils\Topic\GameTopic" public="false" autowire="true" autoconfigure="true">
       <argument type="service" id="gos_web_socket.websocket.client_manipulator"/>
     </service>
+    <service id="App\Utils\Topic\InvitationTopic" class="App\Utils\Topic\InvitationTopic" public="false" autowire="true" autoconfigure="true">
+      <argument type="service" id="gos_web_socket.websocket.client_manipulator"/>
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="router.default"/>
+    </service>
     <service id="App\Utils\Topic\MatchMakingTopic" class="App\Utils\Topic\MatchMakingTopic" public="false" autowire="true" autoconfigure="true">
       <argument type="service" id="gos_web_socket.websocket.client_manipulator"/>
       <argument type="service" id="doctrine"/>
@@ -522,6 +527,11 @@
     </service>
     <service id="app_game.topic" class="App\Utils\Topic\GameTopic" public="false" autowire="true" autoconfigure="true">
       <argument type="service" id="gos_web_socket.websocket.client_manipulator"/>
+    </service>
+    <service id="app_invitation.topic" class="App\Utils\Topic\InvitationTopic" public="false" autowire="true" autoconfigure="true">
+      <argument type="service" id="gos_web_socket.websocket.client_manipulator"/>
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="router.default"/>
     </service>
     <service id=".1_PDO8pkTIN8" class="PDO" public="false">
       <factory service="doctrine.dbal.default_connection" method="getWrappedConnection"/>
@@ -5351,6 +5361,9 @@
       </call>
       <call method="addTopic">
         <argument type="service" id="app_game.topic"/>
+      </call>
+      <call method="addTopic">
+        <argument type="service" id="app_invitation.topic"/>
       </call>
     </service>
     <service id="gos_web_socket.periodic.registry" class="Gos\Bundle\WebSocketBundle\Server\App\Registry\PeriodicRegistry"/>
