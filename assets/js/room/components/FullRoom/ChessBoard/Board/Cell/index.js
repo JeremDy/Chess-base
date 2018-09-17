@@ -2,8 +2,8 @@ import React from 'react';
 import './cell.sass';
 import classNames from 'classnames';
 
-const Cell = ({ item, color, row, column }) => {
-  const val= Number(row)+ Number(column);
+const Cell = ({ item, color, row, column, handleClickOnCell, clickedCell }) => {
+  const val = Number(row) + Number(column);
   const className = classNames(
     'fas',
     {
@@ -16,7 +16,7 @@ const Cell = ({ item, color, row, column }) => {
       'white': color === '1',
       'black': color === '0'
     });
-  const backGround = classNames (
+  const backGround = classNames(
     'cell',
     {
       'brown': (val % 2 === 1),
@@ -25,9 +25,9 @@ const Cell = ({ item, color, row, column }) => {
   );
 
   return (
-    <div className={backGround}>
+    <div className={backGround} onClick={handleClickOnCell(item, color, row, column)}>
       <p className ={className}></p>
-    </div>
+         </div>
   );
 };
 
