@@ -127,6 +127,6 @@ class __TwigTemplate_bd1354225b1a76e317e25e5e984692337a4410e0befef553d7d0f1984c7
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}
-", "@FOSUser/Resetting/email.txt.twig", "/var/www/html/chess3/Chess-base/templates/bundles/FOSUserBundle/Resetting/email.txt.twig");
+", "@FOSUser/Resetting/email.txt.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Resetting/email.txt.twig");
     }
 }

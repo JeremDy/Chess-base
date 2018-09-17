@@ -99,6 +99,6 @@ class __TwigTemplate_4328bc84b20ec062ed4b567c875d54cf1168902207439723a89db905198
     <p><a href=\"{{ targetUrl }}\">{{ 'registration.back'|trans }}</a></p>
     {% endif %}
 {% endblock fos_user_content %}
-", "@FOSUser/Registration/confirmed.html.twig", "/var/www/html/chess3/Chess-base/templates/bundles/FOSUserBundle/Registration/confirmed.html.twig");
+", "@FOSUser/Registration/confirmed.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Registration/confirmed.html.twig");
     }
 }

@@ -50,7 +50,11 @@ class __TwigTemplate_1cbe323aed8d45615fdc538ee1b9071a7c4eaf7a159f044e01c744b5992
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "fos_user_content"));
 
         // line 4
-        $this->loadTemplate("@FOSUser/Profile/edit_content.html.twig", "@FOSUser/Profile/edit.html.twig", 4)->display($context);
+        echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, ($context["user"] ?? null), "username", array(), "any", true, true)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["user"] ?? null), "username", array()), (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 4, $this->source); })()))) : ((isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 4, $this->source); })()))), "html", null, true);
+        echo "
+";
+        // line 5
+        $this->loadTemplate("@FOSUser/Profile/edit_content.html.twig", "@FOSUser/Profile/edit.html.twig", 5)->display($context);
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -71,7 +75,7 @@ class __TwigTemplate_1cbe323aed8d45615fdc538ee1b9071a7c4eaf7a159f044e01c744b5992
 
     public function getDebugInfo()
     {
-        return array (  53 => 4,  44 => 3,  15 => 1,);
+        return array (  57 => 5,  53 => 4,  44 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -79,8 +83,9 @@ class __TwigTemplate_1cbe323aed8d45615fdc538ee1b9071a7c4eaf7a159f044e01c744b5992
         return new Twig_Source("{% extends \"@FOSUser/layout.html.twig\" %}
 
 {% block fos_user_content %}
+{{user.username|default(user) }}
 {% include \"@FOSUser/Profile/edit_content.html.twig\" %}
 {% endblock fos_user_content %}
-", "@FOSUser/Profile/edit.html.twig", "/var/www/html/chess3/Chess-base/templates/bundles/FOSUserBundle/Profile/edit.html.twig");
+", "@FOSUser/Profile/edit.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Profile/edit.html.twig");
     }
 }

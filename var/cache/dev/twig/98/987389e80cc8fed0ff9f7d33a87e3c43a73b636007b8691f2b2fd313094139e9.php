@@ -49,6 +49,6 @@ class __TwigTemplate_5384ccd8fc2c97964f591f9067daf69e40117521762fa38c42b83276c67
     public function getSourceContext()
     {
         return new Twig_Source("<?php echo \$view['form']->block(\$form, 'form_widget_simple', array('type' => isset(\$type) ? \$type : 'hidden')) ?>
-", "@Framework/Form/hidden_widget.html.php", "/var/www/html/chess3/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/hidden_widget.html.php");
+", "@Framework/Form/hidden_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/hidden_widget.html.php");
     }
 }

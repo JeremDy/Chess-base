@@ -127,6 +127,6 @@ class __TwigTemplate_608fbe0afa9faf46595f25656f4a8cb19caf71ccd5de04aad8b8234de98
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}
-", "FOSUserBundle:Registration:email.txt.twig", "/var/www/html/chess3/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Registration/email.txt.twig");
+", "FOSUserBundle:Registration:email.txt.twig", "/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Registration/email.txt.twig");
     }
 }

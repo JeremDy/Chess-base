@@ -59,6 +59,6 @@ class __TwigTemplate_c5707ad1af2a769f8ac26f4f0f67ce6a15e5d1916bcd6cbca39e911bdb7
         <?php echo \$view['form']->widget(\$form); ?>
     </td>
 </tr>
-", "@Framework/FormTable/button_row.html.php", "/var/www/html/chess3/Chess-base/vendor/symfony/framework-bundle/Resources/views/FormTable/button_row.html.php");
+", "@Framework/FormTable/button_row.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/FormTable/button_row.html.php");
     }
 }

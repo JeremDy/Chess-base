@@ -195,6 +195,6 @@ class __TwigTemplate_8a819b8ace2fd3a4d62f4044fa467e789ab43654ee43a2ecf31d7e881b2
         </div>
     </div>
 {% endblock %}
-", "GosWebSocketBundle:Collector:websocket.html.twig", "/var/www/html/chess3/Chess-base/vendor/gos/web-socket-bundle/Resources/views/Collector/websocket.html.twig");
+", "GosWebSocketBundle:Collector:websocket.html.twig", "/var/www/html/Chess-base/vendor/gos/web-socket-bundle/Resources/views/Collector/websocket.html.twig");
     }
 }

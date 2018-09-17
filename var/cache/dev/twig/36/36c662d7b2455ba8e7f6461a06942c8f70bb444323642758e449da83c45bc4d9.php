@@ -465,6 +465,6 @@ class __TwigTemplate_e7e0c867003be02c4fef0f4b6f73c5e12066bc333e1f16c4aaf5b896464
         {% endfor %}
     </table>
 {% endmacro %}
-", "WebProfilerBundle:Collector:events.html.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Collector/events.html.twig");
+", "WebProfilerBundle:Collector:events.html.twig", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Collector/events.html.twig");
     }
 }

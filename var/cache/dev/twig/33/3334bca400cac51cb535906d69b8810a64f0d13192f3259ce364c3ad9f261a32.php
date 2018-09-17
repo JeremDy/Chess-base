@@ -81,6 +81,6 @@ class __TwigTemplate_7d160d53c3f1864f4183f83b481210dae29962d9fb36d3d6a1f78c20a85
             </trace>
 {% endfor %}
         </traces>
-", "TwigBundle:Exception:traces.xml.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/traces.xml.twig");
+", "TwigBundle:Exception:traces.xml.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/traces.xml.twig");
     }
 }

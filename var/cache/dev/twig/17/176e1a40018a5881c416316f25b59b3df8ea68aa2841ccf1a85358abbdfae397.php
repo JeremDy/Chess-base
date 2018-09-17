@@ -91,6 +91,6 @@ class __TwigTemplate_4c0b9cb490d14301e02d1747d2a127505a0c2f397f3eafaecb5f298cfb7
 {{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
 </p>
 {% endblock %}
-", "@FOSUser/Resetting/check_email.html.twig", "/var/www/html/chess3/Chess-base/templates/bundles/FOSUserBundle/Resetting/check_email.html.twig");
+", "@FOSUser/Resetting/check_email.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Resetting/check_email.html.twig");
     }
 }

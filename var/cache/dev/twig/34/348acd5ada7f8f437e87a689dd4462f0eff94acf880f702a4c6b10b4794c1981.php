@@ -99,6 +99,6 @@ class __TwigTemplate_5e4535191521c455f6bbf1f3fad9f576468a39372aef159bb34555bc446
     <p><a href=\"{{ targetUrl }}\">{{ 'registration.back'|trans }}</a></p>
     {% endif %}
 {% endblock fos_user_content %}
-", "FOSUserBundle:Registration:confirmed.html.twig", "/var/www/html/chess3/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Registration/confirmed.html.twig");
+", "FOSUserBundle:Registration:confirmed.html.twig", "/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Registration/confirmed.html.twig");
     }
 }

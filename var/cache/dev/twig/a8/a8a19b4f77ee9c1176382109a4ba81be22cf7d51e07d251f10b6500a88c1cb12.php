@@ -63,6 +63,6 @@ class __TwigTemplate_b6d423dca0904f8c5ca504d9eddd3eb7a51653ac7d6e0346297957b4b76
 <?php printf('%s=\"%s\" ', \$view->escape(\$k), \$view->escape(\$v)) ?>
 <?php endif ?>
 <?php endforeach ?>
-", "@Framework/Form/choice_attributes.html.php", "/var/www/html/chess3/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/choice_attributes.html.php");
+", "@Framework/Form/choice_attributes.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/choice_attributes.html.php");
     }
 }

@@ -79,6 +79,6 @@ class __TwigTemplate_d950171132faa205fa711a94aff04d78a09ef45bb418dac68bf88c52410
         <input type=\"submit\" value=\"{{ 'resetting.reset.submit'|trans }}\" />
     </div>
 {{ form_end(form) }}
-", "FOSUserBundle:Resetting:reset_content.html.twig", "/var/www/html/chess3/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/reset_content.html.twig");
+", "FOSUserBundle:Resetting:reset_content.html.twig", "/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/reset_content.html.twig");
     }
 }

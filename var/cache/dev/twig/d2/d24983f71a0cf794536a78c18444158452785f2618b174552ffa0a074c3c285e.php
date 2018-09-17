@@ -90,6 +90,6 @@ class __TwigTemplate_d09a65dd41d138fd987e7de8317628ef034d9a3b9af08dabe7111f07129
   {{ include('@Twig/Exception/trace.txt.twig', { trace: trace }, with_context = false) }}
 {% endfor %}
 {% endif %}
-", "TwigBundle:Exception:traces.txt.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/traces.txt.twig");
+", "TwigBundle:Exception:traces.txt.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/traces.txt.twig");
     }
 }

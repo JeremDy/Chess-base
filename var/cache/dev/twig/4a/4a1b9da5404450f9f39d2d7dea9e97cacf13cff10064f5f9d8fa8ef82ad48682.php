@@ -91,6 +91,6 @@ class __TwigTemplate_a817712dadbc81581f318e498655af5fd59d1e52dddeef4d29979961462
         ?>
     </div>
 <?php endif ?>
-", "@Framework/Form/time_widget.html.php", "/var/www/html/chess3/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/time_widget.html.php");
+", "@Framework/Form/time_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/time_widget.html.php");
     }
 }

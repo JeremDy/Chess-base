@@ -190,6 +190,6 @@ class __TwigTemplate_37bdf8b2276193efa43d7d77b88b8b731591bad7064fd38476f0652addc
         })|raw }}
     </div>
 {% endif %}
-", "TwigBundle:Exception:trace.html.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/trace.html.twig");
+", "TwigBundle:Exception:trace.html.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/trace.html.twig");
     }
 }

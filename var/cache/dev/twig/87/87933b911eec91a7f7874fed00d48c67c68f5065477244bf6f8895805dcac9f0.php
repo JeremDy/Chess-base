@@ -138,6 +138,6 @@ class __TwigTemplate_fd7f929a1f068945387381d6cb00d2ce8094a46e52e307770775e0916e5
 {% block panel %}
     {{ render(path('_profiler_router', { token: token })) }}
 {% endblock %}
-", "WebProfilerBundle:Collector:router.html.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Collector/router.html.twig");
+", "WebProfilerBundle:Collector:router.html.twig", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Collector/router.html.twig");
     }
 }

@@ -976,6 +976,6 @@ class __TwigTemplate_1121d693e10cd4c35f93f6aaad8b75cfbfbb699e046a04a98e142ca588e
         </span>
     {%- endif -%}
 {%- endblock form_help %}
-", "bootstrap_3_layout.html.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/twig-bridge/Resources/views/Form/bootstrap_3_layout.html.twig");
+", "bootstrap_3_layout.html.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bridge/Resources/views/Form/bootstrap_3_layout.html.twig");
     }
 }

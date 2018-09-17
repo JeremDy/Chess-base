@@ -396,6 +396,6 @@ class __TwigTemplate_009a289c38492121f10c7342c323ee4957ce90e06a9aad796ba85dffec8
         </div>
     {% endfor %}
 {% endblock %}
-", "DebugBundle:Profiler:dump.html.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/debug-bundle/Resources/views/Profiler/dump.html.twig");
+", "DebugBundle:Profiler:dump.html.twig", "/var/www/html/Chess-base/vendor/symfony/debug-bundle/Resources/views/Profiler/dump.html.twig");
     }
 }

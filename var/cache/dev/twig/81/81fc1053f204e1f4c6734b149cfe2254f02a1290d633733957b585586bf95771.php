@@ -65,6 +65,6 @@ class __TwigTemplate_03758b99520debef66cf94fb6827529bbc235d565318f8b5a036f124da5
 <?php printf('%s=\"%s\" ', \$view->escape(\$k), \$view->escape(\$v)) ?>
 <?php endif ?>
 <?php endforeach ?>
-", "@Framework/Form/attributes.html.php", "/var/www/html/chess3/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/attributes.html.php");
+", "@Framework/Form/attributes.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/attributes.html.php");
     }
 }

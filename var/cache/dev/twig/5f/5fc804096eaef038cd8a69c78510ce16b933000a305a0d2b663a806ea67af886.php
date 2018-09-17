@@ -167,6 +167,6 @@ class __TwigTemplate_691f442819004b84ff22e215039c195b819733efeec70550afc4a7dbfb7
 <div>
 <p> Pas encore de compte ? <a href=\"{{ path('fos_user_registration_register') }}\"> Rejoignez nous ! </a></p>
 <a href=\"{{ path('fos_user_resetting_request') }}\"> Mot de passe oublié ? </a>
-</div>", "@FOSUser/Security/login_content.html.twig", "/var/www/html/chess3/Chess-base/templates/bundles/FOSUserBundle/Security/login_content.html.twig");
+</div>", "@FOSUser/Security/login_content.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Security/login_content.html.twig");
     }
 }

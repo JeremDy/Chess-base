@@ -97,6 +97,6 @@ class __TwigTemplate_30eb5acd94dcfd1b77f8c19fd6f0bf4aad07ed81acc582a2aa651040b3e
         Sfjs.loadToolbar('{{ token }}');
     })();
 /*]]>*/</script>
-", "WebProfilerBundle:Profiler:toolbar_js.html.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/toolbar_js.html.twig");
+", "WebProfilerBundle:Profiler:toolbar_js.html.twig", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/toolbar_js.html.twig");
     }
 }

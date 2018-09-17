@@ -45,6 +45,6 @@ class __TwigTemplate_aa0d65334c35cb15d650cdf39af46a7c40319dec87cf1015cba90181ac9
 
     public function getSourceContext()
     {
-        return new Twig_Source("", "@Framework/Form/button_label.html.php", "/var/www/html/chess3/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/button_label.html.php");
+        return new Twig_Source("", "@Framework/Form/button_label.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/button_label.html.php");
     }
 }

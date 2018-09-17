@@ -79,6 +79,6 @@ class __TwigTemplate_632ee5c99bdcd6f5d35b69ec842cb03219e0431ab736de2e05d3bb3bc6b
         <input type=\"submit\" value=\"{{ 'profile.edit.submit'|trans }}\" />
     </div>
 {{ form_end(form) }}
-", "FOSUserBundle:Profile:edit_content.html.twig", "/var/www/html/chess3/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Profile/edit_content.html.twig");
+", "FOSUserBundle:Profile:edit_content.html.twig", "/var/www/html/Chess-base/vendor/friendsofsymfony/user-bundle/Resources/views/Profile/edit_content.html.twig");
     }
 }

@@ -210,6 +210,6 @@ class __TwigTemplate_533f9589b619ce0a6079efd2d0397efacc8bb387f936fae9a719aa6a6b7
         {{ include('@Twig/base_js.html.twig') }}
     </body>
 </html>
-", "@Twig/layout.html.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/twig-bundle/Resources/views/layout.html.twig");
+", "@Twig/layout.html.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/layout.html.twig");
     }
 }

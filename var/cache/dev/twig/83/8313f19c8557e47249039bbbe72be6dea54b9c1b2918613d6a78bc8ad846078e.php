@@ -59,6 +59,6 @@ class __TwigTemplate_822f36b8d6315293a236fb31e25bdb0e8dcf04d5df99ec43c0054792231
 <?php if (\$form_method !== \$method): ?>
     <input type=\"hidden\" name=\"_method\" value=\"<?php echo \$method ?>\" />
 <?php endif ?>
-", "@Framework/Form/form_start.html.php", "/var/www/html/chess3/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_start.html.php");
+", "@Framework/Form/form_start.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_start.html.php");
     }
 }

@@ -49,6 +49,6 @@ class __TwigTemplate_5f4ffc263067b5d59de767e5e0c5a4b948af0b88c3e18937fa3c0c8fb63
     public function getSourceContext()
     {
         return new Twig_Source("<?php if (\$form->vars['multipart']): ?>enctype=\"multipart/form-data\"<?php endif ?>
-", "@Framework/Form/form_enctype.html.php", "/var/www/html/chess3/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_enctype.html.php");
+", "@Framework/Form/form_enctype.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_enctype.html.php");
     }
 }

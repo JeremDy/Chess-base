@@ -28,18 +28,23 @@ class __TwigTemplate_03861decea96c4fe9ada4503c513af28ffd56c4727777f1778e01501c57
         // line 2
         echo "
 <div class=\"fos_user_user_show\">
-    <p>";
+    <p>Dernière Connexion le ";
         // line 4
+        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 4, $this->source); })()), "lastLogin", array()), "d-m-Y"), "html", null, true);
+        echo "</p>
+    <hr/>
+    <p>";
+        // line 6
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("profile.show.username", array(), "FOSUserBundle"), "html", null, true);
         echo ": ";
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 4, $this->source); })()), "username", array()), "html", null, true);
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 6, $this->source); })()), "username", array()), "html", null, true);
         echo "</p>
     <p>";
-        // line 5
+        // line 7
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("profile.show.email", array(), "FOSUserBundle"), "html", null, true);
         echo ": ";
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 5, $this->source); })()), "email", array()), "html", null, true);
-        echo "</p>
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new Twig_Error_Runtime('Variable "user" does not exist.', 7, $this->source); })()), "email", array()), "html", null, true);
+        echo "</p>    
 </div>
 ";
         
@@ -62,7 +67,7 @@ class __TwigTemplate_03861decea96c4fe9ada4503c513af28ffd56c4727777f1778e01501c57
 
     public function getDebugInfo()
     {
-        return array (  39 => 5,  33 => 4,  29 => 2,);
+        return array (  44 => 7,  38 => 6,  33 => 4,  29 => 2,);
     }
 
     public function getSourceContext()
@@ -70,9 +75,11 @@ class __TwigTemplate_03861decea96c4fe9ada4503c513af28ffd56c4727777f1778e01501c57
         return new Twig_Source("{% trans_default_domain 'FOSUserBundle' %}
 
 <div class=\"fos_user_user_show\">
+    <p>Dernière Connexion le {{ user.lastLogin|date('d-m-Y') }}</p>
+    <hr/>
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>    
 </div>
-", "@FOSUser/Profile/show_content.html.twig", "/var/www/html/chess3/Chess-base/templates/bundles/FOSUserBundle/Profile/show_content.html.twig");
+", "@FOSUser/Profile/show_content.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Profile/show_content.html.twig");
     }
 }

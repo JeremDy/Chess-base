@@ -1072,6 +1072,6 @@ class __TwigTemplate_7bd91d94b422438a1f3ab1dc4db631a6439efe0b98294499ba682a5e6a5
         <span>{{ route|default(controller) }}</span>
     {%- endif %}
 {% endmacro %}
-", "WebProfilerBundle:Collector:request.html.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Collector/request.html.twig");
+", "WebProfilerBundle:Collector:request.html.twig", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Collector/request.html.twig");
     }
 }

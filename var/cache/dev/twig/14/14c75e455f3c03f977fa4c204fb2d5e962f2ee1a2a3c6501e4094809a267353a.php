@@ -57,6 +57,6 @@ class __TwigTemplate_ac05576caf1d95295e044aeaf913980c6d870dd4c1d41b8fdb1cf1d5a23
 <?php else: ?>
 <?php echo \$view['form']->block(\$form, 'form_widget_simple')?>
 <?php endif ?>
-", "@Framework/Form/form_widget.html.php", "/var/www/html/chess3/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_widget.html.php");
+", "@Framework/Form/form_widget.html.php", "/var/www/html/Chess-base/vendor/symfony/framework-bundle/Resources/views/Form/form_widget.html.php");
     }
 }

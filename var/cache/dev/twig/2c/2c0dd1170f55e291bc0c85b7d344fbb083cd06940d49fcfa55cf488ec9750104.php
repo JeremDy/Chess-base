@@ -2011,6 +2011,6 @@ class __TwigTemplate_8c6d4c2c60fc20ac75eca20b306f7cd7ad97ac9f99a387b17a0eebf71ef
         {{ tree.form_tree_details(childName, childData, forms_by_hash) }}
     {% endfor %}
 {% endmacro %}
-", "WebProfilerBundle:Collector:form.html.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Collector/form.html.twig");
+", "WebProfilerBundle:Collector:form.html.twig", "/var/www/html/Chess-base/vendor/symfony/web-profiler-bundle/Resources/views/Collector/form.html.twig");
     }
 }

@@ -65,6 +65,6 @@ class __TwigTemplate_5d7195c1040298ca579460301e94eb5c2143ad6ea78048306a7ccfda8bb
 {{ status_code }} {{ status_text }}
 
 */
-", "TwigBundle:Exception:error.js.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/error.js.twig");
+", "TwigBundle:Exception:error.js.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/Exception/error.js.twig");
     }
 }

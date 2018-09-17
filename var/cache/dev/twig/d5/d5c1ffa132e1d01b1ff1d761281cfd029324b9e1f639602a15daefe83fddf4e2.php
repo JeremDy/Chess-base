@@ -305,6 +305,6 @@ header .container { display: flex; justify-content: space-between; }
     .hidden-xs-down { display: initial; }
     .help-link { margin-left: 30px; }
 }
-", "TwigBundle::exception.css.twig", "/var/www/html/chess3/Chess-base/vendor/symfony/twig-bundle/Resources/views/exception.css.twig");
+", "TwigBundle::exception.css.twig", "/var/www/html/Chess-base/vendor/symfony/twig-bundle/Resources/views/exception.css.twig");
     }
 }

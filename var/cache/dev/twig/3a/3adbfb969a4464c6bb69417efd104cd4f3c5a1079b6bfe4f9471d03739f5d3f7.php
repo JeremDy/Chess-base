@@ -90,6 +90,6 @@ class __TwigTemplate_4f4b29e9f307605748ee1e82aecd69e83302673bcb1fb600f37635da862
 <div>
 <p> Déjà inscrit ? <a href=\"{{ path('fos_user_security_login') }}\"> Connectez-vous ! </a></p>
 </div>
-", "@FOSUser/Registration/register_content.html.twig", "/var/www/html/chess3/Chess-base/templates/bundles/FOSUserBundle/Registration/register_content.html.twig");
+", "@FOSUser/Registration/register_content.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/Registration/register_content.html.twig");
     }
 }

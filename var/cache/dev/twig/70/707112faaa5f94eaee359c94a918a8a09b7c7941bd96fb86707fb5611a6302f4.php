@@ -79,6 +79,6 @@ class __TwigTemplate_777f2ad5c6aaeb497f09b90f85e7e194d6e2727ecf5c527618b17cc379a
         <input type=\"submit\" value=\"{{ 'change_password.submit'|trans }}\" />
     </div>
 {{ form_end(form) }}
-", "@FOSUser/ChangePassword/change_password_content.html.twig", "/var/www/html/chess3/Chess-base/templates/bundles/FOSUserBundle/ChangePassword/change_password_content.html.twig");
+", "@FOSUser/ChangePassword/change_password_content.html.twig", "/var/www/html/Chess-base/templates/bundles/FOSUserBundle/ChangePassword/change_password_content.html.twig");
     }
 }
