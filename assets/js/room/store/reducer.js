@@ -119,6 +119,10 @@ const reducer = (state = initialState, action = {}) => {
                     if ((numbRow + iterator) === 8) { break; } else { iterator = iterator + 1; }
 
                   }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${numbColumn}`)[`${(numbRow + iterator)}/${numbColumn}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${numbColumn}`));
+                  }
+
                 }
 
                 if ((numbRow - 1) > 0) { // up
@@ -129,6 +133,9 @@ const reducer = (state = initialState, action = {}) => {
 
                     if ((numbRow - iterator) === 1) { break; } else { iterator = iterator + 1; }
 
+                  }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${numbColumn}`)[`${(numbRow - iterator)}/${numbColumn}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${numbColumn}`));
                   }
                 }
 
@@ -142,6 +149,9 @@ const reducer = (state = initialState, action = {}) => {
                     if ((numbColumn + iterator) === 8) { break; } else { iterator = iterator + 1; }
 
                   }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn + iterator)}`)[`${numbRow}/${(numbColumn + iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn + iterator)}`));
+                  }
                 }
 
                 if ((numbColumn - 1) > 0) { // left
@@ -154,8 +164,12 @@ const reducer = (state = initialState, action = {}) => {
                     if ((numbColumn - iterator) === 1) { break; } else { iterator = iterator + 1; }
 
                   }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn - iterator)}`)[`${numbRow}/${(numbColumn - iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn - iterator)}`));
+                  }
                 }
                 console.log('newAuthorizedCells :', newAuthorizedCells);
+                console.log('newItemKillAble :', newItemKillAble);
                 break;
 
                 // -----------------------------------------------------------------------------------------
@@ -181,17 +195,21 @@ const reducer = (state = initialState, action = {}) => {
 
                     existingCell.push(state.board.find(cell => Object.keys(cell)[0] === allnewKey[index]));
 
-                  }
-                }
+                  };
+                };
 
                 for (let index = 0; index < existingCell.length; index++) { // une fois le tableau créer on regarde parmis les cases existante et accessible lesquelles sont vides
                   if (Object.values(existingCell[index])[0] === 'E') {
-
                     newAuthorizedCells.push(existingCell[index]);// Et on les push dans le tableau des cases autorisées
 
-                  }
+                  } else if (Object.values(existingCell[index])[0] !== 'E') {
+                    newItemKillAble.push(existingCell[index]);
+
+                  };
                 };
+
                 console.log('newAuthorizedCells :', newAuthorizedCells);
+                console.log('newItemKillAble :', newItemKillAble);
                 break;
 
                 // -----------------------------------------------------------------------------------------
@@ -211,6 +229,9 @@ const reducer = (state = initialState, action = {}) => {
                     if ((numbRow + iterator) === 8 || (numbColumn + iterator) === 8) { break; } else { iterator = iterator + 1; } // check si on est au bout du damier ou pas
 
                   }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn + iterator)}`)[`${(numbRow + iterator)}/${(numbColumn + iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn + iterator)}`));
+                  }
                 }
 
                 if (((numbRow - 1) > 0) & ((numbColumn + 1) < 9)) { // up-right
@@ -223,6 +244,9 @@ const reducer = (state = initialState, action = {}) => {
                     if ((numbRow - iterator) === 1 || (numbColumn + iterator) === 8) { break; } else { iterator = iterator + 1; }
 
                   }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn + iterator)}`)[`${(numbRow - iterator)}/${(numbColumn + iterator)}`]  !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn + iterator)}`));
+                  }
                 }
 
                 if (((numbRow + 1) < 9) & ((numbColumn - 1) > 0)) { // down-left
@@ -233,6 +257,9 @@ const reducer = (state = initialState, action = {}) => {
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn - iterator)}`));
 
                     if ((numbRow + iterator) === 8 || (numbColumn - iterator) === 1) { break; } else { iterator = iterator + 1; }
+                  }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn - iterator)}`)[`${(numbRow + iterator)}/${(numbColumn - iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn - iterator)}`));
                   }
                 }
 
@@ -246,8 +273,12 @@ const reducer = (state = initialState, action = {}) => {
                     if ((numbRow - iterator) === 1 || (numbColumn - iterator) === 1) { break; } else { iterator = iterator + 1; }
 
                   }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn - iterator)}`)[`${(numbRow - iterator)}/${(numbColumn - iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn - iterator)}`));
+                  }
                 }
                 console.log('newAuthorizedCells :', newAuthorizedCells);
+                console.log('newItemKillAble :', newItemKillAble);
                 break;
 
                 // -----------------------------------------------------------------------------------------
@@ -256,63 +287,127 @@ const reducer = (state = initialState, action = {}) => {
               case 'Q':
                 console.log('Queen select');
                 state.authorizedCells.length = 0; // Remise à 0 du tableau des cases autorisées
-                if ((numbRow + 1) < 9) { // down  4
+                
+                if ((numbRow + 1) < 9) { // down /!\ le sens visuel et le sens de generation n'est pas le meme ( en haut à gauche : case 1/1 en bas à droite case 8/8)
                   iterator = 1;
+
                   while (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${numbColumn}`)[`${(numbRow + iterator)}/${numbColumn}`] === 'E') {
+
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${numbColumn}`));
+
                     if ((numbRow + iterator) === 8) { break; } else { iterator = iterator + 1; }
+
                   }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${numbColumn}`)[`${(numbRow + iterator)}/${numbColumn}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${numbColumn}`));
+                  }
+
                 }
+
                 if ((numbRow - 1) > 0) { // up
                   iterator = 1;
                   while (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${numbColumn}`)[`${(numbRow - iterator)}/${numbColumn}`] === 'E') {
+
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${numbColumn}`));
+
                     if ((numbRow - iterator) === 1) { break; } else { iterator = iterator + 1; }
+
+                  }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${numbColumn}`)[`${(numbRow - iterator)}/${numbColumn}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${numbColumn}`));
                   }
                 }
+
                 if ((numbColumn + 1) < 9) { // right
                   iterator = 1;
+
                   while (state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn + iterator)}`)[`${numbRow}/${(numbColumn + iterator)}`] === 'E') {
+
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn + iterator)}`));
+
                     if ((numbColumn + iterator) === 8) { break; } else { iterator = iterator + 1; }
+
+                  }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn + iterator)}`)[`${numbRow}/${(numbColumn + iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn + iterator)}`));
                   }
                 }
+
                 if ((numbColumn - 1) > 0) { // left
                   iterator = 1;
+
                   while (state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn - iterator)}`)[`${numbRow}/${(numbColumn - iterator)}`] === 'E') {
+
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn - iterator)}`));
+
                     if ((numbColumn - iterator) === 1) { break; } else { iterator = iterator + 1; }
+
+                  }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn - iterator)}`)[`${numbRow}/${(numbColumn - iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn - iterator)}`));
                   }
                 }
+                
                 if (((numbRow + 1) < 9) & ((numbColumn + 1) < 9)) { // down-right
                   iterator = 1;
+
                   while (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn + iterator)}`)[`${(numbRow + iterator)}/${(numbColumn + iterator)}`] === 'E') {
-                    newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn + iterator)}`));
-                    if ((numbRow + iterator) === 8 || (numbColumn + iterator) === 8) { break; } else { iterator = iterator + 1; }
+
+                    newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn + iterator)}`));// on push les cases dans le tab cases autorisées
+
+                    if ((numbRow + iterator) === 8 || (numbColumn + iterator) === 8) { break; } else { iterator = iterator + 1; } // check si on est au bout du damier ou pas
+
+                  }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn + iterator)}`)[`${(numbRow + iterator)}/${(numbColumn + iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn + iterator)}`));
                   }
                 }
+
                 if (((numbRow - 1) > 0) & ((numbColumn + 1) < 9)) { // up-right
                   iterator = 1;
+
                   while (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn + iterator)}`)[`${(numbRow - iterator)}/${(numbColumn + iterator)}`] === 'E') {
+
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn + iterator)}`));
+
                     if ((numbRow - iterator) === 1 || (numbColumn + iterator) === 8) { break; } else { iterator = iterator + 1; }
+
+                  }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn + iterator)}`)[`${(numbRow - iterator)}/${(numbColumn + iterator)}`]  !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn + iterator)}`));
                   }
                 }
+
                 if (((numbRow + 1) < 9) & ((numbColumn - 1) > 0)) { // down-left
                   iterator = 1;
+
                   while (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn - iterator)}`)[`${(numbRow + iterator)}/${(numbColumn - iterator)}`] === 'E') {
+
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn - iterator)}`));
+
                     if ((numbRow + iterator) === 8 || (numbColumn - iterator) === 1) { break; } else { iterator = iterator + 1; }
                   }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn - iterator)}`)[`${(numbRow + iterator)}/${(numbColumn - iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn - iterator)}`));
+                  }
                 }
+
                 if (((numbRow - 1) > 0) & ((numbColumn - 1) > 0)) { // up-left
                   iterator = 1;
+
                   while (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn - iterator)}`)[`${(numbRow - iterator)}/${(numbColumn - iterator)}`] === 'E') {
+
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn - iterator)}`));
+
                     if ((numbRow - iterator) === 1 || (numbColumn - iterator) === 1) { break; } else { iterator = iterator + 1; }
+
+                  }
+                  if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn - iterator)}`)[`${(numbRow - iterator)}/${(numbColumn - iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn - iterator)}`));
                   }
                 }
                 console.log('newAuthorizedCells :', newAuthorizedCells);
+                console.log('newItemKillAble :', newItemKillAble);
                 break;
                 // -----------------------------------------------------------------------------------------
                 // ------------------------------------------KING-------------------------------------------
@@ -324,7 +419,8 @@ const reducer = (state = initialState, action = {}) => {
                   iterator = 1;
                   if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${numbColumn}`)[`${(numbRow + iterator)}/${numbColumn}`] === 'E') {
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${numbColumn}`));
-                    
+                  } else if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${numbColumn}`)[`${(numbRow + iterator)}/${numbColumn}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${numbColumn}`));
                   }
                 }
                 if ((numbRow - 1) > 0) { // up
@@ -332,51 +428,60 @@ const reducer = (state = initialState, action = {}) => {
                   if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${numbColumn}`)[`${(numbRow - iterator)}/${numbColumn}`] === 'E') {
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${numbColumn}`));
                     if ((numbRow - iterator) === 1) { break; } else { iterator = iterator + 1; }
+                  } else if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${numbColumn}`)[`${(numbRow - iterator)}/${numbColumn}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${numbColumn}`));
                   }
                 }
                 if ((numbColumn + 1) < 9) { // right
                   iterator = 1;
                   if (state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn + iterator)}`)[`${numbRow}/${(numbColumn + iterator)}`] === 'E') {
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn + iterator)}`));
-
+                  } else if (state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn + iterator)}`)[`${numbRow}/${(numbColumn + iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn + iterator)}`));
                   }
                 }
                 if ((numbColumn - 1) > 0) { // left
                   iterator = 1;
                   if (state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn - iterator)}`)[`${numbRow}/${(numbColumn - iterator)}`] === 'E') {
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn - iterator)}`));
-
+                  } else if (state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn - iterator)}`)[`${numbRow}/${(numbColumn - iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${numbRow}/${(numbColumn - iterator)}`));
                   }
                 }
                 if (((numbRow + 1) < 9) & ((numbColumn + 1) < 9)) { // down-right
                   iterator = 1;
                   if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn + iterator)}`)[`${(numbRow + iterator)}/${(numbColumn + iterator)}`] === 'E') {
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn + iterator)}`));
-
+                  } else if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn + iterator)}`)[`${(numbRow + iterator)}/${(numbColumn + iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn + iterator)}`));
                   }
                 }
                 if (((numbRow - 1) > 0) & ((numbColumn + 1) < 9)) { // up-right
                   iterator = 1;
                   if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn + iterator)}`)[`${(numbRow - iterator)}/${(numbColumn + iterator)}`] === 'E') {
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn + iterator)}`));
-  
+                  } else if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn + iterator)}`)[`${(numbRow - iterator)}/${(numbColumn + iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn + iterator)}`));
                   }
                 }
                 if (((numbRow + 1) < 9) & ((numbColumn - 1) > 0)) { // down-left
                   iterator = 1;
                   if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn - iterator)}`)[`${(numbRow + iterator)}/${(numbColumn - iterator)}`] === 'E') {
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn - iterator)}`));
-  
+                  } else if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn - iterator)}`)[`${(numbRow + iterator)}/${(numbColumn - iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + iterator)}/${(numbColumn - iterator)}`));
                   }
                 }
                 if (((numbRow - 1) > 0) & ((numbColumn - 1) > 0)) { // up-left
                   iterator = 1;
                   if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn - iterator)}`)[`${(numbRow - iterator)}/${(numbColumn - iterator)}`] === 'E') {
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn - iterator)}`));
- 
+                  } else if (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn - iterator)}`)[`${(numbRow - iterator)}/${(numbColumn - iterator)}`] !== 'E') {
+                    newItemKillAble.push(state.board.find(cell => Object.keys(cell)[0] === `${(numbRow - iterator)}/${(numbColumn - iterator)}`));
                   }
                 }
                 console.log('newAuthorizedCells :', newAuthorizedCells);
+                console.log('newItemKillAble :', newItemKillAble);
                 break;
             //   case 'E': // Si clique sur une case vide --> Rien TODO: à supprimer si ok
             }
