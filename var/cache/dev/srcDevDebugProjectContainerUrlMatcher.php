@@ -110,32 +110,36 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             0 => '{^(?'
                     .'|/game/([^/]++)(*:21)'
                     .'|/show/([^/]++)(*:42)'
+                    .'|/media/cache/resolve/(?'
+                        .'|([A-z0-9_-]*)/rc/([^/]++)/(.+)(*:103)'
+                        .'|([A-z0-9_-]*)/(.+)(*:129)'
+                    .')'
                     .'|/_(?'
-                        .'|error/(\\d+)(?:\\.([^/]++))?(*:80)'
-                        .'|wdt/([^/]++)(*:99)'
+                        .'|error/(\\d+)(?:\\.([^/]++))?(*:169)'
+                        .'|wdt/([^/]++)(*:189)'
                         .'|profiler/([^/]++)(?'
                             .'|/(?'
-                                .'|search/results(*:144)'
-                                .'|router(*:158)'
+                                .'|search/results(*:235)'
+                                .'|router(*:249)'
                                 .'|exception(?'
-                                    .'|(*:178)'
-                                    .'|\\.css(*:191)'
+                                    .'|(*:269)'
+                                    .'|\\.css(*:282)'
                                 .')'
                             .')'
-                            .'|(*:201)'
+                            .'|(*:292)'
                         .')'
                     .')'
                     .'|/re(?'
-                        .'|gister/confirm/([^/]++)(*:240)'
-                        .'|setting/reset/([^/]++)(*:270)'
+                        .'|gister/confirm/([^/]++)(*:331)'
+                        .'|setting/reset/([^/]++)(*:361)'
                     .')'
                     .'|/login/(?'
-                        .'|service/([^/]++)(*:305)'
-                        .'|registration/([^/]++)(*:334)'
-                        .'|([^/]++)(*:350)'
+                        .'|service/([^/]++)(*:396)'
+                        .'|registration/([^/]++)(*:425)'
+                        .'|([^/]++)(*:441)'
                         .'|check\\-(?'
-                            .'|facebook(*:376)'
-                            .'|google(*:390)'
+                            .'|facebook(*:467)'
+                            .'|google(*:481)'
                         .')'
                     .')'
                 .')$}sD',
@@ -148,20 +152,22 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                         $routes = array(
                             21 => array(array('_route' => 'game', '_controller' => 'App\\Controller\\GameController::index'), array('id'), null, null),
                             42 => array(array('_route' => 'profileShow', '_controller' => 'App\\Controller\\ProfileController::ShowProfile'), array('id'), null, null),
-                            80 => array(array('_route' => '_twig_error_test', '_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'), array('code', '_format'), null, null),
-                            99 => array(array('_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'), array('token'), null, null),
-                            144 => array(array('_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'), array('token'), null, null),
-                            158 => array(array('_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'), array('token'), null, null),
-                            178 => array(array('_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception::showAction'), array('token'), null, null),
-                            191 => array(array('_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception::cssAction'), array('token'), null, null),
-                            201 => array(array('_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'), array('token'), null, null),
-                            240 => array(array('_route' => 'fos_user_registration_confirm', '_controller' => 'fos_user.registration.controller:confirmAction'), array('token'), array('GET' => 0), null),
-                            270 => array(array('_route' => 'fos_user_resetting_reset', '_controller' => 'fos_user.resetting.controller:resetAction'), array('token'), array('GET' => 0, 'POST' => 1), null),
-                            305 => array(array('_route' => 'hwi_oauth_connect_service', '_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::connectServiceAction'), array('service'), null, null),
-                            334 => array(array('_route' => 'hwi_oauth_connect_registration', '_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::registrationAction'), array('key'), null, null),
-                            350 => array(array('_route' => 'hwi_oauth_service_redirect', '_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::redirectToServiceAction'), array('service'), null, null),
-                            376 => array(array('_route' => 'facebook_login'), array(), null, null),
-                            390 => array(array('_route' => 'google_login'), array(), null, null),
+                            103 => array(array('_route' => 'liip_imagine_filter_runtime', '_controller' => 'Liip\\ImagineBundle\\Controller\\ImagineController::filterRuntimeAction'), array('filter', 'hash', 'path'), array('GET' => 0), null),
+                            129 => array(array('_route' => 'liip_imagine_filter', '_controller' => 'Liip\\ImagineBundle\\Controller\\ImagineController::filterAction'), array('filter', 'path'), array('GET' => 0), null),
+                            169 => array(array('_route' => '_twig_error_test', '_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'), array('code', '_format'), null, null),
+                            189 => array(array('_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'), array('token'), null, null),
+                            235 => array(array('_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'), array('token'), null, null),
+                            249 => array(array('_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'), array('token'), null, null),
+                            269 => array(array('_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception::showAction'), array('token'), null, null),
+                            282 => array(array('_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception::cssAction'), array('token'), null, null),
+                            292 => array(array('_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'), array('token'), null, null),
+                            331 => array(array('_route' => 'fos_user_registration_confirm', '_controller' => 'fos_user.registration.controller:confirmAction'), array('token'), array('GET' => 0), null),
+                            361 => array(array('_route' => 'fos_user_resetting_reset', '_controller' => 'fos_user.resetting.controller:resetAction'), array('token'), array('GET' => 0, 'POST' => 1), null),
+                            396 => array(array('_route' => 'hwi_oauth_connect_service', '_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::connectServiceAction'), array('service'), null, null),
+                            425 => array(array('_route' => 'hwi_oauth_connect_registration', '_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::registrationAction'), array('key'), null, null),
+                            441 => array(array('_route' => 'hwi_oauth_service_redirect', '_controller' => 'HWI\\Bundle\\OAuthBundle\\Controller\\ConnectController::redirectToServiceAction'), array('service'), null, null),
+                            467 => array(array('_route' => 'facebook_login'), array(), null, null),
+                            481 => array(array('_route' => 'google_login'), array(), null, null),
                         );
 
                         list($ret, $vars, $requiredMethods, $requiredSchemes) = $routes[$m];
@@ -187,7 +193,7 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                         return $ret;
                 }
 
-                if (390 === $m) {
+                if (481 === $m) {
                     break;
                 }
                 $regex = substr_replace($regex, 'F', $m - $offset, 1 + strlen($m));

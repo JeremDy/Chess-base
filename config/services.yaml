@@ -6,7 +6,7 @@
 parameters:
     locale: 'fr'
     my_user_provider.class: App\Utils\FOSUBUserProvider
-
+    picture_directory: '%kernel.root_dir%/../web/uploads/profil'
 services:
     my_user_provider:
         

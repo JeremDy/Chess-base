@@ -33,7 +33,13 @@
         </div>
     </div>
 </form>
-
+<div>
+<a href="{{ path('hwi_oauth_service_redirect', {'service':'google'}) }}" class="gplus"><i class="fab fa-google"></i>Google</a>
+</div>
+<div>
+<a href="{{ path('hwi_oauth_service_redirect', {'service':'facebook'}) }}" class="gplus"><i class="fab fa-facebook"></i></i>Facebook</a>
+</div>
+<hr/>
 <div>
 <p> Pas encore de compte ? <a href="{{ path('fos_user_registration_register') }}"> Rejoignez nous ! </a></p>
 <a href="{{ path('fos_user_resetting_request') }}"> Mot de passe oublié ? </a>

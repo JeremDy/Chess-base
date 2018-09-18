@@ -161,4 +161,5 @@
   'HttplugBundle:style:httplug.css.twig' => __DIR__.'/../../../vendor/php-http/httplug-bundle/Resources/views/style/httplug.css.twig',
   'HttplugBundle:script:httplug.js.twig' => __DIR__.'/../../../vendor/php-http/httplug-bundle/Resources/views/script/httplug.js.twig',
   'HttplugBundle::webprofiler.html.twig' => __DIR__.'/../../../vendor/php-http/httplug-bundle/Resources/views/webprofiler.html.twig',
+  'LiipImagineBundle:Form:form_div_layout.html.twig' => __DIR__.'/../../../vendor/liip/imagine-bundle/Resources/views/Form/form_div_layout.html.twig',
 );
