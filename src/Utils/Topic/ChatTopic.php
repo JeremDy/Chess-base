@@ -30,7 +30,6 @@ class ChatTopic implements TopicInterface
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-     
     }
 
     /**
@@ -43,7 +42,6 @@ class ChatTopic implements TopicInterface
      */
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-  
     }
 
 

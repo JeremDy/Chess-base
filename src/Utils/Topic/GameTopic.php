@@ -31,7 +31,6 @@ class GameTopic implements TopicInterface
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-  
     }
 
     /**
@@ -44,8 +43,7 @@ class GameTopic implements TopicInterface
      */
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-        //this will broadcast the message to ALL subscribers of this topic.
-        $topic->broadcast(['msg' => $connection->resourceId . " has left " . $topic->getId()]);
+       
     }
 
 
@@ -62,15 +60,17 @@ class GameTopic implements TopicInterface
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
-    
         $user = $this->clientManipulator->getClient($connection);
-        /*
-        	$topic->getId() will contain the FULL requested uri, so you can proceed based on that
-
-            if ($topic->getId() === 'acme/channel/shout')
-     	       //shout something to all subs.
-        */
-       
+            
+        if (is_object($user)) {
+            $topic->broadcast(
+                [
+                    'isValid' => true,
+                    'movement' => $event,
+                ]
+            );
+        }
+        
     }
 
     /**

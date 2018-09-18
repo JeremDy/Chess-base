@@ -36,7 +36,6 @@ class InvitationTopic implements TopicInterface
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-     
     }
 
     /**
@@ -49,9 +48,8 @@ class InvitationTopic implements TopicInterface
      */
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-        if('invitation_channel'=== $request->getRouteName()){
+        if ('invitation_channel'=== $request->getRouteName()) {
             $topic->broadcast(['type' => 'cancel']);
-
         }
     }
 
@@ -72,7 +70,6 @@ class InvitationTopic implements TopicInterface
         $user = $this->clientManipulator->getClient($connection);
             
         if (is_object($user)) {
-           
             if ($topic->getId() === 'invitation') {
                 $receiverName = $event['receiver'];
                 $senderName = $user->getUsername();
@@ -101,7 +98,6 @@ class InvitationTopic implements TopicInterface
                         array(),
                         array($sender['connection']->WAMP->sessionId)
                         );
-
                 } else {
                     $topic->broadcast(
                         [
@@ -123,7 +119,6 @@ class InvitationTopic implements TopicInterface
                 }
 
                 if ($event['type'] === 'accept') {
-                    
                     $subscribers = $this->clientManipulator->getAll($topic);
                     $playerOne = $subscribers[count($topic) - 1];
                     $playerTwo = $subscribers[count($topic)- 2];
@@ -156,9 +151,9 @@ class InvitationTopic implements TopicInterface
                                 )
                             );
                     }
-                }                    
+                }
             }
-         }
+        }
     }
             
     /**
