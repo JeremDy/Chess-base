@@ -8,6 +8,7 @@ use Ratchet\Wamp\Topic;
 use Gos\Bundle\WebSocketBundle\Router\WampRequest;
 use Gos\Bundle\WebSocketBundle\Client\ClientManipulatorInterface;
 use App\Entity\Game;
+use App\Entity\User;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 
@@ -72,8 +73,7 @@ class GameTopic implements TopicInterface
                 array($player['connection']->WAMP->sessionId)
                 );          
             return; 
-        
-        
+          
         }
 
     }
@@ -116,9 +116,11 @@ class GameTopic implements TopicInterface
         }
         
         $playerName = $user->getUsername();
+    
         $player = $this->clientManipulator->findByUsername($topic, $playerName);
         $opponentName = $playerName === $game->getPlayerOne()->getUsername() ? $game->getPlayerTwo()->getUsername() : $game->getPlayerOne()->getUsername();
         $opponent = $this->clientManipulator->findByUsername($topic, $opponentName);
+    
         dump($opponent);
 
         if($user->getId() !== $game->getPlayerWhoCanPlay()->getId()){                
@@ -143,7 +145,24 @@ class GameTopic implements TopicInterface
                 
                 return;
         }*/
+
         
+        /*if(game is over){
+             //broacast : bravo au winner
+             //broadcast : t'es nul au perdant
+             //persist game data dans gameover
+             //update player stat
+             //delete game
+
+        }*/
+
+
+
+        //si le verif sont ok;
+        //update game : chessBoard, movementList,palyerWhocanPlay,lastMoveTime,Last Move;
+
+        $game->setPlayerWhoCanPlay($this->doctrine->getRepository(User::class)->findOneByUsername($opponentName));
+      
         $topic->broadcast(
             [
                 'canPlay' => false,
@@ -156,7 +175,7 @@ class GameTopic implements TopicInterface
         $topic->broadcast(
             [
                 'canPlay'=> true,
-                'message' => 'Ton adversaire à jouer, à ton tour',
+                'message' => 'Ton adversaire à joué, à ton tour',
                 'movement' => $event,
             ],
             array(),
