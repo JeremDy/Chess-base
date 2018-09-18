@@ -15,6 +15,8 @@ use App\Entity\User;
 class InvitationTopic implements TopicInterface
 {
     protected $clientManipulator;
+    private $doctrine;
+    private $urlGenerator;
 
     /**
      * @param ClientManipulatorInterface $clientManipulator
