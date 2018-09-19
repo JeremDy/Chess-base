@@ -13,6 +13,7 @@ use App\Entity\User;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimer;
 use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimerInterface;
+use App\Models\Board;
 
 class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
 {
