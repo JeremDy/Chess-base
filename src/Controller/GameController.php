@@ -14,8 +14,12 @@ class GameController extends AbstractController
      */
     public function index(Game $game)
     {
+
+        $color = $game->getPlayerOne()->getUsername() === $this->getUser()->getUsername() ? 1 : 0;
+       
         return $this->render('game/index.html.twig',[
-            'game' => $game
+            'game' => $game,
+            'color' => $color
         ]);
     }
 }
