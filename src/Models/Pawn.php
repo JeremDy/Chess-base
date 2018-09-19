@@ -17,8 +17,13 @@ class Pawn extends Piece
         if (true === $board->hasAllyPieceOnCase($newPosX, $newPosY, $this->getColor())) {
             return false;
         }
+        if (false === $this->pawnMovementDirection($newPosY)) {
+            return false;
+        }
+
         if (false === $this->pawnAttackMove($board, $newPosX, $newPosY)
-        && false === $this->pawnRegularMove($board, $newPosX, $newPosY)) {
+        && false === $this->pawnRegularMove($board, $newPosX, $newPosY)
+        && false === $this->pawnFirstMove($board, $newPosX, $newPosY)) {
             return false;
         }
         return true;
@@ -27,9 +32,7 @@ class Pawn extends Piece
 
     public function pawnAttackMove(Board $board, int $newPosX, int $newPosY) : bool
     {
-        if (false === $this->pawnMovementDirection($newPosY)) {
-            return false;
-        }
+       
         if (abs($this->posX - $newPosX) !== 1 || abs($this->posY - $newPosY) !== 1) {
             return false;
         }
@@ -41,9 +44,6 @@ class Pawn extends Piece
 
     public function pawnRegularMove(Board $board, int $newPosX, int $newPosY) : bool
     {
-        if (false === $this->pawnMovementDirection($newPosY)) {
-            return false;
-        }
         if (abs($this->posY - $newPosY) !== 1 || $this->posX !== $newPosX) {
             return false;
         }
@@ -64,5 +64,19 @@ class Pawn extends Piece
             return false;
         }
         return true;
+    }
+
+    public function pawnFirstMove(Board $board, int $newPosX, int $newPosY) : bool
+    {
+        if (false === $this->isDoingValideVerticalMovement($board, $newPosX, $newPosY)) {
+            return false;
+        }  
+        if ($this->getColor() === 'white' && $this->getPosY() === 2 && $newPosY === 4){
+            return true;
+        }
+        if ($this->getColor() === 'black' && $this->getPosY() === 7 && $newPosY === 5){
+            return true;
+        }
+        return false;
     }
 }

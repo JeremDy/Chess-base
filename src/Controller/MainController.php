@@ -18,17 +18,4 @@ class MainController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
-
-
-    /**
-     * @Route("/test", name="test")
-     */
-    public function test(UserRepository $userRepository)
-    {
-     
-
-        return $this->render('main/index.html.twig');
-    }
-
-    
 }
