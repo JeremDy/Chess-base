@@ -59,7 +59,7 @@ const reducer = (state = initialState, action = {}) => {
       const numbColumn = Number(column);// conversion en valeur numérique pour les opérations
       let cell;// objet contenant les dataToSend de la cellule sur laquelle on vient de cliquer
       // Pour eviter les erreurs si l'on clique sur une case vide, on enleve la color ( une case vide n'a pas de couleur)
-      (color != undefined) ? cell = {[`${row}/${column}`]: `${item}${color}`} : cell = {[`${row}/${column}`]: `${item}`};
+      (color !== undefined) ? cell = {[`${row}/${column}`]: `${item}${color}`} : cell = {[`${row}/${column}`]: `${item}`};
       const clicCount = Number(state.clickedCell.length) + 1; // au début le tableau est vide donc vide + 1 = 1 = premier clic
 
       switch (clicCount) { // Debut du switch pour différencier clic 1 clic 2
@@ -513,9 +513,10 @@ const reducer = (state = initialState, action = {}) => {
           mov['new'] = Object.keys(state.clickedCell[0])[0];
           dataToSend['movement'] = {...mov};
 
-          if (((state.authorizedCells.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
-          ((state.itemKillAble.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) & (state.myColor != color)) { // est ce que la case sur laquelle on clic fait partie des cases killAble
+          if ((((state.authorizedCells.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
+          ((state.itemKillAble.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) & (state.myColor != color)) & (item != 'K')) { // est ce que la case sur laquelle on clic fait partie des cases killAble
 // TODO: rajouter une condtion & si couleur de la pièce que je cible différente de ma couleur
+console.log('item',item)
             const newItem = Object.values(state.clickedCell[0])[0]; // on récupère la pièce qui était sur la case du premier clic
 
             newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem; // on modifie la valeur pour y mettre la nouvelle pièce
