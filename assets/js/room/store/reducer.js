@@ -16,6 +16,7 @@ const initialState = {
   authorizedCells: [],
   channel: '',
   canPlay: false,
+  newPositions: [],
   webSocket: ''
 };
 
@@ -30,10 +31,15 @@ const reducer = (state = initialState, action = {}) => {
     // ------------------------------------I-N-I-T---D-I-S-P-L-A-Y------------------------------
     // -----------------------------------------------------------------------------------------
     case INITIAL_DISPLAY:
-    
+      let newBoard = [...state.board];
+      if (action.serverMessage['movement'] !== undefined) {
+        newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'][0])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'][0])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'][0])[0];
+        newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'][1])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'][1])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'][1])[0];
+      }
       return {
         ...state,
         canPlay: action.serverMessage['canPlay'],
+        board: newBoard,
         webSocket: action.webSocket
       };
 
@@ -501,23 +507,21 @@ const reducer = (state = initialState, action = {}) => {
           mov['new'] = Object.keys(state.clickedCell[0])[0];
           dataToSend['movement'] = [mov];
 
-
           if ((state.authorizedCells.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
           ((state.itemKillAble.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) { // est ce que la case sur laquelle on clic fait partie des cases killAble
 // TODO: rajouter une condtion & si couleur de la pièce que je cible différente de ma couleur 
             const newItem = Object.values(state.clickedCell[0])[0]; // on récupère la pièce qui était sur la case du premier clic
 
             newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem; // on modifie la valeur pour y mettre la nouvelle pièce
-
             newBoard.find(cellToModify => Object.keys(state.clickedCell[0])[0] === Object.keys(cellToModify)[0])[Object.keys(state.clickedCell[0])[0]] = 'E'; // on 'vide la case du premier clic'
 
-            console.log('cell dif');
+            dataToSend['newPositions'].find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem;
+            dataToSend['newPositions'].find(cellToModify => Object.keys(state.clickedCell[0])[0] === Object.keys(cellToModify)[0])[Object.keys(state.clickedCell[0])[0]] = 'E';
+
             state.webSocket = WS.connect('ws://127.0.0.1:8080');
             state.webSocket.on('socket/connect', function(session) {
-                console.log('dataToSend',dataToSend)
-              session.publish(state.channel,{...dataToSend});
-              console.log('dataToSend',dataToSend)
-
+              session.publish(state.channel, {...dataToSend});
+              console.log('dataToSend', dataToSend);
             });
             return {
               ...state,

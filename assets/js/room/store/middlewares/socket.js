@@ -11,7 +11,7 @@ const ioMiddle = store => next => (action) => {
       webSocket.on('socket/connect', function(session) {
         console.log('connect to :' + channel);
         session.subscribe(channel, function(uri, serverMessage) {
-          console.log(serverMessage);
+          console.log('servermessage',serverMessage);
           store.dispatch(initialDisplay(serverMessage, webSocket));
         });
       });
