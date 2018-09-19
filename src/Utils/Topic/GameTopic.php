@@ -106,6 +106,7 @@ class GameTopic implements TopicInterface
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
 
+
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
         $user = $this->clientManipulator->getClient($connection);
@@ -135,7 +136,7 @@ class GameTopic implements TopicInterface
         }
     
         $board = $game->getChessBoard();
-        $piece = $board->getPiece(key($event[1]));  
+        $piece = $board->getPiece($event['movement']['old']);  
         
         if(null === $piece){
             $topic->broadcast(
@@ -159,7 +160,7 @@ class GameTopic implements TopicInterface
             return;
         }
        
-        $arrayPos = explode('/', key($event[0]));
+        $arrayPos = explode('/', $event['movement']['new']);
         $newPosY = intval($arrayPos[0]);
         $newPosX = intval($arrayPos[1]);
 
@@ -177,13 +178,13 @@ class GameTopic implements TopicInterface
         }
 
         //'bouge la piece' ,met à jour le board.
-        $board->movePiece($piece, (key($event[0])));
+        $board->movePiece($piece, $event['movement']['new']);
         $game->setPlayerWhoCanPlay($this->doctrine->getRepository(User::class)->findOneByUsername($opponentName));
-       
+        dump($board);
         $topic->broadcast(
             [
                 'canPlay' => false,
-                'message' => 'Tu as finis ton tour',
+                'message' => 'Tu as finis ton tour',           
             ],
             array(),
             array($player['connection']->WAMP->sessionId)

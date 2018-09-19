@@ -509,8 +509,8 @@ const reducer = (state = initialState, action = {}) => {
           let dataToSend = [];
           let mov = [];
           dataToSend['newPositions'] = {...cell, ...state.clickedCell[0]};
-          mov['old'] = Object.keys(cell)[0];
-          mov['new'] = Object.keys(state.clickedCell[0])[0];
+          mov['new'] = Object.keys(cell)[0];
+          mov['old'] = Object.keys(state.clickedCell[0])[0];
           dataToSend['movement'] = {...mov};
 
           if ((((state.authorizedCells.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
