@@ -68,7 +68,8 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
                     $game->setStartedAt(new \DateTime())
                         ->setPlayerOne($playerOneDoctrine)
                         ->setPlayerTwo($playerTwoDoctrine)
-                        ->setPlayerWhoCanPlay($playerOneDoctrine);
+                        ->setPlayerWhoCanPlay($playerOneDoctrine)
+                        ->setChessBoard(new Board);
                     
                     $this->doctrine->getManager()->persist($game);
                     $this->doctrine->getManager()->flush();

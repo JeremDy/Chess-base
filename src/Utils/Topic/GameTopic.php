@@ -108,7 +108,7 @@ class GameTopic implements TopicInterface
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
         $user = $this->clientManipulator->getClient($connection);
-        dump($user);
+       
         
         if (!is_object($user)) {
             $connection->send('user non connecté ?!'); 
@@ -121,7 +121,7 @@ class GameTopic implements TopicInterface
         $opponentName = $playerName === $game->getPlayerOne()->getUsername() ? $game->getPlayerTwo()->getUsername() : $game->getPlayerOne()->getUsername();
         $opponent = $this->clientManipulator->findByUsername($topic, $opponentName);
     
-        dump($opponent);
+  
 
         if($user->getId() !== $game->getPlayerWhoCanPlay()->getId()){                
             $topic->broadcast(
@@ -160,7 +160,16 @@ class GameTopic implements TopicInterface
 
         //si le verif sont ok;
         //update game : chessBoard, movementList,palyerWhocanPlay,lastMoveTime,Last Move;
+    
 
+        //recup le board en bdd:
+        $board = $game->getChessBoard();
+        //recup la piece bougé dans le board:
+        $piece = $board->getPiece(key($event[1]));
+        //'bouge la piece' ,met à jour le board.
+        $board->movePiece($piece, (key($event[0])));
+        dump($board);
+        
         $game->setPlayerWhoCanPlay($this->doctrine->getRepository(User::class)->findOneByUsername($opponentName));
       
         $topic->broadcast(
