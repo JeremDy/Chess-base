@@ -17,7 +17,7 @@ class Game
     private $id;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="object", nullable=true)
      */
     private $ChessBoard = [];
 
@@ -61,12 +61,12 @@ class Game
         return $this->id;
     }
 
-    public function getChessBoard(): ?array
+    public function getChessBoard(): ?object
     {
         return $this->ChessBoard;
     }
 
-    public function setChessBoard(?array $ChessBoard): self
+    public function setChessBoard(?object $ChessBoard): self
     {
         $this->ChessBoard = $ChessBoard;
 

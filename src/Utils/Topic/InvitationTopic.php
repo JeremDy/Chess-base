@@ -11,6 +11,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Entity\Game;
 use App\Entity\User;
+use App\Models\Board;
 
 class InvitationTopic implements TopicInterface
 {
@@ -136,7 +137,8 @@ class InvitationTopic implements TopicInterface
                         $game->setStartedAt(new \DateTime())
                             ->setPlayerOne($playerOneDoctrine)
                             ->setPlayerTwo($playerTwoDoctrine)
-                            ->setPlayerWhoCanPlay($playerOneDoctrine);
+                            ->setPlayerWhoCanPlay($playerOneDoctrine)
+                            ->setChessBoard(new Board);
                         
                         $this->doctrine->getManager()->persist($game);
                         $this->doctrine->getManager()->flush();
