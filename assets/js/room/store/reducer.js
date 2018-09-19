@@ -1,4 +1,4 @@
-import {CELL_CLIC, INITIAL_DISPLAY} from './actions';
+import {WEBSOCKET_CONNECT, CELL_CLIC, INITIAL_DISPLAY} from './actions';
 
 const initialState = {
   board: [
@@ -14,32 +14,27 @@ const initialState = {
   itemKillAble: [],
   clickedCell: [],
   authorizedCells: [],
-  channel: ''
+  channel: '',
+  canPlay: false,
+  webSocket: ''
 };
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) { // DEBUT DU SWITCH REDUCER
-
+    case WEBSOCKET_CONNECT:
+      return {
+        ...state,
+        channel: action.channel
+      };
     // -----------------------------------------------------------------------------------------
     // ------------------------------------I-N-I-T---D-I-S-P-L-A-Y------------------------------
     // -----------------------------------------------------------------------------------------
     case INITIAL_DISPLAY:
-
-      let webSocket;
-      const channel = action.channel;
-      console.log('connect to channel:', channel);
-
-      webSocket = WS.connect('ws://127.0.0.1:8080'); //ws://127.0.0.1:8080  // TODO: Objet WS non reconnue ?
-      webSocket.on('socket/connect', function(session) {
-        console.log('connect to :' + channel);
-        session.subscribe(channel, function(uri, newKeyementsConfirmation) {
-          console.log('payload received:', newKeyementsConfirmation);
-        });
-      });
-
+    
       return {
         ...state,
-        channel: action.channel
+        canPlay: action.serverMessage['canPlay'],
+        webSocket: action.webSocket
       };
 
     // -----------------------------------------------------------------------------------------
@@ -58,7 +53,7 @@ const reducer = (state = initialState, action = {}) => {
       switch (clicCount) { // Debut du switch pour différencier clic 1 clic 2
 
         case 1: // premier clic
-          if (item === 'E') { return state; } else { // annule tout effet d'un clic sur une cellule vide
+          if (item === 'E' || !state.canPlay) { return state; } else if (state.canPlay) { // annule tout effet d'un clic sur une cellule vide
             console.log('clic 1');
 
             let newAuthorizedCells = [];
@@ -493,12 +488,19 @@ const reducer = (state = initialState, action = {}) => {
               itemKillAble: newItemKillAble
             };
           }; // fin du if (item === 'E') { return state; } else {
+          break;
 
         case 2: // deuxième clic
           console.log('clic 2');
 
           let newBoard = [...state.board]; // on prepare le board que l'on aura modifier pour le renvoyer /!\ a ne pas faire de passage par référence
-          let effectedMov = [cell, state.clickedCell[0]];
+          let data = [];
+          let mov = [];
+          data['newPositions'] = [cell, state.clickedCell[0]];
+          mov['old'] = Object.keys(cell)[0];
+          mov['new'] = Object.keys(state.clickedCell[0])[0];
+          data['movement'] = [mov];
+
 
           if ((state.authorizedCells.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
           ((state.itemKillAble.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) { // est ce que la case sur laquelle on clic fait partie des cases killAble
@@ -509,20 +511,27 @@ const reducer = (state = initialState, action = {}) => {
 
             newBoard.find(cellToModify => Object.keys(state.clickedCell[0])[0] === Object.keys(cellToModify)[0])[Object.keys(state.clickedCell[0])[0]] = 'E'; // on 'vide la case du premier clic'
 
-          } else { console.log(''); };
+            console.log('cell dif');
+            state.webSocket = WS.connect('ws://127.0.0.1:8080');
+            state.webSocket.on('socket/connect', function(session) {
+              session.publish(state.channel, data);
+              console.log('data send', data);
+            });
+            return {
+              ...state,
+              clickedCell: [], // on réinitialise le tableau clicked cell pour pouvoir recevoir le prochain premier clic
+              board: newBoard // on envoie le nouveau board modifié et le damier se mettra à jour
+            };
+          } else {
+            console.log('pas autorisé pas killable');
+            return {
+              ...state,
+              clickedCell: [],
+              authorizedCells: [],
+              itemKillAble: []
+            };
 
-          webSocket = WS.connect('ws://127.0.0.1:8080');
-          webSocket.on('socket/connect', function(session) {
-            session.publish(state.channel, effectedMov);
-            console.log('effectedMov', [...effectedMov]);
-          });
-
-          return {
-            ...state,
-            clickedCell: [], // on réinitialise le tableau clicked cell pour pouvoir recevoir le prochain premier clic
-            board: newBoard // on envoie le nouveau board modifié et le damier se mettra à jour
           };
-
       } // end of switch clicCount
       break; // END CASE CELL CLIC
 
