@@ -24,11 +24,14 @@ const initialState = {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) { // DEBUT DU SWITCH REDUCER
     case WEBSOCKET_CONNECT:
-      console.log('mycolor',action.color)
+      let rotateBoard = [...state.board];
+      console.log('mycolor', action.color);
+      if (action.color == 1) { rotateBoard.reverse(); }
       return {
         ...state,
         channel: action.channel,
-        myColor: action.color
+        myColor: action.color,
+        board: rotateBoard
       };
     // -----------------------------------------------------------------------------------------
     // ------------------------------------I-N-I-T---D-I-S-P-L-A-Y------------------------------
