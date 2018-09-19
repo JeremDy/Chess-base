@@ -45,7 +45,7 @@ const reducer = (state = initialState, action = {}) => {
       const {item, row, column, color} = action;
       const numbRow = Number(row);// conversion en valeur numérique pour les opérations
       const numbColumn = Number(column);// conversion en valeur numérique pour les opérations
-      let cell;// objet contenant les data de la cellule sur laquelle on vient de cliquer
+      let cell;// objet contenant les dataToSend de la cellule sur laquelle on vient de cliquer
       // Pour eviter les erreurs si l'on clique sur une case vide, on enleve la color ( une case vide n'a pas de couleur)
       (color != undefined) ? cell = {[`${row}/${column}`]: `${item}${color}`} : cell = {[`${row}/${column}`]: `${item}`};
       const clicCount = Number(state.clickedCell.length) + 1; // au début le tableau est vide donc vide + 1 = 1 = premier clic
@@ -494,12 +494,12 @@ const reducer = (state = initialState, action = {}) => {
           console.log('clic 2');
 
           let newBoard = [...state.board]; // on prepare le board que l'on aura modifier pour le renvoyer /!\ a ne pas faire de passage par référence
-          let data = [];
+          let dataToSend = [];
           let mov = [];
-          data['newPositions'] = [cell, state.clickedCell[0]];
+          dataToSend['newPositions'] = [cell, state.clickedCell[0]];
           mov['old'] = Object.keys(cell)[0];
           mov['new'] = Object.keys(state.clickedCell[0])[0];
-          data['movement'] = [mov];
+          dataToSend['movement'] = [mov];
 
 
           if ((state.authorizedCells.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
@@ -514,8 +514,10 @@ const reducer = (state = initialState, action = {}) => {
             console.log('cell dif');
             state.webSocket = WS.connect('ws://127.0.0.1:8080');
             state.webSocket.on('socket/connect', function(session) {
-              session.publish(state.channel, data);
-              console.log('data send', data);
+                console.log('dataToSend',dataToSend)
+              session.publish(state.channel,{...dataToSend});
+              console.log('dataToSend',dataToSend)
+
             });
             return {
               ...state,
