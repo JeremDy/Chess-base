@@ -105,24 +105,24 @@ class GameTopic implements TopicInterface
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
+
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
         $user = $this->clientManipulator->getClient($connection);
-       
-        
+    
         if (!is_object($user)) {
-            $connection->send('user non connecté ?!'); 
+            dump('user not connected');
             return;
         }
-        
+ 
         $playerName = $user->getUsername();
-    
+        $playerColor = $playerName === $request->getAttributes()->get('playerOne') ? 'white' : 'black';
+        $opponentName =  $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne'); 
+
         $player = $this->clientManipulator->findByUsername($topic, $playerName);
-        $opponentName = $playerName === $game->getPlayerOne()->getUsername() ? $game->getPlayerTwo()->getUsername() : $game->getPlayerOne()->getUsername();
         $opponent = $this->clientManipulator->findByUsername($topic, $opponentName);
     
   
-
         if($user->getId() !== $game->getPlayerWhoCanPlay()->getId()){                
             $topic->broadcast(
                 [
@@ -134,60 +134,52 @@ class GameTopic implements TopicInterface
             return;       
         }
     
-        /*if(verif not ok){
+        $board = $game->getChessBoard();
+        $piece = $board->getPiece(key($event[1]));  
+        
+        if(null === $piece){
             $topic->broadcast(
                 [
-                    'error' => 'Coup invalide',
+                    'error' => 'Cette piece n\'existe pas !',
                 ],
                 array(),
-                array($sender['connection']->WAMP->sessionId)
-                );  
-                
-                return;
-        }*/
-
-        
-        /*if(game is over){
-             //broacast : bravo au winner
-             //broadcast : t'es nul au perdant
-             //persist game data dans gameover
-             //update player stat
-             //delete game
-
-        }*/
-
-
-
-        //si le verif sont ok;
-        //update game : chessBoard, movementList,palyerWhocanPlay,lastMoveTime,Last Move;
-    
-
-        //recup le board en bdd:
-
-        $board = $game->getChessBoard();
-        //recup la piece bougé dans le board:
-        $piece = $board->getPiece(key($event[1]));
-        if(null === $piece){
+                array($player['connection']->WAMP->sessionId)
+                );               
             return;
-        }        
+        }
+        
+        if($playerColor !== $piece->getColor()){
+            $topic->broadcast(
+                [
+                    'error' => 'Ce n\'est pas une de vos pieces!',
+                ],
+                array(),
+                array($player['connection']->WAMP->sessionId)
+                );               
+            return;
+        }
+       
         $arrayPos = explode('/', key($event[0]));
         $newPosY = intval($arrayPos[0]);
         $newPosX = intval($arrayPos[1]);
 
-        $verif = $piece->canDothismove($board, $newPosX, $newPosY);
-        dump($board);
-        dump($verif);
-        if(false === $verif){
+        $verification = $piece->canDothismove($board, $newPosX, $newPosY);
+    
+        if(false === $verification){
+            $topic->broadcast(
+                [
+                    'error' => 'Ce mouvement est incorect !',
+                ],
+                array(),
+                array($player['connection']->WAMP->sessionId)
+                );               
             return;
         }
 
-
         //'bouge la piece' ,met à jour le board.
         $board->movePiece($piece, (key($event[0])));
-        
-        
         $game->setPlayerWhoCanPlay($this->doctrine->getRepository(User::class)->findOneByUsername($opponentName));
-      
+       
         $topic->broadcast(
             [
                 'canPlay' => false,
