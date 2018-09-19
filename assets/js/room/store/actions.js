@@ -18,7 +18,8 @@ export const initialDisplay = (serverMessage, webSocket) => ({
 
 export const WEBSOCKET_CONNECT = 'actions/WEBSOCKET_CONNECT';
 
-export const webSocketConnect = (channel) => ({
+export const webSocketConnect = (channel, color) => ({
   type: WEBSOCKET_CONNECT,
-  channel
+  channel,
+  color
 });
