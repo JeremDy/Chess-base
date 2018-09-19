@@ -14,6 +14,7 @@ const initialState = {
   itemKillAble: [],
   clickedCell: [],
   authorizedCells: [],
+  cellsBeforeKing: [],
   channel: '',
   canPlay: false,
   newPositions: [],
@@ -23,9 +24,11 @@ const initialState = {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) { // DEBUT DU SWITCH REDUCER
     case WEBSOCKET_CONNECT:
+    console.log('mycolor',action.color)
       return {
         ...state,
-        channel: action.channel
+        channel: action.channel,
+        myColor: action.color
       };
     // -----------------------------------------------------------------------------------------
     // ------------------------------------I-N-I-T---D-I-S-P-L-A-Y------------------------------
@@ -33,8 +36,11 @@ const reducer = (state = initialState, action = {}) => {
     case INITIAL_DISPLAY:
       let newBoard = [...state.board];
       if (action.serverMessage['movement'] !== undefined) {
-        newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'][0])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'][0])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'][0])[0];
-        newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'][1])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'][1])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'][1])[0];
+          console.log('cell',cell)
+          console.log('action.serverMessage[movement][newPositions][0]',action.serverMessage['movement']['newPositions'])
+
+        newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
+        newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[1])[`${Object.keys(action.serverMessage['movement']['newPositions'])[1]}`] = Object.values(action.serverMessage['movement']['newPositions'])[1];
       }
       return {
         ...state,
@@ -59,7 +65,7 @@ const reducer = (state = initialState, action = {}) => {
       switch (clicCount) { // Debut du switch pour différencier clic 1 clic 2
 
         case 1: // premier clic
-          if (item === 'E' || !state.canPlay) { return state; } else if (state.canPlay) { // annule tout effet d'un clic sur une cellule vide
+          if (item === 'E' || !state.canPlay || color != state.myColor) { return state; } else if (state.canPlay & color == state.myColor) { // annule tout effet d'un clic sur une cellule vide
             console.log('clic 1');
 
             let newAuthorizedCells = [];
@@ -514,9 +520,8 @@ const reducer = (state = initialState, action = {}) => {
 
             newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem; // on modifie la valeur pour y mettre la nouvelle pièce
             newBoard.find(cellToModify => Object.keys(state.clickedCell[0])[0] === Object.keys(cellToModify)[0])[Object.keys(state.clickedCell[0])[0]] = 'E'; // on 'vide la case du premier clic'
-
-            dataToSend['newPositions'].find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem;
-            dataToSend['newPositions'].find(cellToModify => Object.keys(state.clickedCell[0])[0] === Object.keys(cellToModify)[0])[Object.keys(state.clickedCell[0])[0]] = 'E';
+            dataToSend['newPositions'][Object.keys(cell)[0]]= newItem;
+            dataToSend['newPositions'][Object.keys(state.clickedCell[0])[0]] = 'E';
 
             state.webSocket = WS.connect('ws://127.0.0.1:8080');
             state.webSocket.on('socket/connect', function(session) {
