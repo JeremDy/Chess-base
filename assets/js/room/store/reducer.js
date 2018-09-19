@@ -505,6 +505,36 @@ const reducer = (state = initialState, action = {}) => {
         case 2: // deuxième clic
           console.log('clic 2');
 
+        //   if (Object.values(state.clickedCell[0])[0] === 'K'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           let newBoard = [...state.board]; // on prepare le board que l'on aura modifier pour le renvoyer /!\ a ne pas faire de passage par référence
           let dataToSend = [];
           let mov = [];
@@ -516,7 +546,7 @@ const reducer = (state = initialState, action = {}) => {
           if ((((state.authorizedCells.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
           ((state.itemKillAble.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) & (state.myColor != color)) & (item != 'K')) { // est ce que la case sur laquelle on clic fait partie des cases killAble
 // TODO: rajouter une condtion & si couleur de la pièce que je cible différente de ma couleur
-console.log('item',item)
+
             const newItem = Object.values(state.clickedCell[0])[0]; // on récupère la pièce qui était sur la case du premier clic
 
             newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem; // on modifie la valeur pour y mettre la nouvelle pièce
