@@ -112,9 +112,9 @@
     <parameter key="container.autowiring.strict_mode">true</parameter>
     <parameter key="container.dumper.inline_class_loader">true</parameter>
     <parameter key="env(DATABASE_URL)"></parameter>
+    <parameter key="picture_directory">/var/www/html/Chess-base/public/uploads/profil</parameter>
     <parameter key="locale">fr</parameter>
     <parameter key="my_user_provider.class">App\Utils\FOSUBUserProvider</parameter>
-    <parameter key="picture_directory">/var/www/html/Chess-base/src/../web/uploads/profil</parameter>
     <parameter key="fragment.renderer.hinclude.global_template">null</parameter>
     <parameter key="fragment.path">/_fragment</parameter>
     <parameter key="kernel.secret">%env(APP_SECRET)%</parameter>
@@ -494,10 +494,10 @@
     <parameter key="liip_imagine.loaders" type="collection">
       <parameter key="default" type="collection">
         <parameter key="filesystem" type="collection">
-          <parameter key="locator">filesystem</parameter>
           <parameter key="data_root" type="collection">
-            <parameter>/var/www/html/Chess-base/public</parameter>
+            <parameter>/var/www/html/Chess-base/src/../public/</parameter>
           </parameter>
+          <parameter key="locator">filesystem</parameter>
           <parameter key="bundle_resources" type="collection">
             <parameter key="enabled">false</parameter>
             <parameter key="access_control_type">blacklist</parameter>
@@ -521,15 +521,36 @@
     <parameter key="liip_imagine.cache.resolver.default">default</parameter>
     <parameter key="liip_imagine.default_image">null</parameter>
     <parameter key="liip_imagine.filter_sets" type="collection">
+      <parameter key="cache" type="collection">
+        <parameter key="quality">100</parameter>
+        <parameter key="jpeg_quality">null</parameter>
+        <parameter key="png_compression_level">null</parameter>
+        <parameter key="png_compression_filter">null</parameter>
+        <parameter key="format">null</parameter>
+        <parameter key="animated">false</parameter>
+        <parameter key="cache">null</parameter>
+        <parameter key="data_loader">null</parameter>
+        <parameter key="default_image">null</parameter>
+        <parameter key="filters" type="collection"/>
+        <parameter key="post_processors" type="collection"/>
+      </parameter>
       <parameter key="thumb_profile" type="collection">
         <parameter key="quality">80</parameter>
         <parameter key="filters" type="collection">
           <parameter key="thumbnail" type="collection">
             <parameter key="size" type="collection">
-              <parameter>42</parameter>
-              <parameter>63</parameter>
+              <parameter>40</parameter>
+              <parameter>40</parameter>
             </parameter>
             <parameter key="mode">outbound</parameter>
+          </parameter>
+          <parameter key="background" type="collection">
+            <parameter key="size" type="collection">
+              <parameter>42</parameter>
+              <parameter>42</parameter>
+            </parameter>
+            <parameter key="position">center</parameter>
+            <parameter key="color">#000000</parameter>
           </parameter>
         </parameter>
         <parameter key="jpeg_quality">null</parameter>
@@ -3773,11 +3794,12 @@
       <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
     </service>
     <service id="security.firewall.map" class="Symfony\Bundle\SecurityBundle\Security\FirewallMap" public="false">
-      <argument type="service" id=".service_locator.rxWsOA6"/>
+      <argument type="service" id=".service_locator.kAeg2r6"/>
       <argument type="iterator">
         <argument key="security.firewall.map.context.dev" type="service" id=".security.request_matcher.zfHj2lW"/>
         <argument key="security.firewall.map.context.main" type="service" id=".security.request_matcher.00qF1Z7"/>
         <argument key="security.firewall.map.context.login" type="service" id=".security.request_matcher.iAlWp3p"/>
+        <argument key="security.firewall.map.context.images">null</argument>
       </argument>
     </service>
     <service id="security.firewall.context" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext" public="false" abstract="true">
@@ -4472,10 +4494,31 @@
       <argument>null</argument>
       <argument type="service" id="security.firewall.map.config.login"/>
     </service>
-    <service id=".service_locator.rxWsOA6" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="security.firewall.map.config.images" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig" public="false">
+      <argument>images</argument>
+      <argument>security.user_checker</argument>
+      <argument>null</argument>
+      <argument>false</argument>
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+      <argument type="collection"/>
+      <argument></argument>
+    </service>
+    <service id="security.firewall.map.context.images" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext" public="false">
+      <argument type="iterator"/>
+      <argument>null</argument>
+      <argument>null</argument>
+      <argument type="service" id="security.firewall.map.config.images"/>
+    </service>
+    <service id=".service_locator.kAeg2r6" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="security.firewall.map.context.dev" type="service" id="security.firewall.map.context.dev"/>
+        <argument key="security.firewall.map.context.images" type="service" id="security.firewall.map.context.images"/>
         <argument key="security.firewall.map.context.login" type="service" id="security.firewall.map.context.login"/>
         <argument key="security.firewall.map.context.main" type="service" id="security.firewall.map.context.main"/>
       </argument>
@@ -4761,6 +4804,10 @@
       <call method="addGlobal">
         <argument>gos_web_socket_server_port</argument>
         <argument>8080</argument>
+      </call>
+      <call method="addGlobal">
+        <argument>image_directory_chess</argument>
+        <argument>uploads/images/</argument>
       </call>
       <configurator service="twig.configurator.environment" method="configure"/>
     </service>
@@ -6161,7 +6208,7 @@
       <argument type="service">
         <service class="Liip\ImagineBundle\Binary\Locator\FileSystemLocator" public="false">
           <argument type="collection">
-            <argument>/var/www/html/Chess-base/public</argument>
+            <argument>/var/www/html/Chess-base/src/../public/</argument>
           </argument>
         </service>
       </argument>

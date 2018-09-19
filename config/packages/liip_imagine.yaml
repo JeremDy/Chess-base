@@ -1,18 +1,36 @@
 liip_imagine:
     # important : si votre serveur est lancé avant l'installation de "gd"S , il faut le redemarrer
     # afin que liipp puisse fonctionner
+    # configure resolvers
+    resolvers:
+        # setup the default resolver
+        default:
+            # use the default web path
+            web_path: ~
+    # loaders
+    loaders:
+        default:
+            filesystem:
+                data_root:
+                    - '%kernel.root_dir%/../public/'
+                    
 
     driver: "gd"
 
     filter_sets:
+        cache: ~
+
         # note: le nom du filtre est completement customizable
         thumb_profile:
             quality: 80
             filters:
                 thumbnail:
-                    size: [42, 63]
+                    size: [40, 40]
                     mode: outbound
-
+                background:
+                    size: [42, 42]
+                    position: center
+                    color: '#000000'
 #liip_imagine:
 #    # valid drivers options include "gd" or "gmagick" or "imagick"
 #    driver: "gd"

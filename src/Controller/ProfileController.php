@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use App\Form\ProfilFormType;
+use App\Form\ProfileFormType;
 use Symfony\Component\HttpFoundation\File\File;
 
 
@@ -52,18 +52,26 @@ class ProfileController extends Controller
      *
      * @return Response
      */
-    public function editAction(Request $request)
+    public function editAction(Request $request, $user)
     {
-
+        
         $user = $this->getUser();
+        $currentImage = $user->getProfilePicture();
+        if(!empty($currentImage)){
+            $imagePath = $this->getParameter('profile_directory') . DIRECTORY_SEPARATOR . $currentImage;
+            
+            /*
+            je remplace la valeur initiale qui contenait uniquement le nom du fichier par un objet du type file
+            Attention :  quand je recupere un nom de fichier de la base c'est un objet du type File qui est attendu
+            En revanche , quand je créé / upload un nouveau fichier , c'est un objet du type FileUpload qui sera attendu
+            */
+            $user->setProfilePicture(new File($imagePath) );
+            //var_dump(new File($imagePath));die;
+        }
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $user->setProfilePicture(
-            new File($this->getParameter('picture_directory').'/'.$user->getProfilePicture())
-        );
-        
         $event = new GetResponseUserEvent($user, $request);
         $this->eventDispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_INITIALIZE, $event);
 
@@ -78,15 +86,25 @@ class ProfileController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Gestion Avatar
-            $file = $user->getProfilePicture();
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-            $file->move(
-                $this->getParameter('picture_directory'),
-                $fileName
-            );
-            $user->setProfilePicture(
-                new File($this->getParameter('picture_directory').'/'.$user->getProfilePicture())
-            );
+            $picture = $user->getProfilePicture();
+
+            if(!is_null($picture)){
+                /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+                $file = $user->getProfilePicture();
+                
+                //ici ge genere un nom de fichier unique grace a la methode custom generateUniqueFileName+ l'entension que dois avori mon fichier
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                $file->move(
+                    $this->getParameter('picture_directory'),
+                    $fileName
+                );
+                //derniere etape, je dois stocker non l'objet file mais son nom 
+                $user->setProfilePicture($fileName); 
+            } else { 
+                //si mon picture est null , c'est que je ne souhaite pas changer d'image
+                // je recupere donc mon ancienNom de fichier stocké en BDD et non la nouvelle valeur vide envoyé par le formulaire
+                $user->setProfilePicture($currentImage); 
+            }
             //  Fin Gestion Avatar.
             $event = new FormEvent($form, $request);
             $this->eventDispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
@@ -104,6 +122,7 @@ class ProfileController extends Controller
         }
 
         return $this->render('@FOSUser/Profile/edit.html.twig', array(
+            'user' => $user,
             'form' => $form->createView(),
         ));
     }

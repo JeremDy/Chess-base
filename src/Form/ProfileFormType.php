@@ -14,12 +14,12 @@ class ProfileFormType extends AbstractType
     {
         // add your custom field
         $builder->add('profilePicture', FileType::class, array(
-            'label' => 'Avatar (Jpg/png)', 
+            'label' => 'Votre image de profil (Jpg/png)', 
             'data_class' => null,
             'required' => false
         ));
     }
-
+    
     public function getParent()
     {
         return 'FOS\UserBundle\Form\Type\ProfileFormType';

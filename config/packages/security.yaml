@@ -44,6 +44,9 @@ security:
         login:
             pattern:  ^/login$
             security: false
+        
+        images:
+            security: false
 
 
             # activate different ways to authenticate
