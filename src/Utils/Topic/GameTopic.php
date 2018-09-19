@@ -162,7 +162,7 @@ class GameTopic implements TopicInterface
         $arrayPos = explode('/', $event['movement']['new']);
         $newPosY = intval($arrayPos[0]);
         $newPosX = intval($arrayPos[1]);
-        
+        /*
         $verification = $piece->canDothismove($board, $newPosX, $newPosY);
         
         if(false === $verification){
@@ -174,7 +174,7 @@ class GameTopic implements TopicInterface
                 array($player['connection']->WAMP->sessionId)
                 );               
             return;
-        }
+        }*/
 
         //'bouge la piece' ,met à jour le board.
         $board->movePiece($piece, $event['movement']['new']);
