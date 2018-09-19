@@ -163,12 +163,28 @@ class GameTopic implements TopicInterface
     
 
         //recup le board en bdd:
+
         $board = $game->getChessBoard();
         //recup la piece bougé dans le board:
         $piece = $board->getPiece(key($event[1]));
+        if(null === $piece){
+            return;
+        }        
+        $arrayPos = explode('/', key($event[0]));
+        $newPosY = intval($arrayPos[0]);
+        $newPosX = intval($arrayPos[1]);
+
+        $verif = $piece->canDothismove($board, $newPosX, $newPosY);
+        dump($board);
+        dump($verif);
+        if(false === $verif){
+            return;
+        }
+
+
         //'bouge la piece' ,met à jour le board.
         $board->movePiece($piece, (key($event[0])));
-        dump($board);
+        
         
         $game->setPlayerWhoCanPlay($this->doctrine->getRepository(User::class)->findOneByUsername($opponentName));
       

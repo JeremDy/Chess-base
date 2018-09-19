@@ -4,9 +4,7 @@ namespace App\Models;
 
 class Queen extends Piece
 {
-
-
-    public function canDoThisMove($board, $newPosX, $newPosY)
+    public function canDoThisMove(Board $board, int  $newPosX, int $newPosY) : bool
     {
         //la nouvelle case existe :
         if (false === $board->newPosExist($newPosX, $newPosY)) {
@@ -26,9 +24,5 @@ class Queen extends Piece
             return false;
         }
         return true;
-        
     }
-
-
-
 }

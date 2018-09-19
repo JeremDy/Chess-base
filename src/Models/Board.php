@@ -26,8 +26,8 @@ class Board
             $board[$i.'/1'] = new Rook();
             $board[$i.'/2'] = new Knight();
             $board[$i.'/3'] = new Bishop();
-            $board[$i.'/4'] = new Queen();
-            $board[$i.'/5'] = new King();
+            $board[$i.'/4'] = new King();
+            $board[$i.'/5'] = new Queen();
             $board[$i.'/6'] = new Bishop();
             $board[$i.'/7'] = new Knight();
             $board[$i.'/8'] = new Rook();
@@ -80,6 +80,17 @@ class Board
         }
         return false;
     }
+
+    public function hasEnemyPieceOnCase(int $posX, int $posY, string $color) : bool
+    {
+        if ($this->board[$posY.'/'.$posX] instanceof Piece) {
+            if ($color !== $this->board[$posY.'/'.$posX]->getColor()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public function newPosExist(int $newPosX, int $newPosY) : bool
     {

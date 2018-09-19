@@ -3,13 +3,11 @@
 
 namespace App\Models;
 
-
 class Bishop extends Piece
 {
-
-    public function canDoThisMove($board, $newPosX, $newPosY)
+    public function canDoThisMove(Board $board, int $newPosX, int $newPosY) : bool
     {
-              //la nouvelle case existe :
+        //la nouvelle case existe :
         if (false === $board->newPosExist($newPosX, $newPosY)) {
             return false;
         }
@@ -26,5 +24,4 @@ class Bishop extends Piece
         }
         return true;
     }
-
 }
