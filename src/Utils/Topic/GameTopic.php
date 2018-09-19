@@ -171,7 +171,7 @@ class GameTopic implements TopicInterface
             array(),
             array($player['connection']->WAMP->sessionId)
             ); 
-            dump('event',$event);
+
         $topic->broadcast(
             [
                 'canPlay'=> true,
@@ -181,7 +181,7 @@ class GameTopic implements TopicInterface
             array(),
             array($opponent['connection']->WAMP->sessionId)
             );    
-            dump('event',$event);
+
     }
 
         
