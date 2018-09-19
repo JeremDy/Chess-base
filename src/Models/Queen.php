@@ -8,10 +8,25 @@ class Queen extends Piece
 
     public function canDoThisMove($board, $newPosX, $newPosY)
     {
-        //mouvement non null
-
-        //mouvement diagonal ou vertical ou horizontal valide
-        //pas d'allié à l'arrivé
+        //la nouvelle case existe :
+        if (false === $board->newPosExist($newPosX, $newPosY)) {
+            return false;
+        }
+        //mouvement non null?
+        if (false === $this->hasMoved($newPosX, $newPosY)) {
+            return false;
+        }
+        //pas de piece allié à l'arrivé
+        if (true === $board->hasAllyPieceOnCase($newPosX, $newPosY, $this->getColor())) {
+            return false;
+        }
+        if (false === $this->isDoingValideVerticalMovement($board, $newPosX, $newPosY)
+        && false ===  $this->isDoingValideHorizontalMovement($board, $newPosX, $newPosY)
+        && false ===  $this->isDoingValideDiagonalMovement($board, $newPosX, $newPosY)) {
+            return false;
+        }
+        return true;
+        
     }
 
 

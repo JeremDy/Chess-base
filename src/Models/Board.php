@@ -80,6 +80,14 @@ class Board
         }
         return false;
     }
+
+    public function newPosExist(int $newPosX, int $newPosY) : bool
+    {
+        if ($newPosX < 1 || $newPosX > 8 || $newPosY < 1 || $newPosY > 8) {
+            return false;
+        }
+        return true;
+    }
     
 
     public function getBoard()

@@ -6,10 +6,17 @@ namespace App\Models;
 class King extends Piece
 {
 
-    public function canDoThisMove($board, $newPosX, $newPosY)
+    public function canDoThisMove(Board $board, int $newPosX, int $newPosY)
     {
+        //la nouvelle case existe :
+        if (false === $board->newPosExist($newPosX, $newPosY)) {
+            return false;
+        }
         //mouvement non null
-        if (false === hasMoved()) {
+        if (false === $this->hasMoved($newPosX,$newPosY)) {
+            return false;
+        }
+        if (true === $board->hasAllyPieceOnCase($newPosX, $newPosY, $this->getColor())) {
             return false;
         }
         
@@ -20,7 +27,6 @@ class King extends Piece
         if($difX !== 1 && $difY !== 1){
             return false;
         } 
-        //pas d'allié sur la case d'arrivé;  
     }
     
 }

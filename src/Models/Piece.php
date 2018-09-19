@@ -11,58 +11,71 @@ class Piece
     protected $color; 
 
 
-    public function isValideVerticalMovement()
+   
+    public function hasMoved(int $newPosX, int $newPosY) : bool
     {
-        if ($posX !== $newPosX) {
+        if ($this->posX === $newPosX && $this->posY === $newPosY) {
+            return false;
+        }     
+        return true;
+    }
+
+    
+    public function isDoingValideVerticalMovement(Board $board, int $newPosX, int $newPosY) : bool
+    {
+        if ($this->posX !== $newPosX) {
             return false;
         } 
 
-        $dirY = $posY < $newPosY ? 1 : -1;
-        $dif = abs($posY - $newPosY);
+        $dirY = $this->posY < $newPosY ? 1 : -1;
+        $dif = abs($this->posY - $newPosY);
             
         for ($i = 1; $i < $dif; $i++) {
-            if (pieceOnCase($posX, $posY + $i * $dirY)) {
+            if ($board->hasPieceOnCase($this->posX, $this->posY + $i * $dirY)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public function isDoingValideHorizontalMovement(Board $board, int $newPosX, int $newPosY) : bool
+    {
+        if ($this->posY !== $newPosY) {
+            return false;
+        }            
+        $dirX = $this->posX < $newPosX ? 1 : -1;
+        $dif = abs($this->posX - $newPosX);
+            
+        for ($i = 1; $i < $dif; $i++) {
+            if ($board->hasPieceOnCase($this->posX + $i * $dirX, $this->posY)) {
                 return false;
             }
         }
         return true;
     }
 
-    public function isValideHorizontalMovement()
+    public function isDoingValideDiagonalMovement(Board $board, int $newPosX, int $newPosY) : bool
     {
-        if ($posY !== $newPosY) {
+        if (abs($this->posX - $newPosX) !== abs($this->posX - $newPosX)) {
             return false;
         }
-            
-        $dirX = $posX < $newPosX ? 1 : -1;
-        $dif = abs($posX - $newPosX);
-            
-        for ($i = 1; $i < $dif; $i++) {
-            if (pieceOnCase($posX + $i * $dirX, $posY)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    public function hasMoved($newPosX, $newPosY)
-    {
-        if ($posX === $newPosX && $posY === $newPosY) {
-            return false;
-        }
+        $dirX = $this->posX < $newPosX ? 1 : -1;
+        $dirY = $this->posY < $newPosY ? 1 : -1;
+        $dif = abs($this->posX - $newPosX);
         
+        for($i = 1 ; $i < $dif; $i++){
+
+            if ($board->hasPieceOnCase($this->posX + $i * $dirX, $this->posY + $i * $dirX)) {
+                return false;
+            }
+        }
+            
         return true;
     }
 
-    public function newPosExist($newPosX, $newPosY)
-    {
-        if ($newPosX < 1 || $newPosX > 8 || $newPosY < 1 || $newPosY > 8) {
-            return false;
-        }
-        return true;
-    }
-  
+
+
+
     public function setColor($color){
         $this->color = $color;
         return $this;

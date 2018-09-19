@@ -7,12 +7,24 @@ namespace App\Models;
 class Bishop extends Piece
 {
 
-      public function canDoThisMove($board, $newPosX, $newPosY)
+    public function canDoThisMove($board, $newPosX, $newPosY)
     {
-        //mouvement non null;
-        //mouvement diagonal valide sans pieces entre la position de depart et celle d'arrivé;
+              //la nouvelle case existe :
+        if (false === $board->newPosExist($newPosX, $newPosY)) {
+            return false;
+        }
+        //mouvement non null?
+        if (false === $this->hasMoved($newPosX, $newPosY)) {
+            return false;
+        }
         //pas de piece allié à l'arrivé
- 
+        if (true === $board->hasAllyPieceOnCase($newPosX, $newPosY, $this->getColor())) {
+            return false;
+        }
+        if (false ===  $this->isDoingValideDiagonalMovement($board, $newPosX, $newPosY)) {
+            return false;
+        }
+        return true;
     }
 
 }
