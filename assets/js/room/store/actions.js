@@ -10,7 +10,15 @@ export const handleClickOnCell = (item, color, row, column) => ({
 
 export const INITIAL_DISPLAY = 'actions/INITIAL_DISPLAY';
 
-export const initialDisplay = () => ({
+export const initialDisplay = (serverMessage, webSocket) => ({
   type: INITIAL_DISPLAY,
-  channel: GAME_CHANEL
+  serverMessage,
+  webSocket
+});
+
+export const WEBSOCKET_CONNECT = 'actions/WEBSOCKET_CONNECT';
+
+export const webSocketConnect = (channel) => ({
+  type: WEBSOCKET_CONNECT,
+  channel
 });
