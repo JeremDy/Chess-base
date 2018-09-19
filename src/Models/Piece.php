@@ -61,7 +61,7 @@ class Piece
         $dirY = $this->posY < $newPosY ? 1 : -1;
         $dif = abs($this->posX - $newPosX);
         
-        for ($i = 1 ; $i < $dif; $i++) {
+        for ($i = 1 ; $i < ($dif -1); $i++) {
             if ($board->hasPieceOnCase($this->posX + $i * $dirX, $this->posY + $i * $dirX)) {
                 return false;
             }

@@ -55,8 +55,9 @@ a:hover {
 
 .message-container {
     overflow-y: auto;
-    overflow-x: none;
+    overflow-x: hidden;
     height: 500px;
+    word-break: break-word;
 }
 
 #messages{

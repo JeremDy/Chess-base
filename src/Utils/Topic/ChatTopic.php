@@ -59,6 +59,10 @@ class ChatTopic implements TopicInterface
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
         $user = $this->clientManipulator->getClient($connection);
+
+        if($event['message'] === ''){
+            return;
+        }
             
         if (is_object($user)) {
             $receiverName = $event['receiver'];

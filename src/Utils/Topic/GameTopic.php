@@ -105,8 +105,7 @@ class GameTopic implements TopicInterface
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
-
-
+        
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
         $user = $this->clientManipulator->getClient($connection);
@@ -163,9 +162,9 @@ class GameTopic implements TopicInterface
         $arrayPos = explode('/', $event['movement']['new']);
         $newPosY = intval($arrayPos[0]);
         $newPosX = intval($arrayPos[1]);
-
+        
         $verification = $piece->canDothismove($board, $newPosX, $newPosY);
-    
+        
         if(false === $verification){
             $topic->broadcast(
                 [
