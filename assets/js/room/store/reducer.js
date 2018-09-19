@@ -24,7 +24,7 @@ const initialState = {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) { // DEBUT DU SWITCH REDUCER
     case WEBSOCKET_CONNECT:
-    console.log('mycolor',action.color)
+      console.log('mycolor',action.color)
       return {
         ...state,
         channel: action.channel,
@@ -36,9 +36,6 @@ const reducer = (state = initialState, action = {}) => {
     case INITIAL_DISPLAY:
       let newBoard = [...state.board];
       if (action.serverMessage['movement'] !== undefined) {
-          console.log('cell',cell)
-          console.log('action.serverMessage[movement][newPositions][0]',action.serverMessage['movement']['newPositions'])
-
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[1])[`${Object.keys(action.serverMessage['movement']['newPositions'])[1]}`] = Object.values(action.serverMessage['movement']['newPositions'])[1];
       }
@@ -87,10 +84,10 @@ const reducer = (state = initialState, action = {}) => {
 
                 if ((numbRow + vector < 9) & (numbRow + vector > 0)) {
                   while (state.board.find(cell => Object.keys(cell)[0] === `${numbRow + Number(vector) * iterator}/${numbColumn}`)[`${numbRow + Number(vector) * iterator}/${numbColumn}`] === 'E' & iterator < until) {
-  
+
                     newAuthorizedCells.push(state.board.find(cell => Object.keys(cell)[0] === `${numbRow + Number(vector) * iterator}/${numbColumn}`)); // pousse les cases autorisées dans le tableau
                     if (((color === '0') & ((numbRow + iterator) === 1)) || ((color === '1') & ((numbRow + iterator) === 8)))  { break; } else { iterator = iterator + 1;} // permet d'éviter les erreur quand on arrive en bout de damier
-  
+
                   };
 
                   if ((numbColumn + 1) < 9) {
@@ -513,9 +510,9 @@ const reducer = (state = initialState, action = {}) => {
           mov['new'] = Object.keys(state.clickedCell[0])[0];
           dataToSend['movement'] = {...mov};
 
-          if ((state.authorizedCells.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
-          ((state.itemKillAble.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) { // est ce que la case sur laquelle on clic fait partie des cases killAble
-// TODO: rajouter une condtion & si couleur de la pièce que je cible différente de ma couleur 
+          if (((state.authorizedCells.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
+          ((state.itemKillAble.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) & (state.myColor != color)) { // est ce que la case sur laquelle on clic fait partie des cases killAble
+// TODO: rajouter une condtion & si couleur de la pièce que je cible différente de ma couleur
             const newItem = Object.values(state.clickedCell[0])[0]; // on récupère la pièce qui était sur la case du premier clic
 
             newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem; // on modifie la valeur pour y mettre la nouvelle pièce
