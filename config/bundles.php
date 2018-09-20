@@ -17,4 +17,7 @@ return [
     FOS\UserBundle\FOSUserBundle::class => ['all' => true],
     Gos\Bundle\PubSubRouterBundle\GosPubSubRouterBundle::class => ['all' => true],
     Gos\Bundle\WebSocketBundle\GosWebSocketBundle::class => ['all' => true],
+    HWI\Bundle\OAuthBundle\HWIOAuthBundle::class => ['all' => true],
+    Http\HttplugBundle\HttplugBundle::class => ['all' => true],
+    Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
 ];

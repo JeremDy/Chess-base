@@ -1,0 +1,26 @@
+hwi_oauth:
+    # list of names of the firewalls in which this bundle is active, this setting MUST be set
+    firewall_names: [main]
+
+    connect:
+        account_connector: my_user_provider
+    # name of the firewall in which this bundle is active, this setting MUST be set
+    firewall_name: main
+    fosub:
+        username_iterations: 30
+        properties:
+            # these properties will be used/redefined later in the custom FOSUBUserProvider service.
+            facebook: facebook_id
+            google: google_id
+    resource_owners:
+        facebook:
+            type:                facebook
+            client_id:           <486538825083026>
+            client_secret:       <6dca44a348e33681cd4d55004da94f8d>
+            scope:               ""
+        google:
+            type:                google
+            client_id:           <863331449196-kp4p9010i26c22q3plvssgvfj7vfpbos.apps.googleusercontent.com>
+            client_secret:       <UoZg-gj8Mh3U3JB-xFfGk20K>
+            scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+    # here you will add one (or more) configurations for resource owners

@@ -1,7 +1,9 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}    
+        <a class="btn btn-outline-warning" href="{{ path('fos_user_resetting_request') }}"> Mot de passe oublié ? </a>    
+    </div>
 {% endif %}
 
 <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
@@ -22,19 +24,26 @@
         </div>
     </div>
     <div class="form-group">
-    <div class="col-xs-offset-2 col-xs-10">
-        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-    </div>
+        <div class="col-xs-offset-2 col-xs-10">
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+        </div>
     </div>
     <div class="form-group">
-    <div class="col-xs-offset-2 col-xs-10 text-center">
-        <input class="btn btn-light" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+        <div class="col-xs-offset-2 col-xs-10 text-center">
+            <input class="btn btn-light" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-offset-2 col-xs-10 text-center">
+            <p class="mb-0"> Pas encore de compte ?</p>
+            <a class="btn btn-light"href="{{ path('fos_user_registration_register') }}"> Inscription </a>
         </div>
     </div>
 </form>
-
 <div>
-<p> Pas encore de compte ? <a href="{{ path('fos_user_registration_register') }}"> Rejoignez nous ! </a></p>
-<a href="{{ path('fos_user_resetting_request') }}"> Mot de passe oublié ? </a>
+<a class="mb-1 col-12 btn btn-success"href="{{ path('hwi_oauth_service_redirect', {'service':'google'}) }}" class="gplus"><i class="fab fa-google"></i>oogle</a>
+</div>
+<div>
+<a class="col-12 btn btn-primary"href="{{ path('hwi_oauth_service_redirect', {'service':'facebook'}) }}" class="gplus"><i class="fab fa-facebook-f"></i></i>acebook</a>
 </div>

@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
 use App\Models\Board;
 
+
 class MainController extends AbstractController
 {
     /**
@@ -18,4 +19,6 @@ class MainController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
+
+
 }

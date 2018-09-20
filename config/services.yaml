@@ -4,9 +4,22 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    picture_directory: '%kernel.project_dir%/public/uploads/profil'
     locale: 'fr'
-
+    my_user_provider.class: App\Utils\FOSUBUserProvider
+    
+    
 services:
+    my_user_provider:
+        
+        public: true
+        class: "%my_user_provider.class%"
+        #this is the place where the properties are passed to the UserProvider - see config.yml
+        arguments: 
+            - '@fos_user.user_manager'
+            - [{facebook: facebook_id, google: google_id}]
+           
+        # facebook: facebook_id,
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -19,7 +32,8 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php,FOSUBUserProvider.php}'
+
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
