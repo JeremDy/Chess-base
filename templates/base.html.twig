@@ -15,6 +15,7 @@
     {% endblock %}    
     </head>   
     <body>
+    <div class="container">
         {% block header %}
         {{ include('main/header.html.twig') }}
         {% endblock %}
@@ -35,5 +36,6 @@
             <script src=" {{ asset('javascript/socket.js') }}"></script>
   {% block javascripts %}           
         {% endblock %}
+    </div>
     </body>
 </html>

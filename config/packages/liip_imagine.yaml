@@ -25,10 +25,10 @@ liip_imagine:
             quality: 80
             filters:
                 thumbnail:
-                    size: [40, 40]
+                    size: [98, 98]
                     mode: outbound
                 background:
-                    size: [42, 42]
+                    size: [104, 104]
                     position: center
                     color: '#000000'
 #liip_imagine:

@@ -2,25 +2,16 @@
 
 {% block body %}
 
-<div id="Welcome" class="mx-auto text-center mt-5 mb-5">
-<h1> Bienvenue Sur Chess Online !<h1>
-<h5> Le site n°1 d’echecs en ligne dans le Cotentin </h3>
-</div>
-
-</div>
-          <div class="container-fluid">
-                 <div class="row">
-                     <div class="mx-auto border p-4 col-11 col-lg-3  d-flex flex-column">
-                         {% block fos_user_content %}
-                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                             <h1>Bienvenue ! <h1>
-                             {% else %}
-                             {# Si on veut inclure le template Login du FOSUserBundle sans utiliser la méthode de redirection via security.yml #}
-                             {# {{ render(controller('FOSUserBundle:Security:login')) }} #}
-                             {% endif %}
-                         {% endblock %}
-                     </div>
-                 </div>
-             </div>    
+    <div class="container-fluid">
+        <div class="row">
+            {% block fos_user_content %}
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <h1>Bienvenue ! <h1>
+                    {# Si on veut inclure le template Login du FOSUserBundle sans utiliser la méthode de redirection via security.yml #}
+                    {# {{ render(controller('FOSUserBundle:Security:login')) }} #}
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>    
  
 {% endblock %}
