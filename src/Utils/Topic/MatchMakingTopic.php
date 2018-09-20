@@ -51,7 +51,7 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
 
     public function registerPeriodicTimer(Topic $topic)
     {
-        $this->periodicTimer->addPeriodicTimer($this, 'match', 10, function () use ($topic) {
+        $this->periodicTimer->addPeriodicTimer($this, 'match', 4, function () use ($topic) {
             $subscribers = $this->clientManipulator->getAll($topic);
            
             if (count($topic) >= 2) {

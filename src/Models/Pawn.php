@@ -6,7 +6,8 @@ class Pawn extends Piece
     public function canDoThisMove(Board $board, int $newPosX, int $newPosY) : bool
     {
         //la nouvelle case existe :
-        if (false === $board->newPosExist($newPosX, $newPosY)) {
+        if (false === $board->newPosExist($newPosX, $newPosY)) 
+        {
             return false;
         }
         //mouvement non null?
