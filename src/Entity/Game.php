@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,6 +17,11 @@ class Game
     private $id;
 
     /**
+     * @ORM\Column(type="object", nullable=true)
+     */
+    private $ChessBoard = [];
+
+    /**
      * @ORM\Column(type="array", nullable=true)
      */
     private $MovementList = [];
@@ -29,31 +32,46 @@ class Game
     private $StartedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PlayerInGame", mappedBy="game")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="IsInGame")
      */
-    private $Players;
+    private $PlayerOne;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="IsBlackInGame")
      */
-    private $ChessBoard = [];
+    private $PlayerTwo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     */
+    private $PlayerWhoCanPlay;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $LastMove;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $EndedAt;
-
-    public function __construct()
-    {
-        $this->Players = new ArrayCollection();
-    }
+    private $LastMoveTime;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-   
+    public function getChessBoard(): ?object
+    {
+        return $this->ChessBoard;
+    }
+
+    public function setChessBoard(?object $ChessBoard): self
+    {
+        $this->ChessBoard = $ChessBoard;
+
+        return $this;
+    }
 
     public function getMovementList(): ?array
     {
@@ -79,57 +97,62 @@ class Game
         return $this;
     }
 
-    /**
-     * @return Collection|PlayerInGame[]
-     */
-    public function getPlayers(): Collection
+    public function getPlayerOne(): ?User
     {
-        return $this->Players;
+        return $this->PlayerOne;
     }
 
-    public function addPlayer(PlayerInGame $player): self
+    public function setPlayerOne(?User $PlayerOne): self
     {
-        if (!$this->Players->contains($player)) {
-            $this->Players[] = $player;
-            $player->setGame($this);
-        }
+        $this->PlayerOne = $PlayerOne;
 
         return $this;
     }
 
-    public function removePlayer(PlayerInGame $player): self
+    public function getPlayerTwo(): ?User
     {
-        if ($this->Players->contains($player)) {
-            $this->Players->removeElement($player);
-            // set the owning side to null (unless already changed)
-            if ($player->getGame() === $this) {
-                $player->setGame(null);
-            }
-        }
+        return $this->PlayerTwo;
+    }
+
+    public function setPlayerTwo(?User $PlayerTwo): self
+    {
+        $this->PlayerTwo = $PlayerTwo;
 
         return $this;
     }
 
-    public function getChessBoard(): ?array
+    public function getPlayerWhoCanPlay(): ?User
     {
-        return $this->ChessBoard;
+        return $this->PlayerWhoCanPlay;
     }
 
-    public function setChessBoard(?array $ChessBoard): self
+    public function setPlayerWhoCanPlay(?User $PlayerWhoCanPlay): self
     {
-        $this->ChessBoard = $ChessBoard;
+        $this->PlayerWhoCanPlay = $PlayerWhoCanPlay;
 
         return $this;
     }
 
-    public function getEndedAt(): ?TimeInterface
+    public function getLastMove(): ?string
     {
-        return $this->EndedAt;
+        return $this->LastMove;
     }
 
-    public function setEndedAt(?\TimeInterface $EndedAt): self
+    public function setLastMove(?string $LastMove): self
     {
-        $this->EndedAt = $EndedAt;
+        $this->LastMove = $LastMove;
+
+        return $this;
+    }
+
+    public function getLastMoveTime(): ?\DateTimeInterface
+    {
+        return $this->LastMoveTime;
+    }
+
+    public function setLastMoveTime(?\DateTimeInterface $LastMoveTime): self
+    {
+        $this->LastMoveTime = $LastMoveTime;
 
         return $this;
     }

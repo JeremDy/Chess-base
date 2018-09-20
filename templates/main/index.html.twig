@@ -2,25 +2,34 @@
 
 {% block title %}Home{% endblock %}
 
+ {% block headJs %}    
+ <script> const USER_NAME = "{{app.user.username}}"; </script>      
+    {% endblock %} 
+
 {% block body %}
- <form id="chat" class="text-center mt-5">
-            <select id="monselect">
-                  <option value="public">Public</option>
-                {% for user in users %}
-                    <option value="{{user.username}}">{{user.username}}</option> 
-                {% endfor %}
-            </select>
+
+{{include('main/_invitation.html.twig')}}
+
+<div class="row mt-5">
+    <div id="home-left" class="col-md-5 offset-md-1 mb-4">
+        <button class="btn btn-light mt-5 d-block mx-auto" id="match-making">Trouver une partie</button>
+        
+        <form class="d-block text-center mt-4" id="invitation">
+            <h3> Inviter un joueur :</h3>
             <input type="text">
-            <button type="submit">envoyer</button>
-</form>
+            <button class="mx-auto btn btn-light" id="invitation-invite" type="submit">Inviter</button>
+            <button class="mx-auto btn btn-light d-none" id="invitation-cancel" type="button">Annuler</button>
+        </form>
+        
+    </div>
+    <div class="col-md-4 offset-md-1 mb-5" id="root"><div>
+</div>
 
-<button id="match-making">Trouver une partie !</button>
-
-<div id="root"><div>
 {% endblock %}
 
-     
-            {# Cette ligne doit être en dernière pour que l'on dispose d'une écoute terminale #}
+
 {% block javascripts %}           
  <script type="text/javascript" src="{{ asset('build/js/accueil.js') }}"></script>
 {% endblock %}
+
+            {# Cette ligne doit être en dernière pour que l'on dispose d'une écoute terminale #}

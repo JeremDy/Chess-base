@@ -16,7 +16,7 @@ match_making:
         callback: 'matchmaking.topic'
 
 game:
-    channel: game/{id}/{playerOne}/{playerTwo}
+    channel: game/{gameId}/{playerOne}/{playerTwo}
     handler:
         callback: 'game.topic'
     requirements:
@@ -26,4 +26,19 @@ game:
             pattern: "[a-z]+"
         gameId:
             pattern: "\\d+"
-        
+
+invitation:
+    channel: invitation
+    handler:
+        callback: 'invitation.topic'
+
+invitation_channel:
+    channel: invitation/{playerOne}/{playerTwo}
+    handler:
+        callback: 'invitation.topic'
+    requirements:
+        playerOne:
+            pattern: "[a-z]+"
+        playerTwo:
+            pattern: "[a-z]+"
+       

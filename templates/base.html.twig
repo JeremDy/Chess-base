@@ -10,7 +10,9 @@
 
 
         {% endblock %}
-    <script> const BASE_URL = {{ app.request.baseUrl|json_encode()|raw }}; </script>  
+    <script>
+        const BASE_URL = "{{app.request.baseUrl}}"; 
+    </script>  
     {% block headJs %}          
     {% endblock %}    
     </head>   

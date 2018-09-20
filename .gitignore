@@ -1,6 +1,6 @@
 /.env
 /public/bundles/
-var
+var/
 vendor/
 .phpunit
 /phpunit.xml

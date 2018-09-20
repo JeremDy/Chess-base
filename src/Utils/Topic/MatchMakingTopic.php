@@ -9,16 +9,17 @@ use Gos\Bundle\WebSocketBundle\Router\WampRequest;
 use Gos\Bundle\WebSocketBundle\Client\ClientManipulatorInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use App\Entity\Game;
-use App\Entity\PlayerInGame;
 use App\Entity\User;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimer;
+use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimerInterface;
+use App\Models\Board;
 
-
-class MatchMakingTopic implements TopicInterface
+class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
 {
-    
     protected $clientManipulator;
     private $doctrine;
+    protected $periodicTimer;
 
     /**
      * @param ClientManipulatorInterface $clientManipulator
@@ -39,74 +40,56 @@ class MatchMakingTopic implements TopicInterface
      * @return void
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
-    {          
-        $user = $this->clientManipulator->getClient($connection);
-        
-        $subcribers = $this->clientManipulator->getAll($topic);
-        
-        if(count($topic) >= 2){
-            
-            $playerOne = $subcribers[count($topic) - 2 ];
-            $playerTwo = $subcribers[count($topic) - 1 ];
-    
-            $playerOneUserName = $playerOne['client']->getUsername();
-            $playerTwoUserName = $playerTwo['client']->getUsername();
-            
-            if (false !== $playerOne && false !== $playerTwo) {
-              
-                
-                $playerOneDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerOne['client']->getUsername());
-                $playerTwoDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerTwo['client']->getUsername());
-                
-                $game = new Game();
-                $game->setStartedAt(new \DateTime());
-                $this->doctrine->getManager()->persist($game);
-                $this->doctrine->getManager()->flush();
-              
-              
-                $playerInGameOne = new PlayerInGame();
-                $playerInGameOne->setColor('white')
-                    ->setPlayer($playerOneDoctrine)
-                    ->setGame($game)
-                    ->setOpponent($playerTwoDoctrine)
-                    ->setAllowToMove(true);
-                $this->doctrine->getManager()->persist($playerInGameOne);
-                
-            
-                $playerInGameTwo = new PlayerInGame();
-                $playerInGameTwo->setColor('black')
-                    ->setPlayer($playerTwoDoctrine)
-                    ->setGame($game)
-                    ->setOpponent($playerOneDoctrine)
-                    ->setAllowToMove(false);
-                $this->doctrine->getManager()->persist($playerInGameTwo);
-
-                $this->doctrine->getManager()->flush();
-
-                
-
-                $topic->broadcast(
-                    [
-                        'matchFound' => $this->urlGenerator->generate('game', ['id' =>  $game->getId()]),
-                    ],
-                    array(),
-                    array(
-                        $playerOne['connection']->WAMP->sessionId,
-                        $playerTwo['connection']->WAMP->sessionId
-                        )
-                    );
-                
-
-
-           }
-
-
-        }
-
-        //this will broadcast the message to ALL subscribers of this topic.
-        /*$topic->broadcast(['msg' => $connection->resourceId . " has joined " . $topic->getId()]);*/
+    {
     }
 
+     
+    public function setPeriodicTimer(TopicPeriodicTimer $periodicTimer)
+    {
+        $this->periodicTimer = $periodicTimer;
+    }
+
+    public function registerPeriodicTimer(Topic $topic)
+    {
+        $this->periodicTimer->addPeriodicTimer($this, 'match', 10, function () use ($topic) {
+            $subscribers = $this->clientManipulator->getAll($topic);
+           
+            if (count($topic) >= 2) {
+                $playerOne = $subscribers[count($topic) - 1];
+                $playerTwo = $subscribers[count($topic)- 2];
+        
+                $playerOneUserName = $playerOne['client']->getUsername();
+                $playerTwoUserName = $playerTwo['client']->getUsername();
+                
+                if (false !== $playerOne && false !== $playerTwo) {
+                    $playerOneDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerOne['client']->getUsername());
+                    $playerTwoDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerTwo['client']->getUsername());
+                    
+                    $game = new Game();
+                    $game->setStartedAt(new \DateTime())
+                        ->setPlayerOne($playerOneDoctrine)
+                        ->setPlayerTwo($playerTwoDoctrine)
+                        ->setPlayerWhoCanPlay($playerOneDoctrine)
+                        ->setChessBoard(new Board);
+                    
+                    $this->doctrine->getManager()->persist($game);
+                    $this->doctrine->getManager()->flush();
+                    
+                    $topic->broadcast(
+                        [
+                            'matchFound' => $this->urlGenerator->generate('game', ['id' =>  $game->getId()]),
+                        ],
+                        array(),
+                        array(
+                            $playerOne['connection']->WAMP->sessionId,
+                            $playerTwo['connection']->WAMP->sessionId
+                            )
+                        );
+                }
+            }
+        });
+    }
+       
     /**
      * This will receive any UnSubscription requests for this topic.
      *
@@ -117,8 +100,6 @@ class MatchMakingTopic implements TopicInterface
      */
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-        //this will broadcast the message to ALL subscribers of this topic.
-        $topic->broadcast(['msg' => $connection->resourceId . " has left " . $topic->getId()]);
     }
 
 
@@ -135,15 +116,6 @@ class MatchMakingTopic implements TopicInterface
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
-    
-        $user = $this->clientManipulator->getClient($connection);
-        /*
-        	$topic->getId() will contain the FULL requested uri, so you can proceed based on that
-
-            if ($topic->getId() === 'acme/channel/shout')
-     	       //shout something to all subs.
-        */
-       
     }
 
     /**

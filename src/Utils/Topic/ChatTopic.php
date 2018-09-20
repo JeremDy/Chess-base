@@ -30,10 +30,6 @@ class ChatTopic implements TopicInterface
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-        $user = $this->clientManipulator->getClient($connection);
-
-        //this will broadcast the message to ALL subscribers of this topic.
-        /*$topic->broadcast(['msg' => $connection->resourceId . " has joined " . $topic->getId()]);*/
     }
 
     /**
@@ -46,8 +42,6 @@ class ChatTopic implements TopicInterface
      */
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-        //this will broadcast the message to ALL subscribers of this topic.
-        $topic->broadcast(['meesg' => $connection->resourceId . " has left " . $topic->getId()]);
     }
 
 
@@ -65,13 +59,18 @@ class ChatTopic implements TopicInterface
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
         $user = $this->clientManipulator->getClient($connection);
-        $receiverName = $event['receiver'];
-        $senderName = $user->getUsername();
-        
-        if (!is_string($user)) {
+
+        if($event['message'] === ''){
+            return;
+        }
+            
+        if (is_object($user)) {
+            $receiverName = $event['receiver'];
+            $senderName = $user->getUsername();
+
             if ($topic->getId() === 'chat/global') {
                 $topic->broadcast([
-                    'sender' => '[Global] ' . $senderName . ' :',
+                    'sender' => '['.date('H:i').']'. '[Global] ' . $senderName . ' :',
                     'message' => $event['message'],
                 ]);
             }
@@ -84,7 +83,7 @@ class ChatTopic implements TopicInterface
                 if (is_array($receiver)) {
                     $topic->broadcast(
                         [
-                            'sender' => '[MP envoyé à] '. $receiverName.' :' ,
+                            'sender' => '['.date('H:i').']'.'[MP envoyé à] '. $receiverName.' :' ,
                             'message' => $event['message'],
                         ],
                         array(),
@@ -93,7 +92,7 @@ class ChatTopic implements TopicInterface
                                 
                     $topic->broadcast(
                         [
-                            'sender' => '[MP reçu de] '. $senderName. ' :',
+                            'sender' => '['.date('H:i').']'.'[MP reçu de] '. $senderName. ' :',
                             'message' => $event['message'],
                         ],
                         array(),
