@@ -2,8 +2,8 @@
 
 namespace App\Utils;
 
-class GameTopicMessage{
-
+class GameTopicMessage
+{
     public function notYourTurn($topic, $playerSessionId)
     {
         $topic->broadcast(
@@ -12,19 +12,19 @@ class GameTopicMessage{
             ],
             array(),
             array($playerSessionId)
-            );          
+            );
     }
 
-    public function endTurn($topic,$event, $playerSessionId, $opponentSessionId)
+    public function endTurn($topic, $event, $playerSessionId, $opponentSessionId)
     {
         $topic->broadcast(
             [
                 'canPlay' => false,
-                'message' => 'Tu as finis ton tour',           
+                'message' => 'Tu as finis ton tour',
             ],
             array(),
             array($playerSessionId)
-            ); 
+            );
 
         $topic->broadcast(
             [
@@ -34,7 +34,7 @@ class GameTopicMessage{
             ],
             array(),
             array($opponentSessionId)
-            );    
+            );
     }
 
     public function checkMate($topic, $playerSessionId, $opponentSessionId)
@@ -71,7 +71,6 @@ class GameTopicMessage{
             array(),
             array($opponentSessionId)
             );
-
     }
 
     public function selfCheck($topic, $playerSessionId)
@@ -82,7 +81,7 @@ class GameTopicMessage{
             ],
             array(),
             array($playerSessionId)
-            );         
+            );
     }
 
     public function invalidMovement($topic, $playerSessionId)
@@ -93,7 +92,7 @@ class GameTopicMessage{
             ],
             array(),
             array($playerSessionId)
-            );     
+            );
     }
 
     public function notYourPiece($topic, $playerSessionId)
@@ -104,7 +103,7 @@ class GameTopicMessage{
             ],
             array(),
             array($playerSessionId)
-            );    
+            );
     }
 
     public function notExistingPiece($topic, $playerSessionId)
@@ -115,7 +114,7 @@ class GameTopicMessage{
             ],
             array(),
             array($player['connection']->WAMP->sessionId)
-            );     
+            );
     }
 
     public function canPlay(bool $bool, $topic, $playerSessionId)
@@ -129,17 +128,14 @@ class GameTopicMessage{
             );
     }
 
-   
-
-
-
-
-
-
-
-
-
-
-
-
+    public function notConnectedOpponent($topic, $playerSessionId)
+    {
+        $topic->broadcast(
+            [
+                'error' => "Adversaire non connecté !",
+            ],
+            array(),
+            array($playerSessionId)
+            );
+    }
 }

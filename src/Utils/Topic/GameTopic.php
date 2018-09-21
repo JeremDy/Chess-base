@@ -104,7 +104,12 @@ class GameTopic implements TopicInterface
  
         $opponentName =  $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne');
         $opponentColor = $playerColor === 'white' ? 'black' : 'white';
-        $opponentSessionId = $this->clientManipulator->findByUsername($topic, $opponentName)['connection']->WAMP->sessionId;
+        $opponentConnectionObject = $this->clientManipulator->findByUsername($topic, $opponentName)['connection'];
+        if (!is_object($opponentConnectionObject)) {
+            $this->gameTopicMessage->notConnectedOpponent();
+            return;
+        }
+        $opponentSessionId = $opponentConnectionObject->WAMP->sessionId;
    
         if ($user->getId() !== $game->getPlayerWhoCanPlay()->getId()) {
             $this->gameTopicMessage->notYourTurn($topic, $playerSessionId);
