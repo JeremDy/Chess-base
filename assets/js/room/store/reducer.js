@@ -66,7 +66,7 @@ const reducer = (state = initialState, action = {}) => {
       const clicCount = Number(state.clickedCell.length) + 1; // au début le tableau est vide donc vide + 1 = 1 = premier clic
       switch (clicCount) { // Debut du switch pour différencier clic 1 clic 2
         case 1: // premier clic
-          let nextAction = [];
+          let nextAction ;
           let newMoveAllowed = [];
           let newKillAllowed = [];
           if (item === 'E' || !state.canPlay || color != state.myColor) { return state; } else if (state.canPlay & color == state.myColor) { // annule tout effet d'un clic sur une cellule vide
@@ -96,7 +96,7 @@ const reducer = (state = initialState, action = {}) => {
               allowedMove: newMoveAllowed,
               allowedKill: newKillAllowed,
               clickedCell: [cell],
-              actions: [...state.actions, nextAction]
+            //   actions: [...state.actions, nextAction]
             };
           }; // fin du if (item === 'E') { return state; } else {
           break;
@@ -127,7 +127,7 @@ const reducer = (state = initialState, action = {}) => {
         //           ...state,
         //           clickedCell: [],
         //           allowedMove: [],
-        //           allowedKill: []
+        //           allowedKill: [] 
         //         };
         //       };
         //     };
@@ -142,15 +142,15 @@ const reducer = (state = initialState, action = {}) => {
         //     tour2Pos = Object.keys(state.board.filter(cell => Object.values(cell)[0] === `${'T'}${opponentColor}`)[1]);
         //     console.log('result', Math.sqrt(Math.pow((numbRow - Number(kingPos[0].substring(0,1))),2) + Math.pow((numbColumn - Number(kingPos[0].substring(2,3))),2)))
 
-        //     if (Math.sqrt(Math.pow((numbRow - Number(kingPos[0].substring(0,1))),2) + Math.pow((numbColumn - Number(kingPos[0].substring(2,3))),2)) <= Math.sqrt(2) ) {
-        //       console.log('roi trop pret');
-        //       return {
-        //         ...state,
-        //         clickedCell: [],
-        //         allowedMove: [],
-        //         allowedKill: []
-        //       };
-        //     }
+            if (Math.sqrt(Math.pow((numbRow - Number(kingPos[0].substring(0,1))),2) + Math.pow((numbColumn - Number(kingPos[0].substring(2,3))),2)) <= Math.sqrt(2) ) {
+              console.log('roi trop pret');
+              return {
+                ...state,
+                clickedCell: [],
+                allowedMove: [],
+                allowedKill: []
+              };
+            }
             
         //     let existingCell = [];
         //     let northLeftnewKey = `${numbRow - 2}/${numbColumn - 1}`;
