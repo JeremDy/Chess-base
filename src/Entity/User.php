@@ -66,6 +66,7 @@ class User extends BaseUser
     public function setProfilePicture($profilePicture): self
     {
         $this->profilePicture = $profilePicture;
+        return $this;
     }
     /**
      * @return Collection|Game[]

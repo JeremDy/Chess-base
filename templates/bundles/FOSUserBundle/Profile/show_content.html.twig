@@ -3,6 +3,7 @@
 <div class="fos_user_user_show">
     <div class="d-flex">
         <div class="">
+        
             <img class=""src="{{ asset(image_directory_chess ~ (user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_profile') }}" />
         </div>
         <div class="col-10">
@@ -19,14 +20,16 @@
             </div>
             <div class="p-3 border mx-auto">
                 <p>Parties Gagnées : </p>
+                <p>{{ stats.NbWin }}</p>
             </div>
             <div class="p-3 border mx-auto">
                 <p>Parties Perdues : </p>
+                <p>{{ stats.NbLose }}</p>
             </div> 
         </div>
     </div>
     {% if user == app.user %}
     {# Permet de vérifier si l'utilisateur est bien sur sa propre page de profil #}
-        <a class="mt-5 mb-0 float-right btn btn-primary" href="{{ path('fos_user_profile_edit') }}">Modifier</a>
+        <a class="mt-5 mb-0 float-right btn btn-primary" href="{{ path('profileEdit', { 'id':app.user.username}) }}">Modifier</a>
     {% endif %}
 </div>
