@@ -6,6 +6,10 @@ fos_user:
     from_email:
         address: super.chess.online@gmail.com
         sender_name: Chess Online
+        
+    profile:
+        form:
+            type: App\Form\ProfileFormType
     
     registration:
         confirmation:

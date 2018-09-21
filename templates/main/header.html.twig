@@ -2,34 +2,36 @@
  {% block header %}
 
  <header class="container">
-     <div class="d-flex">
+     <div class="d-flex mb-1">
      <h1 class="col-8">
-         <a href="{{ path('home') }}">Chess Online</a>
+         <a class="" href="{{ path('home') }}">Chess Online</a>
      </h1>
-     <div class"">
+     <div class="pt-3 col-4">
      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                  {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} | 
-                 <a class="" href="{{ path('fos_user_security_logout') }}">
+                 <a class="p-0 btn btn-light" href="{{ path('fos_user_security_logout') }}">
                      {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                  </a>
      {% endif %}
      </div>
      </div>
-     <hr class="m-1">
-         <nav class="nav d-flex col-12">
-                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                         {# <a class="nav-item nav-link" href="{{ path('logout') }}">Déconnexion</a> #}
-                         <div class="col-10">
-                         <a class="nav-item nav-link" href="{{ path('fos_user_profile_show') }}">Mon Profil</a>
-                         </div>
-                     {% else %}
-                     <div class="col-10"></div>
-                     <div class="d-inline col-2">
-                         {# <a class="nav-item nav-link text-right" href="{{ path('fos_user_security_login') }}">Connexion/Inscription</a> #}
-                         {# <a class="nav-item nav-link" href="{{ path('fos_user_registration_register') }}">Inscription</a> #}
-                     </div>    
-                     {% endif %}
-                     
-          </nav>
+
+         <ul class="nav nav-tabs d-flex col-12">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('home') }}">Accueil</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{ path('fos_user_profile_show') }}">Mon Profil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Autres</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Classement</a>
+                </li>
+            {% endif %}
+        </ul>
+          
  </header>
  {% endblock %}

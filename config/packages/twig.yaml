@@ -3,3 +3,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     form_themes: ['bootstrap_4_layout.html.twig']
+
+    globals:
+        # creation de la constante contenant le path relatif au images appelé dans les vues
+        image_directory_chess: 'uploads/images/'
