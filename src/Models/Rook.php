@@ -6,10 +6,6 @@ class Rook extends Piece
 {
     public function canDoThisMove(Board $board, int $newPosX, int $newPosY) : bool
     {
-       dump($newPosX);
-       dump($newPosY);
-       dump($this->posX);
-       dump($this->posY);
         //la nouvelle case existe :
         if (false === $board->newPosExist($newPosX, $newPosY)) {
             return false;

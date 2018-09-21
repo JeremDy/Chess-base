@@ -121,6 +121,7 @@ class GameTopic implements TopicInterface
 
         $player = $this->clientManipulator->findByUsername($topic, $playerName);
         $opponent = $this->clientManipulator->findByUsername($topic, $opponentName);
+        $opponentColor = $playerColor === 'white' ? 'black' : 'white';
     
   
         if($user->getId() !== $game->getPlayerWhoCanPlay()->getId()){                
@@ -175,19 +176,68 @@ class GameTopic implements TopicInterface
                 );               
             return;
         }
-
+        
+        
         //'bouge la piece' ,met à jour le board.
         $board->movePiece($piece, $event['movement']['new']);
-        $game->setPlayerWhoCanPlay($this->doctrine->getRepository(User::class)->findOneByUsername($opponentName));
-        if( $board->whiteKingIsCheck() === true){
-            dump('white king check!');
-        }
+        if (true === $board->thisKingIsCheck($opponentColor)) {
+            dump('le roi'.$opponentColor.'est en echec.');
 
-        dump($board);
-        if( $board->whiteKingIsMat() === true){
-            dump('white king is Mat!');
+            if (true === $board->thisKingIsMat($opponentColor)) {
+                dump('ecehec et mat !');
+            }
+
         }
-        dump($board);
+        /*
+        if(true === $board->thisKingIsCheck($playerColor)){
+            $topic->broadcast(
+                [
+                    'error' => 'vous ne pouvez pas mettre votre roi en echec!',
+                ],
+                array(),
+                array($player['connection']->WAMP->sessionId)
+                );               
+            return;
+        }*/
+        
+        //if (true === $board->thisKingIsCheck($opponentColor)) {
+        //    dump('echeeec!');
+            /*if (true === $board->thisKingIsMat($opponentColor)) {
+                $topic->broadcast(
+                    [
+                        'endGame' => 'Echec et mat, vous avez gagné !',
+                    ],
+                    array(),
+                    array($player['connection']->WAMP->sessionId)
+                    );
+                $topic->broadcast(
+                    [
+                        'endGame' => 'Echec et mat, vous avez perdu !',
+                    ],
+                    array(),
+                    array($opponent['connection']->WAMP->sessionId)
+                    );
+                return;
+            }*/
+            /*$topic->broadcast(
+                [
+                    'echec' => ' Vous avez mis le roi adverse en echec !',
+                ],
+                array(),
+                array($player['connection']->WAMP->sessionId)
+                );
+            $topic->broadcast(
+                [
+                    'echec' => 'votre roi est en echec !',
+                ],
+                array(),
+                array($opponent['connection']->WAMP->sessionId)
+                );
+            }*/
+        
+
+        
+        $game->setPlayerWhoCanPlay($this->doctrine->getRepository(User::class)->findOneByUsername($opponentName));
         
         $topic->broadcast(
             [
