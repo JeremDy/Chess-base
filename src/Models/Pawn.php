@@ -32,7 +32,6 @@ class Pawn extends Piece
 
     public function pawnAttackMove(Board $board, int $newPosX, int $newPosY) : bool
     {
-       
         if (abs($this->posX - $newPosX) !== 1 || abs($this->posY - $newPosY) !== 1) {
             return false;
         }
@@ -70,11 +69,11 @@ class Pawn extends Piece
     {
         if (false === $this->isDoingValideVerticalMovement($board, $newPosX, $newPosY)) {
             return false;
-        }  
-        if ($this->getColor() === 'white' && $this->getPosY() === 2 && $newPosY === 4){
+        }
+        if ($this->getColor() === 'white' && $this->getPosY() === 2 && $newPosY === 4) {
             return true;
         }
-        if ($this->getColor() === 'black' && $this->getPosY() === 7 && $newPosY === 5){
+        if ($this->getColor() === 'black' && $this->getPosY() === 7 && $newPosY === 5) {
             return true;
         }
         return false;

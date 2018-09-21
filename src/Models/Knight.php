@@ -19,14 +19,13 @@ class Knight extends Piece
             return false;
         }
         
-        if(abs($this->posY - $newPosY) === 2 && abs($this->posX - $newPosX) === 1){
+        if (abs($this->posY - $newPosY) === 2 && abs($this->posX - $newPosX) === 1) {
             return true;
         }
-        if(abs($this->posX - $newPosX) === 2 && abs($this->posY - $newPosY) === 1){
+        if (abs($this->posX - $newPosX) === 2 && abs($this->posY - $newPosY) === 1) {
             return true;
         }
         
         return false;
     }
-
 }
