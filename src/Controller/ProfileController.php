@@ -53,11 +53,15 @@ class ProfileController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('App:User')->find($id);
         $stats = $em->getRepository('App:Stats')->find($id);
-
+        if($stats === null) {
+            return $this->render('bundles/FOSUserBundle/Profile/show.html.twig', array(
+                'user' => $user,
+            ));
+        } else {
         return $this->render('bundles/FOSUserBundle/Profile/show.html.twig', array(
             'user' => $user,
             'stats' => $stats,
-        ));
+        )); }
     }
 
 
@@ -110,7 +114,10 @@ class ProfileController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             // Gestion Avatar
             $picture = $user->getProfilePicture();
-            
+            if(is_null($picture)) {
+                $default = 'default-chess.jpg';
+                $user->setProfilePicture($default);
+            }
             if(!is_null($picture)) {
                 // Récupération du champ image du formulaire reçu
                 $file = $user->getProfilePicture();

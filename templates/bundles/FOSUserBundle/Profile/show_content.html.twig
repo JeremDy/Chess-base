@@ -20,11 +20,15 @@
             </div>
             <div class="p-3 border mx-auto">
                 <p>Parties Gagnées : </p>
-                <p>{{ stats.NbWin }}</p>
+                {% if stats is defined %}
+                    <p> {{stats.NbWin}}</p>
+                {% endif %}
             </div>
             <div class="p-3 border mx-auto">
                 <p>Parties Perdues : </p>
-                <p>{{ stats.NbLose }}</p>
+                {% if stats is defined %}
+                    <p>{{ stats.NbLose }}</p>
+                {% endif %}
             </div> 
         </div>
     </div>
