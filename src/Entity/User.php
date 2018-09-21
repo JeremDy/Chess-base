@@ -46,6 +46,11 @@ class User extends BaseUser
          */
         private $profilePicture;
 
+        /**
+         * @ORM\Column(type="datetime")
+         */
+        private $FirstLogin;
+
     public function __construct()
     {
         parent::__construct();
@@ -126,6 +131,18 @@ class User extends BaseUser
                 $isBlackInGame->setPlayerTwo(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFirstLogin(): ?\DateTimeInterface
+    {
+        return $this->FirstLogin;
+    }
+
+    public function setFirstLogin(\DateTimeInterface $FirstLogin): self
+    {
+        $this->FirstLogin = $FirstLogin;
 
         return $this;
     }

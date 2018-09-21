@@ -7,12 +7,17 @@ parameters:
     profile_directory: '%kernel.project_dir%/public/media/cache/thumb_profile/uploads/images'
     nav_directory: '%kernel.project_dir%/public/media/cache/thumb_nav/uploads/images'
     picture_directory: '%kernel.project_dir%/public/uploads/images'
-    
+
     locale: 'fr'
     my_user_provider.class: App\Utils\FOSUBUserProvider
     
     
 services:
+    # app_user.first_login:
+    #     class: App\EventListener\FirstLoginListener
+    #     arguments: ['@date']
+        
+
     my_user_provider:
         
         public: true
