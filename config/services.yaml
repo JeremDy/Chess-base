@@ -65,3 +65,7 @@ services:
         arguments:
             - !service { class: PDO, factory: 'database_connection:getWrappedConnection' }
             - {lock_mode: 0}
+    
+
+    GameTopicMessage :
+        class : App\Utils\GameTopicMessage

@@ -10,21 +10,22 @@ use Gos\Bundle\WebSocketBundle\Client\ClientManipulatorInterface;
 use App\Entity\Game;
 use App\Entity\User;
 use Doctrine\Common\Persistence\ManagerRegistry;
-
+use App\Utils\GameTopicMessage;
 
 class GameTopic implements TopicInterface
 {
-    
     protected $clientManipulator;
     private $doctrine;
+    private $gameTopicMessage;
 
     /**
      * @param ClientManipulatorInterface $clientManipulator
      */
-    public function __construct(ClientManipulatorInterface $clientManipulator, ManagerRegistry $doctrine)
+    public function __construct(ClientManipulatorInterface $clientManipulator, ManagerRegistry $doctrine, GameTopicMessage $gameTopicMessage)
     {
         $this->clientManipulator = $clientManipulator;
         $this->doctrine = $doctrine;
+        $this->gameTopicMessage = $gameTopicMessage;
     }
             
     /**
@@ -42,40 +43,24 @@ class GameTopic implements TopicInterface
         $user = $this->clientManipulator->getClient($connection);
        
         if (!is_object($user)) {
-            $connection->send('user non connecté ?!'); 
+            dump('user not connected');
             return;
         }
        
-       
         $playerName = $user->getUsername();
-        $player = $this->clientManipulator->findByUsername($topic, $playerName);
-        
-        
+        $playerSessionId = $this->clientManipulator->findByUsername($topic, $playerName)['connection']->WAMP->sessionId;
+          
         //si l'user  === game->playerWhoCanplay
         if ($user->getId() === $game->getPlayerWhoCanPlay()->getId()) {
-            $topic->broadcast(
-                [
-                    'canPlay' => true,
-                ],
-                array(),
-                array($player['connection']->WAMP->sessionId)
-                );          
-            return;  
+            $this->gameTopicMessage->canPlay(true, $topic, $playerSessionId);
+            return;
         }
 
         //si l'user !=== game ->player whoCan play
         if ($user->getId() !== $game->getPlayerWhoCanPlay()->getId()) {
-            $topic->broadcast(
-                [
-                    'canPlay' => false,
-                ],
-                array(),
-                array($player['connection']->WAMP->sessionId)
-                );          
-            return; 
-          
+            $this->gameTopicMessage->canPlay(false, $topic, $playerSessionId);
+            return;
         }
-
     }
 
     /**
@@ -88,7 +73,6 @@ class GameTopic implements TopicInterface
      */
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-       
     }
 
 
@@ -105,7 +89,6 @@ class GameTopic implements TopicInterface
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
-        
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
         $user = $this->clientManipulator->getClient($connection);
@@ -117,148 +100,65 @@ class GameTopic implements TopicInterface
  
         $playerName = $user->getUsername();
         $playerColor = $playerName === $request->getAttributes()->get('playerOne') ? 'white' : 'black';
-        $opponentName =  $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne'); 
-
-        $player = $this->clientManipulator->findByUsername($topic, $playerName);
-        $opponent = $this->clientManipulator->findByUsername($topic, $opponentName);
+        $playerSessionId = $this->clientManipulator->findByUsername($topic, $playerName)['connection']->WAMP->sessionId;
+ 
+        $opponentName =  $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne');
         $opponentColor = $playerColor === 'white' ? 'black' : 'white';
-    
-  
-        if($user->getId() !== $game->getPlayerWhoCanPlay()->getId()){                
-            $topic->broadcast(
-                [
-                    'error' => 'Ce n\'est pas votre tour.',
-                ],
-                array(),
-                array($player['connection']->WAMP->sessionId)
-                );          
-            return;       
+        $opponentSessionId = $this->clientManipulator->findByUsername($topic, $opponentName)['connection']->WAMP->sessionId;
+   
+        if ($user->getId() !== $game->getPlayerWhoCanPlay()->getId()) {
+            $this->gameTopicMessage->notYourTurn($topic, $playerSessionId);
+            return;
         }
     
         $board = $game->getChessBoard();
-        $piece = $board->getPiece($event['movement']['old']);  
-        
-        if(null === $piece){
-            $topic->broadcast(
-                [
-                    'error' => 'Cette piece n\'existe pas !',
-                ],
-                array(),
-                array($player['connection']->WAMP->sessionId)
-                );               
-            return;
-        }
-        
-        if($playerColor !== $piece->getColor()){
-            $topic->broadcast(
-                [
-                    'error' => 'Ce n\'est pas une de vos pieces!',
-                ],
-                array(),
-                array($player['connection']->WAMP->sessionId)
-                );               
-            return;
-        }
-       
+        $piece = $board->getPiece($event['movement']['old']);
+
+        //position d'arrivé du mouvement essayé:
         $arrayPos = explode('/', $event['movement']['new']);
         $newPosY = intval($arrayPos[0]);
         $newPosX = intval($arrayPos[1]);
         
-       
-       
+        if (null === $piece) {
+            $this->gameTopicMessage->notExistingPiece($topic, $playerSessionId);
+            return;
+        }
+        
+        if ($playerColor !== $piece->getColor()) {
+            $this->gameTopicMessage->notYourPiece($topic, $playerSessionId);
+            return;
+        }
+                 
         //verification si le mouvement est valide.
-        $verification = $piece->canDothismove($board, $newPosX, $newPosY);
-        if(false === $verification){
-            $topic->broadcast(
-                [
-                    'error' => 'Ce mouvement est incorect !',
-                ],
-                array(),
-                array($player['connection']->WAMP->sessionId)
-                );               
+        if (false === $piece->canDothismove($board, $newPosX, $newPosY)) {
+            $this->gameTopicMessage->invalidMovement($topic, $playerSessionId);
             return;
         }
                 
         //'bouge la piece' ,met à jour le board.
-        $savedMove = $board->saveMoveInfo($piece,$newPosX,$newPosY);
+        $savedMove = $board->saveMoveInfo($piece, $newPosX, $newPosY);
         $board->movePiece($piece, $event['movement']['new']);
 
-
         //si le mouvement a mis en echec notre roi : message d'erreur, et on annule le mouvement.
-        if (true === $board->thisKingIsCheck($playerColor)) {  
-            $topic->broadcast(
-                [
-                    'error' => 'vous ne pouvez pas mettre votre roi en echec!',
-                ],
-                array(),
-                array($player['connection']->WAMP->sessionId)
-                );                     
+        if (true === $board->thisKingIsCheck($playerColor)) {
+            $this->gameTopicMessage->selfCheck($topic, $playerSessionId);
             $board->returnBeforeSavedMove($savedMove);
-            return;      
+            return;
         }
 
         //verif si le roi adverse est en echec apres le mouvement.
         if (true === $board->thisKingIsCheck($opponentColor)) {
-            //verif si il y'a echec et mat !     
+            //verif si il y'a echec et mat !
             if (true === $board->thisKingIsMat($opponentColor)) {
-                $topic->broadcast(
-                    [
-                        'endGame' => 'Echec et mat, vous avez gagné !',
-                    ],
-                    array(),
-                    array($player['connection']->WAMP->sessionId)
-                    );
-                $topic->broadcast(
-                    [
-                        'endGame' => 'Echec et mat, vous avez perdu !',
-                    ],
-                    array(),
-                    array($opponent['connection']->WAMP->sessionId)
-                    );
-                return;      
+                $this->gameTopicMessage->checkMate($topic, $playerSessionId, $opponentSessionId);
+                return;
             }
-
-            $topic->broadcast(
-                [
-                    'echec' => ' Vous avez mis le roi adverse en echec !',
-                ],
-                array(),
-                array($player['connection']->WAMP->sessionId)
-                );
-            $topic->broadcast(
-                [
-                    'echec' => 'votre roi est en echec !',
-                ],
-                array(),
-                array($opponent['connection']->WAMP->sessionId)
-                );
+            $this->gameTopicMessage->check($topic, $playerSessionId, $opponentSessionId);
         }
               
         $game->setPlayerWhoCanPlay($this->doctrine->getRepository(User::class)->findOneByUsername($opponentName));
-        
-        $topic->broadcast(
-            [
-                'canPlay' => false,
-                'message' => 'Tu as finis ton tour',           
-            ],
-            array(),
-            array($player['connection']->WAMP->sessionId)
-            ); 
-
-        $topic->broadcast(
-            [
-                'canPlay'=> true,
-                'message' => 'Ton adversaire à joué, à ton tour',
-                'movement' => $event,
-            ],
-            array(),
-            array($opponent['connection']->WAMP->sessionId)
-            );    
-
+        $this->gameTopicMessage->endTurn($topic, $event, $playerSessionId, $opponentSessionId);
     }
-
-        
-    
 
     /**
     * Like RPC is will use to prefix the channel
