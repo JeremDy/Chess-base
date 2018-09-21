@@ -9,10 +9,11 @@ const ioMiddle = store => next => (action) => {
 
       webSocket = WS.connect('ws://127.0.0.1:8080'); //ws://127.0.0.1:8080  // TODO: Objet WS non reconnue ?
       webSocket.on('socket/connect', function(session) {
-        console.log('connect to :' + channel);
+        console.log('Socket connection to the channel :' + channel);
         session.subscribe(channel, function(uri, serverMessage) {
-          console.log('servermessage',serverMessage);
+          console.log('Server message received :', serverMessage);
           store.dispatch(initialDisplay(serverMessage, webSocket));
+          console.log('------A player turn begin------');
         });
       });
       break;
