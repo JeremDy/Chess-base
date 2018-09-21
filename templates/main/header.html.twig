@@ -17,13 +17,13 @@
      </div>
      </div>
 
-         <ul class="nav nav-tabs d-flex col-12">
+         <ul class="nav nav-tabs d-flex col-12" id="myTab" role="tablist">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('home') }}">Accueil</a>
+                    <a class="nav-link" id="home-tab" href="{{ path('home') }}">Accueil</a>
                 </li>
                  <li class="nav-item">
-                    <a class="nav-link" href="{{ path('profileShow', { 'id':app.user.id}) }}">Mon Profil</a>
+                    <a class="nav-link" id="profile-tab" href="{{ path('profileShow', { 'id':app.user.id}) }}">Mon Profil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Autres</a>

@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use App\Form\ProfileFormType;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Entity\Stats;
-
+//Bug connu à corriger : A l'edit du profil, si aucune image mise, retour à l'image par défaut
 class ProfileController extends Controller
 {
     private $eventDispatcher;
@@ -80,7 +80,7 @@ class ProfileController extends Controller
 
         $currentImage = $user->getProfilePicture();
 
-        if(!empty($currentImage) && file_exists($currentImage)){
+        if(!empty($currentImage)){
             $imagePath = $this->getParameter('picture_directory') . DIRECTORY_SEPARATOR . $currentImage;
             
             /*
@@ -114,10 +114,6 @@ class ProfileController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             // Gestion Avatar
             $picture = $user->getProfilePicture();
-            if(is_null($picture)) {
-                $default = 'default-chess.jpg';
-                $user->setProfilePicture($default);
-            }
             if(!is_null($picture)) {
                 // Récupération du champ image du formulaire reçu
                 $file = $user->getProfilePicture();
@@ -127,7 +123,7 @@ class ProfileController extends Controller
                 $file->move($this->getParameter('picture_directory'), $fileName);
                 // Met à jour le nom de l'image finale dans notre user
                 $user->setProfilePicture($fileName);
-
+            } elseif(!is_null($currentImage)) { // Cette ligne permet d'éviter une erreur lors de l'edit du null
                 $imagePathProfileThumb = $this->getParameter('profile_directory') . DIRECTORY_SEPARATOR . $currentImage;
                 unlink($imagePathProfileThumb);
                 $imagePathPicture = $this->getParameter('picture_directory') . DIRECTORY_SEPARATOR . $currentImage;
@@ -135,7 +131,7 @@ class ProfileController extends Controller
                 $imagePathNavThumb = $this->getParameter('nav_directory') . DIRECTORY_SEPARATOR . $currentImage;
                 unlink($imagePathNavThumb);
             }
-            else {
+            elseif(is_null($picture)) {
                 // Si fichier non remplacé, on lui passe le nom du fichier actuel
                 // car $user a été modifié au traitement du formulaire
                 $user->setProfilePicture($currentImage);
