@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -29,6 +30,22 @@ class User extends BaseUser
      */
     private $IsBlackInGame;
 
+        /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
+        protected $facebook_id;
+        /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
+        protected $facebook_access_token;
+        /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+        protected $google_id;
+        /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
+        protected $google_access_token;
+    
+        /**
+         * @ORM\Column(type="string", length=255, nullable=true)
+         * 
+         * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
+         */
+        private $profilePicture;
+
     public function __construct()
     {
         parent::__construct();
@@ -40,7 +57,16 @@ class User extends BaseUser
     {
         return $this->id;
     }
+       
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
+    }
 
+    public function setProfilePicture($profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
+    }
     /**
      * @return Collection|Game[]
      */
