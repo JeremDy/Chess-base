@@ -14,7 +14,6 @@ liip_imagine:
                 data_root:
                     - '%kernel.root_dir%/../public/'
                     
-
     driver: "gd"
 
     filter_sets:
@@ -29,6 +28,17 @@ liip_imagine:
                     mode: outbound
                 background:
                     size: [104, 104]
+                    position: center
+                    color: '#000000'
+        
+        thumb_nav:
+            quality: 80
+            filters:
+                thumbnail:
+                    size: [40, 40]
+                    mode: outbound
+                background:
+                    size: [44, 44]
                     position: center
                     color: '#000000'
 #liip_imagine:

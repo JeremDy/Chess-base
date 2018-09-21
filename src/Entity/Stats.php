@@ -17,7 +17,7 @@ class Stats
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="NbWin", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="Id", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $Player;
