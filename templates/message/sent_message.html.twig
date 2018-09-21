@@ -1,0 +1,25 @@
+{% extends 'message/message_layout.html.twig' %}
+
+{% block title %}Message envoyé{% endblock %}
+
+{% block body %}
+
+{{ parent() }}
+    <h1> Message envoyé</h1>
+        <ul class="list-group list-group-flush">
+        {% for message in app.user.sentMessages %}
+            <li class="list-group-item bg-dark border-light m-2">
+                <div><h4><a href="{{ path('message_show', {'id': message.id}) }}">{{ message.title }}</a></h4></div>
+                <div>
+                    <span>{{message.sender}}</span>
+                    <span class="float-right">{{ message.sentAt ? message.sentAt|date('d/m/Y, H:i') : '' }}</span>
+                </div>
+                
+           </li>                                
+        {% else %}      
+                <p>Aucun message envoyé</p>         
+        {% endfor %}
+ 
+
+    <a href="{{ path('message_new') }}">Create new</a>
+{% endblock %}

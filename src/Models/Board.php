@@ -166,10 +166,10 @@ class Board
                     $this->movePiece($piece, $pos);
                     
                     if (false === $this->thisKingIsCheck($color)) {
-                        $this->returnBeforeSavedMove($savedMove);
+                        $this->cancelMove($savedMove);
                         return false;
                     }
-                    $this->returnBeforeSavedMove($savedMove);
+                    $this->cancelMove($savedMove);
                 }
             }
         }
@@ -189,7 +189,7 @@ class Board
         return $savedMove;
     }
 
-    public function returnBeforeSavedMove(array $savedMove)
+    public function cancelMove(array $savedMove)
     {
         $this->board[$savedMove['oldPosY'] .'/'. $savedMove['oldPosX']] = $savedMove['piece'];
         $this->board[$savedMove['newPosY'] .'/' . $savedMove['newPosX']] = $savedMove['newCaseOldContent'];
