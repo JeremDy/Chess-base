@@ -4,8 +4,6 @@ namespace App\Models;
 class Board
 {
     private $board;
-    private $moveData;
-
 
     public function __construct()
     {
@@ -51,7 +49,7 @@ class Board
 
 
     public function movePiece(Piece $piece, string $newPos)
-    {   
+    {
         $arrayPos = explode('/', $newPos);
         $newPosY = intval($arrayPos[0]);
         $newPosX = intval($arrayPos[1]);
@@ -111,134 +109,12 @@ class Board
         return $this->board[$pos];
     }
 
-
-    
-    /*
-    public function getWhiteKingPos() : array
-    {
-        foreach( $this->board as $case){
-            if($case instanceof King && $case->getColor() === 'white'){
-
-               return $arrayPos = [
-                   'posX' => $case->getPosX(),
-                   'posY' => $case->getPosY()
-               ];
-            }
-        }
-    }
-
-    public function getBlackKingPos() : array
-    {
-        foreach( $this->board as $case){
-            if($case instanceof King && $case->getColor() === 'black'){
-
-               return $arrayPos = [
-                   'posX' => $case->getPosX(),
-                   'posY' => $case->getPosY()
-               ];
-            }
-        }
-    }
-
-   
-    public function getAllBlackPiece() : array
-    {
-       $arrayResult = [];
-        foreach ($this->board as $case) {
-            if ($case instanceof Piece && $case->getColor() === 'black') {
-                $arrayResult[] = $case;
-            }
-        }
-        return $arrayResult;     
-    }
-
-    public function getAllWhitePiece() : array
-    {
-       $arrayResult = [];
-        foreach ($this->board as $case) {
-            if ($case instanceof Piece && $case->getColor() === 'white') {
-                $arrayResult[] = $case;
-            }
-        }
-        return $arrayResult;     
-    }
-
-
-    public function whiteKingIsCheck() :bool
-    {
-        $whiteKingPos = $this->getWhiteKingPos(); 
-        $blackPieces = $this->getAllBlackPiece();
-      
-        foreach($blackPieces as $piece){
-            if(true === $piece->canDoThisMove($this,$whiteKingPos['posX'],$whiteKingPos['posY'])){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function blackKingIsCheck() :bool
-    {
-        $blackKingPos = $this->getblackKingPos();
-        $whitePieces = $this->getAllWhitePiece();
-        foreach($whitePieces as $piece){
-            if(true === $piece->canDoThisMove($this,$backKingPos['posX'],$blackKingPos['posY'])){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    
-    public function whiteKingIsMat(){
-        
-        $cases = $this->board;
-        $whitePieces = $this->getAllWhitePiece();
-        foreach ($whitePieces as $piece) {
-            foreach ($cases as $pos => $case) {
-                $arrayPos = explode('/', $pos);
-                $newPosY = intval($arrayPos[0]);
-                $newPosX = intval($arrayPos[1]);
-                if (true === $piece->canDoThisMove($this, $newPosX, $newPosY)) {
-                    $newCaseContent = $this->board[$pos];
-                    $oldPiecePosX = $piece->getPosX();
-                    $oldPiecePosY = $piece->getPosY();
-                    
-                    $this->movePiece($piece, $pos);
-                    
-                    if (false === $this->whiteKingIsCheck()) {
-                        $this->board[$pos] = $newCaseContent;
-                        $this->board[$oldPiecePosY.'/'.$oldPiecePosX] = $piece;
-                        if ($this->board[$pos] !== null) {
-                            $this->board[$pos]->setPosX($newPosX)->setPosY($newPosY);
-                        }
-                        if ($this->board[$oldPiecePosY.'/'.$oldPiecePosX] !== null) {
-                            $this->board[$oldPiecePosY.'/'.$oldPiecePosX]->setPosX($oldPiecePosX)->setPosY($oldPiecePosY);
-                        }
-
-                        return false;
-                    }
-                    $this->board[$pos] = $newCaseContent;
-                    $this->board[$oldPiecePosY.'/'.$oldPiecePosX] = $piece;
-                    if ($this->board[$pos] !== null) {
-                        $this->board[$pos]->setPosX($newPosX)->setPosY($newPosY);
-                    }
-                    if ($this->board[$oldPiecePosY.'/'.$oldPiecePosX] !== null) {
-                        $this->board[$oldPiecePosY.'/'.$oldPiecePosX]->setPosX($oldPiecePosX)->setPosY($oldPiecePosY);
-                    }
-                }
-            }
-        }
-        return true;
-    }
-    */
     //recupération de la possition d'un roi sur le board
     public function getThisKingPos(string $color) : array
     {
-        foreach( $this->board as $case){
-            if($case instanceof King && $case->getColor() === $color){
-
-               return $arrayPos = [
+        foreach ($this->board as $case) {
+            if ($case instanceof King && $case->getColor() === $color) {
+                return $arrayPos = [
                    'posX' => $case->getPosX(),
                    'posY' => $case->getPosY()
                ];
@@ -249,24 +125,24 @@ class Board
     //recupération de toute les pieces d'une couleur dans le board
     public function getAllPieceOfThisColor(string $color) : array
     {
-       $arrayResult = [];
+        $arrayResult = [];
         foreach ($this->board as $case) {
             if ($case instanceof Piece && $case->getColor() === $color) {
                 $arrayResult[] = $case;
             }
         }
-        return $arrayResult;     
+        return $arrayResult;
     }
 
     //verification si le roi de cette couleur est en echec
     public function thisKingIsCheck($color) : bool
     {
-        $kingPos = $this->getThisKingPos($color);     
-        $opponentColor = $color === 'white' ? 'black' : 'white'; 
+        $kingPos = $this->getThisKingPos($color);
+        $opponentColor = $color === 'white' ? 'black' : 'white';
         $opponentPieces = $this->getAllPieceOfThisColor($opponentColor);
     
-        foreach($opponentPieces as $piece){
-            if(true === $piece->canDoThisMove($this,$kingPos['posX'],$kingPos['posY'])){
+        foreach ($opponentPieces as $piece) {
+            if (true === $piece->canDoThisMove($this, $kingPos['posX'], $kingPos['posY'])) {
                 return true;
             }
         }
@@ -274,8 +150,8 @@ class Board
     }
 
     //verification si le roi de cette couleur est en echet et mat
-    public function thisKingIsMat($color){
-        
+    public function thisKingIsMat($color)
+    {
         $cases = $this->board;
         $pieces = $this->getAllPieceOfThisColor($color);
         
@@ -284,58 +160,45 @@ class Board
                 $arrayPos = explode('/', $pos);
                 $newPosY = intval($arrayPos[0]);
                 $newPosX = intval($arrayPos[1]);
+                
                 if (true === $piece->canDoThisMove($this, $newPosX, $newPosY)) {
-                    $newCaseContent = $this->board[$pos];
-                    $oldPiecePosX = $piece->getPosX();
-                    $oldPiecePosY = $piece->getPosY();
-                    
+                    $savedMove = $this->saveMoveInfo($piece, $newPosX, $newPosY);
                     $this->movePiece($piece, $pos);
                     
                     if (false === $this->thisKingIsCheck($color)) {
-                        $this->board[$pos] = $newCaseContent;
-                        $this->board[$oldPiecePosY.'/'.$oldPiecePosX] = $piece;
-                        if ($this->board[$pos] !== null) {
-                            $this->board[$pos]->setPosX($newPosX)->setPosY($newPosY);
-                        }
-                        if ($this->board[$oldPiecePosY.'/'.$oldPiecePosX] !== null) {
-                            $this->board[$oldPiecePosY.'/'.$oldPiecePosX]->setPosX($oldPiecePosX)->setPosY($oldPiecePosY);
-                        }
-
+                        $this->returnBeforeSavedMove($savedMove);
                         return false;
                     }
-                    $this->board[$pos] = $newCaseContent;
-                    $this->board[$oldPiecePosY.'/'.$oldPiecePosX] = $piece;
-                    if ($this->board[$pos] !== null) {
-                        $this->board[$pos]->setPosX($newPosX)->setPosY($newPosY);
-                    }
-                    if ($this->board[$oldPiecePosY.'/'.$oldPiecePosX] !== null) {
-                        $this->board[$oldPiecePosY.'/'.$oldPiecePosX]->setPosX($oldPiecePosX)->setPosY($oldPiecePosY);
-                    }
+                    $this->returnBeforeSavedMove($savedMove);
                 }
             }
         }
         return true;
     }
 
+    public function saveMoveInfo(Piece $piece, int $newPosX, int $newPosY) : array
+    {
+        $savedMove = [
+            'piece' => $piece,
+            'oldPosX' => $piece->getPosX(),
+            'oldPosY'=> $piece->getPosY(),
+            'newCaseOldContent' => $this->board[$newPosY .'/'. $newPosX],
+            'newPosX' => $newPosX,
+            'newPosY' => $newPosY,
+        ];
+        return $savedMove;
+    }
 
-
-
-
-
+    public function returnBeforeSavedMove(array $savedMove)
+    {
+        $this->board[$savedMove['oldPosY'] .'/'. $savedMove['oldPosX']] = $savedMove['piece'];
+        $this->board[$savedMove['newPosY'] .'/' . $savedMove['newPosX']] = $savedMove['newCaseOldContent'];
+        if (is_object($this->board[$savedMove['oldPosY'] .'/'. $savedMove['oldPosX']])) {
+            $this->board[$savedMove['oldPosY'] .'/'. $savedMove['oldPosX']]->setPosX($savedMove['oldPosX'])->setPosY($savedMove['oldPosY']);
+        }
+        if (is_object($this->board[$savedMove['newPosY'] .'/'. $savedMove['newPosX']])) {
+            $this->board[$savedMove['newPosY'] .'/'. $savedMove['newPosX']]->setPosX($savedMove['newPosX'])->setPosY($savedMove['newPosY']);
+        }
+        return;
+    }
 }
-
-
-
-
-
-
-// recuperer chaque piece alllié;
-//boucler sur les pieces, pour chaque pieces :
-//boucler sur toutes les cases du board, pour chaque case :
-//piece->canDoThisMove()?
-//si oui : y'a notre roi et t'il tjrs en echec?
-//si une solution est trouvé : pas echec et mat, sinon echect et mat
-
-
-
-

@@ -66,7 +66,7 @@ const reducer = (state = initialState, action = {}) => {
       const clicCount = Number(state.clickedCell.length) + 1; // au début le tableau est vide donc vide + 1 = 1 = premier clic
       switch (clicCount) { // Debut du switch pour différencier clic 1 clic 2
         case 1: // premier clic
-          let nextAction ;
+          let nextAction = [];
           let newMoveAllowed = [];
           let newKillAllowed = [];
           if (item === 'E' || !state.canPlay || color != state.myColor) { return state; } else if (state.canPlay & color == state.myColor) { // annule tout effet d'un clic sur une cellule vide
@@ -104,8 +104,8 @@ const reducer = (state = initialState, action = {}) => {
         case 2: // deuxième clic
           console.log('Clic N°2 done');
         //   let vector;
-        //   let opponentColor;
-        //   let kingPos;
+             let opponentColor;
+             let kingPos;
         //   let queenPos;
         //   let cavalier1Pos;
         //   let cavalier2Pos;
@@ -115,7 +115,7 @@ const reducer = (state = initialState, action = {}) => {
         //   let tour2Pos;
 
         //   state.myColor === 0 ? vector = -1 : vector = 1;
-        //   state.myColor === 1 ? opponentColor = '0' : opponentColor = '1';
+             state.myColor === 1 ? opponentColor = '0' : opponentColor = '1';
 
         //   if (Object.values(state.clickedCell[0])[0] === `${'K'}${state.myColor}`) {
         //     console.log('je déplace mon rois')
@@ -131,7 +131,7 @@ const reducer = (state = initialState, action = {}) => {
         //         };
         //       };
         //     };
-        //     kingPos = Object.keys(state.board.find(cell => Object.values(cell)[0] === `${'K'}${opponentColor}`)); // kingPos ["8/4"]
+               kingPos = Object.keys(state.board.find(cell => Object.values(cell)[0] === `${'K'}${opponentColor}`)); // kingPos ["8/4"]
         //     console.log('kingPos',kingPos)
         //     queenPos = Object.keys(state.board.find(cell => Object.values(cell)[0] === `${'Q'}${opponentColor}`));
         //     cavalier1Pos = Object.keys(state.board.filter(cell => Object.values(cell)[0] === `${'C'}${opponentColor}`)[0]);

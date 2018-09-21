@@ -164,8 +164,10 @@ class GameTopic implements TopicInterface
         $newPosY = intval($arrayPos[0]);
         $newPosX = intval($arrayPos[1]);
         
+       
+       
+        //verification si le mouvement est valide.
         $verification = $piece->canDothismove($board, $newPosX, $newPosY);
-        
         if(false === $verification){
             $topic->broadcast(
                 [
@@ -176,33 +178,29 @@ class GameTopic implements TopicInterface
                 );               
             return;
         }
-        
-        
+                
         //'bouge la piece' ,met à jour le board.
+        $savedMove = $board->saveMoveInfo($piece,$newPosX,$newPosY);
         $board->movePiece($piece, $event['movement']['new']);
-        if (true === $board->thisKingIsCheck($opponentColor)) {
-            dump('le roi'.$opponentColor.'est en echec.');
 
-            if (true === $board->thisKingIsMat($opponentColor)) {
-                dump('ecehec et mat !');
-            }
 
-        }
-        /*
-        if(true === $board->thisKingIsCheck($playerColor)){
+        //si le mouvement a mis en echec notre roi : message d'erreur, et on annule le mouvement.
+        if (true === $board->thisKingIsCheck($playerColor)) {  
             $topic->broadcast(
                 [
                     'error' => 'vous ne pouvez pas mettre votre roi en echec!',
                 ],
                 array(),
                 array($player['connection']->WAMP->sessionId)
-                );               
-            return;
-        }*/
-        
-        //if (true === $board->thisKingIsCheck($opponentColor)) {
-        //    dump('echeeec!');
-            /*if (true === $board->thisKingIsMat($opponentColor)) {
+                );                     
+            $board->returnBeforeSavedMove($savedMove);
+            return;      
+        }
+
+        //verif si le roi adverse est en echec apres le mouvement.
+        if (true === $board->thisKingIsCheck($opponentColor)) {
+            //verif si il y'a echec et mat !     
+            if (true === $board->thisKingIsMat($opponentColor)) {
                 $topic->broadcast(
                     [
                         'endGame' => 'Echec et mat, vous avez gagné !',
@@ -217,9 +215,10 @@ class GameTopic implements TopicInterface
                     array(),
                     array($opponent['connection']->WAMP->sessionId)
                     );
-                return;
-            }*/
-            /*$topic->broadcast(
+                return;      
+            }
+
+            $topic->broadcast(
                 [
                     'echec' => ' Vous avez mis le roi adverse en echec !',
                 ],
@@ -233,10 +232,8 @@ class GameTopic implements TopicInterface
                 array(),
                 array($opponent['connection']->WAMP->sessionId)
                 );
-            }*/
-        
-
-        
+        }
+              
         $game->setPlayerWhoCanPlay($this->doctrine->getRepository(User::class)->findOneByUsername($opponentName));
         
         $topic->broadcast(
