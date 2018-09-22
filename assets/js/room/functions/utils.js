@@ -33,7 +33,7 @@ var library = {
       }
     };
 
-    console.log('Pion allowed action : newmove', newMoveAllowed,'newkill', newKillAllowed);
+    // console.log('Pion allowed action : newmove', newMoveAllowed,'newkill', newKillAllowed);
   },
   tour: function(color, row, column, stateBoard, newMoveAllowed, newKillAllowed) {
     let i; // valeur d'iteration des cases
