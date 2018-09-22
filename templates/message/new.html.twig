@@ -1,0 +1,10 @@
+{% extends 'message/message_layout.html.twig' %}
+
+{% block title %}New Message{% endblock %}
+
+{% block body %}
+{{ parent() }}
+    <h3>Envoyer un nouveau message privé</h3>
+
+    {{ include('message/_form.html.twig') }}
+{% endblock %}
