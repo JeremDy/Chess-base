@@ -4,12 +4,20 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    picture_directory: '%kernel.project_dir%/public/uploads/profil'
+    profile_directory: '%kernel.project_dir%/public/media/cache/thumb_profile/uploads/images'
+    nav_directory: '%kernel.project_dir%/public/media/cache/thumb_nav/uploads/images'
+    picture_directory: '%kernel.project_dir%/public/uploads/images'
+
     locale: 'fr'
     my_user_provider.class: App\Utils\FOSUBUserProvider
     
     
 services:
+    # app_user.first_login:
+    #     class: App\EventListener\FirstLoginListener
+    #     arguments: ['@date']
+        
+
     my_user_provider:
         
         public: true
@@ -44,6 +52,15 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    App\Controller\ProfileController:
+        arguments:
+            $formFactory: '@fos_user.profile.form.factory'
+
+    app.form.profile:
+        class: App\Form\ProfileFormType
+        tags:
+            - { name: form.type, alias: app_user_profile }
+
     app_chat.topic:
         class: App\Utils\Topic\ChatTopic
     
@@ -65,3 +82,7 @@ services:
         arguments:
             - !service { class: PDO, factory: 'database_connection:getWrappedConnection' }
             - {lock_mode: 0}
+    
+
+    GameTopicMessage :
+        class : App\Utils\GameTopicMessage

@@ -3,11 +3,12 @@
 
  <header class="container">
      <div class="d-flex mb-1">
-     <h1 class="col-8">
+     <h1 class="col-7">
          <a class="" href="{{ path('home') }}">Chess Online</a>
      </h1>
-     <div class="pt-3 col-4">
+     <div class="pt-3 col-5">
      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <img class=""src="{{ asset(image_directory_chess ~ (app.user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" />
                  {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} | 
                  <a class="p-0 btn btn-light" href="{{ path('fos_user_security_logout') }}">
                      {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
@@ -16,13 +17,13 @@
      </div>
      </div>
 
-         <ul class="nav nav-tabs d-flex col-12">
+         <ul class="nav nav-tabs d-flex col-12" id="myTab" role="tablist">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('home') }}">Accueil</a>
+                    <a class="nav-link" id="home-tab" href="{{ path('home') }}">Accueil</a>
                 </li>
                  <li class="nav-item">
-                    <a class="nav-link" href="{{ path('fos_user_profile_show') }}">Mon Profil</a>
+                    <a class="nav-link" id="profile-tab" href="{{ path('profileShow', { 'id':app.user.id}) }}">Mon Profil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Autres</a>

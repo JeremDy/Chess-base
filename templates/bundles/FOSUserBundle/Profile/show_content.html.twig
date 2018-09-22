@@ -3,30 +3,48 @@
 <div class="fos_user_user_show">
     <div class="d-flex">
         <div class="">
+        
             <img class=""src="{{ asset(image_directory_chess ~ (user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_profile') }}" />
         </div>
-        <div class="col-10">
+        <div class="col-8">
             <p class="mt-3 mb-0">{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
             <p class="mb-0">{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
             <p class="">Dernière Connexion le {{ user.lastLogin|date('d-m-Y à H:i') }}</p>
         </div>
+        <p class="ml-0">Ratio V/D :
+        {% if stats is defined %}
+                    {{(stats.NbWin / stats.NbLose)}}</p>
+                {% else %}
+                Aucune</p>
+                {% endif %}
     </div>
 </hr>
     <div class="border-top mt-4">
         <div class="mt-4 d-flex">
-            <div class="p-3 border mx-auto">
-                <p>Date D'inscription :</p>
+            <div class="mr-2 p-3 border mx-auto">
+                <p>Inscrit depuis le :</p>
+                {{user.firstLogin|date('d-m-Y à H:i')}}
             </div>
             <div class="p-3 border mx-auto">
                 <p>Parties Gagnées : </p>
+                {% if stats is defined %}
+                    <p> {{stats.NbWin}}</p>
+                {% else %}
+                <p>Aucune</p>
+                {% endif %}
             </div>
             <div class="p-3 border mx-auto">
                 <p>Parties Perdues : </p>
+                {% if stats is defined %}
+                    <p>{{ stats.NbLose }}</p>
+                {% else %}
+                <p>Aucune</p>
+                {% endif %}
             </div> 
         </div>
     </div>
     {% if user == app.user %}
     {# Permet de vérifier si l'utilisateur est bien sur sa propre page de profil #}
-        <a class="mt-5 mb-0 float-right btn btn-primary" href="{{ path('fos_user_profile_edit') }}">Modifier</a>
+        <a class="mt-5 mb-0 float-right btn btn-primary" href="{{ path('profileEdit', { 'id':app.user.username}) }}">Modifier</a>
     {% endif %}
 </div>

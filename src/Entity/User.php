@@ -46,11 +46,17 @@ class User extends BaseUser
          */
         private $profilePicture;
 
+        /**
+         * @ORM\Column(type="datetime")
+         */
+        private $FirstLogin;
+
     public function __construct()
     {
         parent::__construct();
         $this->IsInGame = new ArrayCollection();
         $this->IsBlackInGame = new ArrayCollection();
+        $this->IsWhiteInGame = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,6 +72,7 @@ class User extends BaseUser
     public function setProfilePicture($profilePicture): self
     {
         $this->profilePicture = $profilePicture;
+        return $this;
     }
     /**
      * @return Collection|Game[]
@@ -125,6 +132,66 @@ class User extends BaseUser
                 $isBlackInGame->setPlayerTwo(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFirstLogin(): ?\DateTimeInterface
+    {
+        return $this->FirstLogin;
+    }
+
+    public function setFirstLogin(\DateTimeInterface $FirstLogin): self
+    {
+        $this->FirstLogin = $FirstLogin;
+
+        return $this;
+    }
+
+    public function getFacebookId(): ?string
+    {
+        return $this->facebook_id;
+    }
+
+    public function setFacebookId(?string $facebook_id): self
+    {
+        $this->facebook_id = $facebook_id;
+
+        return $this;
+    }
+
+    public function getFacebookAccessToken(): ?string
+    {
+        return $this->facebook_access_token;
+    }
+
+    public function setFacebookAccessToken(?string $facebook_access_token): self
+    {
+        $this->facebook_access_token = $facebook_access_token;
+
+        return $this;
+    }
+
+    public function getGoogleId(): ?string
+    {
+        return $this->google_id;
+    }
+
+    public function setGoogleId(?string $google_id): self
+    {
+        $this->google_id = $google_id;
+
+        return $this;
+    }
+
+    public function getGoogleAccessToken(): ?string
+    {
+        return $this->google_access_token;
+    }
+
+    public function setGoogleAccessToken(?string $google_access_token): self
+    {
+        $this->google_access_token = $google_access_token;
 
         return $this;
     }
