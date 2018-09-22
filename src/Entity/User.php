@@ -30,36 +30,36 @@ class User extends BaseUser
      */
     private $IsBlackInGame;
 
-        /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
-        protected $facebook_id;
-        /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
-        protected $facebook_access_token;
-        /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
-        protected $google_id;
-        /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
-        protected $google_access_token;
+    /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
+    protected $facebook_id;
+    /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
+    protected $facebook_access_token;
+    /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+    protected $google_id;
+    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
+    protected $google_access_token;
     
-        /**
-         * @ORM\Column(type="string", length=255, nullable=true)
-         * 
-         * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
-         */
-        private $profilePicture;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
+     */
+    private $profilePicture;
 
-        /**
-         * @ORM\Column(type="datetime")
-         */
-        private $FirstLogin;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $FirstLogin;
 
-        /**
-         * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="sender")
-         */
-        private $sentMessages;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="sender")
+     */
+    private $sentMessages;
 
-        /**
-         * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="receiver")
-         */
-        private $receivedMessages;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="receiver")
+     */
+    private $receivedMessages;
 
     public function __construct()
     {
@@ -70,7 +70,6 @@ class User extends BaseUser
         $this->sentMessages = new ArrayCollection();
         $this->receivedMessages = new ArrayCollection();
         $this->IsWhiteInGame = new ArrayCollection();
-
     }
 
     public function getId(): ?int
@@ -189,7 +188,7 @@ class User extends BaseUser
     }
        
      
-     public function getGoogleId(): ?string
+    public function getGoogleId(): ?string
     {
         return $this->google_id;
     }
@@ -201,7 +200,7 @@ class User extends BaseUser
         return $this;
     }
        
-     public function getGoogleAccessToken(): ?string
+    public function getGoogleAccessToken(): ?string
     {
         return $this->google_access_token;
     }
@@ -214,7 +213,7 @@ class User extends BaseUser
         return $this;
     }
   
-      /**
+    /**
      * @return Collection|Message[]
      */
     public function getSentMessages(): Collection
@@ -275,6 +274,7 @@ class User extends BaseUser
 
         return $this;
     }
+}
 
 
 

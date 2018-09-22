@@ -11,9 +11,14 @@
             <ul class="list-group list-group-flush">
             {% for message in messages %}
                 <li class="list-group-item bg-dark border-light m-1">
-                    <div><h4><a href="{{ path('message_show', {'id': message.id}) }}">{{ message.title }}</a></h4></div>
-                    <div>
-                        <span>{{message.sender}}</span>
+                    <div class="d-flex justify-content-between">
+                    <h3 class="d-inline"><a href="{{ path('message_show', {'id': message.id}) }}">{{ message.title }}</a></h3>
+                    
+                    {% if message.readByReceiver == true %} <i class="far fa-envelope-open fa-2x"></i> {% else %} <i class="far fa-envelope fa-2x"></i> {% endif %}
+                    
+                    </div>
+                    <div class="mt-2">
+                        <span><a href="{{ path('profileShow', {id: message.sender.id})}}">{{message.sender}}</a></span>
                         <span class="float-right">{{ message.sentAt ? message.sentAt|date('d/m/Y, H:i') : '' }}</span>
                     </div>
                     
