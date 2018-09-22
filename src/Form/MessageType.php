@@ -21,9 +21,7 @@ class MessageType extends AbstractType
             ])
             ->add('body', CKEditorType::class,[
                 'label' => 'Message :',
-                'config' => [
-                    'toolbar' => 'standard'
-                ]
+              
             ])     
         ;
     }
