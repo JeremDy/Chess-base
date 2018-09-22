@@ -53,10 +53,16 @@ class Message
      */
     private $deletedByReceiver;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $readByReceiver;
+
     public function __construct()
     {
         $this->deletedByReceiver = false;
         $this->deletedBySender = false;
+        $this->readByReceiver = false;
     }
 
     public function getId(): ?int
@@ -144,6 +150,18 @@ class Message
     public function setDeletedByReceiver(bool $deletedByReceiver): self
     {
         $this->deletedByReceiver = $deletedByReceiver;
+
+        return $this;
+    }
+
+    public function getReadByReceiver(): ?bool
+    {
+        return $this->readByReceiver;
+    }
+
+    public function setReadByReceiver(bool $readByReceiver): self
+    {
+        $this->readByReceiver = $readByReceiver;
 
         return $this;
     }

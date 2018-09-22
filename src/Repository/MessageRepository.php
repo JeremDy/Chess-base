@@ -29,7 +29,6 @@ class MessageRepository extends ServiceEntityRepository
             ->andWhere('m.deletedByReceiver = false')
             ->orderBy('m.sentAt', 'DESC')
             ->getQuery()
-            ->getResult()
         ;
     }
 
@@ -42,8 +41,20 @@ class MessageRepository extends ServiceEntityRepository
             ->andWhere('m.deletedBySender = false')
             ->orderBy('m.sentAt', 'DESC')
             ->getQuery()
-            ->getResult()
         ;
+    }
+
+    public function countNotReadMessageByUser($user)
+    {
+        return $this->createQueryBuilder('m')
+            ->select('count(m.id)')
+            ->andWhere('m.receiver = :user')
+            ->andWhere('m.readByReceiver = false')
+            ->andWhere('m.deletedByReceiver = false')
+            ->setParameter('user',$user)
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
     }
 
 
