@@ -69,6 +69,8 @@ class User extends BaseUser
         $this->FirstLogin = new \DateTime();
         $this->sentMessages = new ArrayCollection();
         $this->receivedMessages = new ArrayCollection();
+        $this->IsWhiteInGame = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -160,7 +162,59 @@ class User extends BaseUser
         return $this;
     }
 
-    /**
+    
+    public function getFacebookId(): ?string
+    {
+        return $this->facebook_id;
+    }
+
+    public function setFacebookId(?string $facebook_id): self
+    {
+        $this->facebook_id = $facebook_id;
+        
+        return $this;
+    }
+
+
+    public function getFacebookAccessToken(): ?string
+    {
+        return $this->facebook_access_token;
+    }
+
+    public function setFacebookAccessToken(?string $facebook_access_token): self
+    {
+        $this->facebook_access_token = $facebook_access_token;
+      
+        return $this;
+    }
+       
+     
+     public function getGoogleId(): ?string
+    {
+        return $this->google_id;
+    }
+
+    public function setGoogleId(?string $google_id): self
+    {
+        $this->google_id = $google_id;
+      
+        return $this;
+    }
+       
+     public function getGoogleAccessToken(): ?string
+    {
+        return $this->google_access_token;
+    }
+       
+
+    public function setGoogleAccessToken(?string $google_access_token): self
+    {
+        $this->google_access_token = $google_access_token;
+
+        return $this;
+    }
+  
+      /**
      * @return Collection|Message[]
      */
     public function getSentMessages(): Collection
@@ -221,4 +275,9 @@ class User extends BaseUser
 
         return $this;
     }
-}
+
+
+
+       
+       
+   
