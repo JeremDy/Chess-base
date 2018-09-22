@@ -86,9 +86,6 @@
     "evenement/evenement": {
         "version": "v3.0.1"
     },
-    "facebook/webdriver": {
-        "version": "1.6.0"
-    },
     "fig/link-util": {
         "version": "1.0.0"
     },
@@ -382,9 +379,6 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.5"
-    },
-    "symfony/panther": {
-        "version": "v0.1.0"
     },
     "symfony/phpunit-bridge": {
         "version": "4.1",
