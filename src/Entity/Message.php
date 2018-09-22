@@ -43,6 +43,22 @@ class Message
      */
     private $sentAt;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $deletedBySender;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $deletedByReceiver;
+
+    public function __construct()
+    {
+        $this->deletedByReceiver = false;
+        $this->deletedBySender = false;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +120,30 @@ class Message
     public function setSentAt(\DateTimeInterface $sentAt): self
     {
         $this->sentAt = $sentAt;
+
+        return $this;
+    }
+
+    public function getDeletedBySender(): ?bool
+    {
+        return $this->deletedBySender;
+    }
+
+    public function setDeletedBySender(bool $deletedBySender): self
+    {
+        $this->deletedBySender = $deletedBySender;
+
+        return $this;
+    }
+
+    public function getDeletedByReceiver(): ?bool
+    {
+        return $this->deletedByReceiver;
+    }
+
+    public function setDeletedByReceiver(bool $deletedByReceiver): self
+    {
+        $this->deletedByReceiver = $deletedByReceiver;
 
         return $this;
     }

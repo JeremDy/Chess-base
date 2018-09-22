@@ -20,7 +20,9 @@ class MessageController extends AbstractController
      */
     public function receivedMessage(MessageRepository $messageRepository): Response
     {
-        return $this->render('message/received_message.html.twig', ['messages' => $messageRepository->findAll()]);
+        $messages = $messageRepository->findNotDeletedReceivedMessageByUser($this->getUser());
+
+        return $this->render('message/received_message.html.twig', ['messages' => $messages ]);
     }
 
 
@@ -29,7 +31,9 @@ class MessageController extends AbstractController
      */
     public function sentMessage(MessageRepository $messageRepository): Response
     {
-        return $this->render('message/sent_message.html.twig', ['messages' => $messageRepository->findAll()]);
+        $messages = $messageRepository->findNotDeletedSentMessageByUser($this->getUser());
+
+        return $this->render('message/sent_message.html.twig', ['messages' => $messages]);
     }
 
     /**
@@ -39,6 +43,37 @@ class MessageController extends AbstractController
     {
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
+   
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user =$this->getUser();
+            $message->setSender($user)
+                ->setSentAt(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+
+            return $this->redirectToRoute('message_received');
+        }
+
+        return $this->render('message/new.html.twig', [
+            'message' => $message,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/answer/{id}", name="message_answer", methods="GET|POST")
+     */
+    public function answer(Request $request, Message $answeredMessage): Response
+    {
+        $userToSendMessage = $answeredMessage->getSender();
+        $newMessageTitle = 're:'.$answeredMessage->getTitle();
+
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $form->get('receiver')->setData($userToSendMessage);
+        $form->get('title')->setData($newMessageTitle);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,32 +93,20 @@ class MessageController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/{id}", name="message_show", methods="GET")
      */
     public function show(Message $message): Response
     {
-        return $this->render('message/show.html.twig', ['message' => $message]);
-    }
+        if($message->getReceiver() === $this->getUser() && false === $message->getDeletedByReceiver() 
+        ||$message->getSender() === $this->getUser() && false === $message->getDeletedBySender()){
+           
+            return $this->render('message/show.html.twig', ['message' => $message]);
+        }else{
 
-    /**
-     * @Route("/{id}/edit", name="message_edit", methods="GET|POST")
-     */
-    public function edit(Request $request, Message $message): Response
-    {
-        $form = $this->createForm(MessageType::class, $message);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('message_edit', ['id' => $message->getId()]);
+            throw $this->createNotFoundException('Vous n\'avez pas acces à ce message privé');
         }
-
-        return $this->render('message/edit.html.twig', [
-            'message' => $message,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
@@ -93,10 +116,18 @@ class MessageController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$message->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($message);
+           
+            if($message->getReceiver() === $this->getUser()){
+                $message->setDeletedByReceiver(true);
+            }
+            if($message->getSender() === $this->getUser()){
+               $message->setDeletedBySender(true);
+            }
+            if(true === $message->getDeletedByReceiver() && true === $message->getDeletedBySender()){            
+                $em->remove($message);          
+            }
             $em->flush();
         }
-
         return $this->redirectToRoute('message_received');
     }
 }

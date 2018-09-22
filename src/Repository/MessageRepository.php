@@ -19,6 +19,34 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
+
+
+    public function findNotDeletedReceivedMessageByUser($user)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.receiver = :user')
+            ->setParameter('user',$user)
+            ->andWhere('m.deletedByReceiver = false')
+            ->orderBy('m.sentAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    public function findNotDeletedSentMessageByUser($user)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.sender = :user')
+            ->setParameter('user',$user)
+            ->andWhere('m.deletedBySender = false')
+            ->orderBy('m.sentAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
 //    /**
 //     * @return Message[] Returns an array of Message objects
 //     */

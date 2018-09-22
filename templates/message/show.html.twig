@@ -14,11 +14,9 @@
             <h5 class="mt-3 border-bottom border-light pl-1 pb-2 mb-3">{{message.title}}</h5>
             {{message.body|raw}}
             <div class="ml-auto mt-auto">
-            <button class="btn btn-light align-self-end mb-auto">repondre</button>
+            {{ include('message/_delete_form.html.twig') }}
+            <a href="{{ path('message_answer', { id : message.id}) }}"class="btn btn-light align-self-end mb-auto">repondre</a>
             </div>
         </div>
-    </div>    
-
-   
-    {{ include('message/_delete_form.html.twig') }}
+    </div>      
 {% endblock %}
