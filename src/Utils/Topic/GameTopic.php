@@ -41,12 +41,20 @@ class GameTopic implements TopicInterface
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
         $user = $this->clientManipulator->getClient($connection);
-       
+         
         if (!is_object($user)) {
             dump('user not connected');
             return;
         }
-       
+          
+        $playerName = $user->getUsername();
+        $playerColor = $playerName === $request->getAttributes()->get('playerOne') ? 'white' : 'black';
+        $playerSessionId = $this->clientManipulator->findByUsername($topic, $playerName)['connection']->WAMP->sessionId;
+
+        $board = $game->getChessBoard();
+        $this->gameTopicMessage->lastBoard($topic, $playerSessionId,$board);
+        
+      
         $playerName = $user->getUsername();
         $playerSessionId = $this->clientManipulator->findByUsername($topic, $playerName)['connection']->WAMP->sessionId;
           
@@ -92,6 +100,7 @@ class GameTopic implements TopicInterface
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
         $user = $this->clientManipulator->getClient($connection);
+        $board = $game->getChessBoard();
     
         if (!is_object($user)) {
             dump('user not connected');
@@ -105,9 +114,11 @@ class GameTopic implements TopicInterface
         $opponentName =  $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne');
         $opponentColor = $playerColor === 'white' ? 'black' : 'white';
         $opponentConnectionObject = $this->clientManipulator->findByUsername($topic, $opponentName)['connection'];
+
+        $this->gameTopicMessage->lastBoard($topic, $playerSessionId,$board);
         
         if (!is_object($opponentConnectionObject)) {
-            $this->gameTopicMessage->notConnectedOpponent();
+            $this->gameTopicMessage->notConnectedOpponent($topic, $playerSessionId);
             return;
         }
         $opponentSessionId = $opponentConnectionObject->WAMP->sessionId;
@@ -117,7 +128,7 @@ class GameTopic implements TopicInterface
             return;
         }
     
-        $board = $game->getChessBoard();
+       
         $piece = $board->getPiece($event['movement']['old']);
 
         //position d'arrivé du mouvement essayé:

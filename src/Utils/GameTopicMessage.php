@@ -77,7 +77,7 @@ class GameTopicMessage
     {
         $topic->broadcast(
             [
-                'error' => 'vous ne pouvez pas mettre votre roi en echec!',
+                'error' => 'Votre roi est en echec !!',
             ],
             array(),
             array($playerSessionId)
@@ -133,6 +133,17 @@ class GameTopicMessage
         $topic->broadcast(
             [
                 'error' => "Adversaire non connecté !",
+            ],
+            array(),
+            array($playerSessionId)
+            );
+    }
+
+    public function lastBoard($topic, $playerSessionId, $board)
+    {
+        $topic->broadcast(
+            [
+                'lastBoard' => $board->convert(),
             ],
             array(),
             array($playerSessionId)

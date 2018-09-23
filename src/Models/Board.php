@@ -201,4 +201,41 @@ class Board
         }
         return;
     }
+
+    
+    public function convert() : array
+    {
+        $jsBoard = [];
+
+        foreach( $this->board as $pos => $case){
+    
+            if( null === $case ){
+                $jsBoard[$pos] = 'E';
+            }
+
+            if( null !== $case){
+                $color = $case->getColor() === 'white' ? '1' : '0'; 
+            }
+
+            if( $case instanceof King){
+                $jsBoard[$pos] = 'K'.$color;
+            }
+            if( $case instanceof Queen){
+                $jsBoard[$pos] = 'Q'.$color;
+            }
+            if( $case instanceof Bishop){
+                $jsBoard[$pos] = 'F'.$color;
+            }
+            if( $case instanceof Knight){
+                $jsBoard[$pos] = 'C'.$color;
+            }
+            if( $case instanceof Rook){
+                $jsBoard[$pos] = 'T'.$color;
+            }
+            if( $case instanceof Pawn){
+                $jsBoard[$pos] = 'P'.$color;
+            }
+        }
+        return $jsBoard;
+    }
 }
