@@ -1,11 +1,18 @@
 import React from 'react';
 import Cell from '../../../../containers/Cell.js';
 import './board.sass';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-const Board = ({board, gameOver}) => (
-  <div >
-    { gameOver === false &&
-    <div className='board'>
+const Board = ({board, gameOver}) => {
+  const transitionOptions = {
+    transitionName: 'fade',
+    transitionEnterTimeout: 10500,
+    transitionLeaveTimeout: 10500
+  };
+  let theChild;
+  if (!gameOver) {
+    theChild =
+    <div className='mainBoard' key='mainBoard'>
       {board.map(cell => (
         <Cell row={Object.keys(cell)[0][0]}
           column={Object.keys(cell)[0][2]}
@@ -14,16 +21,21 @@ const Board = ({board, gameOver}) => (
           key= {`${Object.keys(cell)[0][0]}/${Object.keys(cell)[0][2]}`}
         />
       ))}
+    </div>;
+  } else {
+    theChild = <div className='gameOver' key='gameOver'>
+      <p className='text title'> Game Over </p>
+      <p className='text'> Winner : </p>
+      <p className='text'> Loser : </p>
+    </div>;
+  }
+  return (
+    <div>
+      <ReactCSSTransitionGroup {...transitionOptions}>
+        {theChild}
+      </ReactCSSTransitionGroup>
     </div>
-    }
-    { gameOver === true &&
-     <div className='board2'>
-       <p className='text title'> Game Over </p>
-       <p className='text'> Winner : </p>
-       <p className='text'> Loser : </p>
-     </div>
-    }
-  </div>
-);
+  );
+};
 
 export default Board;

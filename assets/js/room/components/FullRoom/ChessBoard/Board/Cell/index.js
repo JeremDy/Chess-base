@@ -30,7 +30,7 @@ const Cell = ({ item, color, row, column, handleClickOnCell, allowedMoveList, al
   return (
     <div className={backGround} onClick={handleClickOnCell(item, color, row, column)}>
       <p className ={className}></p>
-         </div>
+    </div>
   );
 };
 
