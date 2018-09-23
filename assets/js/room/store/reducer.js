@@ -92,9 +92,7 @@ const reducer = (state = initialState, action = {}) => {
               ...state,
               allowedMove: newMoveAllowed,
               allowedKill: newKillAllowed,
-              clickedCell: [cell],
-              opponentAction: newOpponentAction,
-              myAction: newMyAction
+              clickedCell: [cell]
             };
           }; // fin du if (item === 'E') { return state; } else {
           break;
@@ -164,7 +162,6 @@ const reducer = (state = initialState, action = {}) => {
 
           if ((((state.allowedMove.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
           ((state.allowedKill.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) & (state.myColor != color)) & (item != 'K')) { // est ce que la case sur laquelle on clic fait partie des cases killAble
-// TODO: rajouter une condtion & si couleur de la pièce que je cible différente de ma couleur
 
             const newItem = Object.values(state.clickedCell[0])[0]; // on récupère la pièce qui était sur la case du premier clic
             newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem; // on modifie la valeur pour y mettre la nouvelle pièce
@@ -189,7 +186,7 @@ const reducer = (state = initialState, action = {}) => {
               ...state,
               clickedCell: [],
               allowedMove: [],
-              allowedKill: [],
+              allowedKill: []
             };
 
           };
