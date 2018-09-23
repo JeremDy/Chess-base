@@ -12,13 +12,9 @@ const initialState = {
     {'7/1': 'P0'}, {'7/2': 'P0'}, {'7/3': 'P0'}, {'7/4': 'P0'}, {'7/5': 'P0'}, {'7/6': 'P0'}, {'7/7': 'P0'}, {'7/8': 'P0'},
     {'8/1': 'T0'}, {'8/2': 'C0'}, {'8/3': 'F0'}, {'8/4': 'K0'}, {'8/5': 'Q0'}, {'8/6': 'F0'}, {'8/7': 'C0'}, {'8/8': 'T0'}
   ],
-  opponentAction: {},
-  myAction: {},
   allowedMove: [],
   allowedKill: [],
   clickedCell: [],
-  cellsBeforeKing: [],
-
   channel: '',
   canPlay: false,
   newPositions: [],
@@ -28,7 +24,6 @@ const initialState = {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) { // DEBUT DU SWITCH REDUCER
     case WEBSOCKET_CONNECT:
-
       let rotateBoard = [...state.board];
       if (action.color == 1) { rotateBoard.reverse(); }
       console.log('------Initialisation------');
@@ -45,51 +40,14 @@ const reducer = (state = initialState, action = {}) => {
     // -----------------------------------------------------------------------------------------
     case INITIAL_DISPLAY:
       let newBoard = [...state.board];
-    //   let newOpponentAction = {...state.opponentAction};
-    //   let colorOp;
-    //   let rowOp;
-    //   let columnOp;
-    //   let itemOp;
-    //   let newMoveAllowed = [];
-    //   let newKillAllowed = [];
       if (action.serverMessage['movement'] !== undefined) {
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[1])[`${Object.keys(action.serverMessage['movement']['newPositions'])[1]}`] = Object.values(action.serverMessage['movement']['newPositions'])[1];
-
-        // rowOp = Number(Object.keys(action.serverMessage['movement']['newPositions'])[0].slice(0, 1));
-        // columnOp = Number(Object.keys(action.serverMessage['movement']['newPositions'])[0].slice(2, 3));
-        // itemOp = Object.values(action.serverMessage['movement']['newPositions'])[0].slice(0, 1);
-        // colorOp = Object.values(action.serverMessage['movement']['newPositions'])[0].slice(1, 2);
-
-        // switch (itemOp) { // Selon la pièce sur laquelle on a clic, on va créer un tableau de cases autorisées
-        //   case 'P':
-        //     library.pion(colorOp, rowOp, columnOp, state.board, newMoveAllowed, newKillAllowed);
-        //     break;
-        //   case 'T':
-        //     library.tour(colorOp, rowOp, columnOp, state.board, newMoveAllowed, newKillAllowed);
-        //     break;
-        //   case 'C':
-        //     library.cavalier(colorOp, rowOp, columnOp, state.board, newMoveAllowed, newKillAllowed);
-        //     break;
-        //   case 'F':
-        //     library.fou(colorOp, rowOp, columnOp, state.board, newMoveAllowed, newKillAllowed);
-        //     break;
-        //   case 'Q':
-        //     library.queen(colorOp, rowOp, columnOp, state.board, newMoveAllowed, newKillAllowed);
-        //     break;
-        //   case 'K':
-        //     library.king(colorOp, rowOp, columnOp, state.board, newMoveAllowed, newKillAllowed);
-        //     break;
-        // }
-        // newOpponentAction[`${itemOp}${colorOp}`]['newAllowedMove'] = {...newOpponentAction[`${itemOp}${colorOp}`]['newAllowedMove'], ...newMoveAllowed};
-        // newOpponentAction[`${itemOp}${colorOp}`]['newAllowedKill'] = {...newOpponentAction[`${itemOp}${colorOp}`]['newAllowedKill'], ...newKillAllowed};
       }
-
       return {
         ...state,
         canPlay: action.serverMessage['canPlay'],
         board: newBoard,
-        // opponentAction: newOpponentAction,
         webSocket: action.webSocket
       };
 
@@ -97,10 +55,6 @@ const reducer = (state = initialState, action = {}) => {
     // ------------------------------------C-E-L-L- -C-L-I-C------------------------------------
     // -----------------------------------------------------------------------------------------
     case CELL_CLIC:
-      let newMyAction = library.getAllMyMov(action.color, state.board);
-      let newOpponentAction = library.getAllOpponentMov(action.color, state.board);
-      console.log('newMyAction',newMyAction);
-      console.log('newOpponentAction',newOpponentAction);
       const {item, row, column, color} = action;
       const numbRow = Number(row);// conversion en valeur numérique pour les opérations
       const numbColumn = Number(column);// conversion en valeur numérique pour les opérations
