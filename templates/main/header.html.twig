@@ -26,6 +26,9 @@
                     <a class="nav-link" id="profile-tab" href="{{ path('profileShow', { 'id':app.user.id}) }}">Mon Profil</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ path('message_received')}}">Mes Messages {{ render(controller('App\\Controller\\MessageController::newMessageCount')) }}</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Autres</a>
                 </li>
                 <li class="nav-item">

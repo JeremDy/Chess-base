@@ -123,3 +123,7 @@ a:hover {
 .modal-content{
     background-color: rgba(55, 55, 55, 0.933)
 }
+
+.chosen-single span{
+    color:black;
+}

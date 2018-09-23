@@ -7,6 +7,8 @@ var app = {
         $('#invitation-ok').on('click', app.acceptInvitation);
         $('#invitation-cancel').on('click', app.cancelInvitation);
 
+        $("#message_receiver").chosen();
+
 
         var webSocket = WS.connect("ws://127.0.0.1:8080");
 

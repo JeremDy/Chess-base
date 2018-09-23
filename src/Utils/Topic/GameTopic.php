@@ -105,6 +105,7 @@ class GameTopic implements TopicInterface
         $opponentName =  $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne');
         $opponentColor = $playerColor === 'white' ? 'black' : 'white';
         $opponentConnectionObject = $this->clientManipulator->findByUsername($topic, $opponentName)['connection'];
+        
         if (!is_object($opponentConnectionObject)) {
             $this->gameTopicMessage->notConnectedOpponent();
             return;
@@ -147,7 +148,7 @@ class GameTopic implements TopicInterface
         //si le mouvement a mis en echec notre roi : message d'erreur, et on annule le mouvement.
         if (true === $board->thisKingIsCheck($playerColor)) {
             $this->gameTopicMessage->selfCheck($topic, $playerSessionId);
-            $board->returnBeforeSavedMove($savedMove);
+            $board->cancelMove($savedMove);
             return;
         }
 
