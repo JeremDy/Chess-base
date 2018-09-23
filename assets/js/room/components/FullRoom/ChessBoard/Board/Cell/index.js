@@ -2,8 +2,9 @@ import React from 'react';
 import './cell.sass';
 import classNames from 'classnames';
 
-const Cell = ({ item, color, row, column, handleClickOnCell, clickedCell }) => {
+const Cell = ({ item, color, row, column, handleClickOnCell, allowedMoveList, allowedKillList }) => {
   const val = Number(row) + Number(column);
+
   const className = classNames(
     'fas',
     {
@@ -19,6 +20,8 @@ const Cell = ({ item, color, row, column, handleClickOnCell, clickedCell }) => {
   const backGround = classNames(
     'cell',
     {
+      'allowedToMove': allowedMoveList.includes(`${row}/${column}`),
+      'allowedToKill': allowedKillList.includes(`${row}/${column}`),
       'brown': (val % 2 === 1),
       'beige': !(val % 2 === 1)
     }

@@ -3,7 +3,8 @@ import Board from '../components/FullRoom/ChessBoard/Board';
 import { } from '../store/actions';
 
 const mapStateToProps = state => ({
-  board: state.board
+  board: state.board,
+  gameOver: state.gameOver
 });
 
 const mapDispatchToProps = dispatch => ({

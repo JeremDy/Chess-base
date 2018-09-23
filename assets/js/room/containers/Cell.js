@@ -3,7 +3,9 @@ import Cell from '../components/FullRoom/ChessBoard/Board/Cell';
 import { handleClickOnCell } from '../store/actions';
 
 const mapStateToProps = state => ({
-  clickedCell: state.clickedCell
+  clickedCell: state.clickedCell,
+  allowedMoveList: state.allowedMoveList,
+  allowedKillList: state.allowedKillList
 });
 
 const mapDispatchToProps = dispatch => ({

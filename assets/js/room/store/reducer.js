@@ -12,7 +12,10 @@ const initialState = {
     {'7/1': 'P0'}, {'7/2': 'P0'}, {'7/3': 'P0'}, {'7/4': 'P0'}, {'7/5': 'P0'}, {'7/6': 'P0'}, {'7/7': 'P0'}, {'7/8': 'P0'},
     {'8/1': 'T0'}, {'8/2': 'C0'}, {'8/3': 'F0'}, {'8/4': 'K0'}, {'8/5': 'Q0'}, {'8/6': 'F0'}, {'8/7': 'C0'}, {'8/8': 'T0'}
   ],
+  gameOver: false,
   lastBoard: [],
+  allowedMoveList: [],
+  allowedKillList: [],
   allowedMove: [],
   allowedKill: [],
   clickedCell: [],
@@ -40,19 +43,21 @@ const reducer = (state = initialState, action = {}) => {
     // ------------------------------------I-N-I-T---D-I-S-P-L-A-Y------------------------------
     // -----------------------------------------------------------------------------------------
     case INITIAL_DISPLAY:
+      let newGameOver = false;
       let newBoard = [...state.board];
       let newLastBoard = [...state.lastBoard];
       let couldPlay = action.serverMessage['canPlay']
       if (undefined !== action.serverMessage['lastBoard']) {
         newLastBoard = library.convertServerBoardToClientBoard(action.serverMessage['lastBoard']);
       }
+      if (undefined !== action.serverMessage['endGame']) { newGameOver = true; console.log('over') }
       if (undefined !== action.serverMessage['movement']) {
-
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[1])[`${Object.keys(action.serverMessage['movement']['newPositions'])[1]}`] = Object.values(action.serverMessage['movement']['newPositions'])[1];
       } else if (undefined !== action.serverMessage['error']) {
         switch (action.serverMessage['error']) {
           case 'Votre roi est en echec !!':
+            if (state.myColor == 1) { newLastBoard.reverse(); }
             newBoard = newLastBoard;
             console.log('Merci de rejouer');
             couldPlay = true;
@@ -60,6 +65,7 @@ const reducer = (state = initialState, action = {}) => {
       }
       return {
         ...state,
+        gameOver: newGameOver,
         canPlay: couldPlay,
         board: newBoard,
         lastBoard: newLastBoard,
@@ -70,7 +76,6 @@ const reducer = (state = initialState, action = {}) => {
     // ------------------------------------C-E-L-L- -C-L-I-C------------------------------------
     // -----------------------------------------------------------------------------------------
     case CELL_CLIC:
-    console.log('mais je clique',state)
       const {item, row, column, color} = action;
       const numbRow = Number(row);// conversion en valeur numérique pour les opérations
       const numbColumn = Number(column);// conversion en valeur numérique pour les opérations
@@ -104,8 +109,22 @@ const reducer = (state = initialState, action = {}) => {
                 library.king(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed)
                 break;
             }
+            let newAllowedMoveList = [];
+            let newAllowedKillList = [];
+            for (const key in newMoveAllowed) {
+              if (newMoveAllowed.hasOwnProperty(key)) {
+                newAllowedMoveList.push(Object.keys(newMoveAllowed[key])[0]);
+              }
+            }
+            for (const key in newKillAllowed) {
+              if (newKillAllowed.hasOwnProperty(key)) {
+                newAllowedKillList.push(Object.keys(newKillAllowed[key])[0]);
+              }
+            }
             return { // on renvoie le state + la case sur laquelle on a clic pour pouvoir avoir le premier clic en mémoire pour le clic n°2 + le nouveau tableau des case autorisées
               ...state,
+              allowedKillList: newAllowedKillList,
+              allowedMoveList: newAllowedMoveList,
               allowedMove: newMoveAllowed,
               allowedKill: newKillAllowed,
               clickedCell: [cell]
@@ -192,6 +211,8 @@ const reducer = (state = initialState, action = {}) => {
             });
             return {
               ...state,
+              allowedKillList: [],
+              allowedMoveList: [],
               clickedCell: [], // on réinitialise le tableau clicked cell pour pouvoir recevoir le prochain premier clic
               board: newBoard // on envoie le nouveau board modifié et le damier se mettra à jour
 
