@@ -537,6 +537,15 @@ var library = {
       });
     }); 
     return myMov;
+  },
+  convertServerBoardToClientBoard: function(lastBoard) {
+    let convertedBoard = [];
+    for (let key in lastBoard) {
+      if (lastBoard.hasOwnProperty(key)) {
+        convertedBoard.push({[key]: lastBoard[key]});
+      }
+    }
+    return convertedBoard;
   }
 };
 

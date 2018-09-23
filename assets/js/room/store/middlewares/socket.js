@@ -13,7 +13,7 @@ const ioMiddle = store => next => (action) => {
         session.subscribe(channel, function(uri, serverMessage) {
           console.log('Server message received :', serverMessage);
           store.dispatch(initialDisplay(serverMessage, webSocket));
-          console.log('------A player turn begin------');
+
         });
       });
       break;
