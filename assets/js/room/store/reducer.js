@@ -12,13 +12,15 @@ const initialState = {
     {'7/1': 'P0'}, {'7/2': 'P0'}, {'7/3': 'P0'}, {'7/4': 'P0'}, {'7/5': 'P0'}, {'7/6': 'P0'}, {'7/7': 'P0'}, {'7/8': 'P0'},
     {'8/1': 'T0'}, {'8/2': 'C0'}, {'8/3': 'F0'}, {'8/4': 'K0'}, {'8/5': 'Q0'}, {'8/6': 'F0'}, {'8/7': 'C0'}, {'8/8': 'T0'}
   ],
+  allKillOpponent: [],
+  allMoveOpponent: [],
   opponentAction: {},
   myAction: {},
   allowedMove: [],
   allowedKill: [],
   clickedCell: [],
   cellsBeforeKing: [],
-
+  myColor: '',
   channel: '',
   canPlay: false,
   newPositions: [],
@@ -52,6 +54,10 @@ const reducer = (state = initialState, action = {}) => {
     //   let itemOp;
     //   let newMoveAllowed = [];
     //   let newKillAllowed = [];
+    let allKill = [];
+    let allMove = [];
+    let newMyAction = library.getAllMyMov(action.color, state.board);
+    let newOpponentAction = library.getAllOpponentMov(action.color, state.board);
       if (action.serverMessage['movement'] !== undefined) {
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[1])[`${Object.keys(action.serverMessage['movement']['newPositions'])[1]}`] = Object.values(action.serverMessage['movement']['newPositions'])[1];
@@ -83,12 +89,19 @@ const reducer = (state = initialState, action = {}) => {
         // }
         // newOpponentAction[`${itemOp}${colorOp}`]['newAllowedMove'] = {...newOpponentAction[`${itemOp}${colorOp}`]['newAllowedMove'], ...newMoveAllowed};
         // newOpponentAction[`${itemOp}${colorOp}`]['newAllowedKill'] = {...newOpponentAction[`${itemOp}${colorOp}`]['newAllowedKill'], ...newKillAllowed};
+       
+        allKill = library.getAllKillOpponent(newMyAction, state.myColor);
+        allMove = library.getAllMoveOpponent(newOpponentAction, state.myColor);
+        console.log('allKill',allKill, 'allMove', allMove);
       }
-
       return {
         ...state,
+        allKillOpponent: allKill,
+        allMoveOpponent: allMove,
         canPlay: action.serverMessage['canPlay'],
         board: newBoard,
+        opponentAction: newOpponentAction,
+        myAction: newMyAction,
         // opponentAction: newOpponentAction,
         webSocket: action.webSocket
       };
@@ -97,10 +110,9 @@ const reducer = (state = initialState, action = {}) => {
     // ------------------------------------C-E-L-L- -C-L-I-C------------------------------------
     // -----------------------------------------------------------------------------------------
     case CELL_CLIC:
-      let newMyAction = library.getAllMyMov(action.color, state.board);
-      let newOpponentAction = library.getAllOpponentMov(action.color, state.board);
-      console.log('newMyAction',newMyAction);
-      console.log('newOpponentAction',newOpponentAction);
+
+    
+
       const {item, row, column, color} = action;
       const numbRow = Number(row);// conversion en valeur numérique pour les opérations
       const numbColumn = Number(column);// conversion en valeur numérique pour les opérations
@@ -138,15 +150,15 @@ const reducer = (state = initialState, action = {}) => {
               ...state,
               allowedMove: newMoveAllowed,
               allowedKill: newKillAllowed,
-              clickedCell: [cell],
-              opponentAction: newOpponentAction,
-              myAction: newMyAction
+              clickedCell: [cell]
+            
             };
           }; // fin du if (item === 'E') { return state; } else {
           break;
 
         case 2: // deuxième clic
           console.log('Clic N°2 done');
+       
           let opponentColor;
           let kingPos;
           let vector;
@@ -155,6 +167,7 @@ const reducer = (state = initialState, action = {}) => {
 
           if (Object.values(state.clickedCell[0])[0] === `${'K'}${state.myColor}`) { // lors du click n°1 sur le roi il faut, lors du 2eme clic verifier qu'il n'y a pas echec par des pion
             // cas d'echec par les pions
+            console.log('rois', state.allMoveOpponent, state.allMoveOpponent.find(cell => Object.keys(cell)[0] === `${numbRow}/${numbColumn}`) !== undefined);
             if ((numbRow - 1 > 0) & (numbRow + 1 < 9) & (numbColumn + 1 < 9) & (numbColumn - 1 > 0)) {
               if ((state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + 1 * vector)}/${(numbColumn + 1)}`)[`${(numbRow + 1 * vector)}/${(numbColumn + 1)}`] === `${'P'}${opponentColor}`) ||
               (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + 1 * vector)}/${(numbColumn - 1)}`)[`${(numbRow + 1 * vector)}/${(numbColumn - 1)}`] === `${'P'}${opponentColor}`)) {
@@ -186,6 +199,14 @@ const reducer = (state = initialState, action = {}) => {
                   allowedKill: []
                 };
               }
+            } else if (state.allMoveOpponent.find(cell => Object.keys(cell)[0] === `${numbRow}/${numbColumn}`) !== undefined) {
+              console.log('Echec: Move not allowed yepa');
+              return {
+                ...state,
+                clickedCell: [],
+                allowedMove: [],
+                allowedKill: []
+              };
             }
             // empeche le roi d'être à moins d'une case d'un autre rois
             kingPos = Object.keys(state.board.find(cell => Object.values(cell)[0] === `${'K'}${opponentColor}`)); // kingPos ["8/4"]
@@ -198,6 +219,9 @@ const reducer = (state = initialState, action = {}) => {
                 allowedKill: []
               };
             }
+            
+
+
           }
 
           let newBoard = [...state.board]; // on prepare le board que l'on aura modifier pour le renvoyer /!\ a ne pas faire de passage par référence

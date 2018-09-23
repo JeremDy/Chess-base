@@ -57,6 +57,7 @@ class User extends BaseUser
         $this->IsInGame = new ArrayCollection();
         $this->IsBlackInGame = new ArrayCollection();
         $this->IsWhiteInGame = new ArrayCollection();
+        $this->FirstLogin = new \DateTime();
     }
 
     public function getId(): ?int

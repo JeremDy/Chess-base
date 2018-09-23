@@ -537,6 +537,48 @@ var library = {
       });
     }); 
     return myMov;
+  },
+  getAllKillOpponent: function(statewhere, myColor) {
+    console.log('jai lancé');
+    let arrayPart;
+    let white = ['P1', 'T1', 'C1', 'F1', 'Q1', 'K1'];
+    let black = ['P0', 'T0', 'C0', 'F0', 'Q0', 'K0'];
+    let allKill = [];
+    let index = 0;
+    myColor == 1 ? arrayPart = black : arrayPart = white;
+    arrayPart.forEach(function(part) {
+      if (statewhere[part] !== undefined) {
+      if (Object.keys(statewhere[part]['newAllowedKill']).length !== 0) {
+        index = 0;
+        while (statewhere[part]['newAllowedKill'][index] != undefined) {
+          allKill.push(statewhere[part]['newAllowedKill'][index]);
+          index = index + 1;
+        }
+      }
+    }
+    });
+    return allKill;
+  },
+  getAllMoveOpponent: function(statewhere, myColor) {
+    console.log('jai lancé');
+    let arrayPart;
+    let white = ['T1', 'C1', 'F1', 'Q1', 'K1'];
+    let black = ['T0', 'C0', 'F0', 'Q0', 'K0'];
+    let allKill = [];
+    let index = 0;
+    myColor == 1 ? arrayPart = black : arrayPart = white;
+    arrayPart.forEach(function(part) {
+    if (statewhere[part] !== undefined) {
+      if (Object.keys(statewhere[part]['newAllowedMove']).length !== 0) {
+        index = 0;
+        while (statewhere[part]['newAllowedMove'][index] != undefined) {
+          allKill.push(statewhere[part]['newAllowedMove'][index]);
+          index = index + 1;
+        }
+      }
+    }
+    });
+    return allKill;
   }
 };
 
