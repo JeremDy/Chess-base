@@ -4,6 +4,9 @@ namespace App\Models;
 
 class Rook extends Piece
 {
+
+    protected $code = 'T';
+    
     public function canDoThisMove(Board $board, int $newPosX, int $newPosY) : bool
     {
         //la nouvelle case existe :

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article index{% endblock %}
+
+{% block body %}
+    <h1 class="text-center font-weight-bold m-5">News</h1>
+
+
+ <div class="row">
+    {% for article in articles %}
+          <div class="card col-sm-12 col-md-6 col-lg-3 m-2 mx-auto bg-dark p-0 border-light">
+            <img class="card-img-top" src="https://picsum.photos/200">
+            <div class="card-body">
+                <h5 class="card-title">{{ article.title }}</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="{{ path('article_show', {id : article.id}) }}" class="btn btn-light">Lire la suite</a>
+            </div>
+        </div>
+     {% endfor %}
+    </div>
+        <div class="mx-auto d-inline-block">
+        {{ knp_pagination_render(articles) }}
+        </div>
+        </div>
+
+  
+  
+    <a href="{{ path('article_new') }}">Create new</a>
+{% endblock %}
