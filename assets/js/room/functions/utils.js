@@ -328,7 +328,7 @@ var library = {
     }
     //   console.log('Queen allowed action :', newMoveAllowed, newKillAllowed)
   },
-  king: function(color, row, column, stateBoard, newMoveAllowed, newKillAllowed) {
+  king: function(color, row, column, stateBoard, newMoveAllowed, newKillAllowed, newRockAllowed) {
     let i; // valeur d'iteration des cases
     if ((row + 1) < 9) { // down  4
       i = 1;
@@ -436,8 +436,27 @@ var library = {
         newKillAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${(row - i)}/${(column - i)}`));
       }
     }
-    // if (row = 1 )
-    // console.log('King allowed actions :',  newMoveAllowed, newKillAllowed);
+    console.log(Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 1}`))[0]);
+    console.log(Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 2}`))[0]);
+
+    if (
+      (((row === 1) || (row === 8)) & (column === 4)) &
+        (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 1}`))[0] === 'E') &
+        (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 2}`))[0] === 'E')
+    ) {
+      newRockAllowed = true;
+      newMoveAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${(column - 2)}`));
+    }
+    if (
+      (((row === 1) || (row === 8)) & (column === 4)) &
+          (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 1}`))[0] === 'E') &
+          (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 2}`))[0] === 'E') &
+          (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 3}`))[0] === 'E')
+    ) {
+      newMoveAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${(column + 2)}`));
+      newRockAllowed = true;
+    }
+    return newRockAllowed;
   },
   createArray: function(arrayName, myColor) {
     let color;

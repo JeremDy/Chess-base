@@ -170,7 +170,8 @@ class GameTopic implements TopicInterface
         if (true === $board->thisKingIsCheck($opponentColor)) {
             //verif si il y'a echec et mat !
             if (true === $board->thisKingIsMat($opponentColor)) {
-                $this->gameTopicMessage->checkMate($topic, $playerSessionId, $opponentSessionId);
+                $this->gameTopicMessage->canPlay(false, $topic, $playerSessionId);
+                $this->gameTopicMessage->checkMate($topic, $playerSessionId, $opponentSessionId);                
                 return;
             }
             $this->gameTopicMessage->check($topic, $playerSessionId, $opponentSessionId);

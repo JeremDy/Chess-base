@@ -12,6 +12,7 @@ const initialState = {
     {'7/1': 'P0'}, {'7/2': 'P0'}, {'7/3': 'P0'}, {'7/4': 'P0'}, {'7/5': 'P0'}, {'7/6': 'P0'}, {'7/7': 'P0'}, {'7/8': 'P0'},
     {'8/1': 'T0'}, {'8/2': 'C0'}, {'8/3': 'F0'}, {'8/4': 'K0'}, {'8/5': 'Q0'}, {'8/6': 'F0'}, {'8/7': 'C0'}, {'8/8': 'T0'}
   ],
+  rockAllowed: false,
   gameOver: false,
   lastBoard: [],
   allowedMoveList: [],
@@ -50,8 +51,6 @@ const reducer = (state = initialState, action = {}) => {
       if (undefined !== action.serverMessage['lastBoard']) {
         newLastBoard = library.convertServerBoardToClientBoard(action.serverMessage['lastBoard']);
       }
-      
- 
       if (undefined !== action.serverMessage['endGame']) { newGameOver = true; console.log('over') }
       if (undefined !== action.serverMessage['movement']) {
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
@@ -93,6 +92,7 @@ const reducer = (state = initialState, action = {}) => {
         case 1: // premier clic
           let newMoveAllowed = [];
           let newKillAllowed = [];
+          let newRockAllowed = false;
           if (item === 'E' || !state.canPlay || color != state.myColor) { return state; } else if (state.canPlay & color == state.myColor) { // annule tout effet d'un clic sur une cellule vide
             console.log('Clic N°1 done');
             switch (item) { // Selon la pièce sur laquelle on a clic, on va créer un tableau de cases autorisées
@@ -112,9 +112,12 @@ const reducer = (state = initialState, action = {}) => {
                 library.queen(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
                 break;
               case 'K':
-                library.king(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed)
+                library.king(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed, newRockAllowed);
+                newRockAllowed = library.king(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed, newRockAllowed)
+           
                 break;
             }
+         
             let newAllowedMoveList = [];
             let newAllowedKillList = [];
             for (const key in newMoveAllowed) {
@@ -129,6 +132,7 @@ const reducer = (state = initialState, action = {}) => {
             }
             return { // on renvoie le state + la case sur laquelle on a clic pour pouvoir avoir le premier clic en mémoire pour le clic n°2 + le nouveau tableau des case autorisées
               ...state,
+              rockAllowed: newRockAllowed,
               allowedKillList: newAllowedKillList,
               allowedMoveList: newAllowedMoveList,
               allowedMove: newMoveAllowed,
@@ -139,6 +143,7 @@ const reducer = (state = initialState, action = {}) => {
           break;
 
         case 2: // deuxième clic
+        console.log(state);
           console.log('Clic N°2 done');
           let opponentColor;
           let kingPos;
@@ -203,7 +208,17 @@ const reducer = (state = initialState, action = {}) => {
 
           if ((((state.allowedMove.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
           ((state.allowedKill.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) & (state.myColor != color)) & (item != 'K')) { // est ce que la case sur laquelle on clic fait partie des cases killAble
-
+            if (Object.values(state.clickedCell[0])[0] === `${'K'}${state.myColor}` & state.rockAllowed === true) {
+              if ((numbRow === 1) || (numbRow === 8)) {
+                if (numbColumn === 2) {
+                  newBoard.find(cellToModify => `${numbRow}/1` === Object.keys(cellToModify)[0])[`${numbRow}/1`] = 'E';
+                  newBoard.find(cellToModify => `${numbRow}/3` === Object.keys(cellToModify)[0])[`${numbRow}/3`] = 'T';
+                } else if (numbColumn === 6) {
+                  newBoard.find(cellToModify => `${numbRow}/8` === Object.keys(cellToModify)[0])[`${numbRow}/8`] = 'E';
+                  newBoard.find(cellToModify => `${numbRow}/5` === Object.keys(cellToModify)[0])[`${numbRow}/5`] = 'T';
+                }
+              }
+            }
             const newItem = Object.values(state.clickedCell[0])[0]; // on récupère la pièce qui était sur la case du premier clic
             newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem; // on modifie la valeur pour y mettre la nouvelle pièce
             newBoard.find(cellToModify => Object.keys(state.clickedCell[0])[0] === Object.keys(cellToModify)[0])[Object.keys(state.clickedCell[0])[0]] = 'E'; // on 'vide la case du premier clic'
