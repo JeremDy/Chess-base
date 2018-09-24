@@ -10,19 +10,7 @@ const Board = ({board, gameOver}) => {
     transitionLeaveTimeout: 10500
   };
   let theChild;
-  if (!gameOver) {
-    theChild =
-    <div className='mainBoard' key='mainBoard'>
-      {board.map(cell => (
-        <Cell row={Object.keys(cell)[0][0]}
-          column={Object.keys(cell)[0][2]}
-          item={cell[Object.keys(cell)[0]][0]}
-          color={cell[Object.keys(cell)[0]][1]}
-          key= {`${Object.keys(cell)[0][0]}/${Object.keys(cell)[0][2]}`}
-        />
-      ))}
-    </div>;
-  } else {
+  if (gameOver) {
     theChild = <div className='gameOver' key='gameOver'>
       <p className='text title'> Game Over </p>
       <p className='text'> Winner : </p>
@@ -30,7 +18,17 @@ const Board = ({board, gameOver}) => {
     </div>;
   }
   return (
-    <div>
+    <div id='containerBoard'>
+      <div className='mainBoard' key='mainBoard'>
+        {board.map(cell => (
+          <Cell row={Object.keys(cell)[0][0]}
+            column={Object.keys(cell)[0][2]}
+            item={cell[Object.keys(cell)[0]][0]}
+            color={cell[Object.keys(cell)[0]][1]}
+            key= {`${Object.keys(cell)[0][0]}/${Object.keys(cell)[0][2]}`}
+          />
+        ))}
+      </div>
       <ReactCSSTransitionGroup {...transitionOptions}>
         {theChild}
       </ReactCSSTransitionGroup>

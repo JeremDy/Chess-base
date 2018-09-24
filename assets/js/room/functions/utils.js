@@ -436,6 +436,7 @@ var library = {
         newKillAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${(row - i)}/${(column - i)}`));
       }
     }
+    // if (row = 1 )
     // console.log('King allowed actions :',  newMoveAllowed, newKillAllowed);
   },
   createArray: function(arrayName, myColor) {
@@ -546,6 +547,16 @@ var library = {
       }
     }
     return convertedBoard;
+  },
+  compareOldNewBoard: function(lastBoard, board, myColor) {
+    let test = 0;
+    lastBoard.forEach(function(cell) {
+      if (Object.values(cell)[0] !== Object.values(board.find(cells=> Object.keys(cells)[0] === Object.keys(cell)[0]))[0]) {
+        test = test + 1;
+      }
+    });
+    test > 2 ? test = false : test = true;
+    return test;
   }
 };
 

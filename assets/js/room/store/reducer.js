@@ -50,6 +50,8 @@ const reducer = (state = initialState, action = {}) => {
       if (undefined !== action.serverMessage['lastBoard']) {
         newLastBoard = library.convertServerBoardToClientBoard(action.serverMessage['lastBoard']);
       }
+      
+ 
       if (undefined !== action.serverMessage['endGame']) { newGameOver = true; console.log('over') }
       if (undefined !== action.serverMessage['movement']) {
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
@@ -62,7 +64,11 @@ const reducer = (state = initialState, action = {}) => {
             console.log('Merci de rejouer');
             couldPlay = true;
         }
-      }
+    }
+            if (!library.compareOldNewBoard(newLastBoard, newBoard, state.myColor)) {
+                if (state.myColor == 1) { newBoard = newLastBoard.reverse(); } else { newBoard = newLastBoard; }
+        
+              }
       return {
         ...state,
         gameOver: newGameOver,

@@ -52,7 +52,7 @@ class GameTopic implements TopicInterface
         $playerSessionId = $this->clientManipulator->findByUsername($topic, $playerName)['connection']->WAMP->sessionId;
 
         $board = $game->getChessBoard();
-        $this->gameTopicMessage->lastBoard($topic, $playerSessionId,$board);
+        $this->gameTopicMessage->lastBoard($topic, $board, $playerSessionId);
         
       
         $playerName = $user->getUsername();
@@ -115,14 +115,17 @@ class GameTopic implements TopicInterface
         $opponentColor = $playerColor === 'white' ? 'black' : 'white';
         $opponentConnectionObject = $this->clientManipulator->findByUsername($topic, $opponentName)['connection'];
 
-        $this->gameTopicMessage->lastBoard($topic, $playerSessionId,$board);
+       
         
         if (!is_object($opponentConnectionObject)) {
+            $this->gameTopicMessage->lastBoard($topic, $board,$playerSessionId);
             $this->gameTopicMessage->notConnectedOpponent($topic, $playerSessionId);
             return;
         }
         $opponentSessionId = $opponentConnectionObject->WAMP->sessionId;
-   
+
+        $this->gameTopicMessage->lastBoard($topic, $board, $playerSessionId, $opponentSessionId);
+        
         if ($user->getId() !== $game->getPlayerWhoCanPlay()->getId()) {
             $this->gameTopicMessage->notYourTurn($topic, $playerSessionId);
             return;

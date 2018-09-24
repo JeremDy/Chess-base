@@ -6,6 +6,9 @@
 /**
  * Styles
  */
+#containerBoard
+  position: relative
+
 .mainBoard
   height: 500px
   width: 500px
@@ -19,9 +22,12 @@
   height: 500px
   width: 500px
   margin-left: 0
-  background-color: #713f14
-  box-shadow: inset 0px 0px 250px 77px black
+  background-color: #11ffee00
+  box-shadow: inset 0px 0px 400px 90px black
   margin-bottom: 50px
+  position: absolute
+  left: 0
+  top: 0
 
 .text
   text-align: center
@@ -44,7 +50,7 @@
 
 .fade-enter.fade-enter-active 
   opacity: 1
-  transition: opacity 3000ms ease-in
+  transition: opacity 5000ms ease-in
 
 
 .fade-leave 
@@ -53,4 +59,4 @@
 
 .fade-leave.fade-leave-active 
   opacity: 0.01
-  transition: opacity 3000ms ease-in
+  transition: opacity 5000ms ease-in

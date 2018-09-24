@@ -139,14 +139,14 @@ class GameTopicMessage
             );
     }
 
-    public function lastBoard($topic, $playerSessionId, $board)
+    public function lastBoard($topic, $board, $playerSessionId, $opponentSessionId = null)
     {
         $topic->broadcast(
             [
                 'lastBoard' => $board->convert(),
             ],
             array(),
-            array($playerSessionId)
+            array($playerSessionId, $opponentSessionId)
             );
     }
 }
