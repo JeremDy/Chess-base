@@ -1,20 +1,17 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-
 import Chat from '../Chat';
-import CompTest from '../CompTest';
-import NotFound from '../NotFound';
+import PlayerList from '../PlayerList';
+import './router.sass';
 
-const Router = () => (
+const Router = ({hide_chat, hide_list, displayChat, displayList}) => (
   <div id="router">
-    <Switch>
-      {/* Homepage */}
-      <Route exact path="/" component={Chat} />
-      {/* Recettes */}
-      <Route path="/URLTEST" component={CompTest} />
-      {/* Fallback global (match sans condition si rien n'a matché avant) */}
-      <Route component={NotFound} />
-    </Switch>
+    <button className='onglet' onClick={displayChat}> ChatRoom </button>
+    <button className='onglet' onClick={displayList}> Players </button>
+    { hide_chat === false &&
+    <Chat /> }
+    { hide_list === false &&
+        <PlayerList /> }
+
   </div>
 );
 

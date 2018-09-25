@@ -1,5 +1,5 @@
 import {WEBSOCKET_CONNECT, CELL_CLIC, INITIAL_DISPLAY} from './actions';
-import library from '../functions/utils.js';
+import library from '../functions/utils';
 
 const initialState = {
   board: [

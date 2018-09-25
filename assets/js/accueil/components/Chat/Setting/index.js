@@ -6,20 +6,20 @@ const Setting = ({ hideForm, toggleForm, sumbitUserName, writeUserName, valueWri
   const className = classNames(
     'form-user',
     {
-      'form--display': hideForm
+      'form--display': true
     }
   );
 
   return (
     <div >
       <div className="setting">
-        <h1> Chatroom </h1>
+
         <div className="group-right">
-          <button className="plus" onClick={toggleForm}> + </button>
+          <button className={className} onClick={toggleForm}>  </button>
           <div className={className}>
             <form className="form-setting" onSubmit={sumbitUserName} >
               <input type="text" value={valueWrittenUserName} onChange={writeUserName} />
-              <button type="submit"> OK </button>
+              <button type="submit">  </button>
             </form>
           </div>
         </div>

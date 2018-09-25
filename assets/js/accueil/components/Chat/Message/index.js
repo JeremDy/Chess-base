@@ -1,6 +1,6 @@
 import React from 'react';
 import './message.sass';
-import Content from './content.js';
+import Content from './content';
 
 const Message = ({ messageReceived }) => (
   <div className="message-container">
@@ -9,14 +9,11 @@ const Message = ({ messageReceived }) => (
         <Content
           userName={message.sender}
           messageSend={message.message}
-          key={message.id}
+          key={`${message.sender}/${message.message}`}
         />
       ))}
-{console.log('messageReceived',messageReceived)}
     </ul>
   </div>
 );
 
 export default Message;
-
-
