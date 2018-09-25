@@ -24,6 +24,7 @@ gos_web_socket:
       - app_matchMaking.topic
       - app_game.topic
       - app_invitation.topic
+      - app_player.topic
 
     client:
         firewall: main #can be an array of firewalls

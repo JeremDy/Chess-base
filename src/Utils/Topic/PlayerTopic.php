@@ -34,7 +34,8 @@ class PlayerTopic implements TopicInterface
         foreach($subscriber as $subscriber){
             $playerList[] = $subscriber['client']->getUsername();
         }
-        $topic->broadcast([$playerList]);
+        dump($playerList);
+        $topic->broadcast($playerList);
     }
 
     /**
