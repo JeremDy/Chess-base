@@ -56,6 +56,11 @@ class Game
      */
     private $LastMoveTime;
 
+    public function __toString()
+    {
+        return $this->PlayerOne->getUsername() . ' vs ' . $this->PlayerTwo->getUsername();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

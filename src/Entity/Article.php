@@ -44,6 +44,13 @@ class Article
      */
     private $articleAnswers;
 
+    
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+
     public function __construct()
     {
         $this->articleAnswers = new ArrayCollection();
