@@ -183,3 +183,57 @@ a:hover {
     background-color: rgba(17, 17, 17, 0.714)!important;
 }
 
+
+/*pagination */ 
+
+
+.page-link{
+    background-color: rgba(14, 14, 14, 0.611)!important; 
+    color:rgb(153, 153, 153);
+}
+
+.page-item.active .page-link{
+    color:rgb(255, 255, 255);
+    border-color:black;
+    background-color: rgb(255, 255, 255);
+}
+
+.page-link:hover{
+    color:rgb(175, 172, 172);
+}
+
+.page-link:focus{
+    box-shadow:0 0 0 0.2rem rgba(210, 216, 223, 0.25)
+}
+
+
+
+
+
+
+
+/* css des form */
+
+#article_answer{
+    max-width:600px;
+    margin:auto;
+}
+
+#article{
+    max-width:600px;
+    margin:auto;
+}
+
+#message{
+     max-width:600px;
+     margin:auto;
+}
+
+.chosen-single{
+    height: 38px;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* ***** */
+

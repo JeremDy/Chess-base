@@ -59,19 +59,22 @@ class ArticleAnswerController extends AbstractController
      */
     public function edit(Request $request, ArticleAnswer $articleAnswer): Response
     {
-        $form = $this->createForm(ArticleAnswerType::class, $articleAnswer);
-        $form->handleRequest($request);
+        if ($this->getUser() === $articleAnswer->getAuthor() || $this->isGranted('ROLE_ADMIN')) {
+            $form = $this->createForm(ArticleAnswerType::class, $articleAnswer);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('article_show', ['id' => $articleAnswer->getArticle()->getId()]);
-        }
+                return $this->redirectToRoute('article_show', ['id' => $articleAnswer->getArticle()->getId()]);
+            }
 
-        return $this->render('article_answer/edit.html.twig', [
+            return $this->render('article_answer/edit.html.twig', [
             'article_answer' => $articleAnswer,
             'form' => $form->createView(),
-        ]);
+            ]);
+        }
+        throw $this->createAccessDeniedException('You cannot access this page!');
     }
 
     /**
@@ -79,12 +82,16 @@ class ArticleAnswerController extends AbstractController
      */
     public function delete(Request $request, ArticleAnswer $articleAnswer): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$articleAnswer->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($articleAnswer);
-            $em->flush();
-        }
 
-        return $this->redirectToRoute('article_show', ['id' => $articleAnswer->getArticle()->getId()]);
+        if ($this->getUser() === $articleAnswer->getAuthor() || $this->isGranted('ROLE_ADMIN')) {
+            if ($this->isCsrfTokenValid('delete'.$articleAnswer->getId(), $request->request->get('_token'))) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($articleAnswer);
+                $em->flush();
+            }
+
+            return $this->redirectToRoute('article_show', ['id' => $articleAnswer->getArticle()->getId()]);
+        }
+        throw $this->createAccessDeniedException('You cannot access this page!');
     }
 }

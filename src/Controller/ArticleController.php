@@ -40,26 +40,29 @@ class ArticleController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
+        if ($this->isGranted('ROLE_REDACTEUR')) {
+            $article = new Article();
+            $form = $this->createForm(ArticleType::class, $article);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user =$this->getUser();
-            $article->setAuthor($user)
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user =$this->getUser();
+                $article->setAuthor($user)
                 ->setPublishAt(new \DateTime());
             
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($article);
+                $em->flush();
 
-            return $this->redirectToRoute('article_index');
-        }
+                return $this->redirectToRoute('article_index');
+            }
 
-        return $this->render('article/new.html.twig', [
+            return $this->render('article/new.html.twig', [
             'article' => $article,
             'form' => $form->createView(),
-        ]);
+            ]);
+        }
+        throw $this->createAccessDeniedException('You cannot access this page!');
     }
 
     /**
@@ -100,19 +103,22 @@ class ArticleController extends AbstractController
      */
     public function edit(Request $request, Article $article): Response
     {
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
+        if ($this->getUser() === $article->getAuthor() || $this->isGranted('ROLE_ADMIN')) {
+            $form = $this->createForm(ArticleType::class, $article);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('article_edit', ['id' => $article->getId()]);
-        }
+                return $this->redirectToRoute('article_edit', ['id' => $article->getId()]);
+            }
 
-        return $this->render('article/edit.html.twig', [
+            return $this->render('article/edit.html.twig', [
             'article' => $article,
             'form' => $form->createView(),
         ]);
+        }
+        throw $this->createAccessDeniedException('You cannot access this page!');
     }
 
     /**
@@ -120,12 +126,16 @@ class ArticleController extends AbstractController
      */
     public function delete(Request $request, Article $article): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($article);
-            $em->flush();
-        }
+        if ($this->getUser() === $article->getAuthor() || $this->isGranted('ROLE_ADMIN')) {
+            if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($article);
+                $em->flush();
+            }
 
-        return $this->redirectToRoute('article_index');
+            return $this->redirectToRoute('article_index');
+        }
+        throw $this->createAccessDeniedException('You cannot access this page!');
     }
+   
 }
