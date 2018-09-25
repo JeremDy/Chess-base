@@ -65,7 +65,10 @@ services:
     
     app_game.topic:
         class: App\Utils\Topic\GameTopic
-    
+
+    app_player.topic:
+        class: App\Utils\Topic\PlayerTopic
+
     app_invitation.topic:
         class: App\Utils\Topic\InvitationTopic
 

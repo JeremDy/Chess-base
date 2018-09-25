@@ -15,6 +15,7 @@ var app = {
         webSocket.on("socket/connect", function (session) {
             app.session = session;
             app.invitationSubscribe();
+            app.session.subscribe("player");
         })
 
         webSocket.on("socket/disconnect", function (error) {
