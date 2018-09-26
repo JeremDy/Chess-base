@@ -44,8 +44,12 @@ class PlayerTopic implements TopicInterface , TopicPeriodicTimerInterface
 
     public function registerPeriodicTimer(Topic $topic)
     {
-        //add
         $this->periodicTimer->addPeriodicTimer($this, 'listUpdate', 10, function() use ($topic) {
+           
+            if (count($topic) === 0) {
+                return;
+            }
+
             $subscriber = $this->clientManipulator->getAll($topic);
             $playerList = [];
             foreach($subscriber as $subscriber){

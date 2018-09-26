@@ -97,7 +97,8 @@ class GameTopic implements TopicInterface
      * @return mixed|void
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
-    {
+    {   
+        dump($event);
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
         $user = $this->clientManipulator->getClient($connection);
