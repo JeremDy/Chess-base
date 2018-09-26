@@ -113,7 +113,70 @@ a:hover {
 }
 
 /*end chat css*/
+/*button play css*/
 
+.globalContainer{
+  display: flex;
+  justify-content: space-between;
+  padding: 1.9em;
+}
+
+.leftContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 2em;
+    margin-left: 1em;
+    width: 50%
+}
+.rightContainer{
+    margin-top: 2em;
+    width: 40%;
+}
+.buttonContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 3em;
+  margin-bottom: 4em;
+  height: 30%;
+}
+#home-left{
+    height: 50%;
+}
+#invitation{
+  display: flex ;
+  justify-content: space-around;
+  align-items: center;
+}
+.titleInvite{
+    margin-right: 1em;
+}
+.inputName{
+    background-color: #5555554a;
+    border-radius: 10px;
+    color: white;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+.makingButton{
+    background-color: #5555554a;
+    border-radius: 10px;
+    color: white;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    padding: 10px 25px;
+    font-weight: 700
+}
+.inviteButton{
+    margin-left:1em;
+    background-color: #5555554a;
+    border-radius: 10px;
+    color: white;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    padding: 0 10px;
+    font-weight: 700
+}
+/* end button play css*/
 
 /* home left css*/
 

@@ -10,6 +10,7 @@ export const displayList = () => ({
   type: DISPLAY_LIST
 });
 
-export const webSocketConnect = () => ({
-  type: WEBSOCKET_CONNECT
+export const webSocketConnect = (baseURL) => ({
+  type: WEBSOCKET_CONNECT,
+  baseURL
 });
