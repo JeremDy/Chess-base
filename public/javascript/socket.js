@@ -22,7 +22,7 @@ var app = {
             console.log("Disconnected for " + error.reason + " with code " + error.code);
         })
     },
-
+ 
     matchMaking: function () {
         app.session.subscribe('matchmaking', function (uri, payload) {
             if (typeof payload.matchFound !== 'undefined') {
