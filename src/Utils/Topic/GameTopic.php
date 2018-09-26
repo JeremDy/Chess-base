@@ -41,7 +41,7 @@ class GameTopic implements TopicInterface
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
         $user = $this->clientManipulator->getClient($connection);
-
+        $movementList = $game->getMovementList();
      
         if (!is_object($user)) {
             dump('user not connected');
@@ -54,7 +54,7 @@ class GameTopic implements TopicInterface
 
         $board = $game->getChessBoard();
         $this->gameTopicMessage->lastBoard($topic, $board, $playerSessionId);
-        
+        $this->gameTopicMessage->movementList($topic,$movementList);
       
         $playerName = $user->getUsername();
         $playerSessionId = $this->clientManipulator->findByUsername($topic, $playerName)['connection']->WAMP->sessionId;
@@ -116,17 +116,15 @@ class GameTopic implements TopicInterface
         $opponentColor = $playerColor === 'white' ? 'black' : 'white';
         $opponentConnectionObject = $this->clientManipulator->findByUsername($topic, $opponentName)['connection'];
         
-        $movementList = $game->getMovementList();
-       
         
         if (!is_object($opponentConnectionObject)) {
-            $this->gameTopicMessage->lastBoard($topic, $board, $movementList, $playerSessionId);
+            $this->gameTopicMessage->lastBoard($topic, $board, $playerSessionId);
             $this->gameTopicMessage->notConnectedOpponent($topic, $playerSessionId);
             return;
         }
         $opponentSessionId = $opponentConnectionObject->WAMP->sessionId;
 
-        $this->gameTopicMessage->lastBoard($topic, $board, $movementList, $playerSessionId, $opponentSessionId);
+        $this->gameTopicMessage->lastBoard($topic, $board, $playerSessionId, $opponentSessionId);
         
         if ($user->getId() !== $game->getPlayerWhoCanPlay()->getId()) {
             $this->gameTopicMessage->notYourTurn($topic, $playerSessionId);
@@ -179,8 +177,11 @@ class GameTopic implements TopicInterface
             $this->gameTopicMessage->check($topic, $playerSessionId, $opponentSessionId);
         }
         
+        $movementList = $game->getMovementList();
         $movementList[] = $event['newPositions'];
         $game->setMovementList($movementList);
+        
+        $this->gameTopicMessage->movementList($topic, $movementList);
         $game->setPlayerWhoCanPlay($this->doctrine->getRepository(User::class)->findOneByUsername($opponentName));
         $this->gameTopicMessage->endTurn($topic, $event, $playerSessionId, $opponentSessionId);
     }
