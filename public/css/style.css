@@ -24,21 +24,17 @@ a:hover {
 /* Chat css*/
 
 
-#router {
+
+.bloc {
     background-color: rgba(73, 73, 73, 0.844);
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px;
     -moz-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
     -webkit-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
     -o-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
     box-shadow: inset 0px 0px 5px 5px #c0c0c0;
     filter: progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=NaN, Strength=5);
     -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-
-
-}
-
-#Chat {
+    -webkit-border-radius: 0 0 10px 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -72,6 +68,7 @@ a:hover {
 
 .message {
     margin-bottom: 10px;
+    margin-top: 25px;
 }
 
 .username {
@@ -106,6 +103,7 @@ a:hover {
     background-color: #5555554a;
     border-radius: 10px;
     color: white;
+    padding-left: 20px;
 
 }
 

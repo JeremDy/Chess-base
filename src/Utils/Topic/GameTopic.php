@@ -41,7 +41,8 @@ class GameTopic implements TopicInterface
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
         $user = $this->clientManipulator->getClient($connection);
-         
+
+     
         if (!is_object($user)) {
             dump('user not connected');
             return;

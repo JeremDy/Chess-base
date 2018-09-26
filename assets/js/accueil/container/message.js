@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import Message from '../components/Message';
+import Message from '../components/Chat/Message';
 
 const mapStateToProps = state => ({
-  messageReceived: state.messageReceived
+  messageReceived: state.chat.messageReceived
 });
 
 const mapDispatchToProps = dispatch => ({

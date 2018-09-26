@@ -1,5 +1,5 @@
 import {WEBSOCKET_CONNECT, CELL_CLIC, INITIAL_DISPLAY} from './actions';
-import library from '../functions/utils.js';
+import library from '../functions/utils';
 
 const initialState = {
   board: [
@@ -88,8 +88,8 @@ const reducer = (state = initialState, action = {}) => {
       // Pour eviter les erreurs si l'on clique sur une case vide, on enleve la color ( une case vide n'a pas de couleur)
       (color !== undefined) ? cell = {[`${row}/${column}`]: `${item}${color}`} : cell = {[`${row}/${column}`]: `${item}`};
       const clicCount = Number(state.clickedCell.length) + 1; // au début le tableau est vide donc vide + 1 = 1 = premier clic
-      switch (clicCount) { // Debut du switch pour différencier clic 1 clic 2
-        case 1: // premier clic
+      if (clicCount === 1 || color == state.myColor) { // Debut du switch pour différencier clic 1 clic 2
+        // premier clic
           let newMoveAllowed = [];
           let newKillAllowed = [];
           let newRockAllowed = false;
@@ -142,7 +142,7 @@ const reducer = (state = initialState, action = {}) => {
           }; // fin du if (item === 'E') { return state; } else {
           break;
 
-        case 2: // deuxième clic
+        } else if (clicCount === 2 || color != state.myColor) {// deuxième clic
         console.log(state);
           console.log('Clic N°2 done');
           let opponentColor;
