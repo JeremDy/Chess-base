@@ -31,7 +31,7 @@ var app = {
             }
         });
     },
-
+//rte
     invitationSubscribe: function () {
         app.session.subscribe("invitation", function (uri, payload) {
 
