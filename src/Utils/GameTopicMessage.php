@@ -149,4 +149,9 @@ class GameTopicMessage
             array($playerSessionId, $opponentSessionId)
             );
     }
+
+    public function movementList($topic,$movementList)
+    {
+        $topic->broadcast(['movementList' => $movementList]);
+    }
 }
