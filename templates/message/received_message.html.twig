@@ -28,5 +28,7 @@
             {% endfor %}
             </ul>
         </div>
-        {{ knp_pagination_render(messages) }}
+                {{ knp_pagination_render(messages , null, {}, {
+        'align': 'center',
+    }) }}
 {% endblock %}

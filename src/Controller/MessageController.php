@@ -19,7 +19,7 @@ class MessageController extends AbstractController
     /**
      * @Route("/", name="message_received", methods="GET")
      */
-    public function receivedMessage(MessageRepository $messageRepository, PaginatorInterface $paginator, Request $request): Response
+    public function showReceivedMessage(MessageRepository $messageRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $queryBuilder = $messageRepository->findNotDeletedReceivedMessageByUser($this->getUser());
 
@@ -36,7 +36,7 @@ class MessageController extends AbstractController
     /**
      * @Route("/sent_list", name="message_sent", methods="GET")
      */
-    public function sentMessage(MessageRepository $messageRepository, PaginatorInterface $paginator, Request $request): Response
+    public function showSentMessage(MessageRepository $messageRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $queryBuilder = $messageRepository->findNotDeletedSentMessageByUser($this->getUser());
 

@@ -7,6 +7,7 @@ class Piece
     protected $posX;
     protected $posY;
     protected $color;
+    protected $code;
 
 
    
@@ -102,5 +103,10 @@ class Piece
     public function getPosX()
     {
         return $this->posX;
+    }
+
+    public function getCode()
+    {
+        return $this->code;
     }
 }

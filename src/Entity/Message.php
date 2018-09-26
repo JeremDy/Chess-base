@@ -58,6 +58,12 @@ class Message
      */
     private $readByReceiver;
 
+
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     public function __construct()
     {
         $this->deletedByReceiver = false;
