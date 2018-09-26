@@ -6,6 +6,7 @@ var app = {
         $('#invitationModal').on('hidden.bs.modal', app.refuseInvitation);
         $('#invitation-ok').on('click', app.acceptInvitation);
         $('#invitation-cancel').on('click', app.cancelInvitation);
+        
 
         $("#message_receiver").chosen();
 
@@ -15,6 +16,7 @@ var app = {
         webSocket.on("socket/connect", function (session) {
             app.session = session;
             app.invitationSubscribe();
+
         })
 
         webSocket.on("socket/disconnect", function (error) {
