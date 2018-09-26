@@ -1,11 +1,9 @@
 import React from 'react';
 import './content.sass';
 
-const Content = ({ name, route, id }) => (
-
+const Content = ({ userName }) => (
   <div className="player-content">
-    <li className="name">{name}</li>
-    <li className="message">{route}</li>
+    <li className="name">{userName}</li>
   </div>
 );
 

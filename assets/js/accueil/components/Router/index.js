@@ -1,6 +1,6 @@
 import React from 'react';
 import Chat from '../Chat';
-import PlayerList from '../PlayerList';
+import PlayerList from '../../container/playerList.js';
 import './router.sass';
 
 const Router = ({hide_chat, hide_list, displayChat, displayList}) => (

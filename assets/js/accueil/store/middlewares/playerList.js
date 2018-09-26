@@ -5,23 +5,13 @@ const playerMiddleware = store => next => (action) => {
     case LIST_CONNECT:
       let session = action.value;
       console.log('playerMiddleware connect to', session);
-    //   webSocket.on('socket/connect', function(session) {
-    //     console.log('connec socket 1');
-    //     session.subscribe('chat/global', function(uri, message) {
-    //       console.log('public message received', message);
-    //       store.dispatch(receivedList(message));
-    //     });
-    //     session.subscribe('chat/private', function(uri, message) {
-    //       console.log('private message received',message);
-    //       store.dispatch(receivedList(message));
-    //     });
-    //   });
-
+      session.subscribe('player', function(uri, list) {
+        console.log('public list received', list);
+        store.dispatch(receivedList(list));
+      });
       break;
-
     default:
   }
-
   next(action);
 };
 
