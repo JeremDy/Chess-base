@@ -78,20 +78,20 @@ class ProfileController extends Controller
         
         $user = $this->getUser();
 
-        $currentImage = $user->getProfilePicture();
+        $oldImage = $user->getProfilePicture();
 
-        if(!empty($currentImage)){
-            $imagePath = $this->getParameter('picture_directory') . DIRECTORY_SEPARATOR . $currentImage;
+        // if(!empty($oldImage)){
+        //     $imagePath = $this->getParameter('picture_directory') . DIRECTORY_SEPARATOR . $oldImage;
             
-            /*
-            je remplace la valeur initiale qui contenait uniquement le nom du fichier par un objet du type file
-            Attention :  quand je recupere un nom de fichier de la base c'est un objet du type File qui est attendu
-            En revanche , quand je créé / upload un nouveau fichier , c'est un objet du type FileUpload qui sera attendu
-           */
-                $user->setProfilePicture(new File($imagePath));
-        } else {
-            $user->setProfilePicture(null);
-        }
+        //     /*
+        //     je remplace la valeur initiale qui contenait uniquement le nom du fichier par un objet du type file
+        //     Attention :  quand je recupere un nom de fichier de la base c'est un objet du type File qui est attendu
+        //     En revanche , quand je créé / upload un nouveau fichier , c'est un objet du type FileUpload qui sera attendu
+        //    */
+        //         $user->setProfilePicture(new File($imagePath));
+        // } else {
+        //     $user->setProfilePicture(null);
+        // }
 
         //     //var_dump(new File($imagePath));die;
         
@@ -114,27 +114,28 @@ class ProfileController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             // Gestion Avatar
             $picture = $user->getProfilePicture();
-            if(!is_null($picture)) {
+            if (!is_null($picture)) {
                 // Récupération du champ image du formulaire reçu
-                $file = $user->getProfilePicture();
                 // Génère un nom unique pour le fichier avant de le sauvegarder
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                $fileName = $this->generateUniqueFileName().'.'.$picture->guessExtension();
                 // Déplacement du fichier dans un répertoire de notre projet
-                $file->move($this->getParameter('picture_directory'), $fileName);
+                $picture->move($this->getParameter('picture_directory'), $fileName);
                 // Met à jour le nom de l'image finale dans notre user
                 $user->setProfilePicture($fileName);
-            } elseif(!is_null($currentImage)) { // Cette ligne permet d'éviter une erreur lors de l'edit du null
-                $imagePathProfileThumb = $this->getParameter('profile_directory') . DIRECTORY_SEPARATOR . $currentImage;
-                unlink($imagePathProfileThumb);
-                $imagePathPicture = $this->getParameter('picture_directory') . DIRECTORY_SEPARATOR . $currentImage;
-                unlink($imagePathPicture);
-                $imagePathNavThumb = $this->getParameter('nav_directory') . DIRECTORY_SEPARATOR . $currentImage;
-                unlink($imagePathNavThumb);
+            
+                if (!is_null($oldImage)) { // Cette ligne permet d'éviter une erreur lors de l'edit du null
+                    $imagePathProfileThumb = $this->getParameter('profile_directory') . DIRECTORY_SEPARATOR . $oldImage;
+                    unlink($imagePathProfileThumb);
+                    $imagePathPicture = $this->getParameter('picture_directory') . DIRECTORY_SEPARATOR . $oldImage;
+                    unlink($imagePathPicture);
+                    $imagePathNavThumb = $this->getParameter('nav_directory') . DIRECTORY_SEPARATOR . $oldImage;
+                    unlink($imagePathNavThumb);
+                }
             }
-            elseif(is_null($picture)) {
+            else{
                 // Si fichier non remplacé, on lui passe le nom du fichier actuel
                 // car $user a été modifié au traitement du formulaire
-                $user->setProfilePicture($currentImage);
+                $user->setProfilePicture($oldImage);
             }
             //  Fin Gestion Avatar.
             $event = new FormEvent($form, $request);
