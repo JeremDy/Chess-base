@@ -7,17 +7,23 @@ use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\Topic;
 use Gos\Bundle\WebSocketBundle\Router\WampRequest;
 use Gos\Bundle\WebSocketBundle\Client\ClientManipulatorInterface;
+use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimer;
+use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class PlayerTopic implements TopicInterface
+class PlayerTopic implements TopicInterface , TopicPeriodicTimerInterface
 {
     protected $clientManipulator;
+    protected $periodicTimer;
+
 
     /**
      * @param ClientManipulatorInterface $clientManipulator
      */
-    public function __construct(ClientManipulatorInterface $clientManipulator)
+    public function __construct(ClientManipulatorInterface $clientManipulator, UrlGeneratorInterface $urlGenerator)
     {
         $this->clientManipulator = $clientManipulator;
+        $this->urlGenerator = $urlGenerator;
     }
     /**
      * This will receive any Subscription requests for this topic.
@@ -27,12 +33,43 @@ class PlayerTopic implements TopicInterface
      * @param WampRequest $request
      * @return void
      */
+
+
+
+    public function setPeriodicTimer(TopicPeriodicTimer $periodicTimer)
+    {
+        $this->periodicTimer = $periodicTimer;
+    }
+
+
+    public function registerPeriodicTimer(Topic $topic)
+    {
+        //add
+        $this->periodicTimer->addPeriodicTimer($this, 'listUpdate', 10, function() use ($topic) {
+            $subscriber = $this->clientManipulator->getAll($topic);
+            $playerList = [];
+            foreach($subscriber as $subscriber){
+                $playerList[] = [
+                    'name' => $subscriber['client']->getUsername(),
+                    'profilPath' =>  $this->urlGenerator->generate('profileShow', ['id' =>  $subscriber['client']->getId()])
+                ];
+            }
+            dump($playerList);
+            $topic->broadcast($playerList);
+        });
+    }
+
+
+
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
         $subscriber = $this->clientManipulator->getAll($topic);
         $playerList = [];
         foreach($subscriber as $subscriber){
-            $playerList[] = $subscriber['client']->getUsername();
+            $playerList[] = [
+                'name' => $subscriber['client']->getUsername(),
+                'profilPath' =>  $this->urlGenerator->generate('profileShow', ['id' =>  $subscriber['client']->getId()])
+            ];
         }
         dump($playerList);
         $topic->broadcast($playerList);
@@ -47,9 +84,8 @@ class PlayerTopic implements TopicInterface
      * @return void
      */
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
-    {
-        //this will broadcast the message to ALL subscribers of this topic.
-        $topic->broadcast(['msg' => $connection->resourceId . " has left " . $topic->getId()]);
+    {  
+
     }
 
 
@@ -66,16 +102,7 @@ class PlayerTopic implements TopicInterface
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
-        /*
-        	$topic->getId() will contain the FULL requested uri, so you can proceed based on that
 
-            if ($topic->getId() === 'acme/channel/shout')
-     	       //shout something to all subs.
-        */
-
-        $topic->broadcast([
-        	'msg' => $event,
-        ]);
     }
 
     /**
