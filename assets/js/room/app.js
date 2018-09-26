@@ -10,10 +10,8 @@ const rootComponent = (
   <Provider store={store}>
     <FullRoom />
   </Provider>
-  
 );
 
 render(rootComponent, document.getElementById('root'));
-
 
 store.dispatch(webSocketConnect(GAME_CHANEL,MY_COLOR));

@@ -1,4 +1,4 @@
-import {WEBSOCKET_CONNECT, CELL_CLIC, INITIAL_DISPLAY} from './actions';
+import {WEBSOCKET_CONNECT, CELL_CLIC, MESSAGE_RECEIVED} from './actions';
 import library from '../functions/utils';
 
 const initialState = {
@@ -23,7 +23,7 @@ const initialState = {
   channel: '',
   canPlay: false,
   newPositions: [],
-  webSocket: ''
+  webSocketSession: ''
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -42,7 +42,7 @@ const reducer = (state = initialState, action = {}) => {
     // -----------------------------------------------------------------------------------------
     // ------------------------------------I-N-I-T---D-I-S-P-L-A-Y------------------------------
     // -----------------------------------------------------------------------------------------
-    case INITIAL_DISPLAY:
+    case MESSAGE_RECEIVED:
       let newGameOver = false; // false par défaut , le passage au true déclenchera l'animation de game Over
       let newBoard = [...state.board]; // le nouveau board qui va être rendu par react
       let newLastBoard = [...state.lastBoard];// le board n-1 renvoyé par le serveur 
@@ -62,18 +62,17 @@ const reducer = (state = initialState, action = {}) => {
             console.log('Merci de rejouer');
             couldPlay = true;
         }
-    }
-            if (!library.compareOldNewBoard(newLastBoard, newBoard, state.myColor)) {
-                if (state.myColor == 1) { newBoard = newLastBoard.reverse(); } else { newBoard = newLastBoard; }
-        
-              }
+      }
+      if (!library.compareOldNewBoard(newLastBoard, newBoard, state.myColor)) {
+        if (state.myColor == 1) { newBoard = newLastBoard.reverse(); } else { newBoard = newLastBoard; }
+      }
       return {
         ...state,
         gameOver: newGameOver,
         canPlay: couldPlay,
         board: newBoard,
         lastBoard: newLastBoard,
-        webSocket: action.webSocket
+        webSocketSession: action.session
       };
 
     // -----------------------------------------------------------------------------------------
@@ -89,105 +88,92 @@ const reducer = (state = initialState, action = {}) => {
       const clicCount = Number(state.clickedCell.length) + 1; // au début le tableau est vide donc vide + 1 = 1 = premier clic
       if (clicCount === 1 || color == state.myColor) { // Debut du switch pour différencier clic 1 clic 2
         // premier clic
-          let newMoveAllowed = [];
-          let newKillAllowed = [];
-          let newRockAllowed = false;
-          if (item === 'E' || !state.canPlay || color != state.myColor) { return state; } else if (state.canPlay & color == state.myColor) { // annule tout effet d'un clic sur une cellule vide
-            console.log('Clic N°1 done');
-            switch (item) { // Selon la pièce sur laquelle on a clic, on va créer un tableau de cases autorisées
-              case 'P':
-                library.pion(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
-                break;
-              case 'T':
-                library.tour(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
-                break;
-              case 'C':
-                library.cavalier(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
-                break;
-              case 'F':
-                library.fou(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
-                break;
-              case 'Q':
-                library.queen(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
-                break;
-              case 'K':
-                library.king(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed, newRockAllowed);
-                newRockAllowed = library.king(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed, newRockAllowed)
-           
-                break;
-            }
-         
-            let newAllowedMoveList = [];
-            let newAllowedKillList = [];
-            for (const key in newMoveAllowed) {
-              if (newMoveAllowed.hasOwnProperty(key)) {
-                newAllowedMoveList.push(Object.keys(newMoveAllowed[key])[0]);
-              }
-            }
-            for (const key in newKillAllowed) {
-              if (newKillAllowed.hasOwnProperty(key)) {
-                newAllowedKillList.push(Object.keys(newKillAllowed[key])[0]);
-              }
-            }
-            return { // on renvoie le state + la case sur laquelle on a clic pour pouvoir avoir le premier clic en mémoire pour le clic n°2 + le nouveau tableau des case autorisées
-              ...state,
-              rockAllowed: newRockAllowed,
-              allowedKillList: newAllowedKillList,
-              allowedMoveList: newAllowedMoveList,
-              allowedMove: newMoveAllowed,
-              allowedKill: newKillAllowed,
-              clickedCell: [cell]
-            };
-          }; // fin du if (item === 'E') { return state; } else {
-          break;
+        let newMoveAllowed = [];
+        let newKillAllowed = [];
+        let newRockAllowed = false;
+        if (item === 'E' || !state.canPlay || color != state.myColor) { return state; } else if (state.canPlay & color == state.myColor) { // annule tout effet d'un clic sur une cellule vide
+          console.log('Clic N°1 done');
+          switch (item) { // Selon la pièce sur laquelle on a clic, on va créer un tableau de cases autorisées
+            case 'P':
+              library.pion(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
+              break;
+            case 'T':
+              library.tour(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
+              break;
+            case 'C':
+              library.cavalier(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
+              break;
+            case 'F':
+              library.fou(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
+              break;
+            case 'Q':
+              library.queen(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
+              break;
+            case 'K':
+              library.king(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed, newRockAllowed);
+              newRockAllowed = library.king(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed, newRockAllowed)
+              break;
+          }
 
-        } else if (clicCount === 2 || color != state.myColor) {// deuxième clic
+          let newAllowedMoveList = [];
+          let newAllowedKillList = [];
+          for (const key in newMoveAllowed) {
+            if (newMoveAllowed.hasOwnProperty(key)) {
+              newAllowedMoveList.push(Object.keys(newMoveAllowed[key])[0]);
+            }
+          }
+          for (const key in newKillAllowed) {
+            if (newKillAllowed.hasOwnProperty(key)) {
+              newAllowedKillList.push(Object.keys(newKillAllowed[key])[0]);
+            }
+          }
+          return { // on renvoie le state + la case sur laquelle on a clic pour pouvoir avoir le premier clic en mémoire pour le clic n°2 + le nouveau tableau des case autorisées
+            ...state,
+            rockAllowed: newRockAllowed,
+            allowedKillList: newAllowedKillList,
+            allowedMoveList: newAllowedMoveList,
+            allowedMove: newMoveAllowed,
+            allowedKill: newKillAllowed,
+            clickedCell: [cell]
+          };
+        }; // fin du if (item === 'E') { return state; } else {
+        break;
+
+      } else if (clicCount === 2 || color != state.myColor) {// deuxième clic
         console.log(state);
-          console.log('Clic N°2 done');
-          let opponentColor;
-          let kingPos;
-          let vector;
-          state.myColor === 0 ? vector = -1 : vector = 1; // pour gerer la direction des mouvements de pions adverses
-          state.myColor === 1 ? opponentColor = '0' : opponentColor = '1'; // pour identifer les pièce opponents
+        console.log('Clic N°2 done');
+        let opponentColor;
+        let kingPos;
+        let vector;
+        state.myColor === 0 ? vector = -1 : vector = 1; // pour gerer la direction des mouvements de pions adverses
+        state.myColor === 1 ? opponentColor = '0' : opponentColor = '1'; // pour identifer les pièce opponents
 
-          if (Object.values(state.clickedCell[0])[0] === `${'K'}${state.myColor}`) { // lors du click n°1 sur le roi il faut, lors du 2eme clic verifier qu'il n'y a pas echec par des pion
-            // cas d'echec par les pions
-            if ((numbRow - 1 > 0) & (numbRow + 1 < 9) & (numbColumn + 1 < 9) & (numbColumn - 1 > 0)) {
-              if ((state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + 1 * vector)}/${(numbColumn + 1)}`)[`${(numbRow + 1 * vector)}/${(numbColumn + 1)}`] === `${'P'}${opponentColor}`) ||
+        if (Object.values(state.clickedCell[0])[0] === `${'K'}${state.myColor}`) { // lors du click n°1 sur le roi il faut, lors du 2eme clic verifier qu'il n'y a pas echec par des pion
+          // cas d'echec par les pions
+          if ((numbRow - 1 > 0) & (numbRow + 1 < 9) & (numbColumn + 1 < 9) & (numbColumn - 1 > 0)) {
+            if ((state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + 1 * vector)}/${(numbColumn + 1)}`)[`${(numbRow + 1 * vector)}/${(numbColumn + 1)}`] === `${'P'}${opponentColor}`) ||
               (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + 1 * vector)}/${(numbColumn - 1)}`)[`${(numbRow + 1 * vector)}/${(numbColumn - 1)}`] === `${'P'}${opponentColor}`)) {
-                console.log('Echec: Move not allowed');
-                return {
-                  ...state,
-                  clickedCell: [],
-                  allowedMove: [],
-                  allowedKill: []
-                };
+              console.log('Echec: Move not allowed');
+              return {
+                ...state,
+                clickedCell: [],
+                allowedMove: [],
+                allowedKill: []
               };
-            } else if ((numbColumn + 1 === 9)) { // cas où l'on est à la limite droite du damier
-              if ((state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + 1 * vector)}/${(numbColumn - 1)}`)[`${(numbRow + 1 * vector)}/${(numbColumn - 1)}`] === `${'P'}${opponentColor}`)) {
-                console.log('Echec: Move not allowed');
-                return {
-                  ...state,
-                  clickedCell: [],
-                  allowedMove: [],
-                  allowedKill: []
-                };
-              }
-            } else if ((numbColumn - 1 === 0)) { // cas où l'on est à la limite gauche du damier
-              if ((state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + 1 * vector)}/${(numbColumn + 1)}`)[`${(numbRow + 1 * vector)}/${(numbColumn + 1)}`] === `${'P'}${opponentColor}`)) {
-                console.log('Echec: Move not allowed');
-                return {
-                  ...state,
-                  clickedCell: [],
-                  allowedMove: [],
-                  allowedKill: []
-                };
-              }
+            };
+          } else if ((numbColumn + 1 === 9)) { // cas où l'on est à la limite droite du damier
+            if ((state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + 1 * vector)}/${(numbColumn - 1)}`)[`${(numbRow + 1 * vector)}/${(numbColumn - 1)}`] === `${'P'}${opponentColor}`)) {
+              console.log('Echec: Move not allowed');
+              return {
+                ...state,
+                clickedCell: [],
+                allowedMove: [],
+                allowedKill: []
+              };
             }
-            // empeche le roi d'être à moins d'une case d'un autre rois
-            kingPos = Object.keys(state.board.find(cell => Object.values(cell)[0] === `${'K'}${opponentColor}`)); // kingPos ["8/4"]
-            if (Math.sqrt(Math.pow((numbRow - Number(kingPos[0].substring(0,1))),2) + Math.pow((numbColumn - Number(kingPos[0].substring(2,3))),2)) <= Math.sqrt(2) ) {
-              console.log('roi trop pret');
+          } else if ((numbColumn - 1 === 0)) { // cas où l'on est à la limite gauche du damier
+            if ((state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + 1 * vector)}/${(numbColumn + 1)}`)[`${(numbRow + 1 * vector)}/${(numbColumn + 1)}`] === `${'P'}${opponentColor}`)) {
+              console.log('Echec: Move not allowed');
               return {
                 ...state,
                 clickedCell: [],
@@ -196,63 +182,69 @@ const reducer = (state = initialState, action = {}) => {
               };
             }
           }
-
-          let newBoard = [...state.board]; // on prepare le board que l'on aura modifier pour le renvoyer /!\ a ne pas faire de passage par référence
-          let dataToSend = [];
-          let mov = [];
-          dataToSend['newPositions'] = {...cell, ...state.clickedCell[0]};
-          mov['new'] = Object.keys(cell)[0];
-          mov['old'] = Object.keys(state.clickedCell[0])[0];
-          dataToSend['movement'] = {...mov};
-
-          if ((((state.allowedMove.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
-          ((state.allowedKill.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) & (state.myColor != color)) & (item != 'K')) { // est ce que la case sur laquelle on clic fait partie des cases killAble
-            if (Object.values(state.clickedCell[0])[0] === `${'K'}${state.myColor}` & state.rockAllowed === true) {
-              if ((numbRow === 1) || (numbRow === 8)) {
-                if (numbColumn === 2) {
-                  newBoard.find(cellToModify => `${numbRow}/1` === Object.keys(cellToModify)[0])[`${numbRow}/1`] = 'E';
-                  newBoard.find(cellToModify => `${numbRow}/3` === Object.keys(cellToModify)[0])[`${numbRow}/3`] = 'T';
-                } else if (numbColumn === 6) {
-                  newBoard.find(cellToModify => `${numbRow}/8` === Object.keys(cellToModify)[0])[`${numbRow}/8`] = 'E';
-                  newBoard.find(cellToModify => `${numbRow}/5` === Object.keys(cellToModify)[0])[`${numbRow}/5`] = 'T';
-                }
-              }
-            }
-            const newItem = Object.values(state.clickedCell[0])[0]; // on récupère la pièce qui était sur la case du premier clic
-            newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem; // on modifie la valeur pour y mettre la nouvelle pièce
-            newBoard.find(cellToModify => Object.keys(state.clickedCell[0])[0] === Object.keys(cellToModify)[0])[Object.keys(state.clickedCell[0])[0]] = 'E'; // on 'vide la case du premier clic'
-            dataToSend['newPositions'][Object.keys(cell)[0]] = newItem;
-            dataToSend['newPositions'][Object.keys(state.clickedCell[0])[0]] = 'E';
-
-            state.webSocket = WS.connect('ws://127.0.0.1:8080');
-            state.webSocket.on('socket/connect', function(session) {
-              session.publish(state.channel, {...dataToSend});
-              console.log('Message to server:', dataToSend);
-            });
-            return {
-              ...state,
-              allowedKillList: [],
-              allowedMoveList: [],
-              clickedCell: [], // on réinitialise le tableau clicked cell pour pouvoir recevoir le prochain premier clic
-              board: newBoard // on envoie le nouveau board modifié et le damier se mettra à jour
-
-            };
-          } else {
-            console.log('Movement not allowed');
+          // empeche le roi d'être à moins d'une case d'un autre rois
+          kingPos = Object.keys(state.board.find(cell => Object.values(cell)[0] === `${'K'}${opponentColor}`)); // kingPos ["8/4"]
+          if (Math.sqrt(Math.pow((numbRow - Number(kingPos[0].substring(0,1))),2) + Math.pow((numbColumn - Number(kingPos[0].substring(2,3))),2)) <= Math.sqrt(2) ) {
+            console.log('roi trop pret');
             return {
               ...state,
               clickedCell: [],
               allowedMove: [],
               allowedKill: []
             };
+          }
+        }
 
+        let newBoard = [...state.board]; // on prepare le board que l'on aura modifier pour le renvoyer /!\ a ne pas faire de passage par référence
+        let dataToSend = [];
+        let mov = [];
+        dataToSend['newPositions'] = {...cell, ...state.clickedCell[0]};
+        mov['new'] = Object.keys(cell)[0];
+        mov['old'] = Object.keys(state.clickedCell[0])[0];
+        dataToSend['movement'] = {...mov};
+
+        if ((((state.allowedMove.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
+          ((state.allowedKill.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) & (state.myColor != color)) & (item != 'K')) { // est ce que la case sur laquelle on clic fait partie des cases killAble
+          if (Object.values(state.clickedCell[0])[0] === `${'K'}${state.myColor}` & state.rockAllowed === true) {
+            if ((numbRow === 1) || (numbRow === 8)) {
+              if (numbColumn === 2) {
+                newBoard.find(cellToModify => `${numbRow}/1` === Object.keys(cellToModify)[0])[`${numbRow}/1`] = 'E';
+                newBoard.find(cellToModify => `${numbRow}/3` === Object.keys(cellToModify)[0])[`${numbRow}/3`] = 'T';
+              } else if (numbColumn === 6) {
+                newBoard.find(cellToModify => `${numbRow}/8` === Object.keys(cellToModify)[0])[`${numbRow}/8`] = 'E';
+                newBoard.find(cellToModify => `${numbRow}/5` === Object.keys(cellToModify)[0])[`${numbRow}/5`] = 'T';
+              }
+            }
+          }
+          const newItem = Object.values(state.clickedCell[0])[0]; // on récupère la pièce qui était sur la case du premier clic
+          newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem; // on modifie la valeur pour y mettre la nouvelle pièce
+          newBoard.find(cellToModify => Object.keys(state.clickedCell[0])[0] === Object.keys(cellToModify)[0])[Object.keys(state.clickedCell[0])[0]] = 'E'; // on 'vide la case du premier clic'
+          dataToSend['newPositions'][Object.keys(cell)[0]] = newItem;
+          dataToSend['newPositions'][Object.keys(state.clickedCell[0])[0]] = 'E';
+
+          state.webSocketSession.publish(state.channel, {...dataToSend});
+          console.log('Message to server:', dataToSend);
+
+          return {
+            ...state,
+            allowedKillList: [],
+            allowedMoveList: [],
+            clickedCell: [], // on réinitialise le tableau clicked cell pour pouvoir recevoir le prochain premier clic
+            board: newBoard // on envoie le nouveau board modifié et le damier se mettra à jour
           };
+        } else {
+          console.log('Movement not allowed');
+          return {
+            ...state,
+            clickedCell: [],
+            allowedMove: [],
+            allowedKill: []
+          };
+        }
       } // end of switch clicCount
       break; // END CASE CELL CLIC
-
     default:
       return state;
-
   }; // end of reducer switch
 }; // end of const reducer
 

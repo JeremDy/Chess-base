@@ -1,4 +1,7 @@
 export const CELL_CLIC = 'actions/CELL_CLIC';
+export const MESSAGE_RECEIVED = 'actions/MESSAGE_RECEIVED';
+export const INITIAL_DISPLAY = 'actions/INITIAL_DISPLAY';
+export const WEBSOCKET_CONNECT = 'actions/WEBSOCKET_CONNECT';
 
 export const handleClickOnCell = (item, color, row, column) => ({
   type: CELL_CLIC,
@@ -8,15 +11,17 @@ export const handleClickOnCell = (item, color, row, column) => ({
   column
 });
 
-export const INITIAL_DISPLAY = 'actions/INITIAL_DISPLAY';
-
-export const initialDisplay = (serverMessage, webSocket) => ({
-  type: INITIAL_DISPLAY,
+export const messageReceived = (serverMessage, session) => ({
+  type: MESSAGE_RECEIVED,
   serverMessage,
-  webSocket
+  session
 });
 
-export const WEBSOCKET_CONNECT = 'actions/WEBSOCKET_CONNECT';
+export const initialDisplay = (session, channel) => ({
+  type: INITIAL_DISPLAY,
+  session,
+  channel
+});
 
 export const webSocketConnect = (channel, color) => ({
   type: WEBSOCKET_CONNECT,
