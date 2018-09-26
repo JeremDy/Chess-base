@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import Form from '../components/Form';
-import { sumbitMessage, writeMessage } from '../store/actions';
+import Form from '../components/Chat/Form';
+import { sumbitMessage, writeMessage } from '../store/actions/chat.js';
 
 const mapStateToProps = state => ({
   valueWrittenMessage: state.valueWrittenMessage

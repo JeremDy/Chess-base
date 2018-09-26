@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import Setting from '../components/Setting';
-import { toggleForm, sumbitUserName, writeUserName } from '../store/actions';
+import Setting from '../components/Chat/Setting';
+import { toggleForm, sumbitUserName, writeUserName } from '../store/actions/chat.js';
 
 const mapStateToProps = state => ({
-  hideForm: state.hideForm,
-  valueWrittenUserName: state.valueWrittenUserName
+  hideForm: state.chat.hideForm,
+  valueWrittenUserName: state.chat.valueWrittenUserName
 });
 
 const mapDispatchToProps = dispatch => ({

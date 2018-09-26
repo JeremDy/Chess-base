@@ -1,4 +1,4 @@
-import { WEBSOCKET_CONNECT, INITIAL_DISPLAY, initialDisplay, MESSAGE_SUBMIT } from '../actions';
+import { WEBSOCKET_CONNECT, initialDisplay, MESSAGE_SUBMIT } from '../actions';
 
 const ioMiddle = store => next => (action) => {
   let webSocket;

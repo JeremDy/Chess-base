@@ -4,6 +4,8 @@ namespace App\Models;
 
 class King extends Piece
 {
+    protected $code = 'K';
+    
     public function canDoThisMove(Board $board, int $newPosX, int $newPosY) : bool
     {
         //la nouvelle case existe :

@@ -5,7 +5,7 @@ import Message from '../../container/message';
 import Form from '../../container/form';
 
 const Chat = () => (
-  <div id="Chat">
+  <div className='bloc' id="Chat">
     <Setting />
     <Message />
     <Form />

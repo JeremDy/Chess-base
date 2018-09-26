@@ -1,5 +1,5 @@
 import {WEBSOCKET_CONNECT, CELL_CLIC, INITIAL_DISPLAY} from './actions';
-import library from '../functions/utils.js';
+import library from '../functions/utils';
 
 const initialState = {
   board: [
@@ -33,7 +33,6 @@ const reducer = (state = initialState, action = {}) => {
       if (action.color == 1) { rotateBoard.reverse(); }
       console.log('------Initialisation------');
       console.log('Mycolor is :', action.color);
-
       return {
         ...state,
         channel: action.channel,
@@ -44,21 +43,21 @@ const reducer = (state = initialState, action = {}) => {
     // ------------------------------------I-N-I-T---D-I-S-P-L-A-Y------------------------------
     // -----------------------------------------------------------------------------------------
     case INITIAL_DISPLAY:
-      let newGameOver = false;
-      let newBoard = [...state.board];
-      let newLastBoard = [...state.lastBoard];
-      let couldPlay = action.serverMessage['canPlay']
-      if (undefined !== action.serverMessage['lastBoard']) {
+      let newGameOver = false; // false par défaut , le passage au true déclenchera l'animation de game Over
+      let newBoard = [...state.board]; // le nouveau board qui va être rendu par react
+      let newLastBoard = [...state.lastBoard];// le board n-1 renvoyé par le serveur 
+      let couldPlay = action.serverMessage['canPlay'];// défini si le joueur peut ou non jouer selon la valeur de canplay envoyé à chaque tour par le serveur
+      if (undefined !== action.serverMessage['lastBoard']) { // si lastboard il y a alors on le convertie au format du board [{'row/column':'item/color'},{}]
         newLastBoard = library.convertServerBoardToClientBoard(action.serverMessage['lastBoard']);
       }
-      if (undefined !== action.serverMessage['endGame']) { newGameOver = true; console.log('over') }
-      if (undefined !== action.serverMessage['movement']) {
+      if (undefined !== action.serverMessage['endGame']) { newGameOver = true; console.log('The Game is now Over'); }// gameOVer si l'on reçoit un message du serveur avec endGame
+      if (undefined !== action.serverMessage['movement']) {// si le message du serveur contient movement, c'est une validation de mouvement
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
         newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[1])[`${Object.keys(action.serverMessage['movement']['newPositions'])[1]}`] = Object.values(action.serverMessage['movement']['newPositions'])[1];
-      } else if (undefined !== action.serverMessage['error']) {
+      } else if (undefined !== action.serverMessage['error']) { // si le message contient error on va revenir au board précédent
         switch (action.serverMessage['error']) {
           case 'Votre roi est en echec !!':
-            if (state.myColor == 1) { newLastBoard.reverse(); }
+            if (state.myColor == 1) { newLastBoard.reverse(); }// selon la couleur on oublie pas de rebasculer le damier pour bien afficher la couleur
             newBoard = newLastBoard;
             console.log('Merci de rejouer');
             couldPlay = true;
@@ -88,8 +87,8 @@ const reducer = (state = initialState, action = {}) => {
       // Pour eviter les erreurs si l'on clique sur une case vide, on enleve la color ( une case vide n'a pas de couleur)
       (color !== undefined) ? cell = {[`${row}/${column}`]: `${item}${color}`} : cell = {[`${row}/${column}`]: `${item}`};
       const clicCount = Number(state.clickedCell.length) + 1; // au début le tableau est vide donc vide + 1 = 1 = premier clic
-      switch (clicCount) { // Debut du switch pour différencier clic 1 clic 2
-        case 1: // premier clic
+      if (clicCount === 1 || color == state.myColor) { // Debut du switch pour différencier clic 1 clic 2
+        // premier clic
           let newMoveAllowed = [];
           let newKillAllowed = [];
           let newRockAllowed = false;
@@ -142,7 +141,7 @@ const reducer = (state = initialState, action = {}) => {
           }; // fin du if (item === 'E') { return state; } else {
           break;
 
-        case 2: // deuxième clic
+        } else if (clicCount === 2 || color != state.myColor) {// deuxième clic
         console.log(state);
           console.log('Clic N°2 done');
           let opponentColor;

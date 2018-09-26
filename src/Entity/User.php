@@ -61,6 +61,16 @@ class User extends BaseUser
      */
     private $receivedMessages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="author")
+     */
+    private $articles;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ArticleAnswer", mappedBy="author")
+     */
+    private $articleAnswers;
+
     public function __construct()
     {
         parent::__construct();
@@ -70,6 +80,8 @@ class User extends BaseUser
         $this->sentMessages = new ArrayCollection();
         $this->receivedMessages = new ArrayCollection();
         $this->IsWhiteInGame = new ArrayCollection();
+        $this->articles = new ArrayCollection();
+        $this->articleAnswers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -269,6 +281,68 @@ class User extends BaseUser
             // set the owning side to null (unless already changed)
             if ($receivedMessage->getReceiver() === $this) {
                 $receivedMessage->setReceiver(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            // set the owning side to null (unless already changed)
+            if ($article->getAuthor() === $this) {
+                $article->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ArticleAnswer[]
+     */
+    public function getArticleAnswers(): Collection
+    {
+        return $this->articleAnswers;
+    }
+
+    public function addArticleAnswer(ArticleAnswer $articleAnswer): self
+    {
+        if (!$this->articleAnswers->contains($articleAnswer)) {
+            $this->articleAnswers[] = $articleAnswer;
+            $articleAnswer->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleAnswer(ArticleAnswer $articleAnswer): self
+    {
+        if ($this->articleAnswers->contains($articleAnswer)) {
+            $this->articleAnswers->removeElement($articleAnswer);
+            // set the owning side to null (unless already changed)
+            if ($articleAnswer->getAuthor() === $this) {
+                $articleAnswer->setAuthor(null);
             }
         }
 

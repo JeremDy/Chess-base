@@ -1,19 +1,21 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import reducer from './reducer'; // notre reducer custom
-import socket from './middlewares/socket'; // notre middleware custom
+import reducer from './reducers'; // notre reducer custom
+import chatMiddleware from './middlewares/chat'; // notre middleware custom
+import playerListMiddleware from './middlewares/playerList'; 
+import routerMiddleware from './middlewares/router'; 
 
 // Extension Redux Dev Tools
-// const devTools = [
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-// ];
+const devTools = [
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+];
 
 // Middlewares custom — on n'en a qu'un seul
-const socketMiddleware = applyMiddleware(socket);
+const socketMiddleware = applyMiddleware(chatMiddleware, playerListMiddleware, routerMiddleware);
 
 // Enhancers : les extensions/outils + les middlewares custom
-// const enhancers = compose(socketMiddleware, ...devTools);
+const enhancers = compose(socketMiddleware, ...devTools);
 
 // Store, configuré avec le reducer et les "enhancers"
-const store = createStore(reducer, socketMiddleware); //createStore(reducer, enhancers);
+const store = createStore(reducer, enhancers); //createStore(reducer, enhancers);
 
 export default store;

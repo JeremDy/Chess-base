@@ -3,6 +3,8 @@ namespace App\Models;
 
 class Pawn extends Piece
 {
+    protected $code = 'P';
+
     public function canDoThisMove(Board $board, int $newPosX, int $newPosY) : bool
     {
         //la nouvelle case existe :
