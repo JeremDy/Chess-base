@@ -2171,7 +2171,8 @@ var reducer = function reducer() {
           }
         }
         return _extends({}, state, {
-          board: newBoard
+          board: newBoard,
+          lastBoard: newLastBoard
         });
       }
       // gameOVer si l'on reçoit un message du serveur avec endGame
@@ -2188,9 +2189,9 @@ var reducer = function reducer() {
         switch (action.serverMessage['error']) {
           case 'Votre roi est en echec !!':
             if (state.myColor == 1) {
-              newLastBoard.reverse();
+              state.lastBoard.reverse();
             } // selon la couleur on oublie pas de rebasculer le damier pour bien afficher la couleur
-            newBoard = newLastBoard;
+            newBoard = state.lastBoard;
             console.log('Merci de rejouer');
             couldPlay = true;
             return _extends({}, state, {
@@ -2198,15 +2199,15 @@ var reducer = function reducer() {
               canPlay: couldPlay
             });
           case 'Ce n\'est pas votre tour.':
-            break;
+
           case 'Adversaire non connecté !':
-            break;
+
           case 'Cette piece n\'existe pas !':
-            break;
+
           case 'Ce n\'est pas une de vos pieces!':
-            break;
+
           case 'Ce mouvement est incorect !':
-            break;
+
         }
       }
       if (undefined !== action.serverMessage['echec']) {

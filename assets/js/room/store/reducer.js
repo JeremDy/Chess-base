@@ -74,7 +74,8 @@ const reducer = (state = initialState, action = {}) => {
         }
         return {
           ...state,
-          board: newBoard
+          board: newBoard,
+          lastBoard: newLastBoard
         };
       }
       // gameOVer si l'on reçoit un message du serveur avec endGame
@@ -92,9 +93,9 @@ const reducer = (state = initialState, action = {}) => {
         switch (action.serverMessage['error']) {
           case 'Votre roi est en echec !!':
             if (state.myColor == 1) {
-              newLastBoard.reverse();
+              state.lastBoard.reverse();
             }// selon la couleur on oublie pas de rebasculer le damier pour bien afficher la couleur
-            newBoard = newLastBoard;
+            newBoard = state.lastBoard;
             console.log('Merci de rejouer');
             couldPlay = true;
             return {
@@ -103,15 +104,15 @@ const reducer = (state = initialState, action = {}) => {
               canPlay: couldPlay
             };
           case 'Ce n\'est pas votre tour.':
-            break;
+          
           case 'Adversaire non connecté !':
-            break;
+         
           case 'Cette piece n\'existe pas !':
-            break;
+         
           case 'Ce n\'est pas une de vos pieces!':
-            break;
+         
           case 'Ce mouvement est incorect !':
-            break;
+           
         }
       }
       if (undefined !== action.serverMessage['echec']) {
