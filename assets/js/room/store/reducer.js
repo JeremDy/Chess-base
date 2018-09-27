@@ -45,33 +45,89 @@ const reducer = (state = initialState, action = {}) => {
     case MESSAGE_RECEIVED:
       let newGameOver = false; // false par défaut , le passage au true déclenchera l'animation de game Over
       let newBoard = [...state.board]; // le nouveau board qui va être rendu par react
-      let newLastBoard = [...state.lastBoard];// le board n-1 renvoyé par le serveur 
-      let couldPlay = action.serverMessage['canPlay'];// défini si le joueur peut ou non jouer selon la valeur de canplay envoyé à chaque tour par le serveur
-      if (undefined !== action.serverMessage['lastBoard']) { // si lastboard il y a alors on le convertie au format du board [{'row/column':'item/color'},{}]
-        newLastBoard = library.convertServerBoardToClientBoard(action.serverMessage['lastBoard']);
+      let newLastBoard = [...state.lastBoard];// le board n-1 renvoyé par le serveur
+      let couldPlay;
+
+      // défini si le joueur peut ou non jouer selon la valeur de canplay envoyé à chaque tour par le serveur
+      if (undefined !== action.serverMessage['canPlay']) {
+        couldPlay = action.serverMessage['canPlay'];
+        console.log('Axel: Now you could play');
+       
+        // si le message du serveur contient movement, c'est une validation de mouvement
+        if (undefined !== action.serverMessage['movement']) {
+          newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
+          newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[1])[`${Object.keys(action.serverMessage['movement']['newPositions'])[1]}`] = Object.values(action.serverMessage['movement']['newPositions'])[1];
+          console.log('Axel: I receive mov\' and update board');
+        }
+        return {
+          ...state,
+          canPlay: couldPlay,
+          board: newBoard
+        };
       }
-      if (undefined !== action.serverMessage['endGame']) { newGameOver = true; console.log('The Game is now Over'); }// gameOVer si l'on reçoit un message du serveur avec endGame
-      if (undefined !== action.serverMessage['movement']) {// si le message du serveur contient movement, c'est une validation de mouvement
-        newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
-        newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[1])[`${Object.keys(action.serverMessage['movement']['newPositions'])[1]}`] = Object.values(action.serverMessage['movement']['newPositions'])[1];
-      } else if (undefined !== action.serverMessage['error']) { // si le message contient error on va revenir au board précédent
+      // si lastboard il y a alors on le convertie au format du board [{'row/column':'item/color'},{}]
+      if (undefined !== action.serverMessage['lastBoard']) {
+        newLastBoard = library.convertServerBoardToClientBoard(action.serverMessage['lastBoard']);
+        console.log('Axel: I received a old board');
+        if (!library.compareOldNewBoard(newLastBoard, newBoard, state.myColor)) {
+          if (state.myColor == 1) { newBoard = newLastBoard.reverse(); } else { newBoard = newLastBoard; }
+        }
+        return {
+          ...state,
+          board: newBoard
+        };
+      }
+      // gameOVer si l'on reçoit un message du serveur avec endGame
+      if (undefined !== action.serverMessage['endGame']) {
+        newGameOver = true;
+        console.log('Axel: The Game is now Over');
+        return {
+          ...state,
+          gameOver: newGameOver
+        };
+      }
+
+      // si le message contient error on va revenir au board précédent
+      if (undefined !== action.serverMessage['error']) {
         switch (action.serverMessage['error']) {
           case 'Votre roi est en echec !!':
-            if (state.myColor == 1) { newLastBoard.reverse(); }// selon la couleur on oublie pas de rebasculer le damier pour bien afficher la couleur
+            if (state.myColor == 1) {
+              newLastBoard.reverse();
+            }// selon la couleur on oublie pas de rebasculer le damier pour bien afficher la couleur
             newBoard = newLastBoard;
             console.log('Merci de rejouer');
             couldPlay = true;
+            return {
+              ...state,
+              board: newBoard,
+              canPlay: couldPlay
+            };
+          case 'Ce n\'est pas votre tour.':
+            break;
+          case 'Adversaire non connecté !':
+            break;
+          case 'Cette piece n\'existe pas !':
+            break;
+          case 'Ce n\'est pas une de vos pieces!':
+            break;
+          case 'Ce mouvement est incorect !':
+            break;
         }
       }
-      if (!library.compareOldNewBoard(newLastBoard, newBoard, state.myColor)) {
-        if (state.myColor == 1) { newBoard = newLastBoard.reverse(); } else { newBoard = newLastBoard; }
+      if (undefined !== action.serverMessage['echec']) {
+        switch (action.serverMessage['echec']) {
+          case 'Vous avez mis le roi adverse en echec !':
+            break;
+          case 'votre roi est en echec !':
+            break;
+        }
+      }
+
+      if (undefined !== action.serverMessage['movementList']) {
+ 
       }
       return {
         ...state,
-        gameOver: newGameOver,
-        canPlay: couldPlay,
-        board: newBoard,
-        lastBoard: newLastBoard,
         webSocketSession: action.session
       };
 
@@ -88,10 +144,11 @@ const reducer = (state = initialState, action = {}) => {
       const clicCount = Number(state.clickedCell.length) + 1; // au début le tableau est vide donc vide + 1 = 1 = premier clic
       if (clicCount === 1 || color == state.myColor) { // Debut du switch pour différencier clic 1 clic 2
         // premier clic
+        // console.log('not over',item, row, column, color)
         let newMoveAllowed = [];
         let newKillAllowed = [];
         let newRockAllowed = false;
-        if (item === 'E' || !state.canPlay || color != state.myColor) { return state; } else if (state.canPlay & color == state.myColor) { // annule tout effet d'un clic sur une cellule vide
+        if (item === 'E' || !state.canPlay || color != state.myColor) { return state; } else if (state.canPlay & (color == state.myColor)) { // annule tout effet d'un clic sur une cellule vide
           console.log('Clic N°1 done');
           switch (item) { // Selon la pièce sur laquelle on a clic, on va créer un tableau de cases autorisées
             case 'P':
