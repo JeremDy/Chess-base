@@ -29,11 +29,6 @@ class GameOver
     private $Duration;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="gameOverPlayer")
-     */
-    private $Player;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $Opponent;
@@ -43,9 +38,15 @@ class GameOver
      */
     private $IsWinner;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="gameOvers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $player;
+
     public function __construct()
     {
-        $this->Player = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -77,36 +78,6 @@ class GameOver
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getPlayer(): Collection
-    {
-        return $this->Player;
-    }
-
-    public function addPlayer(User $player): self
-    {
-        if (!$this->Player->contains($player)) {
-            $this->Player[] = $player;
-            $player->setGameOverPlayer($this);
-        }
-
-        return $this;
-    }
-
-    public function removePlayer(User $player): self
-    {
-        if ($this->Player->contains($player)) {
-            $this->Player->removeElement($player);
-            // set the owning side to null (unless already changed)
-            if ($player->getGameOverPlayer() === $this) {
-                $player->setGameOverPlayer(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getOpponent(): ?User
     {
@@ -128,6 +99,18 @@ class GameOver
     public function setIsWinner(bool $IsWinner): self
     {
         $this->IsWinner = $IsWinner;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?User
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?User $player): self
+    {
+        $this->player = $player;
 
         return $this;
     }

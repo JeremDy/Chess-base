@@ -72,11 +72,24 @@ class User extends BaseUser
     private $articleAnswers;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GameOver", mappedBy="player")
+     */
+    private $gameOvers;
+
+  
+  /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Stats", cascade={"persist", "remove"})
+     */
+    private $stats;
+
+   
+  /**
      * @ORM\ManyToMany(targetEntity="User", mappedBy="myFriends")
      **/
     private $friendsWithMe;
 
-    /**
+   
+  /**
      * @ORM\ManyToMany(targetEntity="User", inversedBy="friendsWithMe")
      * @ORM\JoinTable(name="friends",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -97,9 +110,11 @@ class User extends BaseUser
         $this->IsWhiteInGame = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->articleAnswers = new ArrayCollection();
+        $this->gameOvers = new ArrayCollection();
         $this->myFriends = new ArrayCollection();
         $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -368,6 +383,19 @@ class User extends BaseUser
     }
 
     /**
+     * @return Collection|GameOver[]
+     */
+    public function getGameOvers(): Collection
+    {
+        return $this->gameOvers;
+    }
+
+    public function addGameOver(GameOver $gameOver): self
+    {
+        if (!$this->gameOvers->contains($gameOver)) {
+            $this->gameOvers[] = $gameOver;
+            $gameOver->setPlayer($this);
+
      * @return Collection|User[]
      */
     public function getMyFriends(): Collection
@@ -379,19 +407,45 @@ class User extends BaseUser
     {
         if (!$this->myFriends->contains($myFriend)) {
             $this->myFriends[] = $myFriend;
+
         }
 
         return $this;
     }
+
+
+    public function removeGameOver(GameOver $gameOver): self
+    {
+        if ($this->gameOvers->contains($gameOver)) {
+            $this->gameOvers->removeElement($gameOver);
+            // set the owning side to null (unless already changed)
+            if ($gameOver->getPlayer() === $this) {
+                $gameOver->setPlayer(null);
+            }
 
     public function removeMyFriend(User $myFriend): self
     {
         if ($this->myFriends->contains($myFriend)) {
             $this->myFriends->removeElement($myFriend);
+
         }
 
         return $this;
     }
+
+
+    public function getStats(): ?Stats
+    {
+        return $this->stats;
+    }
+
+    public function setStats(?Stats $stats): self
+    {
+        $this->stats = $stats;
+
+        return $this;
+    }
+
 }
 
 

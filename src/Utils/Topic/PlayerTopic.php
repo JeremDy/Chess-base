@@ -89,6 +89,7 @@ class PlayerTopic implements TopicInterface , TopicPeriodicTimerInterface
      */
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {  
+        
 
     }
 
