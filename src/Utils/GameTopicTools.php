@@ -53,6 +53,8 @@ class GameTopicTools
         $this->doctrine->getManager()->persist($playerStats);
 
         $player->setStats($playerStats);
+       
+        $this->doctrine->getManager()->remove($game);
 
         $this->doctrine->getManager()->flush();
     }

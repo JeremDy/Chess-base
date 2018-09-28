@@ -13,8 +13,11 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use App\Utils\GameTopicMessage;
 use App\Entity\Stats;
 use App\Utils\GameTopicTools;
+use Gos\Bundle\WebSocketBundle\Topic\ConnectionPeriodicTimer;
+use Gos\Bundle\WebSocketBundle\Topic\SecuredTopicInterface;
+use Gos\Bundle\WebSocketBundle\Server\Exception\FirewallRejectionException;
 
-class GameTopic implements TopicInterface
+class GameTopic implements TopicInterface, SecuredTopicInterface
 {
     protected $clientManipulator;
     private $doctrine;
@@ -31,6 +34,19 @@ class GameTopic implements TopicInterface
         $this->gameTopicMessage = $gameTopicMessage;
         $this->gameTopicTools = $gameTopicTools;
     }
+
+
+    public function secure(ConnectionInterface $connection = null, Topic $topic, WampRequest $request, $payload = null, $exclude = null, $eligible = null, $provider = null)
+    {
+        // check input data to verify if connection must be blocked
+        if ($this->clientManipulator->getClient($connection)->getUsername() !== $request->getAttributes()->get('playerOne')
+            && $this->clientManipulator->getClient($connection)->getUsername() !== $request->getAttributes()->get('playerTwo')) {
+                dump('nope!');
+                throw new FirewallRejectionException();
+        } 
+        dump('yoyhou');
+    }
+
             
     /**
      * This will receive any Subscription requests for this topic.
@@ -94,8 +110,11 @@ class GameTopic implements TopicInterface
      */
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-        unset($topic);
-        unset($game);
+      $topicTimer =  $topicTimer = $connection->PeriodicTimer;
+      $topicTimer->addPeriodicTimer('hello', 10, function() use ($topic, $connection) {
+        dump('hello');
+    });
+
     }
 
 
