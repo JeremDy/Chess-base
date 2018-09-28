@@ -3,17 +3,26 @@
 {% block fos_user_content %}
 
 {# Un p'tit coup d'front pour ce input d'ajout d'amis que l'on retrouve aussi dans la liste joueur ? :) #}
+<div class="col-12">
 <form class="mt-2 d-flex">
             <h4 class="titleInvite"> Ajouter un joueur(A link avec front, ListFriend.html.twig) :</h4> 
             <input class="inputName" type="text">
             <button class="btn btn-light m-1" type="link">Ajouter</button>
 </form>
+</div>
+<div>
 <ul>
     {% for friend in list %}
-        <li>{{ friend.username }}</li> 
-        <a class="btn btn-primary" href="{{ path('remove', { 'id':friend.id}) }}">Supprimer</a>
+    <div class="d-flex mb-2">
+        <li class="col-8">
+        <img class=""src="{{ asset(image_directory_chess ~ (friend.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" />
+        {{ friend.username }}
+        </li> 
+        <a class="btn btn-primary ml-2" href="{{ path('profileShow', { 'id':friend.id}) }}">Profil</a><a class="btn btn-warning ml-2" href="{{ path('remove', { 'id':friend.id}) }}">Supprimer</a>
+    </div>
     {% endfor %}
 </ul>
+</div>
     {% if list is empty %}
      <h2>Vous pouvez aussi ajouter des amis depuis leurs pages de profil !</h2>
     {% endif %}
