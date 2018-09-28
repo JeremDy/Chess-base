@@ -7,6 +7,7 @@ const ioMiddle = store => next => (action) => {
       let session = action.session;
       session.subscribe(channel, function(uri, serverMessage) {
         store.dispatch(messageReceived(serverMessage, session));
+        console.log('ServerMess:',serverMessage)
       });
       break;
     default:
