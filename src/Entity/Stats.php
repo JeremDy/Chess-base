@@ -17,13 +17,7 @@ class Stats
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="Id", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $Player;
-
-    /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $NbWin;
 
@@ -33,12 +27,12 @@ class Stats
     private $NbGame;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $NbLose;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $NbSurrender;
 
@@ -52,24 +46,12 @@ class Stats
         return $this->id;
     }
 
-    public function getPlayer(): ?User
-    {
-        return $this->Player;
-    }
-
-    public function setPlayer(User $Player): self
-    {
-        $this->Player = $Player;
-
-        return $this;
-    }
-
     public function getNbWin(): ?int
     {
         return $this->NbWin;
     }
 
-    public function setNbWin(int $NbWin): self
+    public function setNbWin(?int $NbWin): self
     {
         $this->NbWin = $NbWin;
 
@@ -93,7 +75,7 @@ class Stats
         return $this->NbLose;
     }
 
-    public function setNbLose(int $NbLose): self
+    public function setNbLose(?int $NbLose): self
     {
         $this->NbLose = $NbLose;
 
@@ -105,7 +87,7 @@ class Stats
         return $this->NbSurrender;
     }
 
-    public function setNbSurrender(int $NbSurrender): self
+    public function setNbSurrender(?int $NbSurrender): self
     {
         $this->NbSurrender = $NbSurrender;
 

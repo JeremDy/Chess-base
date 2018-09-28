@@ -71,6 +71,18 @@ class User extends BaseUser
      */
     private $articleAnswers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GameOver", mappedBy="player")
+     */
+    private $gameOvers;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Stats", cascade={"persist", "remove"})
+     */
+    private $stats;
+
+ 
+
     public function __construct()
     {
         parent::__construct();
@@ -82,6 +94,7 @@ class User extends BaseUser
         $this->IsWhiteInGame = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->articleAnswers = new ArrayCollection();
+        $this->gameOvers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -345,6 +358,49 @@ class User extends BaseUser
                 $articleAnswer->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GameOver[]
+     */
+    public function getGameOvers(): Collection
+    {
+        return $this->gameOvers;
+    }
+
+    public function addGameOver(GameOver $gameOver): self
+    {
+        if (!$this->gameOvers->contains($gameOver)) {
+            $this->gameOvers[] = $gameOver;
+            $gameOver->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameOver(GameOver $gameOver): self
+    {
+        if ($this->gameOvers->contains($gameOver)) {
+            $this->gameOvers->removeElement($gameOver);
+            // set the owning side to null (unless already changed)
+            if ($gameOver->getPlayer() === $this) {
+                $gameOver->setPlayer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStats(): ?Stats
+    {
+        return $this->stats;
+    }
+
+    public function setStats(?Stats $stats): self
+    {
+        $this->stats = $stats;
 
         return $this;
     }

@@ -86,3 +86,6 @@ services:
     
     GameTopicMessage :
         class : App\Utils\GameTopicMessage
+    
+    GameTopicTools :
+        class : App\Utils\GameTopicTools
