@@ -53,6 +53,8 @@ class ProfileController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('App:User')->find($id);
         $stats = $em->getRepository('App:Stats')->find($id);
+        $list = $this->getUser()->getMyFriends();
+
         if($stats === null) {
             return $this->render('bundles/FOSUserBundle/Profile/show.html.twig', array(
                 'user' => $user,
@@ -61,6 +63,7 @@ class ProfileController extends Controller
         return $this->render('bundles/FOSUserBundle/Profile/show.html.twig', array(
             'user' => $user,
             'stats' => $stats,
+            'friend' =>$list,
         )); }
     }
 

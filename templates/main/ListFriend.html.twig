@@ -1,13 +1,21 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
 {% block fos_user_content %}
+
+{# Un p'tit coup d'front pour ce input d'ajout d'amis que l'on retrouve aussi dans la liste joueur ? :) #}
+<form class="mt-2 d-flex">
+            <h4 class="titleInvite"> Ajouter un joueur(A link avec front, ListFriend.html.twig) :</h4> 
+            <input class="inputName" type="text">
+            <button class="btn btn-light m-1" type="link">Ajouter</button>
+</form>
 <ul>
     {% for friend in list %}
-        <li>{{ friend.username }}</li>
+        <li>{{ friend.username }}</li> 
+        <a class="btn btn-primary" href="{{ path('remove', { 'id':friend.id}) }}">Supprimer</a>
     {% endfor %}
 </ul>
     {% if list is empty %}
-     <h2>Vous pouvez ajouter des amis depuis leurs pages de profil !</h2>
+     <h2>Vous pouvez aussi ajouter des amis depuis leurs pages de profil !</h2>
     {% endif %}
  
 {% endblock fos_user_content %}
