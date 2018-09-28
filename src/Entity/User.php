@@ -395,9 +395,12 @@ class User extends BaseUser
         if (!$this->gameOvers->contains($gameOver)) {
             $this->gameOvers[] = $gameOver;
             $gameOver->setPlayer($this);
+        }
+    }
 
-     * @return Collection|User[]
-     */
+    /*
+    * @return Collection|User[]
+    */
     public function getMyFriends(): Collection
     {
         return $this->myFriends;
@@ -422,6 +425,8 @@ class User extends BaseUser
             if ($gameOver->getPlayer() === $this) {
                 $gameOver->setPlayer(null);
             }
+        }
+    }
 
     public function removeMyFriend(User $myFriend): self
     {
