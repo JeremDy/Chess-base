@@ -23,7 +23,7 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
     private $doctrine;
     private $gameTopicMessage;
     private $gameTopicTools;
-    private $periodicTimer;
+    private $topicTimer;
     
 
     /**
@@ -59,7 +59,7 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-        if (null !== $this->topicTimer) {
+        if (null !== $this->topicTimer && $this->topicTimer->isPeriodicTimerActive($this->clientManipulator->getClient($connection)->getUsername())) {
             dump('revenu à temps, ouf !');
             $this->topicTimer->cancelPeriodicTimer($this->clientManipulator->getClient($connection)->getUsername());
         }
@@ -130,6 +130,9 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
                 $this->gameTopicTools->endGameDbEntry($playerName, $opponentName, $game, 'surrender');
                 $this->gameTopicTools->endGameDbEntry($opponentName, $playerName, $game, 'win');
                 $this->topicTimer->cancelPeriodicTimer($playerName);
+                if ($this->topicTimer->isPeriodicTimerActive($opponentName)) {
+                    $this->topicTimer->cancelPeriodicTimer($opponentName);
+                }
                 dump('partie terminé !');
             });
         }

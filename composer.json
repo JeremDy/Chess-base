@@ -31,7 +31,9 @@
         "symfony/validator": "*",
         "symfony/web-link": "*",
         "symfony/webpack-encore-pack": "^1.0",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "react/event-loop": "0.4.3"
+
     },
     "require-dev": {
         "symfony/debug-pack": "*",

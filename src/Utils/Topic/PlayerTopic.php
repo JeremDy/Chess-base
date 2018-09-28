@@ -58,7 +58,6 @@ class PlayerTopic implements TopicInterface , TopicPeriodicTimerInterface
                     'profilPath' =>  $this->urlGenerator->generate('profileShow', ['id' =>  $subscriber['client']->getId()])
                 ];
             }
-            dump($playerList);
             $topic->broadcast($playerList);
         });
     }
@@ -75,7 +74,6 @@ class PlayerTopic implements TopicInterface , TopicPeriodicTimerInterface
                 'profilPath' =>  $this->urlGenerator->generate('profileShow', ['id' =>  $subscriber['client']->getId()])
             ];
         }
-        dump($playerList);
         $topic->broadcast($playerList);
     }
 
