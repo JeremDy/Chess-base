@@ -1,0 +1,13 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block fos_user_content %}
+<ul>
+    {% for friend in list %}
+        <li>{{ friend.username }}</li>
+    {% endfor %}
+</ul>
+    {% if list is empty %}
+     <h2>Vous pouvez ajouter des amis depuis leurs pages de profil !</h2>
+    {% endif %}
+ 
+{% endblock fos_user_content %}

@@ -71,6 +71,21 @@ class User extends BaseUser
      */
     private $articleAnswers;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="myFriends")
+     **/
+    private $friendsWithMe;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="friendsWithMe")
+     * @ORM\JoinTable(name="friends",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")}
+     *      )
+     **/
+    private $myFriends;
+    
+
     public function __construct()
     {
         parent::__construct();
@@ -82,6 +97,9 @@ class User extends BaseUser
         $this->IsWhiteInGame = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->articleAnswers = new ArrayCollection();
+        $this->myFriends = new ArrayCollection();
+        $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId(): ?int
@@ -344,6 +362,32 @@ class User extends BaseUser
             if ($articleAnswer->getAuthor() === $this) {
                 $articleAnswer->setAuthor(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getMyFriends(): Collection
+    {
+        return $this->myFriends;
+    }
+
+    public function addMyFriend(User $myFriend): self
+    {
+        if (!$this->myFriends->contains($myFriend)) {
+            $this->myFriends[] = $myFriend;
+        }
+
+        return $this;
+    }
+
+    public function removeMyFriend(User $myFriend): self
+    {
+        if ($this->myFriends->contains($myFriend)) {
+            $this->myFriends->removeElement($myFriend);
         }
 
         return $this;

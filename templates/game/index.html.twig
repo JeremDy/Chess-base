@@ -14,6 +14,8 @@
 
 {% block body %}
 <h1 class ="text-center mb-5">{{ game.playerOne.username}} vs {{ game.playerTwo.username}} </h1>
+{# Exemple de ligne pour afficher les images profils en game : 
+<img class=""src="{{ asset(image_directory_chess ~ (game.playerOne.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /> #}
 <div id="root"><div>
 {% endblock %}
 

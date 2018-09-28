@@ -122,7 +122,7 @@ class ProfileController extends Controller
                 $picture->move($this->getParameter('picture_directory'), $fileName);
                 // Met à jour le nom de l'image finale dans notre user
                 $user->setProfilePicture($fileName);
-            
+                // Ne pas oublier d'inclure le if suivant et non le mettre indépendant...
                 if (!is_null($oldImage)) { // Cette ligne permet d'éviter une erreur lors de l'edit du null
                     $imagePathProfileThumb = $this->getParameter('profile_directory') . DIRECTORY_SEPARATOR . $oldImage;
                     unlink($imagePathProfileThumb);

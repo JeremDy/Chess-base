@@ -13,9 +13,9 @@ const devTools = [
 const socketMiddleware = applyMiddleware(chatMiddleware, playerListMiddleware, routerMiddleware);
 
 // Enhancers : les extensions/outils + les middlewares custom
-const enhancers = compose(socketMiddleware, ...devTools);
+// const enhancers = compose(socketMiddleware, ...devTools);
 
 // Store, configuré avec le reducer et les "enhancers"
-const store = createStore(reducer, enhancers); //createStore(reducer, enhancers);
+const store = createStore(reducer, socketMiddleware); //createStore(reducer, enhancers);
 
 export default store;

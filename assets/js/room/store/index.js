@@ -11,10 +11,10 @@ const devTools = [
 // Middlewares custom — on n'en a qu'un seul
 const socketMiddleware = applyMiddleware(game, router);
 
-// Enhancers : les extensions/outils + les middlewares custom
-const enhancers = compose(socketMiddleware, ...devTools);
+// socketMiddleware : les extensions/outils + les middlewares custom
+// const socketMiddleware = compose(socketMiddleware, ...devTools);
 
 // Store, configuré avec le reducer et les "enhancers"
-const store = createStore(reducer, enhancers); //createStore(reducer, enhancers);
+const store = createStore(reducer, socketMiddleware); //createStore(reducer, enhancers);
 
 export default store;
