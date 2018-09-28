@@ -90,13 +90,10 @@
         }
     },
     "egulias/email-validator": {
-        "version": "2.1.5"
+        "version": "2.1.6"
     },
     "evenement/evenement": {
         "version": "v3.0.1"
-    },
-    "facebook/webdriver": {
-        "version": "1.6.0"
     },
     "fig/link-util": {
         "version": "1.0.0"
@@ -162,10 +159,10 @@
         "version": "1.23.0"
     },
     "nikic/php-parser": {
-        "version": "v4.0.3"
+        "version": "v4.0.4"
     },
     "ocramius/proxy-manager": {
-        "version": "2.1.1"
+        "version": "2.2.2"
     },
     "pagerfanta/pagerfanta": {
         "version": "v2.0.1"
@@ -174,7 +171,7 @@
         "version": "v1.5.0"
     },
     "php-http/client-common": {
-        "version": "1.7.0"
+        "version": "1.8.0"
     },
     "php-http/discovery": {
         "version": "1.4.0"
@@ -218,9 +215,6 @@
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
     },
-    "predis/predis": {
-        "version": "v1.1.1"
-    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -249,7 +243,7 @@
         "version": "v0.4.15"
     },
     "react/event-loop": {
-        "version": "v0.5.3"
+        "version": "v0.4.3"
     },
     "react/promise": {
         "version": "v2.7.0"
@@ -270,15 +264,6 @@
             "branch": "master",
             "version": "5.2",
             "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
-        }
-    },
-    "snc/redis-bundle": {
-        "version": "2.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "2.0",
-            "ref": "e9c58bfc414cfb7f06e8e5ae9f589868498f5d6a"
         }
     },
     "swiftmailer/swiftmailer": {
@@ -365,7 +350,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "3.3",
-            "ref": "87c585d24de9f43bca80ebcfd5cf5cb39445d95f"
+            "ref": "1717e67afa995e4f01a25ba9ae7aca5b2327bcaa"
         }
     },
     "symfony/http-foundation": {
@@ -407,16 +392,13 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
-    "symfony/panther": {
-        "version": "v0.1.0"
-    },
     "symfony/phpunit-bridge": {
         "version": "4.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.1",
-            "ref": "1a47f76dcd9d5d4da1fab54fb15450bae3704c5e"
+            "ref": "b14c7f62fabeedf256d3211b0f704402b5530ba1"
         }
     },
     "symfony/polyfill-intl-icu": {
@@ -438,9 +420,6 @@
         "version": "v4.1.4"
     },
     "symfony/property-info": {
-        "version": "v4.1.4"
-    },
-    "symfony/proxy-manager-bridge": {
         "version": "v4.1.4"
     },
     "symfony/routing": {

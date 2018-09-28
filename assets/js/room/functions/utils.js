@@ -573,6 +573,20 @@ var library = {
     });
     test > 2 ? test = false : test = true;
     return test;
+  },
+  convertMovementList: function(serverMovList) {
+    let newMovementList = [];
+    serverMovList.forEach(function(move) {
+        // console.log('mov',move[Object.keys(move)[1]])
+      if (move[Object.keys(move)[1]] === 'E') {
+        newMovementList.push({'Item': `${move[Object.keys(move)[0]]}`,'ItemKill': 0, 'ArrivedCell': `${Object.keys(move)[0]}`});
+      }
+      if (move[Object.keys(move)[1]] !== 'E') {
+        newMovementList.push({'Item': `${move[Object.keys(move)[0]]}`, 'ItemKill': `${move[Object.keys(move)[1]]}`, 'ArrivedCell': `${Object.keys(move)[0]}`});
+      }
+    });
+    // console.log('newMovementList',newMovementList)
+    return newMovementList;
   }
 };
 

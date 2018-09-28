@@ -1,12 +1,10 @@
 import React from 'react';
-
-import Content from './Content';
-import Header from './Header';
+import './move.sass'
+import Movements from '../../../../containers/Movements.js';
 
 const Moves = () => (
   <div id="Moves">
-    <Header />
-    <Content />
+    <Movements />
   </div>
 );
 

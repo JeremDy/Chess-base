@@ -1,4 +1,4 @@
-import {WEBSOCKET_CONNECT, CELL_CLIC, MESSAGE_RECEIVED} from './actions';
+import {WEBSOCKET_CONNECT, CELL_CLIC, MESSAGE_RECEIVED, INITIAL_DISPLAY} from './actions';
 import library from '../functions/utils';
 
 const initialState = {
@@ -15,6 +15,11 @@ const initialState = {
   rockAllowed: false,
   gameOver: false,
   lastBoard: [],
+  whitePlayer: '',
+  blackPlayer: '',
+  winner: '',
+  loser: '',
+  movementsList: [],
   allowedMoveList: [],
   allowedKillList: [],
   allowedMove: [],
@@ -30,14 +35,25 @@ const reducer = (state = initialState, action = {}) => {
   switch (action.type) { // DEBUT DU SWITCH REDUCER
     case WEBSOCKET_CONNECT:
       let rotateBoard = [...state.board];
+
       if (action.color == 1) { rotateBoard.reverse(); }
       console.log('------Initialisation------');
-      console.log('Mycolor is :', action.color);
+      console.log('Mycolor is :', action.color, action.channel);
       return {
         ...state,
         channel: action.channel,
         myColor: action.color,
+
         board: rotateBoard
+      };
+    case INITIAL_DISPLAY:
+      let newWhitePlayer = action.channel.split('/')[2];
+      let newBlackPlayer = action.channel.split('/')[3];
+      return {
+        ...state,
+        blackPlayer: newBlackPlayer,
+        whitePlayer: newWhitePlayer,
+        webSocketSession: action.session
       };
     // -----------------------------------------------------------------------------------------
     // ------------------------------------I-N-I-T---D-I-S-P-L-A-Y------------------------------
@@ -47,17 +63,16 @@ const reducer = (state = initialState, action = {}) => {
       let newBoard = [...state.board]; // le nouveau board qui va être rendu par react
       let newLastBoard = [...state.lastBoard];// le board n-1 renvoyé par le serveur
       let couldPlay;
+      let newMovementsList = [];
 
       // défini si le joueur peut ou non jouer selon la valeur de canplay envoyé à chaque tour par le serveur
       if (undefined !== action.serverMessage['canPlay']) {
         couldPlay = action.serverMessage['canPlay'];
-        console.log('Axel: Now you could play');
-       
+
         // si le message du serveur contient movement, c'est une validation de mouvement
         if (undefined !== action.serverMessage['movement']) {
           newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
           newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[1])[`${Object.keys(action.serverMessage['movement']['newPositions'])[1]}`] = Object.values(action.serverMessage['movement']['newPositions'])[1];
-          console.log('Axel: I receive mov\' and update board');
         }
         return {
           ...state,
@@ -68,7 +83,6 @@ const reducer = (state = initialState, action = {}) => {
       // si lastboard il y a alors on le convertie au format du board [{'row/column':'item/color'},{}]
       if (undefined !== action.serverMessage['lastBoard']) {
         newLastBoard = library.convertServerBoardToClientBoard(action.serverMessage['lastBoard']);
-        console.log('Axel: I received a old board');
         if (!library.compareOldNewBoard(newLastBoard, newBoard, state.myColor)) {
           if (state.myColor == 1) { newBoard = newLastBoard.reverse(); } else { newBoard = newLastBoard; }
         }
@@ -125,11 +139,14 @@ const reducer = (state = initialState, action = {}) => {
       }
 
       if (undefined !== action.serverMessage['movementList']) {
- 
+        newMovementsList = library.convertMovementList(action.serverMessage['movementList'])
+        return {
+          ...state,
+          movementsList: newMovementsList
+        };
       }
       return {
-        ...state,
-        webSocketSession: action.session
+        ...state
       };
 
     // -----------------------------------------------------------------------------------------
