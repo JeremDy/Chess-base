@@ -14,4 +14,4 @@ const rootComponent = (
 
 render(rootComponent, document.getElementById('root'));
 
-store.dispatch(webSocketConnect());
+store.dispatch(webSocketConnect(BASE_URL));

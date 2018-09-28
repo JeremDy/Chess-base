@@ -336,7 +336,6 @@ var library = {
         Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${(row + i)}/${column}`))[0] === 'E'
       ) {
         newMoveAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${(row + i)}/${column}`));
-        console.log('1er if')
       } else if (
         Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${(row + i)}/${column}`))[0] !== 'E' &
         Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${(row + i)}/${column}`))[0].slice(1, 2) != color
@@ -436,8 +435,6 @@ var library = {
         newKillAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${(row - i)}/${(column - i)}`));
       }
     }
-    console.log(Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 1}`))[0]);
-    console.log(Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 2}`))[0]);
 
     if (
       (((row === 1) || (row === 8)) & (column === 4)) &
@@ -462,10 +459,10 @@ var library = {
     let color;
     let partList = ['P', 'T', 'C', 'F', 'Q', 'K'];
     if (arrayName === 'opponentAction'
-  ) {
+    ) {
       myColor == 1 ? color = 0 : color = 1;
     } else if (arrayName === 'myAction'
-  ) {
+    ) {
       myColor == 1 ? color = 1 : color = 0;
     } else { console.log('erreur'); };
 

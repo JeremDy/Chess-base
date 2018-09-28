@@ -76,12 +76,28 @@ class User extends BaseUser
      */
     private $gameOvers;
 
-    /**
+  
+  /**
      * @ORM\OneToOne(targetEntity="App\Entity\Stats", cascade={"persist", "remove"})
      */
     private $stats;
 
- 
+   
+  /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="myFriends")
+     **/
+    private $friendsWithMe;
+
+   
+  /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="friendsWithMe")
+     * @ORM\JoinTable(name="friends",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")}
+     *      )
+     **/
+    private $myFriends;
+    
 
     public function __construct()
     {
@@ -95,6 +111,10 @@ class User extends BaseUser
         $this->articles = new ArrayCollection();
         $this->articleAnswers = new ArrayCollection();
         $this->gameOvers = new ArrayCollection();
+        $this->myFriends = new ArrayCollection();
+        $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -375,10 +395,24 @@ class User extends BaseUser
         if (!$this->gameOvers->contains($gameOver)) {
             $this->gameOvers[] = $gameOver;
             $gameOver->setPlayer($this);
+
+     * @return Collection|User[]
+     */
+    public function getMyFriends(): Collection
+    {
+        return $this->myFriends;
+    }
+
+    public function addMyFriend(User $myFriend): self
+    {
+        if (!$this->myFriends->contains($myFriend)) {
+            $this->myFriends[] = $myFriend;
+
         }
 
         return $this;
     }
+
 
     public function removeGameOver(GameOver $gameOver): self
     {
@@ -388,10 +422,17 @@ class User extends BaseUser
             if ($gameOver->getPlayer() === $this) {
                 $gameOver->setPlayer(null);
             }
+
+    public function removeMyFriend(User $myFriend): self
+    {
+        if ($this->myFriends->contains($myFriend)) {
+            $this->myFriends->removeElement($myFriend);
+
         }
 
         return $this;
     }
+
 
     public function getStats(): ?Stats
     {
@@ -404,6 +445,7 @@ class User extends BaseUser
 
         return $this;
     }
+
 }
 
 
