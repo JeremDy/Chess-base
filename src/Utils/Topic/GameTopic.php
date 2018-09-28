@@ -23,6 +23,8 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
     private $doctrine;
     private $gameTopicMessage;
     private $gameTopicTools;
+    private $periodicTimer;
+    
 
     /**
      * @param ClientManipulatorInterface $clientManipulator
@@ -44,7 +46,6 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
                 dump('nope!');
                 throw new FirewallRejectionException();
         } 
-        dump('yoyhou');
     }
 
             
@@ -58,6 +59,10 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
+        if (null !== $this->topicTimer) {
+            dump('revenu à temps, ouf !');
+            $this->topicTimer->cancelPeriodicTimer($this->clientManipulator->getClient($connection)->getUsername());
+        }
         $topic->autoDelete = true; 
         
         $gameId = $request->getAttributes()->get('gameId');
@@ -110,10 +115,24 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
      */
     public function onUnSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
-      $topicTimer =  $topicTimer = $connection->PeriodicTimer;
-      $topicTimer->addPeriodicTimer('hello', 10, function() use ($topic, $connection) {
-        dump('hello');
-    });
+        $gameId = $request->getAttributes()->get('gameId');
+        $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
+        $user = $this->clientManipulator->getClient($connection);
+        $playerName = $user->getUsername();
+        $opponentName =  $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne');
+        
+        if(null === $this->topicTimer){
+            $this->topicTimer = $connection->PeriodicTimer;
+        }
+
+        if (null !== $game) {
+            $this->topicTimer->addPeriodicTimer($playerName, 20, function () use ($topic, $connection,$playerName, $opponentName, $game) {
+                $this->gameTopicTools->endGameDbEntry($playerName, $opponentName, $game, 'surrender');
+                $this->gameTopicTools->endGameDbEntry($opponentName, $playerName, $game, 'win');
+                $this->topicTimer->cancelPeriodicTimer($playerName);
+                dump('partie terminé !');
+            });
+        }
 
     }
 
@@ -223,15 +242,13 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
 
           //verif si le roi adverse est en echec apres le mouvement.
         if (true === $board->thisKingIsCheck($opponentColor)) {
+           
             //verif si il y'a echec et mat !
-            if (true === $board->thisKingIsMat($opponentColor)) {
+            if (true === $board->thisKingIsMat($opponentColor)) {                
                 $this->gameTopicMessage->checkMate($topic, $playerSessionId, $opponentSessionId);
-
                 //si il y'a echec et mat, on enregistre la game (dans GameOver) et les stats en Bdd :
-                $playerDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($playerName);
-                $opponentDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($opponentName);
-                $this->gameTopicTools->endGameDbEntry($playerDoctrine, $opponentDoctrine, $game, 'win');
-                $this->gameTopicTools->endGameDbEntry($opponentDoctrine, $playerDoctrine, $game, 'lose');
+                $this->gameTopicTools->endGameDbEntry($playerName, $opponentName, $game, 'win');
+                $this->gameTopicTools->endGameDbEntry($opponentName, $playerName, $game, 'lose');
                 
                 return;
             }

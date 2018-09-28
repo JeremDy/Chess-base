@@ -18,8 +18,11 @@ class GameTopicTools
         $this->doctrine = $doctrine;
     }
 
-    public function endGameDbEntry(User $player, User $opponent, Game $game, string $result)
+    public function endGameDbEntry(string $playerName, string $opponentName, Game $game, string $result)
     {
+        $player = $this->doctrine->getRepository(User::class)->findOneByUsername($playerName);
+        $opponent = $this->doctrine->getRepository(User::class)->findOneByUsername($opponentName);
+
         $playerGameOver = new GameOver();
 
         $playerGameOver->setPlayer($player)
