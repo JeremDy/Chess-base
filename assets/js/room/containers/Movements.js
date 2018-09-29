@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Movements from '../components/FullRoom/Infos/Moves/Movements';
+import Movements from '../components/FullRoom/Infos/Movements';
 import { } from '../store/actions';
 
 const mapStateToProps = state => ({

@@ -45,10 +45,10 @@ const content = ({ item, itemKill, cell, myColor, whitePlayer, blackPlayer }) =>
       item = 'Fou';
       break;
     case 'Q':
-      item = 'Queen';
+      item = 'Reine';
       break;
     case 'K':
-      item = 'King';
+      item = 'Roi';
       break;
     default:
       break;
@@ -67,10 +67,10 @@ const content = ({ item, itemKill, cell, myColor, whitePlayer, blackPlayer }) =>
       itemKillé = 'Fou';
     break;
     case 'Q':
-      itemKillé = 'Queen';
+      itemKillé = 'Reine';
     break;
     case 'K':
-      itemKillé = 'King';
+      itemKillé = 'Roi';
     break;
     default:
         break;

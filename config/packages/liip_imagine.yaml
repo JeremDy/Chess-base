@@ -30,7 +30,17 @@ liip_imagine:
                     size: [104, 104]
                     position: center
                     color: '#000000'
-        
+
+        thumb_prestige:
+            quality: 80
+            filters:
+                thumbnail:
+                    size: [98, 98]
+                    mode: outbound
+                background:
+                    size: [104, 104]
+                    position: center
+                    color: '#fbf005'  
         thumb_nav:
             quality: 80
             filters:

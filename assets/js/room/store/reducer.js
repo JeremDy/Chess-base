@@ -19,6 +19,7 @@ const initialState = {
   blackPlayer: '',
   winner: '',
   loser: '',
+  serverMessage: {'message': '', 'endGame': '', 'echec': '', 'error': ''},
   movementsList: [],
   allowedMoveList: [],
   allowedKillList: [],
@@ -64,11 +65,11 @@ const reducer = (state = initialState, action = {}) => {
       let newLastBoard = [...state.lastBoard];// le board n-1 renvoyé par le serveur
       let couldPlay;
       let newMovementsList = [];
-
+      let newServerMessage = {'message': '', 'endGame': '', 'echec': '', 'error': ''};
       // défini si le joueur peut ou non jouer selon la valeur de canplay envoyé à chaque tour par le serveur
       if (undefined !== action.serverMessage['canPlay']) {
         couldPlay = action.serverMessage['canPlay'];
-
+        newServerMessage['message'] = action.serverMessage['message'];
         // si le message du serveur contient movement, c'est une validation de mouvement
         if (undefined !== action.serverMessage['movement']) {
           newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
@@ -76,6 +77,7 @@ const reducer = (state = initialState, action = {}) => {
         }
         return {
           ...state,
+          serverMessage: newServerMessage,
           canPlay: couldPlay,
           board: newBoard
         };
@@ -95,9 +97,10 @@ const reducer = (state = initialState, action = {}) => {
       // gameOVer si l'on reçoit un message du serveur avec endGame
       if (undefined !== action.serverMessage['endGame']) {
         newGameOver = true;
-        console.log('Axel: The Game is now Over');
+        newServerMessage['endGame'] = action.serverMessage['endGame'];
         return {
           ...state,
+          serverMessage: newServerMessage,
           gameOver: newGameOver
         };
       }
@@ -110,11 +113,12 @@ const reducer = (state = initialState, action = {}) => {
               state.lastBoard.reverse();
             }// selon la couleur on oublie pas de rebasculer le damier pour bien afficher la couleur
             newBoard = state.lastBoard;
-            console.log('Merci de rejouer');
+            newServerMessage['error'] = action.serverMessage['error'];
             couldPlay = true;
             return {
               ...state,
               board: newBoard,
+              serverMessage: newServerMessage,
               canPlay: couldPlay
             };
           case 'Ce n\'est pas votre tour.':
@@ -132,9 +136,17 @@ const reducer = (state = initialState, action = {}) => {
       if (undefined !== action.serverMessage['echec']) {
         switch (action.serverMessage['echec']) {
           case 'Vous avez mis le roi adverse en echec !':
-            break;
+            newServerMessage['echec'] = action.serverMessage['echec'];
+            return {
+              ...state,
+              serverMessage: newServerMessage
+            };
           case 'votre roi est en echec !':
-            break;
+            newServerMessage['echec'] = action.serverMessage['echec'];
+            return {
+              ...state,
+              serverMessage: newServerMessage
+            };
         }
       }
 
@@ -311,9 +323,7 @@ const reducer = (state = initialState, action = {}) => {
           console.log('Movement not allowed');
           return {
             ...state,
-            clickedCell: [],
-            allowedMove: [],
-            allowedKill: []
+            couldPlay: true
           };
         }
       } // end of switch clicCount
