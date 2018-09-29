@@ -18,10 +18,10 @@ class MainController extends AbstractController
      */
     public function index(ArticleRepository $articleRepository)
     {
-        
+        $stats = $this->getUser()->getStats();
 
         return $this->render('main/index.html.twig', [
-            'article' => $articleRepository->findLastArticle()
+            'article' => $articleRepository->findLastArticle(),
         ]);
     }
 
