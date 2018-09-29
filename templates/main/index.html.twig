@@ -8,10 +8,8 @@
 
 {% block body %}
 
-{{include('main/_invitation.html.twig')}}
-  
-    
 
+  
 <div class="row globalContainer">
  <div class="leftContainer">
       <div class="buttonContainer">
@@ -34,8 +32,10 @@
          <h2 class="text-center font-weight-bold mt-2"> Latest News :</h2>
 
         <div class="lastNews p-3"> 
+            {% if article is not null %}
             <h4 class="text-center font-weight-bold">{{ article.title}}</h4>
             <p> {{article.body|raw}}</p>  
+            {% endif %}
         </div>
     
         

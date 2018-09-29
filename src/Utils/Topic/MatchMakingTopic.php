@@ -14,8 +14,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimer;
 use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimerInterface;
 use App\Models\Board;
+use Gos\Bundle\WebSocketBundle\Topic\SecuredTopicInterface;
+use Gos\Bundle\WebSocketBundle\Server\Exception\FirewallRejectionException;
 
-class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
+class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface, SecuredTopicInterface
 {
     protected $clientManipulator;
     private $doctrine;
@@ -29,6 +31,22 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
         $this->clientManipulator = $clientManipulator;
         $this->doctrine = $doctrine;
         $this->urlGenerator = $urlGenerator;
+    }
+
+    public function secure(ConnectionInterface $connection = null, Topic $topic, WampRequest $request, $payload = null, $exclude = null, $eligible = null, $provider = null)
+    {      
+        $user = $this->clientManipulator->getClient($connection);
+        if (!is_object($user)){
+            throw new FirewallRejectionException();
+        }
+
+        $userDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($user->getUsername());
+        /*$this->doctrine->getManager()->refresh($userDoctrine);*/
+        if (true === $userDoctrine->isInGame()) {
+                dump('hello2');
+                $connection->event($topic->getId(), ['error' => 'vous avez deja une game en cours!']);
+                throw new FirewallRejectionException();
+        } 
     }
             
     /**
@@ -75,6 +93,8 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
                     
                     $this->doctrine->getManager()->persist($game);
                     $this->doctrine->getManager()->flush();
+                    $this->doctrine->getManager()->refresh($playerOneDoctrine);
+                    $this->doctrine->getManager()->refresh($playerTwoDoctrine);
                     
                     $topic->broadcast(
                         [

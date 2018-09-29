@@ -25,9 +25,12 @@ var app = {
     },
  
     matchMaking: function () {
-        app.session.subscribe('matchmaking', function (uri, payload) {
-            console.log(payload);
-            if ('undefined' !== payload.confirm){
+        app.session.subscribe('matchmaking', function (uri, payload){ 
+        
+        if('undefined' !== payload.error){
+            app.showMatchMakingMessage(payload.error);
+        }
+        if ('undefined' !== payload.confirm){
                 app.showMatchMakingMessage(payload.confirm);
                 app.switchMatchMakingButton();
             }
@@ -167,10 +170,11 @@ var app = {
 
     },
 
-    leaveMatchMaking : function() {
-        app.session.unsubscribe('matchmaking');
+    leaveMatchMaking : function() { 
+        console.log(app.session);
         app.switchMatchMakingButton();
         $('#MatchMaking-message').remove();
+        app.session.unsubscribe('matchmaking');
     }
 
 
