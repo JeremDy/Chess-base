@@ -6,6 +6,7 @@ const chatMiddleware = store => next => (action) => {
       let session = action.value;
       console.log('chatMiddleware :connect to:', session);
       session.subscribe('chat/global', function(uri, message) {
+          console.log(session.isOpen)
         console.log('public message received', message);
         store.dispatch(receiveMessage(message));
       });

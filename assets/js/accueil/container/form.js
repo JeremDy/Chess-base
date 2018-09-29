@@ -3,7 +3,7 @@ import Form from '../components/Chat/Form';
 import { sumbitMessage, writeMessage } from '../store/actions/chat.js';
 
 const mapStateToProps = state => ({
-  valueWrittenMessage: state.valueWrittenMessage
+  valueWrittenMessage: state.chat.valueWrittenMessage
 });
 
 const mapDispatchToProps = dispatch => ({

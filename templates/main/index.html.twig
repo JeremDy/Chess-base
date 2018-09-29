@@ -12,37 +12,35 @@
   
     
 
-<div class="row globalContainer">
- <div class="leftContainer">
-      <div class="buttonContainer">
-     
-         <form id="invitation">
-            <h4 class="titleInvite"> Inviter un joueur :</h4> 
-            <input class="inputName" type="text">
-            <button class="inviteButton btn btn-light" id="invitation-invite" type="submit">Inviter</button>
-            <button class="mx-auto btn btn-light d-none" id="invitation-cancel" type="button">Annuler</button>
-         </form>
+<div class="row ">
+  <div class="globalContainer col-12">
+    <div class="leftContainer">
 
-         <h3 class="font-weight-bold ml-5 mr-5">OU</h3>
-          
-          <button class="makingButton btn btn-light" id="match-making">Trouver une partie</button>
+      <div class="buttonContainer"> 
+        <form id="invitation">
+          <h4 class="titleInvite"> Inviter un joueur :</h4> 
+          <input class="inputName" type="text">
+          <button class="inviteButton btn btn-light" id="invitation-invite" type="submit">Inviter</button>
+          <button class="mx-auto btn btn-light d-none" id="invitation-cancel" type="button">Annuler</button>
+        </form>
+        <div id="matchmaking-container">
+        <h4 class="titleMatchMaking"> Partie aléatoire :</h4> 
+        <button class="makingButton btn btn-light" id="match-making">Trouver une partie</button>
+        </div>
       </div>
 
-    <div id="home-left" class="bg-dark  mb-4 p-1 pr-2 pl-2">
-       
-         <h2 class="text-center font-weight-bold mt-2"> Latest News :</h2>
-
+      <div id="home-left" class="bg-dark mb-4 p-1 pr-2 pl-2">
+        <h2 class="text-center font-weight-bold mt-2"> Latest News :</h2>
         <div class="lastNews p-3"> 
-            <h4 class="text-center font-weight-bold">{{ article.title}}</h4>
-            <p> {{article.body|raw}}</p>  
+          <h4 class="text-center font-weight-bold">{{ article.title}}</h4>
+          <p> {{article.body|raw}}</p>  
         </div>
-    
-        
+      </div>
     </div> 
- </div>
- <div class="rightContainer">
-    <div class="rootContainer" id="root"><div>
+    <div class="rightContainer">
+      <div class="rootContainer" id="root"><div>
     </div>
+  </div> 
  </div>
 {% endblock %}
 
