@@ -17,8 +17,10 @@
 
         </div>
         <p class="ml-0">Ratio V/D :
-        {% if stats is defined %}
+        {% if stats.NbWin is defined and stats.NbLose != 0 %}
                     {{(stats.NbWin / stats.NbLose)}}</p>
+                {% elseif stats.NbLose == 0 %}
+                {{stats.NbWin}}
                 {% else %}
                 Aucune</p>
                 {% endif %}
