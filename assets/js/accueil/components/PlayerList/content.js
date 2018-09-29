@@ -6,7 +6,7 @@ const Content = ({ userName, profilURL, baseURL }) => {
 
   return (
     <div className="player-content">
-      <ul className="row">
+      <ul className="row-playerList">
         <li className="cellule name">{userName}</li>
         <li className="cellule link">
           <a href={url}> Voir son profil</a>
