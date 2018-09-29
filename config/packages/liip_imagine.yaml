@@ -30,7 +30,7 @@ liip_imagine:
                     size: [104, 104]
                     position: center
                     color: '#000000'
-                    
+
         thumb_prestige:
             quality: 80
             filters:
@@ -40,7 +40,7 @@ liip_imagine:
                 background:
                     size: [104, 104]
                     position: center
-                    color: '#fbf005'
+                    color: '#fbf005'  
         thumb_nav:
             quality: 80
             filters:
