@@ -311,9 +311,7 @@ const reducer = (state = initialState, action = {}) => {
           console.log('Movement not allowed');
           return {
             ...state,
-            clickedCell: [],
-            allowedMove: [],
-            allowedKill: []
+            couldPlay: true
           };
         }
       } // end of switch clicCount
