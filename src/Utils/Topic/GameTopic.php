@@ -67,6 +67,9 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
         
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
+        if (null === $game) {       
+            return;
+        }
         $board = $game->getChessBoard();
         $user = $this->clientManipulator->getClient($connection);
         $movementList = $game->getMovementList();
@@ -117,6 +120,9 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
     {
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
+        if (null === $game) {       
+            return;
+        }
         $user = $this->clientManipulator->getClient($connection);
         $playerName = $user->getUsername();
         $opponentName =  $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne');
@@ -157,8 +163,14 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
 
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
-        $user = $this->clientManipulator->getClient($connection);
-        $board = $game->getChessBoard();
+        $user = $this->clientManipulator->getClient($connection);      
+       
+       //si la game n'existe pas on return;
+        if (null === $game) {       
+            return;
+        }
+
+        $board = $game->getChessBoard();  
     
         //verification si l'utilisateur est bien connecté/identifié :
         if (!is_object($user)) {

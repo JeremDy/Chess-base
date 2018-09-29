@@ -41,6 +41,7 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface
      */
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
+        $connection->event($topic->getId(), ['confirm' => 'En attente d\'un adversaire']);
     }
 
      
