@@ -8,8 +8,13 @@
 
 {% block body %}
 
+{% if games != false %}
+Partie en cours : 
+{% for game in games %}
+<a href="{{ path('game', {id : game.id }) }}">lien</a>
+{% endfor %}
+{% endif %}
 
-  
 <div class="row globalContainer">
  <div class="leftContainer">
       <div class="buttonContainer">

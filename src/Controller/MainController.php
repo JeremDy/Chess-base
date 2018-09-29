@@ -19,9 +19,13 @@ class MainController extends AbstractController
     public function index(ArticleRepository $articleRepository)
     {
         
+        if (true === $this->getUser()->IsInGame()){
+            $games = $this->getUser()->getGames();
+        }
 
         return $this->render('main/index.html.twig', [
-            'article' => $articleRepository->findLastArticle()
+            'article' => $articleRepository->findLastArticle(),
+            'games' => isset($games) ? $games : false,
         ]);
     }
 

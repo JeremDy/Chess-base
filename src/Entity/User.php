@@ -124,6 +124,20 @@ class User extends BaseUser
         return true;
     }
 
+    public function getGames(){
+        $games = [];
+        if ($this->IsBlackInGame->isEmpty() && $this->IsWhiteInGame->isEmpty() ){
+            return false;
+        }
+        foreach ($this->IsBlackInGame as $game) {
+            $games[] = $game;
+        }
+        foreach ($this->IsWhiteInGame as $game){
+            $games[] = $game;
+        }
+        return $games;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
