@@ -12,8 +12,12 @@ class GameController extends AbstractController
     /**
      * @Route("/game/{id}", name="game")
      */
-    public function index(Game $game)
+    public function index(Game $game = null)
     {
+
+        if (!$game || ($this->getUser() !== $game->getPlayerOne() && $this->getUser() !== $game->getPlayerTwo())){
+            return $this->redirectToRoute('home');
+        }
         $color = $game->getPlayerOne()->getUsername() === $this->getUser()->getUsername() ? 1 : 0;
        
         return $this->render('game/index.html.twig',[
