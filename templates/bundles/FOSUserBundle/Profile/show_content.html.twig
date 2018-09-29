@@ -17,12 +17,15 @@
 
         </div>
         <p class="ml-0">Ratio V/D :
-        {% if stats is defined %}
-                    {{(stats.NbWin / stats.NbLose)}}</p>
+        {% if stats is defined and stats.NbLose != 0 %}
+                    {{(stats.NbWin / stats.NbLose)|number_format(2, '.', '')}}</p>
+                {% elseif stats is defined and stats.NbLose == 0 %}
+                {{stats.NbWin}}</p>
                 {% else %}
                 Aucune</p>
                 {% endif %}
     </div>
+
 </hr>
     <div class="border-top mt-1">
         <div class="mt-4 d-flex">
@@ -33,7 +36,7 @@
             <div class="p-3 border mx-auto">
                 <p>Parties Gagnées : </p>
                 {% if stats is defined %}
-                    <p> {{stats.NbWin}}</p>
+                    <p> {{stats.NbWin}} sur {{stats.nbGame}}</p>
                 {% else %}
                 <p>Aucune</p>
                 {% endif %}
@@ -41,7 +44,7 @@
             <div class="p-3 border mx-auto">
                 <p>Parties Perdues : </p>
                 {% if stats is defined %}
-                    <p>{{ stats.NbLose }}</p>
+                    <p>{{ stats.NbLose }} sur {{stats.nbGame}}</p>
                 {% else %}
                 <p>Aucune</p>
                 {% endif %}
