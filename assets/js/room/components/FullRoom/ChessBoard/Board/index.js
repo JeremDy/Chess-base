@@ -13,8 +13,7 @@ const Board = ({board, gameOver}) => {
   if (gameOver) {
     theChild = <div className='gameOver' key='gameOver'>
       <p className='text title'> Game Over </p>
-      <p className='text'> Winner : </p>
-      <p className='text'> Loser : </p>
+
     </div>;
   }
   return (
