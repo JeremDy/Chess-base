@@ -20,6 +20,44 @@ class UserRepository extends ServiceEntityRepository
     }
 
 
+    public function findAllUserByNbWin()
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.stats', 's')
+            ->orderBy('s.NbWin', 'DESC')
+            ->getQuery()
+        ;
+    }
+
+    public function findAllUserByNbLose()
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.stats', 's')
+            ->orderBy('s.NbLose', 'DESC')
+            ->getQuery()
+        ;
+    }
+
+    public function findAllUserByNbGame()
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.stats', 's')
+            ->orderBy('s.NbGame', 'DESC')
+            ->getQuery()
+        ;
+    }
+
+    public function findAllUserByName()
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.stats', 's')
+            ->orderBy('u.username', 'ASC')
+            ->getQuery()
+        ;
+    }
+
+
+
 
 
     
