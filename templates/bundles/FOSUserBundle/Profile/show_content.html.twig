@@ -18,6 +18,9 @@
         {% if user != app.user and user not in app.user.getMyFriends() %}
             <a class="btn btn-primary" href="{{ path('add', { 'id':user.id}) }}">Ajouter en Amis</a>
         {% endif %}
+        {% if user != app.user %}
+            <a class="btn btn-primary" href="{{ path('message_user', { 'id':user.id}) }}">Envoyer un MP</a>
+        {% endif %}
 
         </div>
         <p class="ml-0">Ratio V/D :

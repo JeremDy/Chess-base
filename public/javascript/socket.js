@@ -35,6 +35,7 @@ var app = {
                 app.switchMatchMakingButton();
             }
             if (typeof payload.matchFound !== 'undefined') {
+                app.showMatchMakingMessage('Adversaire trouvé !');
                 app.session.unsubscribe('matchmaking');
                 location.href = BASE_URL + payload.matchFound;
             }

@@ -44,6 +44,16 @@ class Article
      */
     private $articleAnswers;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $extrait;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $previewImage;
+
     
     public function __toString()
     {
@@ -136,6 +146,30 @@ class Article
                 $articleAnswer->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getExtrait(): ?string
+    {
+        return $this->extrait;
+    }
+
+    public function setExtrait(string $extrait): self
+    {
+        $this->extrait = $extrait;
+
+        return $this;
+    }
+
+    public function getPreviewImage(): ?string
+    {
+        return $this->previewImage;
+    }
+
+    public function setPreviewImage(?string $previewImage): self
+    {
+        $this->previewImage = $previewImage;
 
         return $this;
     }

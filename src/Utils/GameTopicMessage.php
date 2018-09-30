@@ -159,4 +159,30 @@ class GameTopicMessage
     {
         $topic->broadcast(['timer' => $action]);
     }
+
+    
+    public function youHaveSurrender($topic, $playerSessionId)
+    {
+        $topic->broadcast(
+            [
+                'endGame' => "Vous avez abandonné !",
+            ],
+            array(),
+            array($playerSessionId)
+            );
+    }
+
+    public function opponentHasSurrender($topic, $opponentSessionId )
+    {
+        $topic->broadcast(
+            [
+                'endGame' => 'Votre adversaire a abandonné !',
+            ],
+            array(),
+            array($opponentSessionId)
+            );
+    }
+
+
+
 }
