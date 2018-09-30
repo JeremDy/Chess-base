@@ -3,11 +3,14 @@
 <div class="fos_user_user_show">
     <div class="d-flex">
         <div class="">
-         {% if stats is defined and stats.nbGame >= 10 and (stats.NbWin / stats.NbLose) >= 1.5 %}
-         <img class=""src="{{ asset(image_directory_chess ~ (user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_prestige') }}" />
-         {% else %}
+        {% if stats is defined and stats.NbLose != 0 and (stats.NbLose + stats.NbWin) >= 10 and (stats.NbWin / stats.NbLose) >= 1.5 %}
+            <img class=""src="{{ asset(image_directory_chess ~ (user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_prestige') }}" /></p>
+        {% elseif stats is defined and stats.NbLose == 0 and stats.NbWin >= 10 %}
+            <img class=""src="{{ asset(image_directory_chess ~ (user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_prestige') }}" /></p>
+        {% else %}
             <img class=""src="{{ asset(image_directory_chess ~ (user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_profile') }}" />
         {% endif %}
+
 
         </div>
         <div class="col-8">
@@ -39,7 +42,7 @@
             <div class="p-3 border mx-auto">
                 <p>Parties Gagnées : </p>
                 {% if stats is defined %}
-                    <p> {{stats.NbWin}} sur {{stats.nbGame}}</p>
+                    <p> {{stats.NbWin}} sur {{stats.NbGame}}</p>
                 {% else %}
                 <p>Aucune</p>
                 {% endif %}
@@ -47,7 +50,7 @@
             <div class="p-3 border mx-auto">
                 <p>Parties Perdues : </p>
                 {% if stats is defined %}
-                    <p>{{ stats.NbLose }} sur {{stats.nbGame}}</p>
+                    <p>{{ stats.NbLose }} sur {{stats.NbGame}}</p>
                 {% else %}
                 <p>Aucune</p>
                 {% endif %}
