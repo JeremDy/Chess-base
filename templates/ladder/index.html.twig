@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classement{% endblock %}
+
+{% block body %}
+    
+
+<table class="table table-hover bg-dark">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"><a href="{{ path('ladder_name')}}">Nom</a></th>
+      <th scope="col"><a href="{{ path('ladder_index')}}">Victoire</a></th>
+      <th scope="col"><a href="{{ path('ladder_lose')}}">Defaite</a></th>
+      <th scope="col"><a href="{{ path('ladder_game')}}">Partie</a></th>
+      <th scope="col">MP</th>  
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+
+     <tr>
+      <th scope="row"><img class=""src="{{ asset(image_directory_chess ~ (user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /></th>
+      <td><a href="{{path('profileShow',{id: user.id})}}">{{ user.username }}</a></td>
+      <td>{{ user.stats.NbWin}}</td>
+      <td>{{ user.stats.NbLose + user.stats.NbSurrender}}</td>
+      <td>{{ user.stats.NbGame}}</td>
+      <td><a href="{{ path('message_user', {id : user.id })}}"><i class="far fa-envelope"></i></a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+       {{ knp_pagination_render(users, null, {}, {
+        'align': 'center',
+        }) }}
+{% endblock %}
