@@ -1,7 +1,7 @@
 
  {% block header %}
 
- <header class="container">
+ <header class="container mb-4">
      <div class="d-flex mb-1">
      <h1 class="col-7">
          <a class="" href="{{ path('home') }}">Chess Online</a>
@@ -37,6 +37,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Classement</a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('admin') }}">Admin</a>
+                </li>
+                {% endif %}
             {% endif %}
         </ul>
           

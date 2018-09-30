@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ArticleType extends AbstractType
 {
@@ -14,12 +15,19 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title',null,[
-                'label' => 'Titre'
+                'label' => 'Titre :'
             ])
+            ->add('previewImage', FileType::class, array(
+                'label' => 'Image de preview (Jpg/png) :', 
+                'data_class' => null,
+                'required' => false
+            )) 
+            ->add('extrait',null,[
+                'label' => 'Extrait :'
+            ])   
             ->add('body', CKEditorType::class,[
-                'label' => 'Article :',
-              
-            ])     
+                'label' => 'Article :',              
+            ])         
         ;
     }
 

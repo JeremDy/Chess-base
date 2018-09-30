@@ -14,15 +14,17 @@ class GameController extends AbstractController
      */
     public function index(Game $game = null)
     {
-
         if (!$game || ($this->getUser() !== $game->getPlayerOne() && $this->getUser() !== $game->getPlayerTwo())){
             return $this->redirectToRoute('home');
         }
         $color = $game->getPlayerOne()->getUsername() === $this->getUser()->getUsername() ? 1 : 0;
+
+        $opponent = $this->getUser() === $game->getPlayerOne() ? $game->getPlayerTwo() : $game->getPlayerOne();
        
         return $this->render('game/index.html.twig',[
             'game' => $game,
-            'color' => $color
+            'color' => $color,
+            'opponent' => $opponent,
         ]);
     }
 }

@@ -3,7 +3,8 @@ import Message from '../components/FullRoom/Infos/Message';
 import { } from '../store/actions';
 
 const mapStateToProps = state => ({
-  serverMessage: state.serverMessage
+  serverMessage: state.serverMessage,
+  amIWaiting: state.amIWaiting
 });
 
 const mapDispatchToProps = dispatch => ({
