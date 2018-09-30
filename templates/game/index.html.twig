@@ -13,10 +13,26 @@
 {% endblock %}
 
 {% block body %}
-<h1 class ="text-center mb-5">{{ game.playerOne.username}} vs {{ game.playerTwo.username}} </h1>
+<div class="bg-dark d-inline-flex align-items-center p-2" id="opponent"> 
+    <img class=""src="{{ asset(image_directory_chess ~ (opponent.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /> 
+    <div class="ml-4">
+        <h5>{{ opponent.username }}</h5>
+        <p> Statistique : {{ opponent.stats.nbWin}} victoires en {{opponent.stats.nbGame }} parties !</p>
+    </div>
+</div>
 {# Exemple de ligne pour afficher les images profils en game : 
 <img class=""src="{{ asset(image_directory_chess ~ (game.playerOne.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /> #}
-<div id="root"><div>
+<div id="root"></div>
+
+<div class="bg-dark d-inline-flex  align-items-center p-2 mb-5" id="opponent"> 
+    <img class=""src="{{ asset(image_directory_chess ~ (app.user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /> 
+    <div class="ml-4">
+        <h5>{{ app.user.username }}</h5>
+        <p> Statistique : {{ app.user.stats.nbWin}} victoires en {{app.user.stats.nbGame }} parties !</p>
+    </div>
+</div>
+
+
 {% endblock %}
 
 {% block javascripts %}
