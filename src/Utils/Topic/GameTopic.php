@@ -140,6 +140,8 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
                 $this->gameTopicTools->endGameDbEntry($playerName, $opponentName, $game, 'surrender');
                 $this->gameTopicTools->endGameDbEntry($opponentName, $playerName, $game, 'win');
                 $this->topicTimer->cancelPeriodicTimer($playerName);
+                $this->gameTopicMessage->leaverTimer($topic , 'end');
+
                 if ($this->topicTimer->isPeriodicTimerActive($opponentName)) {
                     $this->topicTimer->cancelPeriodicTimer($opponentName);
                 }
