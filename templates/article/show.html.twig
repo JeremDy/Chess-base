@@ -15,29 +15,26 @@
         {% endif %}
     
    
-
-    <h3 class="mt-5 mb-3 font-weight-bold">Commentaires : </h3>
-    <ul class="list-group mb-5">
-     {% for answer in answers %}
-        <li class="list-group-item bg-dark mt-2 border-light">
-        <p class="font-weight-bold"> Par {{ answer.author}}, le  {{answer.publishAt|date('d/m/Y à H:i : ')}}</p>
-        <p>{{ answer.body|raw }}</p>
-         {% if is_granted('ROLE_ADMIN') or app.user == answer.author %}
-         <div class="button-bar float-right d-inline">
-            {{ include('article_answer/_delete_form.html.twig') }}
-            <a class="btn btn-dark bg-dark" href="{{ path('article_answer_edit', {'id': answer.id}) }}"><i class="far fa-edit"></i></a>
-         </div>
-         {% endif %}
-       
-
-       
-       
-        </li>
-    {% endfor %}
-    </ul>
-     {{ knp_pagination_render(answers , null, {}, {
-        'align': 'center',
-    }) }}
+    {% if answers is not empty %}
+        <h3 class="mt-5 mb-3 font-weight-bold">Commentaires : </h3>
+        <ul class="list-group mb-5">
+        {% for answer in answers %}
+            <li class="list-group-item bg-dark mt-2 border-light">
+                <p class="font-weight-bold"> Par {{ answer.author}}, le  {{answer.publishAt|date('d/m/Y à H:i : ')}}</p>
+                <p>{{ answer.body|raw }}</p>
+                {% if is_granted('ROLE_ADMIN') or app.user == answer.author %}
+                <div class="button-bar float-right d-inline">
+                    {{ include('article_answer/_delete_form.html.twig') }}
+                    <a class="btn btn-dark bg-dark" href="{{ path('article_answer_edit', {'id': answer.id}) }}"><i class="far fa-edit"></i></a>
+                </div>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+        {{ knp_pagination_render(answers , null, {}, {
+            'align': 'center',
+        }) }}
+    {% endif %}
     {{ include('article_answer/_form.html.twig', {'button_label': 'Envoyer'}) }}
     </div>
 {% endblock %}

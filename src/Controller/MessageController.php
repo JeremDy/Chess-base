@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Entity\User;
 
 /**
  * @Route("/message")
@@ -98,6 +99,34 @@ class MessageController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('message_received');
+        }
+
+        return $this->render('message/new.html.twig', [
+            'message' => $message,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/user/{id}", name="message_user", methods="GET|POST")
+     */
+    public function messageToUser(Request $request, User $receiver): Response
+    {
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $form->get('receiver')->setData($receiver);
+        $form->handleRequest($request);
+   
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user =$this->getUser();
+            $message->setSender($user)
+                ->setSentAt(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+
+            return $this->redirectToRoute('message_show',[ $id => $message->getId()]);
         }
 
         return $this->render('message/new.html.twig', [
