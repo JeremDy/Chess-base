@@ -193,6 +193,20 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
         $opponentConnectionObject = $this->clientManipulator->findByUsername($topic, $opponentName)['connection'];
         
         
+       //on verifie si il y'a un abbandon :
+        if (isset($event['endGame']) && true === ($event['endGame'])){    
+            
+            $this->gameTopicTools->endGameDbEntry($playerName, $opponentName, $game, 'surrender');
+            $this->gameTopicTools->endGameDbEntry($opponentName, $playerName, $game, 'win');  
+            $this->gameTopicMessage->youHaveSurrender($topic,$playerSessionId);
+           
+            if (is_object($opponentConnectionObject)){
+                $opponentSessionId = $opponentConnectionObject->WAMP->sessionId;
+                $this->gameTopicMessage->pponentHasSurrender($topic,$opponentSessionId);
+            }  
+            return;     
+        }
+        
         //verification si l'adversaire est bien connecté/identifié :
         if (!is_object($opponentConnectionObject)) {
             $this->gameTopicMessage->lastBoard($topic, $board, $playerSessionId);
