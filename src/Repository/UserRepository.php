@@ -80,34 +80,6 @@ class UserRepository extends ServiceEntityRepository
 
 
 
-/*
-    public function findNotFriend($userId)
-    {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT *
-            FROM user u 
-            WHERE u.id != 2
-            AND NOT EXISTS ( 
-                SELECT 1 
-                FROM friends
-                WHERE friends.friend_user_id = u.id 
-                AND friends.user_id = 2
-                )'
-                )->setParameter('userId',$userId);
-        
-        $result = $query->getResult();
-    }
-*/
-
-   /* SELECT * FROM user u WHERE NOT EXISTS ( SELECT 1 FROM friends WHERE friends.friend_user_id = u.id AND friends.user_id = 2)*/
-
-
-    /*SELECT * FROM user u WHERE u.id != 2 AND NOT EXISTS ( SELECT 1 FROM friends WHERE friends.friend_user_id = u.id AND friends.user_id = 2)*/
-
-
-
 
 
 
