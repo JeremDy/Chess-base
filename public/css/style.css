@@ -331,6 +331,13 @@ iframe{
     max-width:600px;
     margin:auto;
 }
+.comment1{
+    overflow: auto;
+}
+.comment {
+    white-space:normal;
+    width: inherit;
+}
 
 #message{
      max-width:600px;
