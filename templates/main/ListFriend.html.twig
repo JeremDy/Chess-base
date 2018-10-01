@@ -4,12 +4,14 @@
 
 {# Un p'tit coup d'front pour ce input d'ajout d'amis que l'on retrouve aussi dans la liste joueur ? :) #}
 <div class="col-12">
+
 {{form_start(form) }}
     {{ form_widget(form) }}
     <div class="text-center">
       <button class="btn">{{ button_label|default('Ajouter') }}</button>
     <div>
 {{ form_end(form) }}
+
 </div>
 
 <table class="table table-hover bg-dark">

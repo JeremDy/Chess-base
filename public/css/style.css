@@ -169,7 +169,7 @@ a:hover {
   flex-direction: column;
   justify-content: space-around;
   margin-bottom: 1em;
-  height: 16%;
+  height: 8em;
   background-color: #fdfdfdc2;
   padding: 0px 14px;
   border-radius: 13px;
@@ -241,8 +241,7 @@ a:hover {
 }*/
 
 #home-left{
-    height: 50%;
-
+    height: 60%;
     border-radius: 20px;
     -moz-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
     -webkit-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
@@ -251,18 +250,18 @@ a:hover {
     filter: progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=NaN, Strength=5);
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    max-width:100%;
-
+    max-width:50em;
+    max-height: 50em;
+    overflow-x: auto;
 }
 iframe{
     max-width:100%;
     max-height:100%;
 }
 
-.lastNews p {
-    max-width:100%;
-
-    overflow: overlay;
+.text {
+    white-space:normal;
+    width: inherit;
 }
 .lastNews {
     max-width:100%;

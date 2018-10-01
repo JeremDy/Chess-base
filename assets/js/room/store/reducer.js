@@ -1,4 +1,4 @@
-import {WEBSOCKET_CONNECT, CELL_CLIC, MESSAGE_RECEIVED, INITIAL_DISPLAY} from './actions';
+import {WEBSOCKET_CONNECT, CELL_CLIC, MESSAGE_RECEIVED, INITIAL_DISPLAY, GIVE_UP} from './actions';
 import library from '../functions/utils';
 
 const initialState = {
@@ -14,12 +14,13 @@ const initialState = {
   ],
   rockAllowed: false,
   gameOver: false,
+  amIWaiting: false,
   lastBoard: [],
   whitePlayer: '',
   blackPlayer: '',
   winner: '',
   loser: '',
-  serverMessage: {'message': '', 'endGame': '', 'echec': '', 'error': ''},
+  serverMessage: {'message': '', 'endGame': '', 'echec': '', 'error': '', 'timer': ''},
   movementsList: [],
   allowedMoveList: [],
   allowedKillList: [],
@@ -34,6 +35,13 @@ const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) { // DEBUT DU SWITCH REDUCER
+    case GIVE_UP:
+      let newClickGameOver = true;
+      state.webSocketSession.publish(state.channel, {'endGame': true});
+      return {
+        ...state,
+        gameOver: newClickGameOver
+      };
     case WEBSOCKET_CONNECT:
       let rotateBoard = [...state.board];
 
@@ -65,7 +73,33 @@ const reducer = (state = initialState, action = {}) => {
       let newLastBoard = [...state.lastBoard];// le board n-1 renvoyé par le serveur
       let couldPlay;
       let newMovementsList = [];
-      let newServerMessage = {'message': '', 'endGame': '', 'echec': '', 'error': ''};
+      let newServerMessage = {'message': '', 'endGame': '', 'echec': '', 'error': '', 'timer': ''};
+      if (undefined !== action.serverMessage['timer']) {
+        newServerMessage['timer'] = action.serverMessage['timer'];
+        if (action.serverMessage['timer'] === 'start') {
+          return {
+            ...state,
+            serverMessage: newServerMessage,
+            amIWaiting: true
+          };
+        }
+        if (action.serverMessage['timer'] === 'stop') {
+          return {
+            ...state,
+            serverMessage: newServerMessage,
+            amIWaiting: false
+          };
+        }
+        if (action.serverMessage['timer'] === 'end') {
+          state.webSocketSession.publish(state.channel, {'endGame': true});
+          return {
+            ...state,
+            serverMessage: newServerMessage,
+            gameOver: true
+          };
+        }
+      }
+      
       // défini si le joueur peut ou non jouer selon la valeur de canplay envoyé à chaque tour par le serveur
       if (undefined !== action.serverMessage['canPlay']) {
         couldPlay = action.serverMessage['canPlay'];
@@ -122,9 +156,20 @@ const reducer = (state = initialState, action = {}) => {
               canPlay: couldPlay
             };
           case 'Ce n\'est pas votre tour.':
-          
+            break;
           case 'Adversaire non connecté !':
-         
+            if (state.myColor == 1) {
+              state.lastBoard.reverse();
+            }// selon la couleur on oublie pas de rebasculer le damier pour bien afficher la couleur
+            newBoard = state.lastBoard;
+            newServerMessage['error'] = action.serverMessage['error'];
+            couldPlay = true;
+            return {
+              ...state,
+              board: newBoard,
+              serverMessage: newServerMessage,
+              canPlay: couldPlay
+            };
           case 'Cette piece n\'existe pas !':
          
           case 'Ce n\'est pas une de vos pieces!':

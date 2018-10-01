@@ -202,7 +202,7 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
            
             if (is_object($opponentConnectionObject)){
                 $opponentSessionId = $opponentConnectionObject->WAMP->sessionId;
-                $this->gameTopicMessage->pponentHasSurrender($topic,$opponentSessionId);
+                $this->gameTopicMessage->opponentHasSurrender($topic,$opponentSessionId);
             }  
             return;     
         }
