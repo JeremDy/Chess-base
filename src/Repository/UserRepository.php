@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -55,6 +57,55 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
         ;
     }
+
+    public function findNotFriend($userId)
+    {
+
+        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
+        $rsm->addRootEntityFromClassMetadata('App\Entity\User', 'user');
+        $selectClause = $rsm->generateSelectClause([ 'user' => 'user' ]);
+
+        $query = $this->getEntityManager()->createNativeQuery('SELECT * 
+        FROM user u 
+        WHERE u.id != :userId 
+        AND NOT EXISTS (
+             SELECT 1 
+             FROM friends 
+             WHERE friends.friend_user_id = u.id 
+             AND friends.user_id = :userId)', $rsm)
+            ->setParameter('userId', $userId);
+        $users = $query->getResult();
+        return $users;
+    }
+
+
+
+/*
+    public function findNotFriend($userId)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT *
+            FROM user u 
+            WHERE u.id != 2
+            AND NOT EXISTS ( 
+                SELECT 1 
+                FROM friends
+                WHERE friends.friend_user_id = u.id 
+                AND friends.user_id = 2
+                )'
+                )->setParameter('userId',$userId);
+        
+        $result = $query->getResult();
+    }
+*/
+
+   /* SELECT * FROM user u WHERE NOT EXISTS ( SELECT 1 FROM friends WHERE friends.friend_user_id = u.id AND friends.user_id = 2)*/
+
+
+    /*SELECT * FROM user u WHERE u.id != 2 AND NOT EXISTS ( SELECT 1 FROM friends WHERE friends.friend_user_id = u.id AND friends.user_id = 2)*/
+
 
 
 

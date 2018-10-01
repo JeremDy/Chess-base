@@ -7,6 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\FriendType;
+use App\Repository\UserRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 
 
@@ -17,8 +21,7 @@ class MainController extends AbstractController
      * @Route("/", name="home")
      */
     public function index(ArticleRepository $articleRepository)
-    {
-        
+    {       
         if (true === $this->getUser()->IsInGame()){
             $games = $this->getUser()->getGames();
         }
@@ -32,12 +35,34 @@ class MainController extends AbstractController
      /**
      * @Route("/friends", name="friendList")
      */
-    public function FriendList()
+    public function FriendList(Request $request, UserRepository $userRepository)
     {
+        
+        $notFriends = $userRepository->findNotFriend($this->getUser()->getId());
+        
+        $form = $this->createFormBuilder()
+            ->add('newFriend', EntityType::class, array(
+                'constraints' => new NotBlank(),
+                'label' => 'Ajouter un ami :',
+                'class' => User::class,
+                'choices' => $notFriends,
+            ))->getForm();    
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $friend = $form->getData()['newFriend'];
+            $this->getUser()->addMyFriend($friend);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('friendList');  
+        }
+
         $list = $this->getUser()->getMyFriends();
 
         return $this->render('main/ListFriend.html.twig', array(
-            'list' => $list
+            'list' => $list,
+            'notFriends' => $notFriends,
+            'form' => $form->createView(),
         ));
     }
 
@@ -56,10 +81,9 @@ class MainController extends AbstractController
                 $this->getUser()->addMyFriend($user);
                 $list = $this->getUser()->getMyFriends();
                 $this->getDoctrine()->getManager()->flush();
-                return $this->render('main/ListFriend.html.twig', array(
-                'list' => $list
-                ));
+                        
         }
+        return $this->redirectToRoute('friendList');
     }
 
     /**
@@ -74,11 +98,10 @@ class MainController extends AbstractController
                      ->find($id)
                     ;
 
-            $this->getUser()->removeMyFriend($user);
-            $this->getDoctrine()->getManager()->flush();
-            return $this->render('main/ListFriend.html.twig', array(
-            'friend' => $user,
-            'list' => $list
-            ));
+        $this->getUser()->removeMyFriend($user);
+        $this->getDoctrine()->getManager()->flush();
+         
+        return $this->redirectToRoute('friendList');
     }
+
 }

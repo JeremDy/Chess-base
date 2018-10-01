@@ -427,7 +427,7 @@ class User extends BaseUser
         return $this->myFriends;
     }
 
-    public function addMyFriend(User $myFriend): self
+    public function addMyFriend(?User $myFriend): self
     {
         if (!$this->myFriends->contains($myFriend)) {
             $this->myFriends[] = $myFriend;
@@ -477,5 +477,3 @@ class User extends BaseUser
 
 
        
-       
-   

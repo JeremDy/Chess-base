@@ -4,25 +4,37 @@
 
 {# Un p'tit coup d'front pour ce input d'ajout d'amis que l'on retrouve aussi dans la liste joueur ? :) #}
 <div class="col-12">
-<form class="mt-2 d-flex">
-            <h4 class="titleInvite"> Ajouter un joueur(A link avec front, ListFriend.html.twig) :</h4> 
-            <input class="inputName" type="text">
-            <button class="btn btn-light m-1" type="link">Ajouter</button>
-</form>
+{{form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="text-center">
+      <button class="btn">{{ button_label|default('Ajouter') }}</button>
+    <div>
+{{ form_end(form) }}
 </div>
-<div>
-<ul>
+
+<table class="table table-hover bg-dark">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"><a href="{{ path('ladder_name')}}">Nom</a></th>
+      <th scope="col">MP</th>
+       <th scope="col">Supprimer</th> 
+    </tr>
+  </thead>
+  <tbody>
     {% for friend in list %}
-    <div class="d-flex mb-2">
-        <li class="col-8">
-        <img class=""src="{{ asset(image_directory_chess ~ (friend.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" />
-        {{ friend.username }}
-        </li> 
-        <a class="btn btn-primary ml-2" href="{{ path('profileShow', { 'id':friend.id}) }}">Profil</a><a class="btn btn-warning ml-2" href="{{ path('remove', { 'id':friend.id}) }}">Supprimer</a>
-    </div>
+
+     <tr>
+      <th scope="row"><img class=""src="{{ asset(image_directory_chess ~ (friend.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /></th>
+      <td><a href="{{path('profileShow',{id: friend.id})}}">{{ friend.username }}</a></td>
+      <td><a href="{{ path('message_user', {id : friend.id })}}"><i class="far fa-envelope"></i></a></td>
+      <td><a class="btn btn-light ml-2" href="{{ path('remove', { 'id':friend.id}) }}">Supprimer</a></td>
+    </tr>
     {% endfor %}
-</ul>
-</div>
+  </tbody>
+</table>
+
+
     {% if list is empty %}
      <h2>Vous pouvez aussi ajouter des amis depuis leurs pages de profil !</h2>
     {% endif %}
