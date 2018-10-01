@@ -35,13 +35,13 @@ class Board
         //assigne les couleurs et positions;
         for ($i = 1; $i<= 2; $i++) {
             for ($j = 1 ; $j <= 8 ; $j++) {
-                $board[$i.'/'.$j]->setColor('white')->setPosX($j)->setPosY($i);
+                $board[$i.'/'.$j]->setColor('white')->setPosX($j)->setPosY($i)->setHasMoved(false);
             }
         }
 
         for ($i = 7; $i<= 8; $i++) {
             for ($j = 1 ; $j <= 8 ; $j++) {
-                $board[$i.'/'.$j]->setColor('black')->setPosX($j)->setPosY($i);
+                $board[$i.'/'.$j]->setColor('black')->setPosX($j)->setPosY($i)->setHasMoved(false);
             }
         }
         $this->board = $board;
@@ -57,6 +57,7 @@ class Board
         $this->board[$piece->getPosY().'/'. $piece->getPosX()] = null;
         $piece->setPosX($newPosX)->setPosY($newPosY);
         $this->board[$newPosY.'/'.$newPosX] = $piece;
+        $piece->setHasMoved(true);
     }
    
     
@@ -180,6 +181,7 @@ class Board
     {
         $savedMove = [
             'piece' => $piece,
+            'piecehadmoved' => $piece->getHasMoved(),
             'oldPosX' => $piece->getPosX(),
             'oldPosY'=> $piece->getPosY(),
             'newCaseOldContent' => $this->board[$newPosY .'/'. $newPosX],
@@ -191,6 +193,9 @@ class Board
 
     public function cancelMove(array $savedMove)
     {
+        if (false === $savedMove['piecehadmoved']) {
+            $savedMove['piece']->setHasMoved(false);
+        }
         $this->board[$savedMove['oldPosY'] .'/'. $savedMove['oldPosX']] = $savedMove['piece'];
         $this->board[$savedMove['newPosY'] .'/' . $savedMove['newPosX']] = $savedMove['newCaseOldContent'];
         if (is_object($this->board[$savedMove['oldPosY'] .'/'. $savedMove['oldPosX']])) {
@@ -207,27 +212,77 @@ class Board
     {
         $jsBoard = [];
 
-        foreach( $this->board as $pos => $case){
-    
-            if( null === $case ){
+        foreach ($this->board as $pos => $case) {
+            if (null === $case) {
                 $jsBoard[$pos] = 'E';
             }
 
-            if( null !== $case){
-                $color = $case->getColor() === 'white' ? '1' : '0'; 
+            if (null !== $case) {
+                $color = $case->getColor() === 'white' ? '1' : '0';
             }
 
-            if ($case instanceof Piece){
+            if ($case instanceof Piece) {
                 $jsBoard[$pos] = $case->getCode().$color;
             }
         }
         return $jsBoard;
     }
 
-    public function formatMove($savedMove)
+   
+   
+   
+    public function doingCastling($piece, $newPosX, $newPosY)
     {
-     
+        if ($piece->getCode() !== 'K') {
+            return false;
+        }
+        if ($piece->getHasMoved() === true) {
+            return false;
+        }      
+        if ($newPosX === 6 && $newPosY === 1) {           
+            if ($this->board['1/8'] instanceof Rook && false === $this->board['1/8']->getHasMoved() && null === $this->board['1/7'] && null === $this->board['1/6'] && null === $this->board['1/5']) {            
+                $endCastling = [
+                    'rook' => $this->board['1/8'],
+                    'rookEndPos' => '1/5'
+                ];
+                
+                return $endCastling;
+            }
+        }
+        if ($newPosX === 6 && $newPosY === 8) {
+            if ($this->board['8/8'] instanceof Rook && false === $this->board['8/8']->getHasMoved() && null === $this->board['8/7'] && null === $this->board['8/6'] && null === $this->board['8/5']) {
+                $endCastling = [
+                    'rook' => $this->board['8/8'],
+                    'rookEndPos' => '8/5'
+                ];  
+
+                return $endCastling;
+            }
+        }
+        if ($newPosX === 2 && $newPosY === 1) {
+            if ($this->board['1/1'] instanceof Rook && false === $this->board['1/1']->getHasMoved() && null === $this->board['1/2'] && null === $this->board['1/3']) {
+                $endCastling = [
+                    'rook' => $this->board['1/1'],
+                    'rookEndPos' => '1/3'
+                ];    
+
+                return $endCastling ;
+            }
+        }
+        if ($newPosX === 2 && $newPosY === 8) {
+            if ($this->board['8/1'] instanceof Rook && false === $this->board['8/1']->getHasMoved() && null === $this->board['8/2'] && null === $this->board['8/3']) {
+                
+                $endCastling = [
+                    'rook' => $this->board['8/1'],
+                    'rookEndPos' => '8/3'
+                ];   
+
+                return $endCastling;
+            }
+        }
+        return false; 
     }
 
-
 }
+ 
+
