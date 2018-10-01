@@ -1,15 +1,15 @@
 import React from 'react';
 
 import Moves from '../../../containers/Movements.js'; 
-import Nav from './Nav';
+import GiveUp from '../../../containers/GiveUp';
 import Message from '../../../containers/Message';
 import './infos.sass'
 
 const Infos = () => (
   <div id="Infos">
     <Moves />
-    {/* <Nav /> */}
-    <Message  />
+    <Message />
+    <GiveUp />
   </div>
 );
 

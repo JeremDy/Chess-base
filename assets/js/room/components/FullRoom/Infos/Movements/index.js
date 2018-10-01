@@ -23,7 +23,8 @@ class Movements extends React.Component {
               cell={moves['ArrivedCell']}
             />
           ))}
-          <div ref={node => this.something = node} ></div>
+          {moveList.length > 8 &&
+          <div ref={node => this.something = node} ></div> }
         </div>
       </div>
     )
