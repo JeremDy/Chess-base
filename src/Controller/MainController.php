@@ -43,17 +43,21 @@ class MainController extends AbstractController
         $form = $this->createFormBuilder()
             ->add('newFriend', EntityType::class, array(
                 'constraints' => new NotBlank(),
-                'label' => 'Ajouter un ami :',
+                'label' => 'friend',
                 'class' => User::class,
                 'choices' => $notFriends,
+                'multiple' => false,
+                'placeholder' => 'Ajouter un ami',       
             ))->getForm();    
 
         $form->handleRequest($request);
-
+            
+      
         if ($form->isSubmitted() && $form->isValid()) {
-            $friend = $form->getData()['newFriend'];
+            $friend = $form->getData()['newFriend']; 
             $this->getUser()->addMyFriend($friend);
             $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('friendList');  
         }
 

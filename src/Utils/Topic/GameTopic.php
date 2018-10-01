@@ -40,6 +40,11 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
 
     public function secure(ConnectionInterface $connection = null, Topic $topic, WampRequest $request, $payload = null, $exclude = null, $eligible = null, $provider = null)
     {
+       
+        $user = $this->clientManipulator->getClient($connection);
+        if (!is_object($user)){
+            throw new FirewallRejectionException();
+        }
         // check input data to verify if connection must be blocked
         if ($this->clientManipulator->getClient($connection)->getUsername() !== $request->getAttributes()->get('playerOne')
             && $this->clientManipulator->getClient($connection)->getUsername() !== $request->getAttributes()->get('playerTwo')) {
@@ -165,6 +170,7 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
+        dump($event);
         $topic->autoDelete = true;
 
         $gameId = $request->getAttributes()->get('gameId');
@@ -177,7 +183,7 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
         }
 
         $board = $game->getChessBoard();  
-    
+
         //verification si l'utilisateur est bien connecté/identifié :
         if (!is_object($user)) {
             dump('user not connected');
@@ -247,12 +253,19 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
             $this->gameTopicMessage->notYourPiece($topic, $playerSessionId);
             return;
         }
-                 
+
+        
         //verification si le mouvement est valide.
         if (false === $piece->canDothismove($board, $newPosX, $newPosY)) {
             $this->gameTopicMessage->invalidMovement($topic, $playerSessionId);
             return;
         }
+
+        //on regarde si c'est un roque
+        if (false !== $board->doingCastling($piece, $newPosX, $newPosY)){
+            $endCastling =  $board->doingCastling($piece, $newPosX, $newPosY);
+        }
+
                 
         //on sauvegarde les infomations du mouvement (utile pour annuler le mouvement si les prochaines verification sont fausses)
         $savedMove = $board->saveMoveInfo($piece, $newPosX, $newPosY);
@@ -265,6 +278,12 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
             $this->gameTopicMessage->selfCheck($topic, $playerSessionId);
             $board->cancelMove($savedMove);
             return;
+        }
+
+        //si c'etait un roque, on deplace aussi la tour !
+        if(isset($endCastling)){
+            $board->movePiece($endCastling['rook'], $endCastling['rookEndPos']);
+            $endCastling = null;
         }
 
         $movementList = $game->getMovementList();

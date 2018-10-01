@@ -19,7 +19,7 @@ class King extends Piece
         if (true === $board->hasAllyPieceOnCase($newPosX, $newPosY, $this->getColor())) {
             return false;
         }
-        if (false === $this->oneCaseMove($newPosX, $newPosY)) {
+        if (false === $this->oneCaseMove($newPosX, $newPosY) && false === $board->doingCastling($this, $newPosX, $newPosY)) {
             return false;
         }
         
