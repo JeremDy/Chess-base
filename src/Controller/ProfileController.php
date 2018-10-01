@@ -52,15 +52,23 @@ class ProfileController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('App:User')->find($id);
+       
         $stats = $em->getRepository('App:Stats')->find($id);
         $list = $this->getUser()->getMyFriends();
 
 
-        return $this->render('bundles/FOSUserBundle/Profile/show.html.twig', array(
-            'user' => $user,
-            'stats' => $stats,
-            'friend' =>$list,
-        )); 
+        if( null != $stats){
+            return $this->render('bundles/FOSUserBundle/Profile/show.html.twig', array(
+                'user' => $user,
+                'stats' => $stats,
+                'friend' =>$list,
+            )); ;
+        } else {
+            return $this->render('bundles/FOSUserBundle/Profile/show.html.twig', array(
+                'user' => $user,
+                'friend' =>$list,
+            )); ;
+        }
     }
 
 
