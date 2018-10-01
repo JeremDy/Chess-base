@@ -8,7 +8,11 @@ var app = {
         $('#invitation-cancel').on('click', app.cancelInvitation);
         $('#match-making-cancel').on('click', app.leaveMatchMaking);
         $("#message_receiver").chosen();
-        $("#form_newFriend").chosen();
+        $("#form_newFriend").chosen({
+             'max_shown_results' : '1',
+        });
+
+       
 
 
         var webSocket = WS.connect("ws://127.0.0.1:8080");

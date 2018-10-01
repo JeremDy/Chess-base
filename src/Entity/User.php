@@ -42,7 +42,7 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" }, groups={"Profile"})
      */
     private $profilePicture;
 

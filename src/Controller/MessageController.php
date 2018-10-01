@@ -67,7 +67,7 @@ class MessageController extends AbstractController
             $em->persist($message);
             $em->flush();
 
-            return $this->redirectToRoute('message_received');
+            return $this->redirectToRoute('message_show',[ 'id' => $message->getId()]);
         }
 
         return $this->render('message/new.html.twig', [
@@ -98,7 +98,7 @@ class MessageController extends AbstractController
             $em->persist($message);
             $em->flush();
 
-            return $this->redirectToRoute('message_received');
+            return $this->redirectToRoute('message_show',[ 'id' => $message->getId()]);
         }
 
         return $this->render('message/new.html.twig', [
