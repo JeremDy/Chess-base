@@ -12,6 +12,7 @@ const initialState = {
     {'7/1': 'P0'}, {'7/2': 'P0'}, {'7/3': 'P0'}, {'7/4': 'P0'}, {'7/5': 'P0'}, {'7/6': 'P0'}, {'7/7': 'P0'}, {'7/8': 'P0'},
     {'8/1': 'T0'}, {'8/2': 'C0'}, {'8/3': 'F0'}, {'8/4': 'K0'}, {'8/5': 'Q0'}, {'8/6': 'F0'}, {'8/7': 'C0'}, {'8/8': 'T0'}
   ],
+  myColor: '',
   rockAllowed: false,
   gameOver: false,
   amIWaiting: false,
@@ -349,11 +350,14 @@ const reducer = (state = initialState, action = {}) => {
             }
           }
           const newItem = Object.values(state.clickedCell[0])[0]; // on récupère la pièce qui était sur la case du premier clic
+          let oldItem = newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]];
+          if (oldItem !== 'E') {
+            dataToSend['newPositions']['itemKill'] = oldItem;
+          };
           newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]] = newItem; // on modifie la valeur pour y mettre la nouvelle pièce
           newBoard.find(cellToModify => Object.keys(state.clickedCell[0])[0] === Object.keys(cellToModify)[0])[Object.keys(state.clickedCell[0])[0]] = 'E'; // on 'vide la case du premier clic'
           dataToSend['newPositions'][Object.keys(cell)[0]] = newItem;
           dataToSend['newPositions'][Object.keys(state.clickedCell[0])[0]] = 'E';
-
           state.webSocketSession.publish(state.channel, {...dataToSend});
           console.log('Message to server:', dataToSend);
 
