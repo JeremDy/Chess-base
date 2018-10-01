@@ -72,6 +72,9 @@ class Pawn extends Piece
         if (false === $this->isDoingValideVerticalMovement($board, $newPosX, $newPosY)) {
             return false;
         }
+        if (true === $board->hasEnemyPieceOnCase($newPosX, $newPosY, $this->getColor())) {
+            return false;
+        }
         if ($this->getColor() === 'white' && $this->getPosY() === 2 && $newPosY === 4) {
             return true;
         }
