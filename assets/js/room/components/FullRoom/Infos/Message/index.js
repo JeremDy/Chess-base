@@ -1,8 +1,6 @@
 import React from 'react';
 import './messageInfo.sass'
-// import { css } from 'react-emotion';
 import { PacmanLoader } from 'react-spinners';
-
 
 class Message extends React.Component {
   render() {

@@ -11,7 +11,6 @@ const FullRoom = () => (
     <CellAround />
     <ChessBoard />
     <Infos />
-
   </div>
 );
 

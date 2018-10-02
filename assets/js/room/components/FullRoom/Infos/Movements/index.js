@@ -4,6 +4,7 @@ import Content from './Content';
 import scrollIntoView from "scroll-into-view";
 
 class Movements extends React.Component {
+  // permet dès que le chat ou la list des coups se rempli, de venir dérouler l'ascenseur
   componentWillUpdate() {
     scrollIntoView(this.something);
   }

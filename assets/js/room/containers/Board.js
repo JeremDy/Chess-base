@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import Board from '../components/FullRoom/ChessBoard/Board';
-import { } from '../store/actions';
 
 const mapStateToProps = state => ({
   aroundBoard: state.aroundBoard,

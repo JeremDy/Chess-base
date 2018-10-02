@@ -37,11 +37,13 @@ class PlayerTopic implements TopicInterface , TopicPeriodicTimerInterface, Secur
      */
 
     public function secure(ConnectionInterface $connection = null, Topic $topic, WampRequest $request, $payload = null, $exclude = null, $eligible = null, $provider = null)
-    {      
+    {    
         $user = $this->clientManipulator->getClient($connection);
         if (!is_object($user)){
             throw new FirewallRejectionException();
         }
+
+        
     }
 
     public function setPeriodicTimer(TopicPeriodicTimer $periodicTimer)
@@ -58,13 +60,18 @@ class PlayerTopic implements TopicInterface , TopicPeriodicTimerInterface, Secur
                 return;
             }
 
-            $subscriber = $this->clientManipulator->getAll($topic);
+            $subscribers = $this->clientManipulator->getAll($topic);
             $playerList = [];
-            foreach($subscriber as $subscriber){
-                $playerList[] = [
-                    'name' => $subscriber['client']->getUsername(),
-                    'profilPath' =>  $this->urlGenerator->generate('profileShow', ['id' =>  $subscriber['client']->getId()])
-                ];
+            $nameList = [];
+            foreach($subscribers as $subscriber){
+                $name = $subscriber['client']->getUsername();
+                if (!in_array($name, $nameList)) {
+                    $nameList [] = $name;
+                    $playerList[] = [
+                        'name' => $name,
+                        'profilPath' =>  $this->urlGenerator->generate('profileShow', ['id' =>  $subscriber['client']->getId()])
+                    ];
+                }
             }
             $topic->broadcast($playerList);
         });
@@ -73,14 +80,24 @@ class PlayerTopic implements TopicInterface , TopicPeriodicTimerInterface, Secur
 
 
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
-    {
+    {   
+        
         $subscriber = $this->clientManipulator->getAll($topic);
         $playerList = [];
+        $nameList = [];
         foreach($subscriber as $subscriber){
-            $playerList[] = [
-                'name' => $subscriber['client']->getUsername(),
-                'profilPath' =>  $this->urlGenerator->generate('profileShow', ['id' =>  $subscriber['client']->getId()])
-            ];
+            
+            $name = $subscriber['client']->getUsername();
+            
+            if (!in_array($name, $nameList)) {
+                
+                $nameList[] = $name;
+                
+                $playerList[] = [
+                    'name' => $name,
+                    'profilPath' =>  $this->urlGenerator->generate('profileShow', ['id' =>  $subscriber['client']->getId()])
+                ];
+            }
         }
         $topic->broadcast($playerList);
     }

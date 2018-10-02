@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -19,11 +20,15 @@ class Article
     private $id;
 
     /**
+     * @Assert\Length( min = 2, max = 100)
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
+     * @Assert\Length( min = 2, max = 2100)
+     * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
     private $body;
@@ -45,12 +50,15 @@ class Article
     private $articleAnswers;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
     private $extrait;
 
     /**
+     * @Assert\Length( min = 2, max = 200)
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
      */
     private $previewImage;
 
@@ -76,7 +84,7 @@ class Article
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -88,7 +96,7 @@ class Article
         return $this->body;
     }
 
-    public function setBody(string $body): self
+    public function setBody(?string $body): self
     {
         $this->body = $body;
 
@@ -155,19 +163,19 @@ class Article
         return $this->extrait;
     }
 
-    public function setExtrait(string $extrait): self
+    public function setExtrait(?string $extrait): self
     {
         $this->extrait = $extrait;
 
         return $this;
     }
 
-    public function getPreviewImage(): ?string
+    public function getPreviewImage()
     {
         return $this->previewImage;
     }
 
-    public function setPreviewImage(?string $previewImage): self
+    public function setPreviewImage($previewImage): self
     {
         $this->previewImage = $previewImage;
 

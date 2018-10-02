@@ -436,24 +436,26 @@ var library = {
       }
     }
 
-    if (
-      (((row === 1) || (row === 8)) & (column === 4)) &
+    if (((row === 1) || (row === 8)) & (column === 4)) {
+      if (
         (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 1}`))[0] === 'E') &
-        (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 2}`))[0] === 'E') &
-        (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 3}`))[0][0] === 'T')
-    ) {
-      newRockAllowed = true;
-      newMoveAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${(column - 2)}`));
+            (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 2}`))[0] === 'E') &
+            (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 3}`))[0][0] === 'T')
+      ) {
+        newRockAllowed = true;
+        newMoveAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${(column - 2)}`));
+      }
     }
-    if (
-      (((row === 1) || (row === 8)) & (column === 4)) &
-          (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 1}`))[0] === 'E') &
-          (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 2}`))[0] === 'E') &
-          (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 3}`))[0] === 'E') &
-          (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 4}`))[0][0] === 'T')
-    ) {
-      newMoveAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${(column + 2)}`));
-      newRockAllowed = true;
+    if (((row === 1) || (row === 8)) & (column === 4)) {
+      if (
+        (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 1}`))[0] === 'E') &
+            (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 2}`))[0] === 'E') &
+            (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 3}`))[0] === 'E') &
+            (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 4}`))[0][0] === 'T')
+      ) {
+        newMoveAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${(column + 2)}`));
+        newRockAllowed = true;
+      }
     }
     return newRockAllowed;
   },
@@ -578,7 +580,6 @@ var library = {
   },
   convertMovementList: function(serverMovList) {
     let newMovementList = [];
-    console.log( 'servermovelist', serverMovList)
     serverMovList.forEach(function(move) {
       let newArrivedCell = library.convertMove(Object.keys(move)[0]);
       if (undefined === move['itemKill']) {

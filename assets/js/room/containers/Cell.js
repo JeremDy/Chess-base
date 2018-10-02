@@ -9,7 +9,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
   handleClickOnCell: (item, color, row, column) => () => {
     dispatch(handleClickOnCell(item, color, row, column));
   }

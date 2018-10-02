@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MessageRepository")
@@ -23,17 +24,22 @@ class Message
     private $sender;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="receivedMessages")
      * @ORM\JoinColumn(nullable=false)
      */
     private $receiver;
 
     /**
+     * @Assert\Length( min = 2, max = 100)
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=250)
      */
     private $title;
 
     /**
+     * @Assert\Length( min = 2, max = 500)
+     * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
     private $body;
