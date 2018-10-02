@@ -3,7 +3,7 @@
 {% block title %}News : {{ article.title }}  Chess-Online{% endblock %}
 
 {% block body %}
-    <div class="bg-dark p-5 mt-5">
+    <div class="articleshow col-12 bg-custom p-5">
     
         <h1 class="font-weight-bold text-center mb-5">{{ article.title }}</h1>
         <p class="font-weight-bold mb-5">Par {{article.author}}, le  {{article.publishAt|date('d/m/Y à H:i')}} :</p>
@@ -19,9 +19,9 @@
         <h3 class="mt-5 mb-3 font-weight-bold">Commentaires : </h3>
         <ul class="list-group mb-5">
         {% for answer in answers %}
-            <li class="list-group-item bg-dark mt-2 border-light">
+            <li class=" comment1 list-group-item bg-dark mt-2 border-light col-12">
                 <p class="font-weight-bold"> Par {{ answer.author}}, le  {{answer.publishAt|date('d/m/Y à H:i : ')}}</p>
-                <p>{{ answer.body|raw }}</p>
+                <p class="comment">{{ answer.body|raw }}</p>
                 {% if is_granted('ROLE_ADMIN') or app.user == answer.author %}
                 <div class="button-bar float-right d-inline">
                     {{ include('article_answer/_delete_form.html.twig') }}

@@ -1,23 +1,30 @@
 
  {% block header %}
-
- <header class="container mb-4">
-     <div class="d-flex mb-1">
-     <h1 class="col-7">
-         <a class="" href="{{ path('home') }}">Chess Online</a>
-     </h1>
-     <div class="pt-3 col-5">
+    <div class="d-flex justify-content-between bg-custom pt-2">
      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <img class=""src="{{ asset(image_directory_chess ~ (app.user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" />
-                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} | 
-                 <a class="p-0 btn btn-light" href="{{ path('fos_user_security_logout') }}">
+            <p class="pl-2 text-left p-0">
+            <img class=""src="{{ asset(image_directory_chess ~ (app.user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" />
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+            </p> 
+                <a class="pt-2 pr-2" href="{{ path('fos_user_security_logout') }}">
                      {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                 </a>
+                </a>
      {% endif %}
-     </div>
-     </div>
+    </div>
+    <div class="navTitle bg-custom">
+        <div class="justify-content-center d-flex">
+            <h1 class="titre">
+                <a class="text-white col-10 p-0" href="{{ path('home') }}">
+                CHESS 
+                <img hspace="0" class="navBg" src="../../image/kissclipart-my-chess-journal-by-passion-imagination-journals.png" alt="Smiley face" hspace="20">
+                ONLINE
+                </a>
+            </h1>
+        </div>
+    </div>
 
-         <ul class="nav nav-tabs d-flex col-12" id="myTab" role="tablist">
+    <div class="navLink mb-0">
+         <ul class="nav bg-custom nav-fill justify-content-center nav-tabs col-12" id="myTab" role="tablist">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li class="nav-item">
                     <a class="nav-link" id="home-tab" href="{{ path('home') }}">Accueil</a>
@@ -44,6 +51,6 @@
                 {% endif %}
             {% endif %}
         </ul>
-          
- </header>
+    </div>
+
  {% endblock %}

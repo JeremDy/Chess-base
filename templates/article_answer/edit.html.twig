@@ -3,7 +3,9 @@
 {% block title %}Editer votre commentaire - Chess-Online{% endblock %}
 
 {% block body %}
+<div class="pt-5 bg-custom col-10 mx-auto">
     <h3 class="font-weight-bold">Editer votre commentaire : </h3>
 
     {{ include('article_answer/_form.html.twig', {'button_label': 'Update'}) }}
+</div>
 {% endblock %}

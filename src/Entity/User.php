@@ -19,6 +19,17 @@ class User extends BaseUser
      * @ORM\Column(type="integer")
      */
     protected $id;
+    
+    /**
+     * @var string
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 22,
+     *      minMessage = "Ton nom doit au moins faire {{ limit }} caractères",
+     *      maxMessage = "Ton nom ne peut pas dépasser {{ limit }} caractères"
+     * )
+     */
+    protected $username;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Game", mappedBy="PlayerOne")
