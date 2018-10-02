@@ -3,18 +3,19 @@ import './content.sass';
 import classNames from 'classnames';
 
 
-const content = ({item, itemKill, cell, myColor, whitePlayer, blackPlayer }) => {
+const content = ({ item, itemKill, cell, myColor, whitePlayer, blackPlayer }) => {
   let whoPlay;
   let me;
   let myOpponent;
   let whoPlayLeft;
   let whoPlayRight;
   let itemKillé;
-  let myColoration;
-  let opponentColor;
+  let itemColor;
+  let itemKillColor;
   myColor == '1' ? me = whitePlayer : me = blackPlayer;
   myColor == '1' ? myOpponent = blackPlayer : myOpponent = whitePlayer;
-  if (myColor == '1') { myColoration = 'blanc'; opponentColor = 'noir'; } else { myColoration = 'noir'; opponentColor = 'blanc'; };
+  item[1] == '1' ? itemColor = 'blanc' : itemColor = 'noir';
+  itemKill[1] == '1' ? itemKillColor = 'blanc' : itemKillColor = 'noir';
   if (item[1] == myColor) {
     whoPlay = me;
     whoPlayLeft = ` ${me}: `;
@@ -83,13 +84,13 @@ const content = ({item, itemKill, cell, myColor, whitePlayer, blackPlayer }) => 
     <div  >
       { 'E' === itemKill &&
   <ul className={className}>
-  <li className="rowMov"> <span className="player">{whoPlayLeft}</span>  {item} {myColoration} en {cell} <span className="player">{whoPlayRight}</span></li>
+  <li className="rowMov"> <span className="player">{whoPlayLeft}</span>  {item} {itemColor} en {cell} <span className="player">{whoPlayRight}</span></li>
   </ul>
       }
       {  'E' !== itemKill &&
 
     <ul className={className}>
-    <li className="rowMove"> <span className="player">{whoPlayLeft}</span> Prise du {itemKillé} {opponentColor} en {cell} par le {item} {myColoration}<span className="player">{whoPlayRight}</span></li>
+    <li className="rowMove"> <span className="player">{whoPlayLeft}</span> Prise du {itemKillé} {itemKillColor} en {cell} par le {item} {itemColor}<span className="player">{whoPlayRight}</span></li>
     </ul>
       }
     </div>
