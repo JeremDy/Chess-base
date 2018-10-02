@@ -14,4 +14,4 @@ const rootComponent = (
 
 render(rootComponent, document.getElementById('root'));
 
-store.dispatch(webSocketConnect(GAME_CHANEL,MY_COLOR));
+store.dispatch(webSocketConnect(GAME_CHANEL, MY_COLOR));

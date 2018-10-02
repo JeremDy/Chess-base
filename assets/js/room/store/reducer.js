@@ -66,7 +66,7 @@ const reducer = (state = initialState, action = {}) => {
         webSocketSession: action.session
       };
     // -----------------------------------------------------------------------------------------
-    // ------------------------------------I-N-I-T---D-I-S-P-L-A-Y------------------------------
+    // ------------------------------------SERVER MESSAGE RECEIVED-----------------------------
     // -----------------------------------------------------------------------------------------
     case MESSAGE_RECEIVED:
       let newGameOver = false; // false par défaut , le passage au true déclenchera l'animation de game Over
@@ -75,6 +75,8 @@ const reducer = (state = initialState, action = {}) => {
       let couldPlay;
       let newMovementsList = [];
       let newServerMessage = {'message': '', 'endGame': '', 'echec': '', 'error': '', 'timer': ''};
+
+      // ------------------------------------TIMER MESSAGE-----------------------------
       if (undefined !== action.serverMessage['timer']) {
         newServerMessage['timer'] = action.serverMessage['timer'];
         if (action.serverMessage['timer'] === 'start') {
@@ -100,15 +102,18 @@ const reducer = (state = initialState, action = {}) => {
           };
         }
       }
+      // ------------------------------------CAN PLAY MESSAGE-----------------------------
       // défini si le joueur peut ou non jouer selon la valeur de canplay envoyé à chaque tour par le serveur
       if (undefined !== action.serverMessage['canPlay']) {
         couldPlay = action.serverMessage['canPlay'];
         newServerMessage['message'] = action.serverMessage['message'];
         // si le message du serveur contient movement, c'est une validation de mouvement
         if (undefined !== action.serverMessage['movement']) {
-            
+
           newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
           newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[1])[`${Object.keys(action.serverMessage['movement']['newPositions'])[1]}`] = Object.values(action.serverMessage['movement']['newPositions'])[1];
+
+          // Cas du rock
           if (undefined !== action.serverMessage['movement']['newPositions']['smallRock']) {
             if (action.serverMessage['movement']['newPositions']['smallRock'] === 'white') {
               newBoard.find(cell => Object.keys(cell)[0] === '1/1')['1/1'] = 'E';
@@ -135,16 +140,18 @@ const reducer = (state = initialState, action = {}) => {
           board: newBoard
         };
       }
-      //si lastboard il y a alors on le convertie au format du board [{'row/column':'item/color'},{}]
+
+      // ------------------------------------LAST BOARD RECEIVE-----------------------------
+      // si lastboard il y a alors on le convertie au format du board [{'row/column':'item/color'},{}]
       if (undefined !== action.serverMessage['lastBoard']) {
         //   console.log('je compare :',newLastBoard, 'a :', newBoard )
         newLastBoard = library.convertServerBoardToClientBoard(action.serverMessage['lastBoard']);
-       
         return {
           ...state,
           lastBoard: newLastBoard
         };
       }
+      // ------------------------------------GAME OVER MESSAGE-----------------------------
       // gameOVer si l'on reçoit un message du serveur avec endGame
       if (undefined !== action.serverMessage['endGame']) {
         newGameOver = true;
@@ -156,6 +163,7 @@ const reducer = (state = initialState, action = {}) => {
         };
       }
 
+      // ------------------------------------ERROR MESSAGE-----------------------------
       // si le message contient error on va revenir au board précédent
       if (undefined !== action.serverMessage['error']) {
         if (state.myColor == 1) {
@@ -171,7 +179,8 @@ const reducer = (state = initialState, action = {}) => {
           canPlay: couldPlay
         };
       }
-      
+
+      // ------------------------------------ECHEC MESSAGE-----------------------------
       if (undefined !== action.serverMessage['echec']) {
         switch (action.serverMessage['echec']) {
           case 'Vous avez mis le roi adverse en echec !':
@@ -189,6 +198,7 @@ const reducer = (state = initialState, action = {}) => {
         }
       }
 
+      // ------------------------------------MOVEMENT LIST MESSAGE-----------------------------
       if (undefined !== action.serverMessage['movementList']) {
         newMovementsList = library.convertMovementList(action.serverMessage['movementList'])
         return {
@@ -218,7 +228,9 @@ const reducer = (state = initialState, action = {}) => {
         let newKillAllowed = [];
         let newRockAllowed = false;
         if (item === 'E' || !state.canPlay || color != state.myColor) { return state; } else if (state.canPlay & (color == state.myColor)) { // annule tout effet d'un clic sur une cellule vide
-          console.log('Clic N°1 done');
+
+          // ------------------------------------FIRST CLICK------------------------------------------
+          // -----------------------------------------------------------------------------------------
           switch (item) { // Selon la pièce sur laquelle on a clic, on va créer un tableau de cases autorisées
             case 'P':
               library.pion(color, numbRow, numbColumn, state.board, newMoveAllowed, newKillAllowed);
@@ -266,7 +278,9 @@ const reducer = (state = initialState, action = {}) => {
         break;
 
       } else if (clicCount === 2 || color != state.myColor) {// deuxième clic
-        console.log('Clic N°2 done');
+
+        // ------------------------------------SECOND CLICK------------------------------------------
+        // -----------------------------------------------------------------------------------------
         let opponentColor;
         let kingPos;
         let vector;
@@ -274,7 +288,8 @@ const reducer = (state = initialState, action = {}) => {
         state.myColor === 1 ? opponentColor = '0' : opponentColor = '1'; // pour identifer les pièce opponents
 
         if (Object.values(state.clickedCell[0])[0] === `${'K'}${state.myColor}`) { // lors du click n°1 sur le roi il faut, lors du 2eme clic verifier qu'il n'y a pas echec par des pion
-          // cas d'echec par les pions
+          
+          // ------------------------------------------------cas d'echec par les pions----------------------------------------------
           if ((numbRow - 1 > 0) & (numbRow + 1 < 9) & (numbColumn + 1 < 9) & (numbColumn - 1 > 0)) {
             if ((state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + 1 * vector)}/${(numbColumn + 1)}`)[`${(numbRow + 1 * vector)}/${(numbColumn + 1)}`] === `${'P'}${opponentColor}`) ||
               (state.board.find(cell => Object.keys(cell)[0] === `${(numbRow + 1 * vector)}/${(numbColumn - 1)}`)[`${(numbRow + 1 * vector)}/${(numbColumn - 1)}`] === `${'P'}${opponentColor}`)) {
@@ -310,10 +325,11 @@ const reducer = (state = initialState, action = {}) => {
               };
             }
           }
+          // ------------------------------------------------cas de proximité rois----------------------------------------------
           // empeche le roi d'être à moins d'une case d'un autre rois
           kingPos = Object.keys(state.board.find(cell => Object.values(cell)[0] === `${'K'}${opponentColor}`)); // kingPos ["8/4"]
           if (Math.sqrt(Math.pow((numbRow - Number(kingPos[0].substring(0,1))),2) + Math.pow((numbColumn - Number(kingPos[0].substring(2,3))),2)) <= Math.sqrt(2) ) {
-            console.log('roi trop pret');
+            console.log('Roi trop pret');
             return {
               ...state,
               allowedMoveList: [],
@@ -323,7 +339,7 @@ const reducer = (state = initialState, action = {}) => {
             };
           }
         }
-
+        // ------------------------------------------------MOVE VERIFICATION AND BOARD UPDATE----------------------------------------------
         let newBoard = [...state.board]; // on prepare le board que l'on aura modifier pour le renvoyer /!\ a ne pas faire de passage par référence
         let dataToSend = [];
         let mov = [];
@@ -335,11 +351,12 @@ const reducer = (state = initialState, action = {}) => {
         if ((((state.allowedMove.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined) || // est ce que la case sur laquelle on clic fait partie des cases autorisées
           ((state.allowedKill.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) & (state.myColor != color)) & (item != 'K')) { // est ce que la case sur laquelle on clic fait partie des cases killAble
           if (Object.values(state.clickedCell[0])[0] === `${'K'}${state.myColor}` & state.rockAllowed === true) {
+            // cas du rock
             if ((numbRow === 1) || (numbRow === 8)) {
               let rockColor;
-              let thisColor
+              let thisColor;
               numbRow === 1 ? rockColor = 'white' : rockColor = 'black';
-              numbRow === 1 ? thisColor = '1' :thisColor = '0'
+              numbRow === 1 ? thisColor = '1' : thisColor = '0';
               if (numbColumn === 2) {
                 newBoard.find(cellToModify => `${numbRow}/1` === Object.keys(cellToModify)[0])[`${numbRow}/1`] = 'E';
                 newBoard.find(cellToModify => `${numbRow}/3` === Object.keys(cellToModify)[0])[`${numbRow}/3`] = 'T'+`${thisColor}`;
@@ -353,6 +370,7 @@ const reducer = (state = initialState, action = {}) => {
           }
           const newItem = Object.values(state.clickedCell[0])[0]; // on récupère la pièce qui était sur la case du premier clic
           let oldItem = newBoard.find(cellToModify => Object.keys(cell)[0] === Object.keys(cellToModify)[0])[Object.keys(cell)[0]];
+          // pour identifier un kill dans les messages
           if (oldItem !== 'E') {
             dataToSend['newPositions']['itemKill'] = oldItem;
           };

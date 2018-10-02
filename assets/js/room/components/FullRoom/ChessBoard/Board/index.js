@@ -4,16 +4,18 @@ import './board.sass';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const Board = ({board, gameOver}) => {
+  // transition au game over
   const transitionOptions = {
     transitionName: 'fade',
     transitionEnterTimeout: 10500,
     transitionLeaveTimeout: 10500
   };
+
   let theChild;
   if (gameOver) {
-    theChild = <div className='gameOver' key='gameOver'>
+    theChild =
+    <div className='gameOver' key='gameOver'>
       <p className='text title'> Game Over </p>
-
     </div>;
   }
   return (

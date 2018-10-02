@@ -20,7 +20,6 @@ const content = ({ item, itemKill, cell, myColor, whitePlayer, blackPlayer }) =>
     whoPlay = me;
     whoPlayLeft = ` ${me}: `;
     whoPlayRight = '';
-
   } else if (item[1] != myColor) {
     whoPlay = myOpponent;
     whoPlayLeft = '';
@@ -28,12 +27,11 @@ const content = ({ item, itemKill, cell, myColor, whitePlayer, blackPlayer }) =>
   }
 
   const className = classNames(
-      ' mov-content',
+    ' mov-content',
     {
       'me': whoPlay === me,
       'myOpponent': whoPlay === myOpponent
     });
-
 
   switch (item[0]) {
     case 'P':
@@ -60,40 +58,39 @@ const content = ({ item, itemKill, cell, myColor, whitePlayer, blackPlayer }) =>
   switch (itemKill[0]) {
     case 'P':
       itemKillé = 'Pion';
-    break;
+      break;
     case 'C':
       itemKillé = 'Cavalier';
-    break;
+      break;
     case 'T':
       itemKillé = 'Tour';
-    break;
+      break;
     case 'F':
       itemKillé = 'Fou';
-    break;
+      break;
     case 'Q':
       itemKillé = 'Reine';
-    break;
+      break;
     case 'K':
       itemKillé = 'Roi';
-    break;
+      break;
     default:
-        break;
+      break;
   }
-// console.log('itemKill',itemKill)
   return (
-    <div  >
+    <div>
       { 'E' === itemKill &&
   <ul className={className}>
-  <li className="rowMov"> <span className="player">{whoPlayLeft}</span>  {item} {itemColor} en {cell} <span className="player">{whoPlayRight}</span></li>
+    <li className="rowMov"> <span className="player">{whoPlayLeft}</span>  {item} {itemColor} en {cell} <span className="player">{whoPlayRight}</span></li>
   </ul>
       }
-      {  'E' !== itemKill &&
-
+      { 'E' !== itemKill &&
     <ul className={className}>
-    <li className="rowMove"> <span className="player">{whoPlayLeft}</span> Prise du {itemKillé} {itemKillColor} en {cell} par le {item} {itemColor}<span className="player">{whoPlayRight}</span></li>
+      <li className="rowMove"> <span className="player">{whoPlayLeft}</span> Prise du {itemKillé} {itemKillColor} en {cell} par le {item} {itemColor}<span className="player">{whoPlayRight}</span></li>
     </ul>
       }
     </div>
-  )};
+  );
+};
 
 export default content;
