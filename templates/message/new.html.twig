@@ -2,9 +2,10 @@
 
 {% block title %}New Message{% endblock %}
 
-{% block body %}
+{% block messagerie %}
 {{ parent() }}
-    <h3 class="font-weight-bold text-center mt-2 mb-5">Envoyer un nouveau message privé :</h3>
-
+    <div class="bg-custom borderblanche col-10 mx-auto">
+    <h3 class="font-weight-bold text-center mt-3 mb-5">Envoyer un nouveau message privé :</h3>
     {{ include('message/_form.html.twig') }}
+    </div>
 {% endblock %}

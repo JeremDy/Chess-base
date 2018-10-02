@@ -12,13 +12,13 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     {% endif %}
     <div class="form-group">
-        <label class="control-label col-xs-2" for="username">{{ 'security.login.username'|trans }}</label>
+        <label class="font-weight-bold control-label col-xs-2" for="username">{{ 'security.login.username'|trans }}</label>
         <div class="col-xs-10">
             <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
         </div>
     </div>
     <div class="form-group">
-        <label for="password">{{ 'security.login.password'|trans }}</label>
+        <label class="font-weight-bold" for="password">{{ 'security.login.password'|trans }}</label>
         <div class="col-xs-10">
             <input class="form-control" type="password" id="password" name="_password" required="required" autocomplete="current-password" />
         </div>
@@ -26,18 +26,18 @@
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
             <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+            <label class="font-weight-bold" for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
         </div>
     </div>
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10 text-center">
-            <input class="btn btn-light" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            <input class="btn btn-dark" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
         </div>
     </div>
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10 text-center">
-            <p class="mb-0"> Pas encore de compte ?</p>
-            <a class="btn btn-light"href="{{ path('fos_user_registration_register') }}"> Inscription </a>
+            <p class="font-weight-bold mb-0 "> Pas encore de compte ?</p>
+            <a class="btn btn-dark"href="{{ path('fos_user_registration_register') }}"> Inscription </a>
         </div>
     </div>
 </form>

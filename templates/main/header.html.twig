@@ -1,6 +1,6 @@
 
  {% block header %}
-    <div class="d-flex justify-content-between bg-light pt-2">
+    <div class="d-flex justify-content-between bg-custom pt-2">
      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <p class="pl-2 text-left p-0">
             <img class=""src="{{ asset(image_directory_chess ~ (app.user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" />
@@ -11,7 +11,7 @@
                 </a>
      {% endif %}
     </div>
-    <div class="navTitle bg-light">
+    <div class="navTitle bg-custom">
         <div class="justify-content-center d-flex">
             <h1 class="titre">
                 <a class="text-white col-10 p-0" href="{{ path('home') }}">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="navLink mb-0">
-         <ul class="nav bg-light nav-fill justify-content-center nav-tabs col-12" id="myTab" role="tablist">
+         <ul class="nav bg-custom nav-fill justify-content-center nav-tabs col-12" id="myTab" role="tablist">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li class="nav-item">
                     <a class="nav-link" id="home-tab" href="{{ path('home') }}">Accueil</a>

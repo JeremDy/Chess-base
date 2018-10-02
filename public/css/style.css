@@ -1,4 +1,5 @@
 header {
+    color: #D8D8D8;
     border-style: solid;
     border-bottom: none;
     border-width: 5px;
@@ -13,6 +14,38 @@ header {
 body {
     z-index: 6;
     position: relative;
+}
+
+.borderblanche,
+.no-bg,
+.no-bgl {
+    color: white;
+    border: 0px none #ffffff;
+    border-radius: 20px;
+    -moz-box-shadow: inset 0px 0px 5px 5px white;
+    -webkit-box-shadow: inset 0px 0px 5px 5px white;
+    -o-box-shadow: inset 0px 0px 5px 5px white;
+    box-shadow: inset 0px 0px 5px 5px white;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=white, Direction=NaN, Strength=5);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.no-bgr {
+    border-right: none;
+}
+.no-bgl {
+    border-left: none;
+}
+
+.bg-custom {
+    background-color: #334843;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 0.1em orange;
+}
+.font-custom {
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 0.1em orange;
 }
 .bg-chess {
     
@@ -45,7 +78,17 @@ body {
     opacity: 0.7;
     z-index: 0;
 }
-
+.articleshow {
+    align-self: center;
+    z-index: -1;
+    width:100%;
+    height: 100%;
+    border-style: solid;
+    border-top: none;
+    border-width: 5px;
+    opacity: 0.7;
+    z-index: 0;
+}
 /* Ici je reprends le css container de bootstrap pour pouvoir modifier cette div sans affecter les autres  */
 .container-site {
     margin-right: auto;
@@ -61,6 +104,7 @@ p {
 	font-size: 1em;
 }
 /* Eeeet on modifie la première partie du header ! */
+
 .navTitle {
     
     width:100%;
@@ -73,7 +117,8 @@ p {
 }
 .navLink a {
     font-weight: bold;
-    color:black;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 0.1em orange;
     text-decoration: none;
 }
 
@@ -94,8 +139,6 @@ p {
     text-decoration: none;
     color: grey;
 } */
-
-
 
 
 /* Chat css*/

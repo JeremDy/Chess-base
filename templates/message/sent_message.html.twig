@@ -2,15 +2,14 @@
 
 {% block title %}Message envoyé{% endblock %}
 
-{% block body %}
+{% block messagerie %}
 
 {{ parent() }}
         <h1> Message envoyé</h1>
-        <div class="d-flex flex-column">
             <div class="pr-2 mb-1"><a class="btn btn-light float-right" href="{{ path('message_new') }}">Envoyer un Message</a></div>
             <ul class="list-group list-group-flush">
             {% for message in messages %}
-                <li class="list-group-item bg-dark border-light m-1">
+                <li class="list-group-item bg-custom borderblanche m-1">
                     <div class="d-flex justify-content-between">
                         <h3><a href="{{ path('message_show', {'id': message.id}) }}">{{ message.title }}</a></h3>
                         {% if message.readByReceiver == true %} <i class="far fa-envelope-open fa-2x"></i> {% else %} <i class="far fa-envelope fa-2x"></i> {% endif %}
