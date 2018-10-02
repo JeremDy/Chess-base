@@ -7,8 +7,8 @@ header {
     margin-right: auto;
     margin-left: auto;
     /* Lignes ajoutées :  */
-    width: 55%;
-    z-index: 0;
+    /*width: 55%;
+    z-index: 0;*/
 }
 
 body {
@@ -47,6 +47,8 @@ body {
     color: white;
     text-shadow: 1px 1px 2px black, 0 0 0.1em orange;
 }
+
+
 .bg-chess {
     
     position: fixed;
@@ -65,7 +67,11 @@ body {
   -ms-filter: blur(1px);
   filter: blur(1px);
 }
+
+
 /* back ground opacity 50% pour tout le site. */
+
+/*
 .bg-site {
     align-self: center;
     position: fixed;
@@ -78,6 +84,7 @@ body {
     opacity: 0.7;
     z-index: 0;
 }
+*/
 .articleshow {
     align-self: center;
     z-index: -1;
@@ -90,13 +97,18 @@ body {
     z-index: 0;
 }
 /* Ici je reprends le css container de bootstrap pour pouvoir modifier cette div sans affecter les autres  */
+/*
 .container-site {
     margin-right: auto;
     margin-left: auto;
+*/
+
     /* Lignes ajoutées :  */
+   /*
     width: 55%;
     z-index: 0;
 }
+*/
 
 
 p {
@@ -270,10 +282,18 @@ p {
 /*button play css*/
 
 .globalContainer{
+    background-color: #334843de;
+    padding: 1.9em;
+    margin:0;
+    color: #D8D8D8;
+    border-style: solid;
+    border-width: 5px;
+    border-top:none;
+
+    /*
   display: flex;
-  justify-content: space-between;
-  padding: 1.9em;
-  max-height: 80%;
+  justify-content: space-between; 
+  max-height: 80%;*/
 }
 
 .leftContainer{

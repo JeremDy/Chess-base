@@ -20,21 +20,23 @@
     {% block headJs %}          
     {% endblock %}    
     </head>
+ <body>
     <div class="bg-chess"></div>
-    <header class="sticky-top">
-        {% block header %}
-        {{ include('main/header.html.twig') }}
-        {% endblock %}
-    </header>
-    <body class="pt-20">
-
-        <div class="container-site">
+   
+   <div class="container">
+   
+        <header>
+            {% block header %}
+            {{ include('main/header.html.twig') }}
+            {% endblock %}
+        </header>  
         <div class="mt-0 bg-site bg-custom"></div>
         {{include('main/_invitation.html.twig')}}
-        {% block body %}  
-      
-
-        {% endblock %}
+        <div class="globalContainer row">
+            {% block body %}  
+             {% endblock %}
+        </div>
+    </div>
 
 
 
@@ -48,6 +50,6 @@
             <script src=" {{ asset('javascript/socket.js') }}"></script>
   {% block javascripts %}           
         {% endblock %}
-    </div>
+    
     </body>
 </html>

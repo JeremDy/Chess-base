@@ -43,7 +43,7 @@ class MainController extends AbstractController
         $form = $this->createFormBuilder()
             ->add('newFriend', EntityType::class, array(
                 'constraints' => new NotBlank(),
-                'label' => 'friend',
+                'label' => false,
                 'class' => User::class,
                 'choices' => $notFriends,
                 'multiple' => false,
