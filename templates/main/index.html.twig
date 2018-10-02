@@ -21,8 +21,22 @@
 
   
     <div class="leftContainer col-12 col-md-7">
+      <div id="home-left" class="bg-custom mb-4 p-1 pr-2 pl-2">
+        <h2 class="text-center font-weight-bold mt-2"> Latest News :</h2>
+        <div class="lastNews bg-custom p-3"> 
 
-      <div class="buttonContainer"> 
+            {% if article is not null %}
+            <h4 class="text-center font-weight-bold">{{ article.title}}</h4>
+            <p class="text" > {{article.body|raw}}</p>  
+            {% endif %}
+
+        </div>
+      </div>
+
+    </div> 
+    <div class="rightContainer col-12 col-md-5">
+
+       <div class="buttonContainer"> 
         <form id="invitation">
           <h4 class="titleInvite"> Inviter un joueur :</h4> 
           <input class="inputName" type="text">
@@ -36,20 +50,9 @@
         </div>
       </div>
 
-      <div id="home-left" class="bg-custom mb-4 p-1 pr-2 pl-2">
-        <h2 class="text-center font-weight-bold mt-2"> Latest News :</h2>
-        <div class="lastNews bg-custom p-3"> 
-
-            {% if article is not null %}
-            <h4 class="text-center font-weight-bold">{{ article.title}}</h4>
-            <p class="text" > {{article.body|raw}}</p>  
-            {% endif %}
-
-        </div>
-      </div>
-    </div> 
-    <div class="rightContainer col-12 col-md-5">
       <div class="rootContainer" id="root"><div>
+
+
     </div>
   
 

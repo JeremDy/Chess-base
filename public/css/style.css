@@ -1,4 +1,11 @@
+html,body{
+    height:100%;
+}
+
 header {
+
+    padding:10px;
+    /*
     color: #D8D8D8;
     border-style: solid;
     border-bottom: none;
@@ -6,9 +13,19 @@ header {
     z-index:5;
     margin-right: auto;
     margin-left: auto;
+    */
     /* Lignes ajoutées :  */
     /*width: 55%;
     z-index: 0;*/
+}
+
+.container{
+    background-color: #334843de;
+    min-height:100%;
+    padding:0;
+    color: #D8D8D8;
+    border-style: solid;
+    border-width: 5px;
 }
 
 body {
@@ -158,7 +175,7 @@ p {
 
 
 .bloc {
-    background-color: rgba(73, 73, 73, 0.844);
+    background-color: #334843;
     border-radius: 0 0 20px 20px;
     -moz-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
     -webkit-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
@@ -184,7 +201,7 @@ p {
 .message-container {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 22em;
+    height: 21em;
     word-break: break-word;
 }
 
@@ -281,14 +298,16 @@ p {
 /*end chat css*/
 /*button play css*/
 
-.globalContainer{
-    background-color: #334843de;
+.globalContainer{ 
+    
+    /*background-color: #334843de;*/
     padding: 1.9em;
     margin:0;
+    /*
     color: #D8D8D8;
     border-style: solid;
     border-width: 5px;
-    border-top:none;
+    border-top:none;*/
 
     /*
   display: flex;
@@ -310,9 +329,9 @@ p {
   flex-direction: column;
   justify-content: space-around;
   margin-bottom: 1em;
-  height: 8em;
+  min-height: 8em;
   background-color: #fdfdfdc2;
-  padding: 0px 14px;
+  padding: 10px 14px;
   border-radius: 13px;
   color: black;
   box-shadow: inset 0 0 42px rgb(0, 0, 0);
@@ -320,6 +339,7 @@ p {
 #invitation{
   display: flex ;
   align-items: center;
+  flex-wrap: wrap;
 }
 .titleInvite, .titleMatchMaking{
   margin: 0;
@@ -330,7 +350,8 @@ p {
 }
 #matchmaking-container {
     display: flex;
-    align-items: center
+    align-items: center;
+    flex-wrap: wrap;
 }
 .inputName{
     background-color: #5555554a;
@@ -380,7 +401,7 @@ p {
     color:black;
     min-width: 300px;
 }*/
-
+/*
 #home-left{
     height: 60%;
     border-radius: 20px;
@@ -400,10 +421,13 @@ iframe{
     max-height:100%;
 }
 
+
+
 .text {
     white-space:normal;
     width: inherit;
 }
+
 .lastNews {
     max-width:100%;
   
@@ -421,6 +445,7 @@ iframe{
     outline: 1px solid slategrey;
 }
 
+*/
 
 .youtube-embed-wrapper{
     max-width:640px;
@@ -492,4 +517,50 @@ iframe{
 }
 
 /* ***** */
+
+
+
+/** latest news v2*/
+#home-left{
+
+    border-radius: 20px;
+    -moz-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
+    -webkit-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
+    -o-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
+    box-shadow: inset 0px 0px 5px 5px #c0c0c0;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=NaN, Strength=5);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    max-height: 40em;
+}
+
+.lastNews{
+    overflow-y:auto;
+    max-height:500px;
+}
+
+.lastNews::-webkit-scrollbar {
+    width: 1em;
+}
+
+.lastNews::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.lastNews::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+iframe{
+    max-width:100%;
+    max-height:100%;
+}
+
+.text {
+    white-space:normal;
+    width: inherit;
+}
+
+/*****/
 
