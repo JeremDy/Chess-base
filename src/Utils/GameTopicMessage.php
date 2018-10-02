@@ -113,7 +113,7 @@ class GameTopicMessage
                 'error' => 'Cette piece n\'existe pas !',
             ],
             array(),
-            array($player['connection']->WAMP->sessionId)
+            array($playerSessionId)
             );
     }
 
