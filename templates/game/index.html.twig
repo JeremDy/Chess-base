@@ -13,22 +13,35 @@
 {% endblock %}
 
 {% block body %}
-<div class="bg-dark d-inline-flex align-items-center p-2" id="opponent"> 
+<div class="pt-5 col-4 font-custom d-inline-flex align-items-center ml-4 p-2" id="opponent"> 
     <img class=""src="{{ asset(image_directory_chess ~ (opponent.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /> 
     <div class="ml-4">
-        <h5>{{ opponent.username }}</h5>
-        <p> Statistique : {{ opponent.stats.nbWin}} victoires en {{opponent.stats.nbGame }} parties !</p>
-    </div>
+    {% if opponent.stats is not null and opponent.stats.nbGame is not null %}
+                 <p> Statistique : {{ opponent.stats.nbWin}} victoires en {{opponent.stats.nbGame }} parties !</p>
+                {% elseif opponent.stats is not null %}
+                <p> Statistique : 0 victoires en {{opponent.stats.nbGame }} parties !</p>
+                {% else %}
+                <p>Aucune stats de disponible</p>
+    {% endif %}
+        <h5>Votre adversaire : {{ opponent.username }}</h5>
+       </div>
 </div>
 {# Exemple de ligne pour afficher les images profils en game : 
 <img class=""src="{{ asset(image_directory_chess ~ (game.playerOne.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /> #}
-<div id="root"></div>
+<div class="pl-5 ml-5 mr-5 font-custom" id="root"></div>
 
-<div class="bg-dark d-inline-flex  align-items-center p-2 mb-5" id="opponent"> 
+<div class="font-custom col-4 ml-4 d-inline-flex  align-items-center p-2" id="opponent"> 
     <img class=""src="{{ asset(image_directory_chess ~ (app.user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /> 
     <div class="ml-4">
         <h5>{{ app.user.username }}</h5>
-        <p> Statistique : {{ app.user.stats.nbWin}} victoires en {{app.user.stats.nbGame }} parties !</p>
+        {% if app.user.stats is not null and app.user.stats.nbGame is not null %}
+                 <p> Statistique : {{ app.user.stats.nbWin}} victoires en {{app.user.stats.nbGame }} parties !</p>
+                {% elseif app.user.stats is not null %}
+                <p> Statistique : 0 victoires en {{app.user.stats.nbGame }} parties !</p>
+                {% else %}
+                <p>Aucune stats de disponible</p>
+    {% endif %}
+
     </div>
 </div>
 

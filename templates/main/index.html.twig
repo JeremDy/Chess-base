@@ -9,10 +9,12 @@
 {% block body %}
 
 {% if games != false %}
-Partie en cours : 
+<div class="ml-2 p-1 font-custom col-5">
+ <h3> Partie en cours : 
 {% for game in games %}
 <a href="{{ path('game', {id : game.id }) }}">lien</a>
 {% endfor %}
+</div>
 {% endif %}
 
 
