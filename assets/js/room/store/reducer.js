@@ -139,13 +139,9 @@ const reducer = (state = initialState, action = {}) => {
       if (undefined !== action.serverMessage['lastBoard']) {
         //   console.log('je compare :',newLastBoard, 'a :', newBoard )
         newLastBoard = library.convertServerBoardToClientBoard(action.serverMessage['lastBoard']);
-        if (!library.compareOldNewBoard(newLastBoard, newBoard, state.myColor) & state.rockAllowed === false) {
-          if (state.myColor == 1) { newBoard = newLastBoard.reverse(); } else { newBoard = newLastBoard; }
-        }
+       
         return {
           ...state,
-          rockAllowed: false,
-          board: newBoard,
           lastBoard: newLastBoard
         };
       }
@@ -162,43 +158,20 @@ const reducer = (state = initialState, action = {}) => {
 
       // si le message contient error on va revenir au board précédent
       if (undefined !== action.serverMessage['error']) {
-        switch (action.serverMessage['error']) {
-          case 'Votre roi est en echec !!':
-            if (state.myColor == 1) {
-              state.lastBoard.reverse();
-            }// selon la couleur on oublie pas de rebasculer le damier pour bien afficher la couleur
-            newBoard = state.lastBoard;
-            newServerMessage['error'] = action.serverMessage['error'];
-            couldPlay = true;
-            return {
-              ...state,
-              board: newBoard,
-              serverMessage: newServerMessage,
-              canPlay: couldPlay
-            };
-          case 'Ce n\'est pas votre tour.':
-            break;
-          case 'Adversaire non connecté !':
-            if (state.myColor == 1) {
-              state.lastBoard.reverse();
-            }// selon la couleur on oublie pas de rebasculer le damier pour bien afficher la couleur
-            newBoard = state.lastBoard;
-            newServerMessage['error'] = action.serverMessage['error'];
-            couldPlay = true;
-            return {
-              ...state,
-              board: newBoard,
-              serverMessage: newServerMessage,
-              canPlay: couldPlay
-            };
-          case 'Cette piece n\'existe pas !':
-         
-          case 'Ce n\'est pas une de vos pieces!':
-         
-          case 'Ce mouvement est incorect !':
-           
-        }
+        if (state.myColor == 1) {
+          state.lastBoard.reverse();
+        }// selon la couleur on oublie pas de rebasculer le damier pour bien afficher la couleur
+        newBoard = state.lastBoard;
+        newServerMessage['error'] = action.serverMessage['error'];
+        couldPlay = true;
+        return {
+          ...state,
+          board: newBoard,
+          serverMessage: newServerMessage,
+          canPlay: couldPlay
+        };
       }
+      
       if (undefined !== action.serverMessage['echec']) {
         switch (action.serverMessage['echec']) {
           case 'Vous avez mis le roi adverse en echec !':
