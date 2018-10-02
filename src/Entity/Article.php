@@ -20,12 +20,14 @@ class Article
     private $id;
 
     /**
+     * @Assert\Length( min = 2, max = 100)
      * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
+     * @Assert\Length( min = 2, max = 2100)
      * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
@@ -54,6 +56,7 @@ class Article
     private $extrait;
 
     /**
+     * @Assert\Length( min = 2, max = 200)
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
      */
@@ -81,7 +84,7 @@ class Article
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -93,7 +96,7 @@ class Article
         return $this->body;
     }
 
-    public function setBody(string $body): self
+    public function setBody(?string $body): self
     {
         $this->body = $body;
 
@@ -160,7 +163,7 @@ class Article
         return $this->extrait;
     }
 
-    public function setExtrait(string $extrait): self
+    public function setExtrait(?string $extrait): self
     {
         $this->extrait = $extrait;
 

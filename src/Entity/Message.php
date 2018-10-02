@@ -31,12 +31,14 @@ class Message
     private $receiver;
 
     /**
+     * @Assert\Length( min = 2, max = 100)
      * @Assert\NotBlank()
      * @ORM\Column(type="string", length=250)
      */
     private $title;
 
     /**
+     * @Assert\Length( min = 2, max = 500)
      * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
