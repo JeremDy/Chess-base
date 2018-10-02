@@ -8,6 +8,7 @@ class Piece
     protected $posY;
     protected $color;
     protected $code;
+    protected $hasMoved;
 
 
    
@@ -69,6 +70,18 @@ class Piece
         }
         
         return true;
+    }
+
+
+    public function getHasMoved()
+    {
+        return $this->hasMoved;
+    }
+
+    public function setHasMoved($hasMoved)
+    {
+        $this->hasMoved = $hasMoved;
+        return $this;
     }
 
 

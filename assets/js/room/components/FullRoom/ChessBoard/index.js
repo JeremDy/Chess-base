@@ -5,9 +5,7 @@ import Board from '../../../containers/Board.js';
 import './chessBoard.sass';
 const ChessBoard = () => (
   <div id="ChessBoard">
-    {/* <Player /> */}
     <Board />
-    {/* <Player /> */}
   </div>
 );
 

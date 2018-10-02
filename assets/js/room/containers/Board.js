@@ -3,6 +3,7 @@ import Board from '../components/FullRoom/ChessBoard/Board';
 import { } from '../store/actions';
 
 const mapStateToProps = state => ({
+  aroundBoard: state.aroundBoard,
   board: state.board,
   gameOver: state.gameOver
 });

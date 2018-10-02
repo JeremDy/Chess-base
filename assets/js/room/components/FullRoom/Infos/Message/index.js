@@ -1,13 +1,8 @@
 import React from 'react';
 import './messageInfo.sass'
-import { css } from 'react-emotion';
+// import { css } from 'react-emotion';
 import { PacmanLoader } from 'react-spinners';
 
-const override = css`
-    display: block;
-    margin: 0 auto;
-    border-color: red;
-`;
 
 class Message extends React.Component {
   render() {
@@ -23,23 +18,25 @@ class Message extends React.Component {
     } else if (('' !== serverMessage['error']) & (undefined !== serverMessage['error'])) {
       commentaire = serverMessage['error'];
     } else if (('' !== serverMessage['timer']) & (undefined !== serverMessage['timer'])) {
-      commentaire = serverMessage['timer'];
+      if (serverMessage['timer'] === 'start') {
+        commentaire = '       L\'adversaire est parti ...';
+      } else if (serverMessage['timer'] === 'end') {
+        commentaire = '       Nan mais là il abuse, aller t\'as gagné';
+      } else if (serverMessage['timer'] === 'stop') {
+        commentaire = '       Ah il est revenue... l\'idiot';
+      }
     }
-    console.log('serverMessage', serverMessage);
-    console.log('serverMessage[error]', serverMessage['error']);
-    console.log('commentaire',commentaire)
     return (
-        
       <div id="info-bloc">
         <div id="Message">
           <h3 id="message-title"> Commentaires </h3>
           <div className="severMessage">
-            <p>{commentaire}</p>
+            <p className="comment">{commentaire}</p>
           </div>
         </div>
         <div className='sweet-loading'>
           <PacmanLoader
-            className={override}
+            className="pacman"
             sizeUnit={'px'}
             size={25}
             color={'#000000'}

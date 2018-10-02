@@ -431,7 +431,7 @@ var library = {
       } else if (
         Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${(row - i)}/${(column - i)}`))[0] !== 'E' &
         Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${(row - i)}/${(column - i)}`))[0].slice(1, 2) != color
-      )     {
+      ) {
         newKillAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${(row - i)}/${(column - i)}`));
       }
     }
@@ -439,7 +439,8 @@ var library = {
     if (
       (((row === 1) || (row === 8)) & (column === 4)) &
         (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 1}`))[0] === 'E') &
-        (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 2}`))[0] === 'E')
+        (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 2}`))[0] === 'E') &
+        (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column - 3}`))[0][0] === 'T')
     ) {
       newRockAllowed = true;
       newMoveAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${(column - 2)}`));
@@ -448,7 +449,8 @@ var library = {
       (((row === 1) || (row === 8)) & (column === 4)) &
           (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 1}`))[0] === 'E') &
           (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 2}`))[0] === 'E') &
-          (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 3}`))[0] === 'E')
+          (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 3}`))[0] === 'E') &
+          (Object.values(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${column + 4}`))[0][0] === 'T')
     ) {
       newMoveAllowed.push(stateBoard.find(cell => Object.keys(cell)[0] === `${row}/${(column + 2)}`));
       newRockAllowed = true;
@@ -576,17 +578,51 @@ var library = {
   },
   convertMovementList: function(serverMovList) {
     let newMovementList = [];
+    console.log( 'servermovelist', serverMovList)
     serverMovList.forEach(function(move) {
-        // console.log('mov',move[Object.keys(move)[1]])
-      if (move[Object.keys(move)[1]] === 'E') {
-        newMovementList.push({'Item': `${move[Object.keys(move)[0]]}`,'ItemKill': 0, 'ArrivedCell': `${Object.keys(move)[0]}`});
+      let newArrivedCell = library.convertMove(Object.keys(move)[0]);
+      if (undefined === move['itemKill']) {
+        newMovementList.push({'Item': `${move[Object.keys(move)[0]]}`, 'ItemKill': 'E', 'ArrivedCell': `${newArrivedCell}`});
       }
-      if (move[Object.keys(move)[1]] !== 'E') {
-        newMovementList.push({'Item': `${move[Object.keys(move)[0]]}`, 'ItemKill': `${move[Object.keys(move)[1]]}`, 'ArrivedCell': `${Object.keys(move)[0]}`});
+      if (undefined !== move['itemKill']) {
+        newMovementList.push({'Item': `${move[Object.keys(move)[0]]}`, 'ItemKill': `${move['itemKill']}`, 'ArrivedCell': `${newArrivedCell}`});
       }
     });
     // console.log('newMovementList',newMovementList)
     return newMovementList;
+  },
+  convertMove: function(mov) {
+    let array = mov.split('/');
+    let column = array[1];
+    let newColumn;
+    switch (column) {
+      case '1':
+        newColumn = 'H';
+        break;
+      case '2':
+        newColumn = 'G';
+        break;
+      case '3':
+        newColumn = 'F';
+        break;
+      case '4':
+        newColumn = 'E';
+        break;
+      case '5':
+        newColumn = 'D';
+        break;
+      case '6':
+        newColumn = 'C';
+        break;
+      case '7':
+        newColumn = 'B';
+        break;
+      case '8':
+        newColumn = 'A';
+        break;
+    }
+    array[1] = newColumn;
+    return array.reverse().join('');
   }
 };
 
