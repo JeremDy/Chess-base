@@ -281,6 +281,7 @@ const reducer = (state = initialState, action = {}) => {
               console.log('Echec: Move not allowed');
               return {
                 ...state,
+                allowedMoveList: [],
                 clickedCell: [],
                 allowedMove: [],
                 allowedKill: []
@@ -291,6 +292,7 @@ const reducer = (state = initialState, action = {}) => {
               console.log('Echec: Move not allowed');
               return {
                 ...state,
+                allowedMoveList: [],
                 clickedCell: [],
                 allowedMove: [],
                 allowedKill: []
@@ -301,6 +303,7 @@ const reducer = (state = initialState, action = {}) => {
               console.log('Echec: Move not allowed');
               return {
                 ...state,
+                allowedMoveList: [],
                 clickedCell: [],
                 allowedMove: [],
                 allowedKill: []
@@ -313,6 +316,7 @@ const reducer = (state = initialState, action = {}) => {
             console.log('roi trop pret');
             return {
               ...state,
+              allowedMoveList: [],
               clickedCell: [],
               allowedMove: [],
               allowedKill: []
