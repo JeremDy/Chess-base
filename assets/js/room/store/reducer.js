@@ -100,15 +100,33 @@ const reducer = (state = initialState, action = {}) => {
           };
         }
       }
-      
       // défini si le joueur peut ou non jouer selon la valeur de canplay envoyé à chaque tour par le serveur
       if (undefined !== action.serverMessage['canPlay']) {
         couldPlay = action.serverMessage['canPlay'];
         newServerMessage['message'] = action.serverMessage['message'];
         // si le message du serveur contient movement, c'est une validation de mouvement
         if (undefined !== action.serverMessage['movement']) {
+            
           newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[0])[`${Object.keys(action.serverMessage['movement']['newPositions'])[0]}`] = Object.values(action.serverMessage['movement']['newPositions'])[0];
           newBoard.find(cell => Object.keys(cell)[0] === Object.keys(action.serverMessage['movement']['newPositions'])[1])[`${Object.keys(action.serverMessage['movement']['newPositions'])[1]}`] = Object.values(action.serverMessage['movement']['newPositions'])[1];
+          if (undefined !== action.serverMessage['movement']['newPositions']['smallRock']) {
+            if (action.serverMessage['movement']['newPositions']['smallRock'] === 'white') {
+              newBoard.find(cell => Object.keys(cell)[0] === '1/1')['1/1'] = 'E';
+              newBoard.find(cell => Object.keys(cell)[0] === '1/3')['1/3'] = 'T1';
+            } else if (action.serverMessage['movement']['newPositions']['smallRock'] === 'black') {
+              newBoard.find(cell => Object.keys(cell)[0] === '8/1')['8/1'] = 'E';
+              newBoard.find(cell => Object.keys(cell)[0] === '8/3')['8/3'] = 'T0';
+            }
+          }
+          if (undefined !== action.serverMessage['movement']['newPositions']['bigRock']) {
+            if (action.serverMessage['movement']['newPositions']['bigRock'] === 'white') {
+              newBoard.find(cell => Object.keys(cell)[0] === '1/8')['1/8'] = 'E';
+              newBoard.find(cell => Object.keys(cell)[0] === '1/5')['1/5'] = 'T1';
+            } else if (action.serverMessage['movement']['newPositions']['bigRock'] === 'black') {
+              newBoard.find(cell => Object.keys(cell)[0] === '8/8')['8/8'] = 'E';
+              newBoard.find(cell => Object.keys(cell)[0] === '8/5')['8/5'] = 'T0';
+            }
+          }
         }
         return {
           ...state,
@@ -117,14 +135,16 @@ const reducer = (state = initialState, action = {}) => {
           board: newBoard
         };
       }
-      // si lastboard il y a alors on le convertie au format du board [{'row/column':'item/color'},{}]
+      //si lastboard il y a alors on le convertie au format du board [{'row/column':'item/color'},{}]
       if (undefined !== action.serverMessage['lastBoard']) {
+        //   console.log('je compare :',newLastBoard, 'a :', newBoard )
         newLastBoard = library.convertServerBoardToClientBoard(action.serverMessage['lastBoard']);
-        if (!library.compareOldNewBoard(newLastBoard, newBoard, state.myColor)) {
+        if (!library.compareOldNewBoard(newLastBoard, newBoard, state.myColor) & state.rockAllowed === false) {
           if (state.myColor == 1) { newBoard = newLastBoard.reverse(); } else { newBoard = newLastBoard; }
         }
         return {
           ...state,
+          rockAllowed: false,
           board: newBoard,
           lastBoard: newLastBoard
         };
@@ -273,7 +293,6 @@ const reducer = (state = initialState, action = {}) => {
         break;
 
       } else if (clicCount === 2 || color != state.myColor) {// deuxième clic
-        console.log(state);
         console.log('Clic N°2 done');
         let opponentColor;
         let kingPos;
@@ -340,12 +359,18 @@ const reducer = (state = initialState, action = {}) => {
           ((state.allowedKill.find(cellOK => Object.keys(cell)[0] === Object.keys(cellOK)[0]) !== undefined))) & (state.myColor != color)) & (item != 'K')) { // est ce que la case sur laquelle on clic fait partie des cases killAble
           if (Object.values(state.clickedCell[0])[0] === `${'K'}${state.myColor}` & state.rockAllowed === true) {
             if ((numbRow === 1) || (numbRow === 8)) {
+              let rockColor;
+              let thisColor
+              numbRow === 1 ? rockColor = 'white' : rockColor = 'black';
+              numbRow === 1 ? thisColor = '1' :thisColor = '0'
               if (numbColumn === 2) {
                 newBoard.find(cellToModify => `${numbRow}/1` === Object.keys(cellToModify)[0])[`${numbRow}/1`] = 'E';
-                newBoard.find(cellToModify => `${numbRow}/3` === Object.keys(cellToModify)[0])[`${numbRow}/3`] = 'T';
+                newBoard.find(cellToModify => `${numbRow}/3` === Object.keys(cellToModify)[0])[`${numbRow}/3`] = 'T'+`${thisColor}`;
+                dataToSend['newPositions']['smallRock'] = rockColor;
               } else if (numbColumn === 6) {
                 newBoard.find(cellToModify => `${numbRow}/8` === Object.keys(cellToModify)[0])[`${numbRow}/8`] = 'E';
-                newBoard.find(cellToModify => `${numbRow}/5` === Object.keys(cellToModify)[0])[`${numbRow}/5`] = 'T';
+                newBoard.find(cellToModify => `${numbRow}/5` === Object.keys(cellToModify)[0])[`${numbRow}/5`] = 'T'+`${thisColor}`;
+                dataToSend['newPositions']['bigRock'] = rockColor;
               }
             }
           }
