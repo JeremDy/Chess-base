@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleAnswerRepository")
@@ -17,6 +18,8 @@ class ArticleAnswer
     private $id;
 
     /**
+     * @Assert\Length( min = 2, max = 300)
+     * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
     private $body;
@@ -55,7 +58,7 @@ class ArticleAnswer
         return $this->body;
     }
 
-    public function setBody(string $body): self
+    public function setBody(?string $body): self
     {
         $this->body = $body;
 
