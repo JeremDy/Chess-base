@@ -11,8 +11,8 @@ fos_user:
         form:
             type: App\Form\ProfileFormType
     
-    #registration:
-        #confirmation:
-            #enabled: true
-            #template: '@FOSUser/Registration/email.txt.twig'
+    registration:
+        confirmation:
+            enabled: true
+            template: '@FOSUser/Registration/email.txt.twig'
         

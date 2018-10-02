@@ -35,10 +35,33 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface, S
 
     public function secure(ConnectionInterface $connection = null, Topic $topic, WampRequest $request, $payload = null, $exclude = null, $eligible = null, $provider = null)
     {      
+       
+        
+
         $user = $this->clientManipulator->getClient($connection);
         if (!is_object($user)){
             throw new FirewallRejectionException();
         }
+
+       $subscribers = $this->clientManipulator->getAll($topic);
+       
+       if(empty($subscribers)){
+           return;
+       }
+   
+       $checkDouble = [];
+       foreach($subscribers as $subscriber){     
+
+            if ($subscriber['client']->getUsername() === $this->clientManipulator->getClient($connection)->getUsername()){
+                $checkDouble[] = $subscriber;
+            }
+        }    
+        if(count($checkDouble) > 1 ){
+            $checkDouble = null;
+            throw new FirewallRejectionException();    
+        }
+        $checkDouble = null;
+        
 
         $userDoctrine = $this->doctrine->getRepository(User::class)->findOneByUsername($user->getUsername());
         /*$this->doctrine->getManager()->refresh($userDoctrine);*/
@@ -76,7 +99,7 @@ class MatchMakingTopic implements TopicInterface, TopicPeriodicTimerInterface, S
             if (count($topic) >= 2) {
                 $playerOne = $subscribers[count($topic) - 1];
                 $playerTwo = $subscribers[count($topic)- 2];
-        
+
                 $playerOneUserName = $playerOne['client']->getUsername();
                 $playerTwoUserName = $playerTwo['client']->getUsername();
                 
