@@ -2,6 +2,10 @@ html,body{
     height:100%;
 }
 
+
+#Infos{
+    margin-left:5em;
+}
 a{
     color: white;
     background: none;
@@ -281,18 +285,6 @@ p {
     text-align: center;
 }
 
-/* .message-container::-webkit-scrollbar {
-    width: 1em;
-}
-
-.message-container::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.message-container::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
-} */
 
 #Chat input[type="text"] {
 
@@ -406,60 +398,6 @@ p {
     color:black;
 }
 
-
-
-
-/* blog card*/
-
-/*.card{
-    color:black;
-    min-width: 300px;
-}*/
-/*
-#home-left{
-    height: 60%;
-    border-radius: 20px;
-    -moz-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
-    -webkit-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
-    -o-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
-    box-shadow: inset 0px 0px 5px 5px #c0c0c0;
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=NaN, Strength=5);
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    max-width:50em;
-    max-height: 50em;
-    overflow-x: auto;
-}
-iframe{
-    max-width:100%;
-    max-height:100%;
-}
-
-
-
-.text {
-    white-space:normal;
-    width: inherit;
-}
-
-.lastNews {
-    max-width:100%;
-  
-}
-.lastNews::-webkit-scrollbar {
-    width: 1em;
-}
-
-.lastNews::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.lastNews::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
-}
-
-*/
 
 .youtube-embed-wrapper{
     max-width:640px;

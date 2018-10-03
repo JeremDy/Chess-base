@@ -7,7 +7,9 @@ var app = {
         $('#invitation-ok').on('click', app.acceptInvitation);
         $('#invitation-cancel').on('click', app.cancelInvitation);
         $('#match-making-cancel').on('click', app.leaveMatchMaking);
-        $("#message_receiver").chosen();
+        $("#message_receiver").chosen({
+            'max_shown_results' : '1',
+       });
         $("#form_newFriend").chosen({
              'max_shown_results' : '1',
         });
