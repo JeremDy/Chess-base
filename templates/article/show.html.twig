@@ -3,14 +3,14 @@
 {% block title %}News : {{ article.title }}  Chess-Online{% endblock %}
 
 {% block body %}
-    <div class="articleshow col-12 bg-custom p-5">
+    <div class="bg-custom col-12 col-md-10 mx-auto p-4">
     
-        <h1 class="font-weight-bold text-center mb-5">{{ article.title }}</h1>
+        <h1 class="font-weight-bold text-center mb-5 font-custom">{{ article.title }}</h1>
         <p class="font-weight-bold mb-5">Par {{article.author}}, le  {{article.publishAt|date('d/m/Y à H:i')}} :</p>
-        <p> {{article.body|raw}}</p>
+        <div> {{article.body|raw}}</div>
 
         {% if is_granted('ROLE_ADMIN') or app.user == article.author %}   
-            <a href="{{ path('article_edit', {'id': article.id}) }}"><i class="far fa-edit"></i></a>
+            <a class="btn btn-light bg-custom" href="{{ path('article_edit', {'id': article.id}) }}"><i class="far fa-edit"></i></a>
             {{ include('article/_delete_form.html.twig') }}
         {% endif %}
     
@@ -19,13 +19,13 @@
         <h3 class="mt-5 mb-3 font-weight-bold">Commentaires : </h3>
         <ul class="list-group mb-5">
         {% for answer in answers %}
-            <li class=" comment1 list-group-item bg-dark mt-2 border-light col-12">
+            <li class=" comment1 list-group-item mt-2 col-12 bg-custom borderblanche">
                 <p class="font-weight-bold"> Par {{ answer.author}}, le  {{answer.publishAt|date('d/m/Y à H:i : ')}}</p>
                 <p class="comment">{{ answer.body|raw }}</p>
                 {% if is_granted('ROLE_ADMIN') or app.user == answer.author %}
                 <div class="button-bar float-right d-inline">
                     {{ include('article_answer/_delete_form.html.twig') }}
-                    <a class="btn btn-dark bg-dark" href="{{ path('article_answer_edit', {'id': answer.id}) }}"><i class="far fa-edit"></i></a>
+                    <a class="btn btn-light bg-custom" href="{{ path('article_answer_edit', {'id': answer.id}) }}"><i class="far fa-edit"></i></a>
                 </div>
                 {% endif %}
             </li>

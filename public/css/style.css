@@ -1,4 +1,27 @@
+html,body{
+    height:100%;
+}
+
+
+#Infos{
+    margin-left:5em;
+}
+a{
+    color: white;
+    background: none;
+    text-shadow: 1px 1px 2px black, 0 0 1em grey, 0 0 0.2em orange;
+}
+
+a:hover{
+    text-decoration: none;
+    color:rgba(238, 209, 155, 0.795);
+
+}
+
 header {
+
+    padding:10px;
+    /*
     color: #D8D8D8;
     border-style: solid;
     border-bottom: none;
@@ -6,9 +29,19 @@ header {
     z-index:5;
     margin-right: auto;
     margin-left: auto;
+    */
     /* Lignes ajoutées :  */
-    width: 55%;
-    z-index: 0;
+    /*width: 55%;
+    z-index: 0;*/
+}
+
+.container{
+    background-color: #334843de;
+    min-height:100%;
+    padding:0;
+    color: #D8D8D8;
+    border-style: solid;
+    border-width: 5px;
 }
 
 body {
@@ -20,15 +53,15 @@ body {
 .no-bg,
 .no-bgl {
     color: white;
-    border: 0px none #ffffff;
-    border-radius: 20px;
-    -moz-box-shadow: inset 0px 0px 5px 5px white;
-    -webkit-box-shadow: inset 0px 0px 5px 5px white;
-    -o-box-shadow: inset 0px 0px 5px 5px white;
-    box-shadow: inset 0px 0px 5px 5px white;
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=white, Direction=NaN, Strength=5);
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
+    border: 0px none #ffffff!important;
+    border-radius: 20px!important;
+    -moz-box-shadow: inset 0px 0px 5px 5px white!important;
+    -webkit-box-shadow: inset 0px 0px 5px 5px white!important;
+    -o-box-shadow: inset 0px 0px 5px 5px white!important;
+    box-shadow: inset 0px 0px 5px 5px white!important;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=white, Direction=NaN, Strength=5)!important;
+    -moz-border-radius: 10px!important;
+    -webkit-border-radius: 10px!important;
 }
 
 .no-bgr {
@@ -47,13 +80,16 @@ body {
     color: white;
     text-shadow: 1px 1px 2px black, 0 0 0.1em orange;
 }
+
+
 .bg-chess {
     
     position: fixed;
     left: 0;
     right: 0;
     z-index: -2;
-    background: url(../image/chess-982260_1920.jpg) repeat center fixed;
+    /*background: url(../image/chess-982260_1920.jpg) repeat center fixed;*/
+    background: url(../image/Chess-Game-HD-Wallpapers-PIC-MCH052135.jpg) repeat center fixed;
     -webkit-background-size: cover;
     background-size: cover;
     width: 100%;
@@ -65,7 +101,11 @@ body {
   -ms-filter: blur(1px);
   filter: blur(1px);
 }
+
+
 /* back ground opacity 50% pour tout le site. */
+
+/*
 .bg-site {
     align-self: center;
     position: fixed;
@@ -78,6 +118,7 @@ body {
     opacity: 0.7;
     z-index: 0;
 }
+*/
 .articleshow {
     align-self: center;
     z-index: -1;
@@ -90,13 +131,18 @@ body {
     z-index: 0;
 }
 /* Ici je reprends le css container de bootstrap pour pouvoir modifier cette div sans affecter les autres  */
+/*
 .container-site {
     margin-right: auto;
     margin-left: auto;
+*/
+
     /* Lignes ajoutées :  */
+   /*
     width: 55%;
     z-index: 0;
 }
+*/
 
 
 p {
@@ -146,7 +192,7 @@ p {
 
 
 .bloc {
-    background-color: rgba(73, 73, 73, 0.844);
+    background-color: #334843;
     border-radius: 0 0 20px 20px;
     -moz-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
     -webkit-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
@@ -172,7 +218,7 @@ p {
 .message-container {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 22em;
+    height: 21em;
     word-break: break-word;
 }
 
@@ -239,18 +285,6 @@ p {
     text-align: center;
 }
 
-/* .message-container::-webkit-scrollbar {
-    width: 1em;
-}
-
-.message-container::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.message-container::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
-} */
 
 #Chat input[type="text"] {
 
@@ -269,11 +303,21 @@ p {
 /*end chat css*/
 /*button play css*/
 
-.globalContainer{
+.globalContainer{ 
+    
+    /*background-color: #334843de;*/
+    padding: 1.9em;
+    margin:0;
+    /*
+    color: #D8D8D8;
+    border-style: solid;
+    border-width: 5px;
+    border-top:none;*/
+
+    /*
   display: flex;
-  justify-content: space-between;
-  padding: 1.9em;
-  max-height: 80%;
+  justify-content: space-between; 
+  max-height: 80%;*/
 }
 
 .leftContainer{
@@ -290,16 +334,18 @@ p {
   flex-direction: column;
   justify-content: space-around;
   margin-bottom: 1em;
-  height: 8em;
-  background-color: #fdfdfdc2;
-  padding: 0px 14px;
+  min-height: 8em;
+  /*background-color: #fdfdfdc2;*/
+  background-color: rgba(240, 234, 212, 0.925);
+  padding: 10px 14px;
   border-radius: 13px;
-  color: black;
-  box-shadow: inset 0 0 42px rgb(0, 0, 0);
+  color: #334843;
+  box-shadow: inset 0 0 42px #334843;
 }
 #invitation{
   display: flex ;
   align-items: center;
+  flex-wrap: wrap;
 }
 .titleInvite, .titleMatchMaking{
   margin: 0;
@@ -310,7 +356,8 @@ p {
 }
 #matchmaking-container {
     display: flex;
-    align-items: center
+    align-items: center;
+    flex-wrap: wrap;
 }
 .inputName{
     background-color: #5555554a;
@@ -352,73 +399,21 @@ p {
 }
 
 
-
-
-/* blog card*/
-
-/*.card{
-    color:black;
-    min-width: 300px;
-}*/
-
-#home-left{
-    height: 60%;
-    border-radius: 20px;
-    -moz-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
-    -webkit-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
-    -o-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
-    box-shadow: inset 0px 0px 5px 5px #c0c0c0;
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=NaN, Strength=5);
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    max-width:50em;
-    max-height: 50em;
-    overflow-x: auto;
-}
-iframe{
-    max-width:100%;
-    max-height:100%;
-}
-
-.text {
-    white-space:normal;
-    width: inherit;
-}
-.lastNews {
-    max-width:100%;
-  
-}
-.lastNews::-webkit-scrollbar {
-    width: 1em;
-}
-
-.lastNews::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.lastNews::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
-}
-
-
 .youtube-embed-wrapper{
     max-width:640px;
     padding-bottom:360px!important;
     margin:auto;
 }
 
-.bg-dark{
-    background-color: rgba(17, 17, 17, 0.714)!important;
-}
-
 
 /*pagination */ 
 
-
+.pagination{
+    margin-top:15px;
+}
 .page-link{
-    background-color: rgba(14, 14, 14, 0.611)!important; 
-    color:rgb(153, 153, 153);
+    background-color: #334843fb!important; 
+    color:rgb(255, 255, 255);
 }
 
 .page-item.active .page-link{
@@ -432,7 +427,7 @@ iframe{
 }
 
 .page-link:focus{
-    box-shadow:0 0 0 0.2rem rgba(210, 216, 223, 0.25)
+    box-shadow:0 0 0 0.1rem rgba(55, 82, 71, 0.658)
 }
 
 
@@ -473,3 +468,62 @@ iframe{
 
 /* ***** */
 
+
+
+/** latest news v2*/
+#home-left{
+
+    border-radius: 20px;
+    -moz-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
+    -webkit-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
+    -o-box-shadow: inset 0px 0px 5px 5px #c0c0c0;
+    box-shadow: inset 0px 0px 5px 5px #c0c0c0;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=NaN, Strength=5);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    max-height: 40em;
+}
+
+.lastNews{
+    overflow-y:auto;
+    max-height:500px;
+}
+
+.lastNews::-webkit-scrollbar {
+    width: 1em;
+}
+
+.lastNews::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.lastNews::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+iframe{
+    max-width:100%;
+    max-height:100%;
+    margin:auto;
+    display: block;
+}
+
+.text {
+    white-space:normal;
+    width: inherit;
+}
+
+/*****/
+
+.cover {
+    object-fit: cover;
+    width: 100%;
+    height: 250px;
+  }
+
+.card-deck{
+    width:fit-content;
+    margin:auto;
+
+}

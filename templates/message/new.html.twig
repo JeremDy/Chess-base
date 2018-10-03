@@ -4,8 +4,10 @@
 
 {% block messagerie %}
 {{ parent() }}
-    <div class="bg-custom borderblanche col-10 mx-auto">
-    <h3 class="font-weight-bold text-center mt-3 mb-5">Envoyer un nouveau message privé :</h3>
-    {{ include('message/_form.html.twig') }}
+   <div class="row">
+        <div class="bg-custom borderblanche col-12 col-md-10 mx-auto p-4">
+        <h3 class="font-weight-bold text-center mt-3 mb-5 font-custom">Envoyer un nouveau message privé :</h3>
+        {{ include('message/_form.html.twig') }}
+        </div>
     </div>
 {% endblock %}

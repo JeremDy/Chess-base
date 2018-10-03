@@ -3,18 +3,18 @@
 {% block fos_user_content %}
 
 {# Un p'tit coup d'front pour ce input d'ajout d'amis que l'on retrouve aussi dans la liste joueur ? :) #}
-<div class="col-12 ">
+<div class="col-6 mx-auto ">
 
 {{form_start(form) }}
     {{ form_widget(form) }}
     <div class="text-center">
-      <button class="btn">{{ button_label|default('Ajouter') }}</button>
-    <div>
+      <button class="btn btn-light">{{ button_label|default('Ajouter') }}</button>
+    </div>
 {{ form_end(form) }}
 
 </div>
 
-<table class="table table-hover bg-custom borderblanche mx-auto ">
+<table class="table table-hover bg-custom borderblanche mx-auto col-12 col-md-11 mt-4 text-center table-responsive-sm">
   <thead>
     <tr>
       <th scope="col"></th>

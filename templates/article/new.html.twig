@@ -3,9 +3,15 @@
 {% block title %}Nouvel article - Chess-Online{% endblock %}
 
 {% block body %}
-<div class="pt-5 bg-custom col-10 mx-auto">
-    <h2 class="font-weight-bold text-center mt-5 mb-4">Nouvel Article : </h2>
 
-    {{ include('article/_form.html.twig') }}
-</div>
+
+     <div class="row col-12 mx-auto">
+        <div class="bg-custom borderblanche col-12 col-md-10 mx-auto p-4">
+        <h3 class="font-weight-bold text-center mt-3 mb-5 font-custom">Nouvel Article :</h3>
+        {{ include('article/_form.html.twig') }}
+        </div>
+    </div>
+
+    
+
 {% endblock %}

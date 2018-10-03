@@ -14,7 +14,9 @@ class MessageType extends AbstractType
     {
         $builder
             ->add('receiver', null,[
-                'label' => 'Destinataire :'
+                'label' => 'Destinataire :',
+                'multiple' => false,
+                'placeholder' => 'Choisir un destinataire',   
             ])
             ->add('title', null, [
                 'label' => 'Intitulé :' 
