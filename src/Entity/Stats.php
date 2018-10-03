@@ -41,6 +41,15 @@ class Stats
      */
     private $TotalTime;
 
+    public function __construct()
+    {
+       $this->setNbGame = int(0);
+       $this->setNbWin = int(0);
+       $this->setNbLose = int(0);
+       $this->setNbSurrender = int(0);    
+
+    }
+
     public function getId(): ?int
     {
         return $this->id;
