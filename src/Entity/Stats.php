@@ -43,10 +43,10 @@ class Stats
 
     public function __construct()
     {
-       $this->NbGame = int(0);
-       $this->NbWin = int(0);
-       $this->NbLose = int(0);
-       $this->NbSurrender = int(0);    
+       $this->NbGame = 0;
+       $this->NbWin = 0;
+       $this->NbLose = 0;
+       $this->NbSurrender = 0;    
 
     }
 

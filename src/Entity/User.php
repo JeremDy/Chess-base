@@ -124,6 +124,7 @@ class User extends BaseUser
         $this->myFriends = new ArrayCollection();
         $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->stats = new Stats();
 
     }
 
