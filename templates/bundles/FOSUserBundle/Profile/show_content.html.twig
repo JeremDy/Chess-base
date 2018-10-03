@@ -3,9 +3,9 @@
 <div class="fos_user_user_show">
     <div class="row">
         <div class="p-3">
-        {% if stats is defined and stats.NbLose != 0 and (stats.NbLose + stats.NbWin) >= 10 and (stats.NbWin / (stats.NbLose + stats.NbSurrender)) >= 1.5 %}
+        {% if user.stats is defined and (user.stats.NbLose + user.stats.NbSurrender) != 0 and ((user.stats.NbLose + user.stats.NbSurrender) + user.stats.NbWin) >= 10 and (user.stats.NbWin / ((user.stats.NbLose + user.stats.NbSurrender))) >= 1.5 %}
             <img class=""src="{{ asset(image_directory_chess ~ (user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_prestige') }}" /></p>
-        {% elseif stats is defined and stats.NbLose == 0 and stats.NbWin >= 10 %}
+        {% elseif user.stats is defined and (user.stats.NbLose + user.stats.NbSurrender) == 0 and user.stats.NbWin >= 10 %}
             <img class=""src="{{ asset(image_directory_chess ~ (user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_prestige') }}" /></p>
         {% else %}
             <img class=""src="{{ asset(image_directory_chess ~ (user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_profile') }}" />
@@ -27,9 +27,9 @@
 
         </div>
         <p class="ml-0 col-4 col-md-2">Ratio V/D :
-        {% if user.stats is defined and user.stats.NbLose != 0 %}
-                    {{(user.stats.NbWin / user.stats.NbLose)|number_format(2, '.', '')}}</p>
-                {% elseif stats is defined and user.stats.NbLose == 0 %}
+        {% if user.stats is defined and (user.stats.NbLose + user.stats.NbSurrender) != 0 %}
+                    {{(user.stats.NbWin / (user.stats.NbLose + user.stats.NbSurrender))|number_format(2, '.', '')}}</p>
+                {% elseif user.stats is defined and (user.stats.NbLose + user.stats.NbSurrender) == 0 %}
                 {{user.stats.NbWin}}</p>
                 {% else %}
                 Aucune</p>
