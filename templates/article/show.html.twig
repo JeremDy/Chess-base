@@ -7,10 +7,10 @@
     
         <h1 class="font-weight-bold text-center mb-5 font-custom">{{ article.title }}</h1>
         <p class="font-weight-bold mb-5">Par {{article.author}}, le  {{article.publishAt|date('d/m/Y à H:i')}} :</p>
-        <p> {{article.body|raw}}</p>
+        <div> {{article.body|raw}}</div>
 
         {% if is_granted('ROLE_ADMIN') or app.user == article.author %}   
-            <a href="{{ path('article_edit', {'id': article.id}) }}"><i class="far fa-edit"></i></a>
+            <a class="btn btn-light bg-custom" href="{{ path('article_edit', {'id': article.id}) }}"><i class="far fa-edit"></i></a>
             {{ include('article/_delete_form.html.twig') }}
         {% endif %}
     
@@ -25,7 +25,7 @@
                 {% if is_granted('ROLE_ADMIN') or app.user == answer.author %}
                 <div class="button-bar float-right d-inline">
                     {{ include('article_answer/_delete_form.html.twig') }}
-                    <a class="btn btn-dark bg-dark" href="{{ path('article_answer_edit', {'id': answer.id}) }}"><i class="far fa-edit"></i></a>
+                    <a class="btn btn-light bg-custom" href="{{ path('article_answer_edit', {'id': answer.id}) }}"><i class="far fa-edit"></i></a>
                 </div>
                 {% endif %}
             </li>

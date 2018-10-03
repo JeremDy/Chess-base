@@ -19,10 +19,10 @@
             <p class="mb-0">Dernière Connexion le {{ user.lastLogin|date('d-m-Y à H:i') }}</p>
         {# Cette ligne affiche l'ajout amis uniquement si le profil n'est pas celui de l'utilisateur ou si il n'est pas encore amis. #}
         {% if user != app.user and user not in app.user.getMyFriends() %}
-            <a class="btn btn-primary" href="{{ path('add', { 'id':user.id}) }}">Ajouter en Amis</a>
+            <a class="btn btn-light" href="{{ path('add', { 'id':user.id}) }}">Ajouter en Amis</a>
         {% endif %}
         {% if user != app.user %}
-            <a class="btn btn-primary" href="{{ path('message_user', { 'id':user.id}) }}">Envoyer un MP</a>
+            <a class="btn btn-light" href="{{ path('message_user', { 'id':user.id}) }}">Envoyer un MP</a>
         {% endif %}
 
         </div>
@@ -64,6 +64,6 @@
     </div>
     {% if user == app.user %}
     {# Permet de vérifier si l'utilisateur est bien sur sa propre page de profil #}
-        <a class="mt-5 mb-0 float-right btn btn-primary" href="{{ path('profileEdit', { 'id':app.user.username}) }}">Modifier</a>
+        <a class="mt-5 mb-0 float-right btn btn-light" href="{{ path('profileEdit', { 'id':app.user.username}) }}">Modifier</a>
     {% endif %}
 </div>
