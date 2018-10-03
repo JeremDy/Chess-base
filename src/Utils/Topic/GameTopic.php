@@ -45,6 +45,25 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
         if (!is_object($user)){
             throw new FirewallRejectionException();
         }
+
+        $subscribers = $this->clientManipulator->getAll($topic);
+       
+        if(empty($subscribers)){
+            return;
+        }
+    
+        $checkDouble = [];
+        foreach($subscribers as $subscriber){     
+ 
+             if ($subscriber['client']->getUsername() === $this->clientManipulator->getClient($connection)->getUsername()){
+                 $checkDouble[] = $subscriber;
+             }
+         }    
+         if(count($checkDouble) > 1 ){
+             $checkDouble = null;
+             throw new FirewallRejectionException();    
+         }
+         $checkDouble = null;
         // check input data to verify if connection must be blocked
         if ($this->clientManipulator->getClient($connection)->getUsername() !== $request->getAttributes()->get('playerOne')
             && $this->clientManipulator->getClient($connection)->getUsername() !== $request->getAttributes()->get('playerTwo')) {
@@ -93,7 +112,7 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
         $playerColor = $playerName === $request->getAttributes()->get('playerOne') ? 'white' : 'black';
         $playerSessionId = $this->clientManipulator->findByUsername($topic, $playerName)['connection']->WAMP->sessionId;
 
-        
+        dump($board);
         //on envoie au joueur qui arrive sur la page:
         //le board :
         $this->gameTopicMessage->lastBoard($topic, $board, $playerSessionId);
