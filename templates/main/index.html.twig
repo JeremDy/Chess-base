@@ -8,14 +8,7 @@
 
 {% block body %}
 
-{% if games != false %}
-<div class="ml-2 p-1 font-custom col-5">
- <h3> Partie en cours : 
-{% for game in games %}
-<a href="{{ path('game', {id : game.id }) }}">lien</a>
-{% endfor %}
-</div>
-{% endif %}
+
 
 
 
@@ -36,18 +29,28 @@
     </div> 
     <div class="rightContainer col-12 col-md-5">
 
-       <div class="buttonContainer"> 
-        <form id="invitation">
-          <h4 class="titleInvite"> Inviter un joueur :</h4> 
-          <input class="inputName" type="text">
-          <button class="inviteButton btn btn-light" id="invitation-invite" type="submit">Inviter</button>
-          <button class="mx-auto btn btn-light d-none" id="invitation-cancel" type="button">Annuler</button>
-        </form>
-        <div id="matchmaking-container">
-        <h4 class="titleMatchMaking"> Partie aléatoire :</h4> 
-        <button class="makingButton btn btn-light" id="match-making">Trouver une partie</button>
-        <button class="makingButton btn btn-light d-none" id="match-making-cancel">Quitter la file</button>
+       <div class="buttonContainer">
+
+       {% if games != false %}
+        <div class="ml-2 p-1 font-custom text-center">
+          <h3> Partie en cours : 
+          {% for game in games %}
+          <a href="{{ path('game', {id : game.id }) }}">lien</a>
+          {% endfor %}
         </div>
+        {% else %}
+          <form id="invitation">
+            <h4 class="titleInvite"> Inviter un joueur :</h4> 
+            <input class="inputName" type="text">
+            <button class="inviteButton btn btn-light" id="invitation-invite" type="submit">Inviter</button>
+            <button class="mx-auto btn btn-light d-none" id="invitation-cancel" type="button">Annuler</button>
+          </form>
+          <div id="matchmaking-container">
+          <h4 class="titleMatchMaking"> Partie aléatoire :</h4> 
+          <button class="makingButton btn btn-light" id="match-making">Trouver une partie</button>
+          <button class="makingButton btn btn-light d-none" id="match-making-cancel">Quitter la file</button>
+          </div>
+        {% endif %}
       </div>
 
       <div class="rootContainer" id="root"><div>

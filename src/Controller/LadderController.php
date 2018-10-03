@@ -22,7 +22,7 @@ class LadderController extends AbstractController
         $pagination = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1),
-            2
+            5
         );
 
         return $this->render('ladder/index.html.twig', ['users' => $pagination]);

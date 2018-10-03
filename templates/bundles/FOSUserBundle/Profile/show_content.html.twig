@@ -1,8 +1,8 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div class="fos_user_user_show">
-    <div class="d-flex">
-        <div class="">
+    <div class="row">
+        <div class="p-3">
         {% if stats is defined and stats.NbLose != 0 and (stats.NbLose + stats.NbWin) >= 10 and (stats.NbWin / stats.NbLose) >= 1.5 %}
             <img class=""src="{{ asset(image_directory_chess ~ (user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_prestige') }}" /></p>
         {% elseif stats is defined and stats.NbLose == 0 and stats.NbWin >= 10 %}
@@ -13,7 +13,7 @@
 
 
         </div>
-        <div class="col-8">
+        <div class="col-7">
             <p class="mt-3 mb-0">{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
             <p class="mb-0">{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
             <p class="mb-0">Dernière Connexion le {{ user.lastLogin|date('d-m-Y à H:i') }}</p>
@@ -26,7 +26,7 @@
         {% endif %}
 
         </div>
-        <p class="ml-0">Ratio V/D :
+        <p class="ml-0 col-4 col-md-2">Ratio V/D :
         {% if stats is defined and stats.NbLose != 0 %}
                     {{(stats.NbWin / stats.NbLose)|number_format(2, '.', '')}}</p>
                 {% elseif stats is defined and stats.NbLose == 0 %}
@@ -37,12 +37,14 @@
     </div>
 </hr>
     <div class="border-top mt-1">
-        <div class="mt-4 d-flex">
-            <div class="mr-2 p-3 border mx-auto">
+        <div class="mt-4 row">
+            
+            <div class="mr-2 p-3 border mx-auto col-10 col-md-3 mb-3">
                 <p>Inscrit depuis le :</p>
                 {{user.firstLogin|date('d-m-Y à H:i')}}
             </div>
-            <div class="p-3 border mx-auto">
+            
+            <div class="p-3 border mx-auto col-10 col-md-3 mb-3">
                 <p>Parties Gagnées : </p>
                 {% if stats is defined %}
                     <p> {{stats.NbWin}} sur {{stats.NbGame}}</p>
@@ -50,7 +52,7 @@
                 <p>Aucune</p>
                 {% endif %}
             </div>
-            <div class="p-3 border mx-auto">
+            <div class="p-3 border mx-auto col-10 col-md-3 mb-3">
                 <p>Parties Perdues : </p>
                 {% if stats is defined %}
                     <p>{{ stats.NbLose }} sur {{stats.NbGame}}</p>

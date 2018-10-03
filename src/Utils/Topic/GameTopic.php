@@ -170,7 +170,6 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
      */
     public function onPublish(ConnectionInterface $connection, Topic $topic, WampRequest $request, $event, array $exclude, array $eligible)
     {
-        dump($event);
         $topic->autoDelete = true;
 
         $gameId = $request->getAttributes()->get('gameId');

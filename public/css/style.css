@@ -2,6 +2,18 @@ html,body{
     height:100%;
 }
 
+a{
+    color: white;
+    background: none;
+    text-shadow: 1px 1px 2px black, 0 0 1em grey, 0 0 0.2em orange;
+}
+
+a:hover{
+    text-decoration: none;
+    color:rgba(238, 209, 155, 0.795);
+
+}
+
 header {
 
     padding:10px;
@@ -72,7 +84,8 @@ body {
     left: 0;
     right: 0;
     z-index: -2;
-    background: url(../image/chess-982260_1920.jpg) repeat center fixed;
+    /*background: url(../image/chess-982260_1920.jpg) repeat center fixed;*/
+    background: url(../image/Chess-Game-HD-Wallpapers-PIC-MCH052135.jpg) repeat center fixed;
     -webkit-background-size: cover;
     background-size: cover;
     width: 100%;
@@ -330,11 +343,12 @@ p {
   justify-content: space-around;
   margin-bottom: 1em;
   min-height: 8em;
-  background-color: #fdfdfdc2;
+  /*background-color: #fdfdfdc2;*/
+  background-color: rgba(240, 234, 212, 0.925);
   padding: 10px 14px;
   border-radius: 13px;
-  color: black;
-  box-shadow: inset 0 0 42px rgb(0, 0, 0);
+  color: #334843;
+  box-shadow: inset 0 0 42px #334843;
 }
 #invitation{
   display: flex ;
@@ -453,17 +467,15 @@ iframe{
     margin:auto;
 }
 
-.bg-dark{
-    background-color: rgba(17, 17, 17, 0.714)!important;
-}
-
 
 /*pagination */ 
 
-
+.pagination{
+    margin-top:15px;
+}
 .page-link{
-    background-color: rgba(14, 14, 14, 0.611)!important; 
-    color:rgb(153, 153, 153);
+    background-color: #334843fb!important; 
+    color:rgb(255, 255, 255);
 }
 
 .page-item.active .page-link{
@@ -477,7 +489,7 @@ iframe{
 }
 
 .page-link:focus{
-    box-shadow:0 0 0 0.2rem rgba(210, 216, 223, 0.25)
+    box-shadow:0 0 0 0.1rem rgba(55, 82, 71, 0.658)
 }
 
 
@@ -564,3 +576,14 @@ iframe{
 
 /*****/
 
+.cover {
+    object-fit: cover;
+    width: 100%;
+    height: 250px;
+  }
+
+.card-deck{
+    width:fit-content;
+    margin:auto;
+
+}
