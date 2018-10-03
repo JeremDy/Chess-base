@@ -568,7 +568,7 @@ var library = {
     }
     return convertedBoard;
   },
-  compareOldNewBoard: function(lastBoard, board, myColor) {
+  compareOldNewBoard: function(lastBoard, board) {
     let test = 0;
     lastBoard.forEach(function(cell) {
       if (Object.values(cell)[0] !== Object.values(board.find(cells=> Object.keys(cells)[0] === Object.keys(cell)[0]))[0]) {

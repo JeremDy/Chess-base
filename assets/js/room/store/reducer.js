@@ -146,8 +146,14 @@ const reducer = (state = initialState, action = {}) => {
       if (undefined !== action.serverMessage['lastBoard']) {
         //   console.log('je compare :',newLastBoard, 'a :', newBoard )
         newLastBoard = library.convertServerBoardToClientBoard(action.serverMessage['lastBoard']);
+        if (state.serverMessage['timer'] === 'stop') {
+          if (!library.compareOldNewBoard(newLastBoard, newBoard)) {
+            state.myColor == '1' ? newBoard = newLastBoard.reverse() : newBoard = newLastBoard;
+          }
+        }
         return {
           ...state,
+          board: newBoard,
           lastBoard: newLastBoard
         };
       }
