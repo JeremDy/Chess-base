@@ -1,56 +1,112 @@
+{% block header %}
 
- {% block header %}
-    <div class="d-flex justify-content-between bg-custom pt-2">
-     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <p class="pl-2 text-left p-0">
-            <img class=""src="{{ asset(image_directory_chess ~ (app.user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" />
-            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
-            </p> 
+    <div id="bigNav" class="d-none d-md-block">
+        <div class="d-flex justify-content-between bg-custom pt-2">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <p class="pl-2 text-left p-0">
+                    <img class="" src="{{ asset(image_directory_chess ~ (app.user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}"/>
+                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+                </p>
                 <a class="pt-2 pr-2" href="{{ path('fos_user_security_logout') }}">
-                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                 </a>
-     {% endif %}
-    </div>
-    <div class="navTitle bg-custom">
-        <div class="justify-content-center d-flex">
-            <h1 class="titre">
-                <a class="text-white col-10 p-0" href="{{ path('home') }}">
-                CHESS 
-                <img hspace="0" class="navBg" src="../../image/kissclipart-my-chess-journal-by-passion-imagination-journals.png" alt="Smiley face" hspace="20">
-                ONLINE
-                </a>
-            </h1>
+            {% endif %}
+        </div>
+        <div class="navTitle bg-custom">
+            <div class="justify-content-center d-flex">
+                <h1 class="titre">
+                    <a class="text-white col-10 p-0" href="{{ path('home') }}">
+                        CHESS
+                        <img hspace="20" class="navBg" src="../../image/kissclipart-my-chess-journal-by-passion-imagination-journals.png" alt="Smiley face">
+                        ONLINE
+                    </a>
+                </h1>
+            </div>
+        </div>
+        <div class="navLink mb-0">
+            <ul class="nav bg-custom nav-fill justify-content-center nav-tabs col-12" id="myTab" role="tablist">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <a class="nav-link" id="home-tab" href="{{ path('home') }}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" href="{{ path('profileShow', { 'id':app.user.id}) }}">Mon Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('message_received')}}">Mes Messages
+                            {{ render(controller('App\\Controller\\MessageController::newMessageCount')) }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('friendList')}}">Liste d'Amis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('article_index')}}">News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('ladder_index')}}">Classement</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin') }}">Admin</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            </ul>
         </div>
     </div>
 
-    <div class="navLink mb-0">
-         <ul class="nav bg-custom nav-fill justify-content-center nav-tabs col-12" id="myTab" role="tablist">
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <li class="nav-item">
-                    <a class="nav-link" id="home-tab" href="{{ path('home') }}">Accueil</a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" href="{{ path('profileShow', { 'id':app.user.id}) }}">Mon Profil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('message_received')}}">Mes Messages {{ render(controller('App\\Controller\\MessageController::newMessageCount')) }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{path('friendList')}}">Liste d'Amis</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{path('article_index')}}">News</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{path('ladder_index')}}">Classement</a>
-                </li>
-                {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('admin') }}">Admin</a>
-                </li>
-                {% endif %}
-            {% endif %}
-        </ul>
-    </div>
+    <nav class="navbar d-md-none navbar-dark">
+        <a class="navbar-brand" href="#">
+            <div class="navTitle bg-custom">
+                <div class="justify-content-center d-flex">
+                    <h1 class="titre">
+                        <a class="text-white col-10 p-0" href="{{ path('home') }}">
+                            CHESS
+                            <img hspace="20" class="navBg" src="../../image/kissclipart-my-chess-journal-by-passion-imagination-journals.png" alt="Smiley face">
+                            ONLINE
+                        </a>
+                    </h1>
+                </div>
+            </div>
+        </a>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a class="pt-2 pr-2" href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item">
+                            <a class="nav-link" id="home-tab" href="{{ path('home') }}">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" href="{{ path('profileShow', { 'id':app.user.id}) }}">Mon Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('message_received')}}">Mes Messages
+                                {{ render(controller('App\\Controller\\MessageController::newMessageCount')) }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('friendList')}}">Liste d'Amis</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('article_index')}}">News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('ladder_index')}}">Classement</a>
+                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('admin') }}">Admin</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    </nav>
 
- {% endblock %}
+{% endblock %}

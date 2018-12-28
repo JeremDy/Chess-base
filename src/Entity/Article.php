@@ -27,7 +27,7 @@ class Article
     private $title;
 
     /**
-     * @Assert\Length( min = 2, max = 2100)
+     * @Assert\Length( min = 2, max = 20000)
      * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */

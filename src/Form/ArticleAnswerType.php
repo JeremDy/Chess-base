@@ -14,7 +14,7 @@ class ArticleAnswerType extends AbstractType
     {
         $builder
         ->add('body', CKEditorType::class,[
-            'label' => 'Nouveau commentaire :',
+            'label' => false,
             'config' =>[
                 'toolbar' => 'basic'
             ]

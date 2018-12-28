@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<ul class="nav col-12 mb-5 ml-3">
-  <li class="nav-item">
-    <a class="nav-link active" href="{{ path('message_received')}}">Boite de reception</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{{ path('message_sent')}}">Message envoyé</a>
-  </li>
-</ul>
-<div class="d-flex flex-column col-12 justify-content-center">
-{% block messagerie %}
-{% endblock %}
-</div>
+    <div class="small-page">
+        <ul class="nav col-12 mb-5 ml-3">
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ path('message_received')}}">Boite de reception</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('message_sent')}}">Message envoyé</a>
+            </li>
+        </ul>
+        <div class="d-flex flex-column col-12 justify-content-center">
+            {% block messagerie %}{% endblock %}
+        </div>
+    </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import CellAround from '../components/FullRoom/CellAround/index.js';
+import CellAround from '../components/FullRoom/ChessBlock/CellAround/index.js';
 
 const mapStateToProps = state => ({
   myColor: state.myColor

@@ -3,51 +3,78 @@
 {% block title %}Chess Online{% endblock %}
 
 {% block headJs %}
-<script type="text/javascript">  
-    const GAME_CHANEL = 'game/{{ game.id }}/{{ game.playerOne.username}}/{{ game.playerTwo.username}}';
-    const MY_COLOR = {{color}};
-</script>
+    <script type="text/javascript">
+        const GAME_CHANEL = 'game/{{ game.id }}/{{ game.playerOne.username}}/{{ game.playerTwo.username}}';
+        const MY_COLOR = {{color}};
+    </script>
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<link href="{{ asset('build/js/room.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="{{ asset('build/js/room.css') }}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block body %}
-<div class="pt-5 col-4 font-custom d-inline-flex align-items-center ml-4 p-2" id="opponent"> 
-    <img class=""src="{{ asset(image_directory_chess ~ (opponent.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /> 
-    <div class="ml-4">
-    {% if opponent.stats is not null and opponent.stats.nbGame is not null %}
-                 <p> Statistique : {{ opponent.stats.nbWin}} victoires en {{opponent.stats.nbGame }} parties !</p>
-                {% elseif opponent.stats is not null %}
-                <p> Statistique : 0 victoires en {{opponent.stats.nbGame }} parties !</p>
-                {% else %}
-                <p>Aucune stats de disponible</p>
-    {% endif %}
-        <h5>Votre adversaire : {{ opponent.username }}</h5>
-       </div>
-</div>
-{# Exemple de ligne pour afficher les images profils en game : 
+    <div class="small-page">
+        <div id="players">
+            <div id="player">
+                <div class="d-flex">
+                    <div class="img_cont">
+                        <img src="{{ asset(image_directory_chess ~ (app.user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" class="rounded-circle user_img">
+                        <span class="online_icon offline"></span>
+                    </div>
+                    <div class="user_info">
+                        <span>Vous :
+                            {{ app.user.username }}</span>
+                        {% if app.user.stats is not null and app.user.stats.nbGame is not null %}
+                            <p>
+                                {{ app.user.stats.nbWin}}
+                                victoires /
+                                {{app.user.stats.nbGame }}
+                                parties</p>
+                        {% elseif app.user.stats is not null %}
+                            <p>
+                                Statistique : 0 victoires en
+                                {{app.user.stats.nbGame }}
+                                parties !</p>
+                        {% else %}
+                            <p>Aucune stats de disponible</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div id="opponent">
+                <div class="d-flex">
+                    <div class="img_cont">
+                        <img src="{{ asset(image_directory_chess ~ (opponent.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" class="rounded-circle user_img">
+                        <span class="online_icon offline"></span>
+                    </div>
+                    <div class="user_info">
+                        <span class="font-weight-bold">Votre adversaire :
+                            {{ opponent.username }}</span>
+                        {% if opponent.stats is not null and opponent.stats.nbGame is not null %}
+                            <p>
+                                {{ opponent.stats.nbWin}}
+                                victoires en
+                                {{opponent.stats.nbGame }}
+                                parties</p>
+                        {% elseif opponent.stats is not null %}
+                            <p>
+                                Statistique : 0 victoires en
+                                {{opponent.stats.nbGame }}
+                                parties !</p>
+                        {% else %}
+                            <p>Aucune stats de disponible</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# Exemple de ligne pour afficher les images profils en game : 
 <img class=""src="{{ asset(image_directory_chess ~ (game.playerOne.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /> #}
-<div class="pl-5 ml-5 mr-5 font-custom" id="root"></div>
-
-<div class="font-custom col-4 ml-4 d-inline-flex  align-items-center p-2" id="opponent"> 
-    <img class=""src="{{ asset(image_directory_chess ~ (app.user.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /> 
-    <div class="ml-4">
-        <h5>{{ app.user.username }}</h5>
-        {% if app.user.stats is not null and app.user.stats.nbGame is not null %}
-                 <p> Statistique : {{ app.user.stats.nbWin}} victoires en {{app.user.stats.nbGame }} parties !</p>
-                {% elseif app.user.stats is not null %}
-                <p> Statistique : 0 victoires en {{app.user.stats.nbGame }} parties !</p>
-                {% else %}
-                <p>Aucune stats de disponible</p>
-    {% endif %}
-
+        <div id="root" class="mb-5"></div>
     </div>
-</div>
-
 
 {% endblock %}
 
 {% block javascripts %}
- <script type="text/javascript" src="{{ asset('build/js/room.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('build/js/room.js') }}"></script>
 {% endblock %}

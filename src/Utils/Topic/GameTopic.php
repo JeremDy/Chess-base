@@ -24,7 +24,7 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
     private $gameTopicMessage;
     private $gameTopicTools;
     private $topicTimer;
-    
+
 
     /**
      * @param ClientManipulatorInterface $clientManipulator
@@ -40,39 +40,39 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
 
     public function secure(ConnectionInterface $connection = null, Topic $topic, WampRequest $request, $payload = null, $exclude = null, $eligible = null, $provider = null)
     {
-       
+
         $user = $this->clientManipulator->getClient($connection);
-        if (!is_object($user)){
+        if (!is_object($user)) {
             throw new FirewallRejectionException();
         }
 
         $subscribers = $this->clientManipulator->getAll($topic);
-       
-        if(empty($subscribers)){
+
+        if (empty($subscribers)) {
             return;
         }
-    
+
         $checkDouble = [];
-        foreach($subscribers as $subscriber){     
- 
-             if ($subscriber['client']->getUsername() === $this->clientManipulator->getClient($connection)->getUsername()){
-                 $checkDouble[] = $subscriber;
-             }
-         }    
-         if(count($checkDouble) > 1 ){
-             $checkDouble = null;
-             throw new FirewallRejectionException();    
-         }
-         $checkDouble = null;
+        foreach ($subscribers as $subscriber) {
+
+            if ($subscriber['client']->getUsername() === $this->clientManipulator->getClient($connection)->getUsername()) {
+                $checkDouble[] = $subscriber;
+            }
+        }
+        if (count($checkDouble) > 1) {
+            $checkDouble = null;
+            throw new FirewallRejectionException();
+        }
+        $checkDouble = null;
         // check input data to verify if connection must be blocked
         if ($this->clientManipulator->getClient($connection)->getUsername() !== $request->getAttributes()->get('playerOne')
             && $this->clientManipulator->getClient($connection)->getUsername() !== $request->getAttributes()->get('playerTwo')) {
-                dump('nope!');
-                throw new FirewallRejectionException();
-        } 
+            dump('nope!');
+            throw new FirewallRejectionException();
+        }
     }
 
-            
+
     /**
      * This will receive any Subscription requests for this topic.
      *
@@ -84,15 +84,15 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
     public function onSubscribe(ConnectionInterface $connection, Topic $topic, WampRequest $request)
     {
         if (null !== $this->topicTimer && $this->topicTimer->isPeriodicTimerActive($this->clientManipulator->getClient($connection)->getUsername())) {
-            $this->gameTopicMessage->leaverTimer($topic , 'stop');
+            $this->gameTopicMessage->leaverTimer($topic, 'stop');
             dump('revenu à temps, ouf !');
             $this->topicTimer->cancelPeriodicTimer($this->clientManipulator->getClient($connection)->getUsername());
         }
-        $topic->autoDelete = true; 
-        
+        $topic->autoDelete = true;
+
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
-        if (null === $game) {       
+        if (null === $game) {
             return;
         }
         $board = $game->getChessBoard();
@@ -106,7 +106,7 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
             dump('user not connected');
             return;
         }
-          
+
 
         $playerName = $user->getUsername();
         $playerColor = $playerName === $request->getAttributes()->get('playerOne') ? 'white' : 'black';
@@ -145,26 +145,26 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
     {
         $gameId = $request->getAttributes()->get('gameId');
         $game = $this->doctrine->getRepository(Game::class)->findOneById($gameId);
-        if (null === $game) {       
+        if (null === $game) {
             return;
         }
         $user = $this->clientManipulator->getClient($connection);
         $playerName = $user->getUsername();
-        $opponentName =  $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne');
-        
-        if(null === $this->topicTimer){
+        $opponentName = $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne');
+
+        if (null === $this->topicTimer) {
             $this->topicTimer = $connection->PeriodicTimer;
         }
 
         if (null !== $game) {
-           
-            $this->gameTopicMessage->leaverTimer($topic , 'start');
 
-            $this->topicTimer->addPeriodicTimer($playerName, 60, function () use ($topic, $connection,$playerName, $opponentName, $game) {
+            $this->gameTopicMessage->leaverTimer($topic, 'start');
+
+            $this->topicTimer->addPeriodicTimer($playerName, 60, function () use ($topic, $connection, $playerName, $opponentName, $game) {
                 $this->gameTopicTools->endGameDbEntry($playerName, $opponentName, $game, 'surrender');
                 $this->gameTopicTools->endGameDbEntry($opponentName, $playerName, $game, 'win');
                 $this->topicTimer->cancelPeriodicTimer($playerName);
-                $this->gameTopicMessage->leaverTimer($topic , 'end');
+                $this->gameTopicMessage->leaverTimer($topic, 'end');
 
                 if ($this->topicTimer->isPeriodicTimerActive($opponentName)) {
                     $this->topicTimer->cancelPeriodicTimer($opponentName);
@@ -196,7 +196,7 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
         $user = $this->clientManipulator->getClient($connection);      
        
        //si la game n'existe pas on return;
-        if (null === $game) {       
+        if (null === $game) {
             return;
         }
 
@@ -207,28 +207,28 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
             dump('user not connected');
             return;
         }
- 
+
         $playerName = $user->getUsername();
         $playerColor = $playerName === $request->getAttributes()->get('playerOne') ? 'white' : 'black';
         $playerSessionId = $this->clientManipulator->findByUsername($topic, $playerName)['connection']->WAMP->sessionId;
- 
-        $opponentName =  $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne');
+
+        $opponentName = $playerName === $request->getAttributes()->get('playerOne') ? $request->getAttributes()->get('playerTwo') : $request->getAttributes()->get('playerOne');
         $opponentColor = $playerColor === 'white' ? 'black' : 'white';
         $opponentConnectionObject = $this->clientManipulator->findByUsername($topic, $opponentName)['connection'];
         
         
        //on verifie si il y'a un abbandon :
-        if (isset($event['endGame']) && true === ($event['endGame'])){    
-            
+        if (isset($event['endGame']) && true === ($event['endGame'])) {
+
             $this->gameTopicTools->endGameDbEntry($playerName, $opponentName, $game, 'surrender');
-            $this->gameTopicTools->endGameDbEntry($opponentName, $playerName, $game, 'win');  
-            $this->gameTopicMessage->youHaveSurrender($topic,$playerSessionId);
-           
-            if (is_object($opponentConnectionObject)){
+            $this->gameTopicTools->endGameDbEntry($opponentName, $playerName, $game, 'win');
+            $this->gameTopicMessage->youHaveSurrender($topic, $playerSessionId);
+
+            if (is_object($opponentConnectionObject)) {
                 $opponentSessionId = $opponentConnectionObject->WAMP->sessionId;
-                $this->gameTopicMessage->opponentHasSurrender($topic,$opponentSessionId);
-            }  
-            return;     
+                $this->gameTopicMessage->opponentHasSurrender($topic, $opponentSessionId);
+            }
+            return;
         }
         
         //verification si l'adversaire est bien connecté/identifié :
@@ -280,8 +280,8 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
         }
 
         //on regarde si c'est un roque
-        if (false !== $board->doingCastling($piece, $newPosX, $newPosY)){
-            $endCastling =  $board->doingCastling($piece, $newPosX, $newPosY);
+        if (false !== $board->doingCastling($piece, $newPosX, $newPosY)) {
+            $endCastling = $board->doingCastling($piece, $newPosX, $newPosY);
         }
 
                 
@@ -299,7 +299,7 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
         }
 
         //si c'etait un roque, on deplace aussi la tour !
-        if(isset($endCastling)){
+        if (isset($endCastling)) {
             $board->movePiece($endCastling['rook'], $endCastling['rookEndPos']);
             $endCastling = null;
         }
@@ -307,7 +307,7 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
         $movementList = $game->getMovementList();
         $movementList[] = $event['newPositions'];
         $game->setMovementList($movementList);
-             
+
         $game->setPlayerWhoCanPlay($this->doctrine->getRepository(User::class)->findOneByUsername($opponentName));
         $this->gameTopicMessage->movementList($topic, $movementList);
         $this->gameTopicMessage->endTurn($topic, $event, $playerSessionId, $opponentSessionId);
@@ -316,12 +316,12 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
         if (true === $board->thisKingIsCheck($opponentColor)) {
            
             //verif si il y'a echec et mat !
-            if (true === $board->thisKingIsMat($opponentColor)) {                
+            if (true === $board->thisKingIsMat($opponentColor)) {
                 $this->gameTopicMessage->checkMate($topic, $playerSessionId, $opponentSessionId);
                 //si il y'a echec et mat, on enregistre la game (dans GameOver) et les stats en Bdd :
                 $this->gameTopicTools->endGameDbEntry($playerName, $opponentName, $game, 'win');
                 $this->gameTopicTools->endGameDbEntry($opponentName, $playerName, $game, 'lose');
-                
+
                 return;
             }
 
@@ -330,9 +330,9 @@ class GameTopic implements TopicInterface, SecuredTopicInterface
     }
 
     /**
-    * Like RPC is will use to prefix the channel
-    * @return string
-    */
+     * Like RPC is will use to prefix the channel
+     * @return string
+     */
     public function getName()
     {
         return 'game.topic';

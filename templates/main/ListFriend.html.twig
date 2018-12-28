@@ -3,22 +3,13 @@
 {% block fos_user_content %}
 
 {# Un p'tit coup d'front pour ce input d'ajout d'amis que l'on retrouve aussi dans la liste joueur ? :) #}
-<div class="col-6 mx-auto ">
 
-{{form_start(form) }}
-    {{ form_widget(form) }}
-    <div class="text-center">
-      <button class="btn btn-light">{{ button_label|default('Ajouter') }}</button>
-    </div>
-{{ form_end(form) }}
-
-</div>
 
 <table class="table table-hover bg-custom borderblanche mx-auto col-12 col-md-11 mt-4 text-center table-responsive-sm">
   <thead>
     <tr>
       <th scope="col"></th>
-      <th scope="col"><a href="{{ path('ladder_name')}}">Nom</a></th>
+      <th scope="col">Nom</th>
       <th scope="col">MP</th>
        <th scope="col">Supprimer</th> 
     </tr>
@@ -30,15 +21,22 @@
       <th scope="row"><img class=""src="{{ asset(image_directory_chess ~ (friend.profilePicture ?: 'default-chess.jpg') ) | imagine_filter('thumb_nav') }}" /></th>
       <td><a href="{{path('profileShow',{id: friend.id})}}">{{ friend.username }}</a></td>
       <td><a href="{{ path('message_user', {id : friend.id })}}"><i class="far fa-envelope"></i></a></td>
-      <td><a class="btn btn-light ml-2" href="{{ path('remove', { 'id':friend.id}) }}">Supprimer</a></td>
+      <td><a class="btn btn-dark ml-2" href="{{ path('remove', { 'id':friend.id}) }}">Supprimer</a></td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+<div class="col-6 mx-auto ">
 
-
-    {% if list is empty %}
-     <h2>Vous pouvez aussi ajouter des amis depuis leurs pages de profil !</h2>
+{{form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="text-center">
+      <button class="btn btn-dark">{{ button_label|default('Ajouter') }}</button>
+    </div>
+{{ form_end(form) }}
+{% if list is empty %}
+     <p class="font-weight-bold text-center">Vous pouvez aussi ajouter des amis depuis leurs pages de profil !</p>
     {% endif %}
- 
+</div>
+
 {% endblock fos_user_content %}

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Cell from '../components/FullRoom/ChessBoard/Board/Cell';
+import Cell from '../components/FullRoom/ChessBlock/ChessBoard/Board/Cell';
 import { handleClickOnCell } from '../store/actions';
 
 const mapStateToProps = state => ({

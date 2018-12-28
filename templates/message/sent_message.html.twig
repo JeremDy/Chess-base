@@ -6,7 +6,7 @@
 
 {{ parent() }}
         <h1 class="font-custom"> Message envoyé</h1>
-            <div class="pr-2 mb-1"><a class="btn btn-light float-right" href="{{ path('message_new') }}">Envoyer un Message</a></div>
+            <div class="pr-2 mb-1"><a class="btn btn-dark float-right" href="{{ path('message_new') }}">Envoyer un Message</a></div>
             <ul class="list-group list-group-flush">
             {% for message in messages %}
                 <li class="list-group-item bg-custom borderblanche m-1">

@@ -7,8 +7,8 @@ import './infos.sass'
 
 const Infos = () => (
   <div id="Infos">
-    <Moves />
     <Message />
+    <Moves /> 
     <GiveUp />
   </div>
 );

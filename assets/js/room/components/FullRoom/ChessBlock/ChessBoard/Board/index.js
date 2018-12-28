@@ -1,5 +1,5 @@
 import React from 'react';
-import Cell from '../../../../containers/Cell.js';
+import Cell from '../../../../../containers/Cell.js';
 import './board.sass';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
